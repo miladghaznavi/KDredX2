@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import griffon.javafx.support.fontawesome.FontAwesomeIcon ?>
+
+<ToolBar id="toolBar" prefHeight="40.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/8.0.40"
+         xmlns:fx="http://javafx.com/fxml/1">
+    <items>
+        <Button fx:id="addActionTarget">
+            <graphic>
+                <FontAwesomeIcon fontAwesome="FA_PLUS"/>
+            </graphic>
+            <tooltip><Tooltip text="%CommonToolBox.add" /></tooltip>
+        </Button>
+
+        <Button id="saveActionTarget" mnemonicParsing="false">
+            <graphic>
+                <FontAwesomeIcon fontAwesome="FA_FLOPPY_O"/>
+            </graphic>
+            <tooltip><Tooltip text="%CommonToolBox.save" /></tooltip>
+        </Button>
+
+        <Button id="copyActionTarget"   layoutX="10.0" layoutY="11.0" mnemonicParsing="false">
+            <graphic>
+                <FontAwesomeIcon fontAwesome="FA_COPY"/>
+            </graphic>
+            <tooltip><Tooltip text="%CommonToolBox.copy" /></tooltip>
+        </Button>
+
+        <Button id="exportActionTarget" layoutX="10.0" layoutY="11.0" mnemonicParsing="false">
+            <graphic>
+                <FontAwesomeIcon fontAwesome="FA_DOWNLOAD"/>
+            </graphic>
+            <tooltip><Tooltip text="%CommonToolBox.export" /></tooltip>
+        </Button>
+
+        <Button id="undoActionTarget"   layoutX="32.0" layoutY="11.0" mnemonicParsing="false">
+            <graphic>
+                <FontAwesomeIcon fontAwesome="FA_ROTATE_LEFT"/>
+            </graphic>
+            <tooltip><Tooltip text="%CommonToolBox.undo" /></tooltip>
+        </Button>
+
+        <Button id="redoActionTarget"   layoutX="54.0" layoutY="11.0" mnemonicParsing="false">
+            <graphic>
+                <FontAwesomeIcon fontAwesome="FA_ROTATE_RIGHT"/>
+            </graphic>
+            <tooltip><Tooltip text="%CommonToolBox.redo" /></tooltip>
+        </Button>
+    </items>
+</ToolBar>

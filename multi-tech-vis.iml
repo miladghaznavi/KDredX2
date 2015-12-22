@@ -42,7 +42,7 @@
     <orderEntry type="module-library" scope="PROVIDED">
       <library name="Gradle: jfxrt">
         <CLASSES>
-          <root url="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_66.jdk/Contents/Home/jre/lib/ext/jfxrt.jar!/" />
+          <root url="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_45.jdk/Contents/Home/jre/lib/ext/jfxrt.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -55,28 +55,30 @@
     <orderEntry type="library" scope="PROVIDED" name="Gradle: org.codehaus.griffon:griffon-core-compile:2.5.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: org.kordamp.jipsy:jipsy:0.4.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: org.codehaus.griffon:griffon-guice:2.5.0" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Gradle: org.controlsfx:controlsfx:8.40.10" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Gradle: org.apache.commons:commons-math3:3.5" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: org.codehaus.griffon:griffon-core-java8:2.5.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: org.codehaus.griffon:griffon-javafx:2.5.0" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Gradle: com.google.inject:guice:4.0" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Gradle: aopalliance:aopalliance:1.0" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Gradle: junit:junit:4.12" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Gradle: org.codehaus.griffon:griffon-javafx-test:2.5.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: org.codehaus.groovy:groovy-all:2.4.4" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: org.spockframework:spock-core:1.0-groovy-2.4" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Gradle: org.codehaus.griffon:griffon-javafx-test:2.5.0" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Gradle: org.hamcrest:hamcrest-core:1.3" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: org.codehaus.griffon:griffon-core-test:2.5.0" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Gradle: com.google.inject:guice:4.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: org.testfx:testfx-core:4.0.1-alpha" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Gradle: junit:junit:4.12" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: com.jayway.awaitility:awaitility:1.7.0" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Gradle: aopalliance:aopalliance:1.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: org.hamcrest:hamcrest-all:1.3" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Gradle: org.hamcrest:hamcrest-core:1.3" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: org.hamcrest:hamcrest-library:1.3" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: cglib:cglib-nodep:3.1" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: org.objenesis:objenesis:2.1" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: com.google.guava:guava:18.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: log4j:log4j:1.2.17" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: org.slf4j:slf4j-log4j12:1.7.13" level="project" />
-    <orderEntry type="library" name="Gradle: com.google.guava:guava:16.0.1" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: org.codehaus.griffon.plugins:griffon-fontawesome-core:1.4.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: org.codehaus.griffon.plugins:griffon-fontawesome-javafx:1.4.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: org.webjars:font-awesome:4.4.0" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.guava:guava:16.0.1" level="project" />
   </component>
 </module>

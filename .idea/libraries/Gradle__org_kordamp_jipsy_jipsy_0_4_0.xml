@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.kordamp.jipsy:jipsy:0.4.0">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.kordamp.jipsy/jipsy/0.4.0/ea63bcfe66b95ac8f1f8f974b477206dd68aa290/jipsy-0.4.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.kordamp.jipsy/jipsy/0.4.0/705e12633f9ede629ba7e9927666539c35d3882d/jipsy-0.4.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

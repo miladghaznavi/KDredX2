@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.web.WebView?>
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.TitledPane?>
+<?import griffon.javafx.support.fontawesome.FontAwesomeIcon?>
+
+<BorderPane xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
+    <top>
+        <fx:include source="controls/commonToolBox.fxml" />
+    </top>
+
+    <center>
+        <WebView />
+    </center>
+
+    <left>
+        <Label text="%ChartTab.chartOptions" />
+    </left>
+
+    <right>
+        <Accordion>
+            <panes>
+                <TitledPane text="%ChartTab.viewJSON">
+                    <graphic>
+                        <FontAwesomeIcon fontAwesome="FA_CODE"/>
+                    </graphic>
+                </TitledPane>
+
+                <TitledPane text="%ChartTab.traces"  >
+                    <graphic>
+                        <FontAwesomeIcon fontAwesome="FA_BAR_CHART_O"/>
+                    </graphic>
+                </TitledPane>
+
+                <TitledPane text="%ChartTab.layout">
+                    <graphic>
+                        <FontAwesomeIcon fontAwesome="FA_FILE_O"/>
+                    </graphic>
+                </TitledPane>
+
+                <TitledPane text="%ChartTab.axis">
+                    <graphic>
+                        <FontAwesomeIcon fontAwesome="FA_ARROWS"/>
+                    </graphic>
+                </TitledPane>
+
+                <TitledPane text="%ChartTab.legend">
+                    <graphic>
+                        <FontAwesomeIcon fontAwesome="FA_BARS"/>
+                    </graphic>
+                </TitledPane>
+
+                <TitledPane text="%ChartTab.themes">
+                    <graphic>
+                        <FontAwesomeIcon fontAwesome="FA_MAGIC"/>
+                    </graphic>
+                </TitledPane>
+            </panes>
+        </Accordion>
+    </right>
+
+    <bottom>
+        <Label text="%ChartTab.status"/>
+    </bottom>
+</BorderPane>

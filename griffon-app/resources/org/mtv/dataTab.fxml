@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import org.controlsfx.control.spreadsheet.*?>
+<?import griffon.javafx.support.fontawesome.FontAwesomeIcon ?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.ChoiceBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
+    <top>
+        <fx:include fx:id="dataToolBox" source="controls/commonToolBox.fxml" />
+    </top>
+
+    <center>
+        <SpreadsheetView fx:id="dataView">
+        </SpreadsheetView>
+    </center>
+
+    <left>
+        <VBox fx:id="plotBox">
+            <Button text="%DataTab.plot">
+                <graphic>
+                    <FontAwesomeIcon fontAwesome="FA_LINE_CHART"/>
+                </graphic>
+                <tooltip><Tooltip text="%DataTab.plotChart" /></tooltip>
+            </Button>
+
+            <Separator/>
+
+            <Label text="%DataTab.descriptionLabel" />
+            <Text text="%DataTab.descriptionText" />
+
+            <Separator/>
+
+            <Label text="%DataTab.insertInto" />
+            <ChoiceBox fx:id="insertIntoChoiceBox" />
+        </VBox>
+    </left>
+
+    <right>
+        <VBox fx:id="statBox">
+            <Label text="%DataTab.weightedMean" />
+            <Label text="%DataTab.analyses" />
+            <ChoiceBox>
+                <tooltip>
+                    <Tooltip text="%DataTab.selectAnalyses"/>
+                </tooltip>
+            </ChoiceBox>
+            <Label text="%DataTab.uncertainties" />
+            <ChoiceBox>
+                <tooltip>
+                    <Tooltip text="%DataTab.selectUncertainties"/>
+                </tooltip>
+            </ChoiceBox>
+
+            <Separator />
+
+            <Label text="%DataTab.reducedChiSquared" />
+            <Label text="%DataTab.kernelFunction" />
+            <ChoiceBox>
+                <tooltip>
+                    <Tooltip text="%DataTab.selectKernelFunction"/>
+                </tooltip>
+            </ChoiceBox>
+
+            <Separator />
+
+            <Label text="%DataTab.kernelDensityEstimation" />
+            <Label text="%DataTab.observed" />
+            <ChoiceBox>
+                <tooltip>
+                    <Tooltip text="%DataTab.selectObservedColumn"/>
+                </tooltip>
+            </ChoiceBox>
+            <Label text="%DataTab.expected" />
+            <ChoiceBox>
+                <tooltip>
+                    <Tooltip text="%DataTab.selectExpectedColumn"/>
+                </tooltip>
+            </ChoiceBox>
+        </VBox>
+    </right>
+
+    <bottom>
+        <Label text="%DataTab.statusBar" />
+    </bottom>
+</BorderPane>
