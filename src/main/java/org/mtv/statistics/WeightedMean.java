@@ -1,6 +1,49 @@
 package org.mtv.statistics;
 
 public class WeightedMean {
+    private double[] analyses;
+    private double[] uncertainties;
+
+    /**
+     * Get the uncertainties
+     * @return uncertainties
+     */
+    public double[] getUncertainties() {
+        return uncertainties;
+    }
+
+    /**
+     * Set the uncertainties
+     * @param uncertainties the uncertainties
+     * @throws IllegalArgumentException
+     */
+    public void setUncertainties(double[] uncertainties) throws IllegalArgumentException {
+        if (uncertainties.length == 0) {
+            throw new IllegalArgumentException("Uncertainties cannot be empty!");
+        }//if
+        this.uncertainties = uncertainties;
+    }
+
+    /**
+     * Get the analyses
+     * @return analyses
+     */
+    public double[] getAnalyses() {
+        return analyses;
+    }
+
+    /**
+     * Set the analyses
+     * @param analyses the analyses
+     * @throws IllegalArgumentException
+     */
+    public void setAnalyses(double[] analyses) throws IllegalArgumentException {
+        if (analyses.length == 0) {
+            throw new IllegalArgumentException("Analyses cannot be empty!");
+        }//if
+        this.analyses = analyses;
+    }
+
     /**
      * This function calculates the weighted mean of analyses weighted by uncertainties
      * @param analyses The observed values
@@ -28,6 +71,14 @@ public class WeightedMean {
     }
 
     /**
+     * This function calculates the weighted mean of analyses weighted by uncertainties
+     * @return the weighted mean
+     */
+    public double WeightedMean() {
+        return weightedMean(analyses, uncertainties);
+    }
+
+    /**
      * This function calculates the weighted uncertainty of uncertainties
      * @param uncertainties A set of uncertainty for every analysis
      * @return The weighted uncertainty of uncertainties
@@ -45,6 +96,14 @@ public class WeightedMean {
         //for
         result = Math.sqrt(1 / result);
         return result;
+    }
+
+    /**
+     * This function calculates the weighted uncertainty of uncertainties
+     * @return The weighted uncertainty of uncertainties
+     */
+    public double weightedUncertainty(){
+        return weightedUncertainty(uncertainties);
     }
 
     /**
@@ -71,5 +130,13 @@ public class WeightedMean {
         }//for
 
         return A / B;
+    }
+
+    /**
+     * This function calculates Mean Square Weighted Deviation (MSWD) of analyses weighted by uncertainties
+     * @return MSWD
+     */
+    public double meanSquareWeightedDeviation() {
+        return meanSquareWeightedDeviation(analyses, uncertainties);
     }
 }

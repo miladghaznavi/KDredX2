@@ -2,6 +2,7 @@ package org.mtv;
 
 import griffon.core.artifact.GriffonController;
 import griffon.metadata.ArtifactProviderFor;
+import javafx.scene.control.Alert;
 import org.codehaus.griffon.runtime.core.artifact.AbstractGriffonController;
 
 import griffon.transform.Threading;
@@ -14,8 +15,7 @@ public class DataTabController extends AbstractGriffonController {
         this.model = model;
     }
 
-    public void add(String path) {
-
+    public void open() {
     }
 
     public void save(String path) {

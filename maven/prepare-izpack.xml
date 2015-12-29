@@ -12,7 +12,7 @@
     <taskdef name="izpack" classpath="${org.codehaus.izpack:izpack-standalone-compiler:jar}"
              classname="com.izforge.izpack.ant.IzPackTask"/>
 
-    <izpack input="${izpack.staging.dir}/install.xml"
+    <izpack test="${izpack.staging.dir}/install.xml"
             output="${project.build.directory}/distributions/${project.artifactId}-${project.version}-installer.jar"
             installerType="standard"
             inheritAll="true"

@@ -18,9 +18,8 @@ import java.util.Collections;
 public class ChartTabView extends AbstractJavaFXGriffonView {
     private ChartTabController controller;
     private ChartTabModel model;
+    private MultiTechVisView parentView;
 
-    @FXML
-    private Label clickLabel;
 
     public void setController(ChartTabController controller) {
         this.controller = controller;
@@ -32,28 +31,28 @@ public class ChartTabView extends AbstractJavaFXGriffonView {
 
     @Override
     public void initUI() {
-        Stage stage = (Stage) getApplication()
-            .createApplicationContainer(Collections.<String,Object>emptyMap());
-        stage.setTitle(getApplication().getConfiguration().getAsString("application.title"));
-        stage.setScene(init());
-        stage.sizeToScene();
-        getApplication().getWindowManager().attach("chart-tab", stage);
+        Node node = loadFromFXML();
+        parentView.placeChartView(node);
+//        Stage stage = (Stage) getApplication()
+//            .createApplicationContainer(Collections.<String,Object>emptyMap());
+//        stage.setTitle(getApplication().getConfiguration().getAsString("application.title"));
+//        stage.setScene(init());
+//        stage.sizeToScene();
+//        getApplication().getWindowManager().attach("chart-tab", stage);
     }
 
     // build the UI
-    private Scene init() {
-        Scene scene = new Scene(new Group());
-        scene.setFill(Color.WHITE);
-
-        Node node = loadFromFXML();
-        model.clickCountProperty().bindBidirectional(clickLabel.textProperty());
-        if (node instanceof Parent) {
-            scene.setRoot((Parent) node);
-        } else {
-            ((Group) scene.getRoot()).getChildren().addAll(node);
-        }
-        connectActions(node, controller);
-
-        return scene;
-    }
+//    private Scene init() {
+//        Scene scene = new Scene(new Group());
+//
+//        Node node = loadFromFXML();
+//        if (node instanceof Parent) {
+//            scene.setRoot((Parent) node);
+//        } else {
+//            ((Group) scene.getRoot()).getChildren().addAll(node);
+//        }
+//        connectActions(node, controller);
+//
+//        return scene;
+//    }
 }

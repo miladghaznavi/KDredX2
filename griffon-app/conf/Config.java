@@ -33,11 +33,6 @@ public class Config extends AbstractMapResourceBundle {
                     .e("view", "org.mtv.ChartTabView")
                     .e("controller", "org.mtv.ChartTabController")
                 )
-                .e("commonToolBox", map()
-                    .e("model", "org.mtv.controls.CommonToolBoxModel")
-                    .e("view", "org.mtv.controls.CommonToolBoxView")
-                    .e("controller", "org.mtv.controls.CommonToolBoxController")
-                )
             );
     }
 }
