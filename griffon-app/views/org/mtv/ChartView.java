@@ -2,37 +2,28 @@ package org.mtv;
 
 import griffon.core.artifact.GriffonView;
 import griffon.metadata.ArtifactProviderFor;
-import javafx.fxml.FXML;
-import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 import org.codehaus.griffon.runtime.javafx.artifact.AbstractJavaFXGriffonView;
 
-import java.util.Collections;
-
 @ArtifactProviderFor(GriffonView.class)
-public class ChartTabView extends AbstractJavaFXGriffonView {
-    private ChartTabController controller;
-    private ChartTabModel model;
+public class ChartView extends AbstractJavaFXGriffonView {
+    private ChartController controller;
+    private ChartModel model;
     private MultiTechVisView parentView;
 
 
-    public void setController(ChartTabController controller) {
+    public void setController(ChartController controller) {
         this.controller = controller;
     }
 
-    public void setModel(ChartTabModel model) {
+    public void setModel(ChartModel model) {
         this.model = model;
     }
 
     @Override
     public void initUI() {
         Node node = loadFromFXML();
-        parentView.placeChartView(node);
+//        parentView.placeChartView(node);
 //        Stage stage = (Stage) getApplication()
 //            .createApplicationContainer(Collections.<String,Object>emptyMap());
 //        stage.setTitle(getApplication().getConfiguration().getAsString("application.title"));

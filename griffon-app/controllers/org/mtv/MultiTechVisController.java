@@ -2,14 +2,14 @@ package org.mtv;
 
 import griffon.core.artifact.GriffonController;
 import griffon.metadata.ArtifactProviderFor;
-import javafx.application.Platform;
-import javafx.scene.control.Alert;
 import org.codehaus.griffon.runtime.core.artifact.AbstractGriffonController;
-
 import griffon.transform.Threading;
+import javax.annotation.Nonnull;
+import java.util.Map;
 
 @ArtifactProviderFor(GriffonController.class)
 public class MultiTechVisController extends AbstractGriffonController {
+    private final static String DEFAULT_DATA_ID = "data";
     private MultiTechVisView view;
     private MultiTechVisModel model;
 
@@ -17,29 +17,50 @@ public class MultiTechVisController extends AbstractGriffonController {
         this.model = model;
     }
 
-//    public void test() {
-//        Platform.runLater(new Runnable() {
-//            @Override
-//            public void run() {
-//                if (model.getTest().equals("Test"))
-//                    model.setTest("Milad");
-//                else
-//                    model.setTest("Test");
-//            }
-//        });
-//    }
+    @Override
+    public void mvcGroupInit(@Nonnull Map<String, Object> args) {
+        String documentId = createMVCGroup(DEFAULT_DATA_ID).getMvcId();
+        model.setDataId(documentId);
+    }
 
     @Threading(Threading.Policy.SKIP)
     public void open() {
-
+        if (view.getSelectedTabIndex() == 0) {
+            String id = model.getDataId();
+            DataController dataTabController =
+                    getApplication().getMvcGroupManager().getController(id, DataController.class);
+            dataTabController.openDocumentFile();
+        }//if
+        else {
+            //TODO: Implement the open chart
+        }//else
     }
 
+    @Threading(Threading.Policy.SKIP)
     public void save() {
+        if (view.getSelectedTabIndex() == 0) {
+            String id = model.getDataId();
+            DataController dataTabController =
+                    getApplication().getMvcGroupManager().getController(id, DataController.class);
 
+            dataTabController.saveDocument();
+        }//if
+        else {
+            //TODO: Implement the save chart
+        }//else
     }
 
-    public void export() {
-
+    @Threading(Threading.Policy.SKIP)
+    public void saveAs() {
+        if (view.getSelectedTabIndex() == 0) {
+            String id = model.getDataId();
+            DataController dataTabController =
+                    getApplication().getMvcGroupManager().getController(id, DataController.class);
+            dataTabController.saveAsDocument();
+        }//if
+        else {
+            //TODO: Implement the save chart
+        }//else
     }
 
     public void print() {
@@ -66,7 +87,19 @@ public class MultiTechVisController extends AbstractGriffonController {
 
     }
 
-    public void plot() {
+//    boolean checkFirstRow(DataModel model) {
+//
+//    }
 
+    @Threading(Threading.Policy.INSIDE_UITHREAD_SYNC)
+    public void plot(DataModel model) {
+
+    }
+
+    @Threading(Threading.Policy.INSIDE_UITHREAD_SYNC)
+    public void plot() {
+        plot(
+            getApplication().getMvcGroupManager().getModel(DEFAULT_DATA_ID, DataModel.class)
+        );
     }
 }

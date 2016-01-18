@@ -1,26 +1,26 @@
 package org.mtv;
 
 import griffon.core.artifact.GriffonView;
-import griffon.javafx.support.JavaFXUtils;
 import griffon.metadata.ArtifactProviderFor;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.Property;
 import javafx.fxml.FXML;
-import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import org.codehaus.griffon.runtime.javafx.artifact.AbstractJavaFXGriffonView;
 import org.controlsfx.control.spreadsheet.SpreadsheetView;
-
-import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.io.File;
+import java.net.URL;
 import java.util.Collections;
-import java.util.Map;
+import java.util.ResourceBundle;
+import java.util.concurrent.atomic.AtomicReference;
 
 @ArtifactProviderFor(GriffonView.class)
 public class MultiTechVisView extends AbstractJavaFXGriffonView {
@@ -36,7 +36,11 @@ public class MultiTechVisView extends AbstractJavaFXGriffonView {
     @FXML
     private Tab dataTab;
     @FXML
-    private Tab chartTab;
+    private Label progressLabel;
+    @FXML
+    private ProgressBar progressBar;
+    @FXML
+    private MenuItem plotActionTarget;
 
     public TabPane getTabGroup() {
         return tabGroup;
@@ -48,12 +52,6 @@ public class MultiTechVisView extends AbstractJavaFXGriffonView {
 
     public void setModel(MultiTechVisModel model) {
         this.model = model;
-    }
-
-    @Override
-    public void mvcGroupInit(@Nonnull Map<String, Object> args) {
-        createMVCGroup("dataTab");
-        createMVCGroup("chartTab");
     }
 
     @Override
@@ -71,8 +69,6 @@ public class MultiTechVisView extends AbstractJavaFXGriffonView {
         Node node = loadFromFXML();
         Scene scene = new Scene((Parent)node);
         connectActions(node, controller);
-//        model.testProperty().bindBidirectional(button.textProperty());
-//        JavaFXUtils.configure(button, toolkitActionFor(controller, "test"));
         return scene;
     }
 
@@ -80,7 +76,15 @@ public class MultiTechVisView extends AbstractJavaFXGriffonView {
         dataTab.setContent(node);
     }
 
-    public void placeChartView(Node node) {
-        chartTab.setContent(node);
+//    public void placeChartView(Node node) {
+//        chartTab.setContent(node);
+//    }
+
+    public void bindPlot(AtomicReference<BooleanProperty> property) {
+        plotActionTarget.disableProperty().bindBidirectional(property.get());
+    }
+
+    public int getSelectedTabIndex() {
+        return tabGroup.getSelectionModel().getSelectedIndex();
     }
 }

@@ -9,19 +9,23 @@
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.ChoiceBox?>
 
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Tab?>
+
 <BorderPane xmlns="http://javafx.com/javafx/8.0.40"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="org.mtv.DataTabController">
+            fx:controller="org.mtv.DataController">
     <left>
         <VBox>
-            <Button fx:id="plotButton" text="%Data.plot">
+            <Button fx:id="plotButton" text="%Data.plot" disable="true">
                 <graphic>
                     <FontAwesomeIcon fontAwesome="FA_LINE_CHART"/>
                 </graphic>
                 <tooltip><Tooltip text="%Data.plotChart" /></tooltip>
             </Button>
-
-            <Separator/>
 
             <Label text="%Data.insertInto" />
             <ChoiceBox fx:id="insertIntoChoiceBox" />
@@ -63,6 +67,12 @@
             <Separator />
 
             <Label text="%Data.kernelDensityEstimation" />
+            <Label text="%Data.X" />
+            <ChoiceBox fx:id="xChoiceBox">
+                <tooltip>
+                    <Tooltip text="%Data.selectKernelFunction"/>
+                </tooltip>
+            </ChoiceBox>
             <Label text="%Data.kernelFunction" />
             <ChoiceBox fx:id="kernelFunctionChoiceBox">
                 <tooltip>
@@ -75,8 +85,4 @@
     <center>
         <SpreadsheetView fx:id="spreadsheetView" />
     </center>
-
-    <bottom>
-        <Label text="%Data.statusBar" />
-    </bottom>
 </BorderPane>

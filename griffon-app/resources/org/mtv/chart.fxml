@@ -10,7 +10,7 @@
 <BorderPane
         xmlns="http://javafx.com/javafx/8.0.40"
         xmlns:fx="http://javafx.com/fxml/1"
-        fx:controller="org.mtv.ChartTabController">
+        fx:controller="org.mtv.ChartController">
 
     <center>
         <WebView fx:id="chartWebView" />
@@ -57,8 +57,4 @@
             </panes>
         </Accordion>
     </left>
-
-    <bottom>
-        <Label text="%Chart.status"/>
-    </bottom>
 </BorderPane>

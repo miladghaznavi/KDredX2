@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.fail;
 
-public class ChartTabIntegrationTest {
+public class ChartIntegrationTest {
     @Rule
     public GriffonTestFXRule testfx = new GriffonTestFXRule("mainWindow");
 

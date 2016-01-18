@@ -7,14 +7,14 @@ import org.junit.Test;
 
 import static org.junit.Assert.fail;
 
-@TestFor(DataTabController.class)
-public class DataTabControllerTest {
+@TestFor(DataController.class)
+public class DataControllerTest {
     static {
         // force initialization JavaFX Toolkit
         new javafx.embed.swing.JFXPanel();
     }
 
-    private DataTabController controller;
+    private DataController controller;
 
     @Rule
     public final GriffonUnitRule griffon = new GriffonUnitRule();

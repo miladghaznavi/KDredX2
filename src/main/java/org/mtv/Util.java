@@ -1,11 +1,18 @@
 package org.mtv;
 
+import javafx.scene.control.Alert;
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicReference;
+
+import javafx.stage.Stage;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class Util {
     private static final int COLUMN_BASE = 26;
     private static final int DIGIT_MAX = 7; // ceil(log26(Int32.Max))
     private static final String DIGITS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    private static final String LOGGER_NAME = "multi-tech-vis";
 
     public static String indexToColumn(int index) {
         if (index < 0)
@@ -30,5 +37,36 @@ public class Util {
         for (int i = start; i < start + count; ++i)
             list.add(indexToColumn(i));
         return list;
+    }
+
+    public static void alert(Alert.AlertType type, String title, String message) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    public static void alertInfo(String title, String message) {
+        alert(Alert.AlertType.INFORMATION, title, message);
+    }
+
+    public static void alertInfo(String message) {
+        alertInfo("", message);
+    }
+
+    public static void alertWarning(String title, String message) {
+        alert(Alert.AlertType.WARNING, title, message);
+    }
+
+    public static void alertWarning(String message) {
+        alertWarning("", message);
+    }
+
+    public static void alertError(String title, String message) {
+        alert(Alert.AlertType.ERROR, title, message);
+    }
+
+    public static void alertError(String message) {
+        alertError("", message);
     }
 }

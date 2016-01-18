@@ -1,34 +1,52 @@
 package org.mtv.statistics;
 
-public abstract class KernelDensityEstimation {
-    private double _h;
-    private double[] _X;
+import org.apache.commons.math3.stat.StatUtils;
+
+public class KernelDensityEstimation {
+    private final int SKEWNESS_LEAST_DATA_POINTS = 3;
+    protected KernelFunction kernelFunction;
+    protected KernelFunctionType kernelFunctionsType;
+    private double h;
+    private double[] X;
 
     /**
-     * Get X array
-     * @return X array
+     * Get the kernel function
+     * @return kernel function
      */
-    public double[] getX() {
-        return _X;
+    public KernelFunction getKernelFunction() {
+        return kernelFunction;
+    }
+
+    /**
+     * Set the desired kernel function
+     * @param kernelFunction the kernel function
+     */
+    protected void setKernelFunction(KernelFunction kernelFunction) {
+        this.kernelFunction = kernelFunction;
     }
 
     /**
      * Get the smooth parameter 'h'
      * @return smooth prameter 'h'
      */
-    public double geth() {
-        return _h;
+    public double getH() {
+        return h;
     }
 
     /**
      * Set the smooth parameter 'h'
      * @param h value of smooth parameter
      */
-    public void seth(double h) {
-        if (h > 0)
-            throw new ArithmeticException("The smoothing parameter 'h' must be positive!");
+    public void setH(double h) {
+        this.h = h;
+    }
 
-        this._h = h;
+    /**
+     * Get X array
+     * @return X array
+     */
+    public double[] getX() {
+        return X;
     }
 
     /**
@@ -39,7 +57,7 @@ public abstract class KernelDensityEstimation {
         if (X.length == 0)
             throw new ArithmeticException("The size of X cannot be zero!");
 
-        this._X = X;
+        this.X = X;
     }
 
     /**
@@ -50,15 +68,9 @@ public abstract class KernelDensityEstimation {
      */
     public KernelDensityEstimation(double[] X, double h) throws ArithmeticException {
         setX(X);
-        seth(h);
+        setH(h);
+        kernelFunctionsType = KernelFunctionType.Unknown;
     }
-
-    /**
-     * Abstract kernel function
-     * @param x input of kernel function
-     * @return kernel function value of 'x'
-     */
-    public abstract double kernelFucntion(double x);
 
     /**
      * Scaled kernel of variable x
@@ -66,7 +78,7 @@ public abstract class KernelDensityEstimation {
      * @return scaled kernel value of value 'x'
      */
     public double scaledKernel(double x) {
-        return 1 / _h * kernelFucntion(x / _h);
+        return 1 / h * kernelFunction.compute(x / h);
     }
 
     /**
@@ -75,13 +87,61 @@ public abstract class KernelDensityEstimation {
      * @return KDE of value x
      */
     public double kernelDesnsityEstimation(double x) {
+        if (kernelFunctionsType == KernelFunctionType.Unknown) {
+            throw new UnsupportedOperationException();
+        }//if
+
         double A = 0;
 
-        for (double xi : _X)
+        for (double xi : X)
             A += scaledKernel(x - xi);
 
-        double n = _X.length;
+        double n = X.length;
         return 1 / n * A;
     }
 
+    /**
+     * Compute the skewness of X values
+     * @return skewness
+     * @throws ArithmeticException
+     */
+    public double skewness() throws ArithmeticException {
+        int n = X.length;
+
+        if (n < SKEWNESS_LEAST_DATA_POINTS) {
+            throw new ArithmeticException("Number of x values must be greater than " +
+                Integer.toString(SKEWNESS_LEAST_DATA_POINTS));
+        }//if
+
+        double mode = StatUtils.mode(X)[0];
+        double mean = StatUtils.mean(X);
+        double std = StatUtils.variance(X);
+
+        double skewness = 0;
+        for (double x: X) {
+            //TODO:
+            //I don't understand why x bar is mean in the Christopher's reply!
+        }//for
+
+        return skewness;
+    }
+
+    /**
+     * Kernel Density Estimation Types
+     */
+    public static class KernelDensityEstimationTypes {
+        public static KernelDensityEstimation getGaussian(double[] X, double h) {
+            KernelDensityEstimation kde = new KernelDensityEstimation(X, h);
+            kde.setKernelFunction(new GaussianKernelFunction());
+            kde.kernelFunctionsType = KernelFunctionType.Gaussian;
+            return kde;
+        }
+
+        public static KernelDensityEstimation getEpanechnikov(double[] X, double h) {
+            KernelDensityEstimation kde = new KernelDensityEstimation(X, h);
+            kde.setKernelFunction(new EpanechnikovKernelFunction());
+            kde.kernelFunctionsType = KernelFunctionType.Epanechnikov;
+            return kde;
+        }
+    }
 }
