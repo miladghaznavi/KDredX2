@@ -1,14 +1,16 @@
 package org.mtv.statistics;
 
+import java.util.ArrayList;
+
 public class WeightedMean {
-    private double[] analyses;
-    private double[] uncertainties;
+    private ArrayList<Double> analyses;
+    private ArrayList<Double> uncertainties;
 
     /**
      * Get the uncertainties
      * @return uncertainties
      */
-    public double[] getUncertainties() {
+    public ArrayList<Double> getUncertainties() {
         return uncertainties;
     }
 
@@ -17,8 +19,8 @@ public class WeightedMean {
      * @param uncertainties the uncertainties
      * @throws IllegalArgumentException
      */
-    public void setUncertainties(double[] uncertainties) throws IllegalArgumentException {
-        if (uncertainties.length == 0) {
+    public void setUncertainties(ArrayList<Double> uncertainties) throws IllegalArgumentException {
+        if (uncertainties.size() == 0) {
             throw new IllegalArgumentException("Uncertainties cannot be empty!");
         }//if
         this.uncertainties = uncertainties;
@@ -28,7 +30,7 @@ public class WeightedMean {
      * Get the analyses
      * @return analyses
      */
-    public double[] getAnalyses() {
+    public ArrayList<Double> getAnalyses() {
         return analyses;
     }
 
@@ -37,8 +39,8 @@ public class WeightedMean {
      * @param analyses the analyses
      * @throws IllegalArgumentException
      */
-    public void setAnalyses(double[] analyses) throws IllegalArgumentException {
-        if (analyses.length == 0) {
+    public void setAnalyses(ArrayList<Double> analyses) throws IllegalArgumentException {
+        if (analyses.size() == 0) {
             throw new IllegalArgumentException("Analyses cannot be empty!");
         }//if
         this.analyses = analyses;
@@ -51,20 +53,21 @@ public class WeightedMean {
      * @return the weighted mean
      * @throws ArithmeticException
      */
-    public double weightedMean(double[] analyses, double[] uncertainties) throws ArithmeticException {
-        if (analyses.length != uncertainties.length)
+    public double weightedMean(ArrayList<Double> analyses, ArrayList<Double> uncertainties) throws ArithmeticException {
+        if (analyses.size() != uncertainties.size())
             throw new ArithmeticException("The length of analyses and uncertainties must be equal!");
-        if (analyses.length == 0)
+        if (analyses.size() == 0)
             throw new ArithmeticException("The length of analyses cannot be zero " +
                     "for weighted uncertainty calculation!");
 
         double A, B;
         A = B = 0;
 
-        for (int i = 0; i < analyses.length; ++i) {
-            double p = Math.pow(uncertainties[i], 2);
-            A += analyses[i] / p;
-            B += 1 / p;
+        for (int i = 0; i < analyses.size(); ++i) {
+            double p = Math.pow(uncertainties.get(i), 2);
+            A += analyses.get(i) / p;
+//            B += 1 / p;
+            B += p;
         }//for
 
         return A / B;
@@ -84,8 +87,8 @@ public class WeightedMean {
      * @return The weighted uncertainty of uncertainties
      * @throws ArithmeticException
      */
-    public double weightedUncertainty(double[] uncertainties) throws ArithmeticException {
-        if (uncertainties.length == 0)
+    public double weightedUncertainty(ArrayList<Double> uncertainties) throws ArithmeticException {
+        if (uncertainties.size() == 0)
             throw new ArithmeticException("The length of uncertainties cannot be zero " +
                     "for weighted uncertainty calculation!");
 
@@ -113,10 +116,10 @@ public class WeightedMean {
      * @return MSWD
      * @throws ArithmeticException
      */
-    public double meanSquareWeightedDeviation(double[] analyses, double[] uncertainties) throws ArithmeticException {
-        if (analyses.length != uncertainties.length)
+    public double meanSquareWeightedDeviation(ArrayList<Double> analyses, ArrayList<Double> uncertainties) throws ArithmeticException {
+        if (analyses.size() != uncertainties.size())
             throw new ArithmeticException("The length of analyses and uncertainties must be equal!");
-        if (analyses.length < 2)
+        if (analyses.size() < 2)
             throw new ArithmeticException("The length of analyses must be greater than 1!");
 
         double mean = this.weightedMean(analyses, uncertainties);
@@ -124,9 +127,9 @@ public class WeightedMean {
         double A, B;
         A = B = 0;
 
-        for (int i = 0; i < analyses.length; ++i) {
-            A += Math.pow(analyses[i] - mean, 2);
-            B += Math.pow(uncertainties[i], 2);
+        for (int i = 0; i < analyses.size(); ++i) {
+            A += Math.pow(analyses.get(i) - mean, 2);
+            B += Math.pow(uncertainties.get(i), 2);
         }//for
 
         return A / B;

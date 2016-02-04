@@ -8,6 +8,7 @@ import org.controlsfx.control.spreadsheet.Grid;
 import javax.annotation.Nonnull;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Map;
 
 @ArtifactProviderFor(GriffonController.class)
@@ -21,33 +22,21 @@ public class DataController extends AbstractGriffonController {
 
     @Override
     public void mvcGroupInit(@Nonnull Map<String, Object> args) {
-        Document document;
-        String name;
-        if (args.get(Document.DOCUMENT_ID) != null &&
-                args.get("document") != null) {
-            name = (String) args.get(Document.DOCUMENT_ID);
-            document = (Document) args.get("document");
-        }//if
-        else {
-            try {
-                document = Document.emptyDocument(
-                        DEFAULT_DOCUMENT_TITLE,
-                        DEFAULT_DOCUMENT_PATH);
-                document.setGrid(view.spreadsheetView.getGrid());
-            }//try
-            catch (IOException ioException) {
-                this.getLog().debug(ioException.getMessage());
-                Util.alertWarning(this.msg("WARNING.LOADING.DEFAULT_DOCUMENT"));
-                document = new Document();
-                document.setTitle(DEFAULT_DOCUMENT_TITLE);
-                document.setPath(DEFAULT_DOCUMENT_PATH);
-                document.setGrid(view.spreadsheetView.getGrid());
-            }//catch
-            name = DEFAULT_DOCUMENT_TITLE;
-        }//else
-
-        model.setName(name);
-        model.setDocument(document);
+        try {
+            String dataKey = (String)args.get(Constants.DATA_ID_PARAM);
+            model = DataModel.empty(
+                    DEFAULT_DOCUMENT_TITLE,
+                    DEFAULT_DOCUMENT_PATH);
+            model.setGrid(view.spreadsheetView.getGrid());
+            model.setId(dataKey);
+        }//try
+        catch (IOException ioException) {
+            this.getLog().debug(ioException.getMessage());
+            Util.alertWarning(this.msg("WARNING.LOADING.DEFAULT_DOCUMENT"));
+            model.setName(DEFAULT_DOCUMENT_TITLE);
+            model.setPath(DEFAULT_DOCUMENT_PATH);
+            model.setGrid(view.spreadsheetView.getGrid());
+        }//catch
     }
 
     public void openDocumentFile() {
@@ -55,16 +44,16 @@ public class DataController extends AbstractGriffonController {
             //TODO: save
         }//if
 
-        Grid copy = model.getDocument().getGrid();
+        Grid copy = model.getGrid();
         try {
             File file = view.openDocumentFile();
             if (file != null) {
-                model.getDocument().setPath(file.getPath());
-                model.getDocument().setTitleFromPath();
-                model.getDocument().load();
-                view.spreadsheetView.setGrid(model.getDocument().getGrid());
+                model.setPath(file.getPath());
+                model.setTitleFromPath();
+                model.load();
+                view.spreadsheetView.setGrid(model.getGrid());
                 view.addListenerToSpreadsheetCells();
-                model.getDocument().setGrid(view.spreadsheetView.getGrid());
+                model.setGrid(view.spreadsheetView.getGrid());
                 view.resetControls();
             }//if
         }//try
@@ -72,7 +61,7 @@ public class DataController extends AbstractGriffonController {
             this.getLog().debug(e.getMessage());
             Util.alertError(this.msg("Error.dataFileLoad"));
             view.spreadsheetView.setGrid(copy);
-            model.getDocument().setGrid(view.spreadsheetView.getGrid());
+            model.setGrid(view.spreadsheetView.getGrid());
         }//catch
     }
 
@@ -83,7 +72,7 @@ public class DataController extends AbstractGriffonController {
         else {
             try {
                 if (model.isDirty()) {
-                    model.getDocument().save();
+                    model.save();
                 }//if
             }//try
             catch (IOException ioExc) {
@@ -97,8 +86,8 @@ public class DataController extends AbstractGriffonController {
         try {
             File file = view.saveDocument();
             if (file != null) {
-                model.getDocument().setPath(file.getPath());
-                model.getDocument().save();
+                model.setPath(file.getPath());
+                model.save();
             }//if
         }//try
         catch(IOException e) {
@@ -108,7 +97,7 @@ public class DataController extends AbstractGriffonController {
     }
 
     public boolean isDefaultDocument() {
-        return model.getDocument().getPath().equals(DEFAULT_DOCUMENT_PATH);
+        return model.getPath().equals(DEFAULT_DOCUMENT_PATH);
     }
 
     public void export() {
@@ -129,5 +118,17 @@ public class DataController extends AbstractGriffonController {
 
     public void plot() {
         parentController.plot(model);
+    }
+
+    public DataView getView() {
+        return view;
+    }
+
+    public DataModel getModel() {
+        return model;
+    }
+
+    public void updatePlotIn(ArrayList<String> titles) {
+        view.updatePlotInChoiceBox(titles);
     }
 }

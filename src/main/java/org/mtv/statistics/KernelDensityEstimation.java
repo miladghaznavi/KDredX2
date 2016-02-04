@@ -2,12 +2,14 @@ package org.mtv.statistics;
 
 import org.apache.commons.math3.stat.StatUtils;
 
+import java.util.ArrayList;
+
 public class KernelDensityEstimation {
     private final int SKEWNESS_LEAST_DATA_POINTS = 3;
     protected KernelFunction kernelFunction;
     protected KernelFunctionType kernelFunctionsType;
-    private double h;
-    private double[] X;
+    private double bandwidth;
+    private ArrayList<Double> Xi;
 
     /**
      * Get the kernel function
@@ -26,49 +28,49 @@ public class KernelDensityEstimation {
     }
 
     /**
-     * Get the smooth parameter 'h'
-     * @return smooth prameter 'h'
+     * Get the smooth parameter 'bandwidth'
+     * @return smooth prameter 'bandwidth'
      */
-    public double getH() {
-        return h;
+    public double getBandwidth() {
+        return bandwidth;
     }
 
     /**
-     * Set the smooth parameter 'h'
-     * @param h value of smooth parameter
+     * Set the smooth parameter 'bandwidth'
+     * @param bandwidth value of smooth parameter
      */
-    public void setH(double h) {
-        this.h = h;
+    public void setBandwidth(double bandwidth) {
+        this.bandwidth = bandwidth;
     }
 
     /**
-     * Get X array
-     * @return X array
+     * Get Xi array
+     * @return Xi array
      */
-    public double[] getX() {
-        return X;
+    public ArrayList<Double> getXi() {
+        return Xi;
     }
 
     /**
      * Set the array 'X'
-     * @param X value of array
+     * @param Xi value of array
      */
-    public void setX(double[] X) {
-        if (X.length == 0)
-            throw new ArithmeticException("The size of X cannot be zero!");
+    public void setXi(ArrayList<Double> Xi) {
+        if (Xi.size() == 0)
+            throw new ArithmeticException("The size of Xi cannot be zero!");
 
-        this.X = X;
+        this.Xi = Xi;
     }
 
     /**
      * Constructor of KernelDensityEstimation class
-     * @param X array
+     * @param Xi array
      * @param h smooth parameter
      * @throws ArithmeticException
      */
-    public KernelDensityEstimation(double[] X, double h) throws ArithmeticException {
-        setX(X);
-        setH(h);
+    public KernelDensityEstimation(ArrayList<Double> Xi, double h) throws ArithmeticException {
+        setXi(Xi);
+        setBandwidth(h);
         kernelFunctionsType = KernelFunctionType.Unknown;
     }
 
@@ -78,7 +80,7 @@ public class KernelDensityEstimation {
      * @return scaled kernel value of value 'x'
      */
     public double scaledKernel(double x) {
-        return 1 / h * kernelFunction.compute(x / h);
+        return 1 / bandwidth * kernelFunction.compute(x / bandwidth);
     }
 
     /**
@@ -93,10 +95,10 @@ public class KernelDensityEstimation {
 
         double A = 0;
 
-        for (double xi : X)
+        for (double xi : Xi)
             A += scaledKernel(x - xi);
 
-        double n = X.length;
+        double n = Xi.size();
         return 1 / n * A;
     }
 
@@ -106,22 +108,26 @@ public class KernelDensityEstimation {
      * @throws ArithmeticException
      */
     public double skewness() throws ArithmeticException {
-        int n = X.length;
+        int n = Xi.size();
 
         if (n < SKEWNESS_LEAST_DATA_POINTS) {
             throw new ArithmeticException("Number of x values must be greater than " +
                 Integer.toString(SKEWNESS_LEAST_DATA_POINTS));
         }//if
 
-        double mode = StatUtils.mode(X)[0];
-        double mean = StatUtils.mean(X);
-        double std = StatUtils.variance(X);
+        double[] XArr = new double[Xi.size()];
+        for (int i = 0; i < Xi.size(); ++i) XArr[i] = Xi.get(i);
+        double mode = StatUtils.mode(XArr)[0];
+        double mean = StatUtils.mean(XArr);
+        double std = StatUtils.variance(XArr);
 
         double skewness = 0;
-        for (double x: X) {
-            //TODO:
-            //I don't understand why x bar is mean in the Christopher's reply!
+        for (double x: Xi) {
+            //TODO: I don't understand why x_i is mean in the Christopher's reply!
+            //TODO: I use x as x_i, but it should be double checked
+            skewness += Math.pow((x - mode) / std, 3.0);
         }//for
+        skewness *= (double)n / (double)((n - 1) * ( n -2));
 
         return skewness;
     }
@@ -130,14 +136,14 @@ public class KernelDensityEstimation {
      * Kernel Density Estimation Types
      */
     public static class KernelDensityEstimationTypes {
-        public static KernelDensityEstimation getGaussian(double[] X, double h) {
+        public static KernelDensityEstimation getGaussian(ArrayList<Double> X, double h) {
             KernelDensityEstimation kde = new KernelDensityEstimation(X, h);
             kde.setKernelFunction(new GaussianKernelFunction());
             kde.kernelFunctionsType = KernelFunctionType.Gaussian;
             return kde;
         }
 
-        public static KernelDensityEstimation getEpanechnikov(double[] X, double h) {
+        public static KernelDensityEstimation getEpanechnikov(ArrayList<Double> X, double h) {
             KernelDensityEstimation kde = new KernelDensityEstimation(X, h);
             kde.setKernelFunction(new EpanechnikovKernelFunction());
             kde.kernelFunctionsType = KernelFunctionType.Epanechnikov;

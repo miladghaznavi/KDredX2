@@ -14,7 +14,7 @@ import java.util.ArrayList;
 @ArtifactProviderFor(GriffonModel.class)
 public class MultiTechVisModel extends AbstractGriffonModel {
     private String dataTabId;
-    private ArrayList<String> chartIds;
+    private ArrayList<String> chartIds = new ArrayList<>();
 
     @Inject
     public MultiTechVisModel(@Nonnull GriffonApplication application) {
@@ -27,6 +27,17 @@ public class MultiTechVisModel extends AbstractGriffonModel {
 
     public void setChartIds(ArrayList<String> chartTabsIds) {
         this.chartIds = chartTabsIds;
+    }
+
+    public ArrayList<String> getChartsTitles() {
+        ArrayList<String> titles = new ArrayList<>();
+        for (String id: chartIds) {
+            titles.add(
+                getApplication().getMvcGroupManager().getController(id, ChartController.class).getModel().getTitle()
+            );
+        }//for
+
+        return titles;
     }
 
     public String getDataId() {

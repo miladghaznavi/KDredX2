@@ -27,8 +27,8 @@
                 <tooltip><Tooltip text="%Data.plotChart" /></tooltip>
             </Button>
 
-            <Label text="%Data.insertInto" />
-            <ChoiceBox fx:id="insertIntoChoiceBox" />
+            <Label text="%Data.plotIn" />
+            <ChoiceBox fx:id="plotInChoiceBox" />
 
             <Separator />
 

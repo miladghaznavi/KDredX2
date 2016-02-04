@@ -2,8 +2,14 @@ package org.mtv;
 
 import griffon.core.artifact.GriffonView;
 import griffon.metadata.ArtifactProviderFor;
+import griffon.transform.Threading;
+import javafx.application.Platform;
+import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.web.WebView;
 import org.codehaus.griffon.runtime.javafx.artifact.AbstractJavaFXGriffonView;
+
+import java.net.URL;
 
 @ArtifactProviderFor(GriffonView.class)
 public class ChartView extends AbstractJavaFXGriffonView {
@@ -11,6 +17,8 @@ public class ChartView extends AbstractJavaFXGriffonView {
     private ChartModel model;
     private MultiTechVisView parentView;
 
+    @FXML
+    private WebView chartWebView;
 
     public void setController(ChartController controller) {
         this.controller = controller;
@@ -23,27 +31,20 @@ public class ChartView extends AbstractJavaFXGriffonView {
     @Override
     public void initUI() {
         Node node = loadFromFXML();
-//        parentView.placeChartView(node);
-//        Stage stage = (Stage) getApplication()
-//            .createApplicationContainer(Collections.<String,Object>emptyMap());
-//        stage.setTitle(getApplication().getConfiguration().getAsString("application.title"));
-//        stage.setScene(init());
-//        stage.sizeToScene();
-//        getApplication().getWindowManager().attach("chart-tab", stage);
+        connectActions(node, controller);
+        parentView.placeChartView(node);
+        initWebView();
     }
 
-    // build the UI
-//    private Scene init() {
-//        Scene scene = new Scene(new Group());
-//
-//        Node node = loadFromFXML();
-//        if (node instanceof Parent) {
-//            scene.setRoot((Parent) node);
-//        } else {
-//            ((Group) scene.getRoot()).getChildren().addAll(node);
-//        }
-//        connectActions(node, controller);
-//
-//        return scene;
-//    }
+    @Threading(Threading.Policy.INSIDE_UITHREAD_SYNC)
+    private void initWebView() {
+//        URL resource = getClass().getResource("chart-ui/chart.html");
+        URL resource = application.getResourceHandler().getResourceAsURL("chart-ui/chart.html");
+        if (resource == null) {
+            //TODO
+        }//if
+        else {
+            chartWebView.getEngine().load(resource.toExternalForm());
+        }//else
+    }
 }

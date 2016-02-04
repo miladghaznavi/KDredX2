@@ -3,23 +3,17 @@ package org.mtv;
 import griffon.core.artifact.GriffonView;
 import griffon.metadata.ArtifactProviderFor;
 import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.Property;
+import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 import org.codehaus.griffon.runtime.javafx.artifact.AbstractJavaFXGriffonView;
 import org.controlsfx.control.spreadsheet.SpreadsheetView;
-import javax.annotation.Nullable;
-import java.io.File;
-import java.net.URL;
 import java.util.Collections;
-import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicReference;
 
 @ArtifactProviderFor(GriffonView.class)
@@ -76,9 +70,21 @@ public class MultiTechVisView extends AbstractJavaFXGriffonView {
         dataTab.setContent(node);
     }
 
-//    public void placeChartView(Node node) {
-//        chartTab.setContent(node);
-//    }
+    public void placeChartView(Node node) {
+        Tab chartTab = new Tab();
+        chartTab.setId(controller.getModel().getChartIds().get(controller.getModel().getChartIds().size() - 1));
+        chartTab.setContent(node);
+        chartTab.setOnCloseRequest((event) -> chartTabClose(event));
+        tabGroup.getTabs().add(chartTab);
+    }
+
+    public void chartTabClose(javafx.event.Event event) {
+        Tab tab = (Tab) event.getSource();
+        String tabId = tab.getId();
+        if (!controller.closeChartTab(tabId)) {
+            event.consume();
+        }//if
+    }
 
     public void bindPlot(AtomicReference<BooleanProperty> property) {
         plotActionTarget.disableProperty().bindBidirectional(property.get());
@@ -86,5 +92,13 @@ public class MultiTechVisView extends AbstractJavaFXGriffonView {
 
     public int getSelectedTabIndex() {
         return tabGroup.getSelectionModel().getSelectedIndex();
+    }
+
+    public void selectChart(int index) {
+        tabGroup.getSelectionModel().select(index);
+    }
+
+    public StringProperty getChartTitleProperty(int index) {
+        return tabGroup.getTabs().get(index).textProperty();
     }
 }

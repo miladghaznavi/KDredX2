@@ -2,6 +2,8 @@ package org.mtv;
 
 import griffon.core.artifact.GriffonView;
 import griffon.metadata.ArtifactProviderFor;
+import griffon.transform.Threading;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -21,6 +23,7 @@ import org.controlsfx.control.spreadsheet.*;
 import javax.annotation.Nullable;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.logging.Logger;
 
@@ -31,13 +34,11 @@ public class DataView extends AbstractJavaFXGriffonView {
     private static final int DEFAULT_COLUMNS = 20;
     private static final int INVALID_INDEX = -1;
 
-    private FileChooser fileChooser = new FileChooser();
-    private DataModel model;
     private DataController controller;
     private MultiTechVisView parentView;
 
     @FXML
-    ChoiceBox insertIntoChoiceBox;
+    ChoiceBox plotInChoiceBox;
     @FXML
     Button plotButton;
     @FXML
@@ -54,10 +55,6 @@ public class DataView extends AbstractJavaFXGriffonView {
     ChoiceBox expectedColumnChoiceBox;
     @FXML
     SpreadsheetView spreadsheetView;
-
-    public void setModel(DataModel model) {
-        this.model = model;
-    }
 
     @Override
     public void initUI() {
@@ -103,38 +100,47 @@ public class DataView extends AbstractJavaFXGriffonView {
     private void resetInsertInto() {
         ObservableList<String> list = FXCollections.observableArrayList();
         list.add(this.msg("Data.makeNewPlot"));
-        insertIntoChoiceBox.setItems(list);
+        plotInChoiceBox.setItems(list);
         // TODO: having drawn charts in the selection list
-        insertIntoChoiceBox.getSelectionModel().selectFirst();
-        model.insertIntoProperty().bind(
-                insertIntoChoiceBox.getSelectionModel().selectedItemProperty());
+        plotInChoiceBox.getSelectionModel().selectFirst();
+        controller.getModel().plotInProperty().bind(
+                plotInChoiceBox.getSelectionModel().selectedIndexProperty());
     }
 
-    private void resetChoiceBox(AtomicReference<ChoiceBox> choiceBoxAtomicReference) {
+    private void resetChoiceBox(
+            AtomicReference<ChoiceBox> choiceBoxAtomicReference,
+            AtomicReference<IntegerProperty> propertyAtomicReference) {
         ObservableList<String> list = getSpreadsheetHeaders();
         choiceBoxAtomicReference.get().setItems(list);
 
         ChoiceBoxChangeListener listener = new ChoiceBoxChangeListener(choiceBoxAtomicReference);
         choiceBoxAtomicReference.get().getSelectionModel().selectedIndexProperty().addListener(listener);
         plotButtonActiveDeactive();
+        propertyAtomicReference.get().bind(
+                choiceBoxAtomicReference.get().getSelectionModel().selectedIndexProperty()
+        );
     }
 
     private void resetWeightedMean() {
         resetChoiceBox(
-                new AtomicReference<>(analysesChoiceBox)
+                new AtomicReference<>(analysesChoiceBox),
+                new AtomicReference<>(controller.getModel().analysesProperty())
         );
 
         resetChoiceBox(
-                new AtomicReference<>(uncertaintyChoiceBox)
+                new AtomicReference<>(uncertaintyChoiceBox),
+                new AtomicReference<>(controller.getModel().uncertaintiesProperty())
         );
     }
 
     private void resetReducedChiSquare() {
         resetChoiceBox(
-                new AtomicReference<>(expectedColumnChoiceBox)
+                new AtomicReference<>(expectedColumnChoiceBox),
+                new AtomicReference<>(controller.getModel().expectedProperty())
         );
         resetChoiceBox(
-                new AtomicReference<>(observedColumnChoiceBox)
+                new AtomicReference<>(observedColumnChoiceBox),
+                new AtomicReference<>(controller.getModel().observedProperty())
         );
     }
 
@@ -144,10 +150,11 @@ public class DataView extends AbstractJavaFXGriffonView {
             this.msg("Data.gaussian")
         ));
         kernelFunctionChoiceBox.getSelectionModel().selectFirst();
-        model.kernelFunctionProperty().bind(kernelFunctionChoiceBox.getSelectionModel().selectedItemProperty());
+        controller.getModel().kernelFunctionProperty().bind(kernelFunctionChoiceBox.getSelectionModel().selectedItemProperty());
 
         resetChoiceBox(
-                new AtomicReference<>(xChoiceBox)
+                new AtomicReference<>(xChoiceBox),
+                new AtomicReference<>(controller.getModel().xProperty())
         );
     }
 
@@ -170,20 +177,6 @@ public class DataView extends AbstractJavaFXGriffonView {
         return grid;
     }
 
-    private Pair<Integer, Integer> lastValidCellPosition() {
-        int row = -1;
-        int column = -1;
-        for (ObservableList<SpreadsheetCell> rowData: spreadsheetView.getGrid().getRows()) {
-            for (SpreadsheetCell cell: rowData) {
-                if (cell.getItem() != null && !(cell.getItem()).equals("")) {
-                    row = Math.max(cell.getRow(), row);
-                    column = Math.max(cell.getColumn(), column);
-                }//if
-            }//for
-        }//for
-        return new Pair<>(row, column);
-    }
-
     public void addListenerToSpreadsheetCells() {
         for (ObservableList<SpreadsheetCell> row: spreadsheetView.getGrid().getRows())
             for (SpreadsheetCell cell: row) {
@@ -191,6 +184,42 @@ public class DataView extends AbstractJavaFXGriffonView {
                         new AtomicReference<SpreadsheetCell>(cell)
                 ));
             }//for
+    }
+
+    void plotButtonActiveDeactive() {
+        boolean result =
+                analysesChoiceBox.getSelectionModel().getSelectedIndex()       != INVALID_INDEX &&
+                uncertaintyChoiceBox.getSelectionModel().getSelectedIndex()    != INVALID_INDEX &&
+                kernelFunctionChoiceBox.getSelectionModel().getSelectedIndex() != INVALID_INDEX &&
+                xChoiceBox.getSelectionModel().getSelectedIndex()              != INVALID_INDEX &&
+                observedColumnChoiceBox.getSelectionModel().getSelectedIndex() != INVALID_INDEX &&
+                expectedColumnChoiceBox.getSelectionModel().getSelectedIndex() != INVALID_INDEX;
+        plotButton.setDisable(!result);
+    }
+
+    @Nullable
+    public File openDocumentFile() {
+        return Util.openDialog(getApplication());
+    }
+
+    @Nullable
+    public File saveDocument() {
+        return Util.saveDialog(getApplication());
+    }
+
+    @Threading(Threading.Policy.INSIDE_UITHREAD_SYNC)
+    public void updatePlotInChoiceBox(ArrayList<String> list) {
+        int selectedIndex = plotInChoiceBox.getSelectionModel().getSelectedIndex();
+        String first = (String) plotInChoiceBox.getItems().get(0);
+        plotInChoiceBox.getItems().clear();
+        plotInChoiceBox.getItems().add(first);
+        for (String item: list) {
+            plotInChoiceBox.getItems().add(item);
+        }//for
+
+        if (selectedIndex >= 0) {
+            plotInChoiceBox.getSelectionModel().select(selectedIndex);
+        }//if
     }
 
     class ChoiceBoxChangeListener implements ChangeListener<Number> {
@@ -218,11 +247,17 @@ public class DataView extends AbstractJavaFXGriffonView {
             }//if
 
             try {
-                ObservableList<ObservableList<SpreadsheetCell>> rows = model.getDocument().getGrid().getRows();
+                ObservableList<ObservableList<SpreadsheetCell>> rows = controller.getModel().getGrid().getRows();
+                int count = 0;
                 for (int i = 1; i < rows.size(); ++i) {
                     ObservableList<SpreadsheetCell> record = rows.get(i);
-                    Double.valueOf(record.get((int)newValue).getText());
+                    String value = record.get((int)newValue).getText();
+                    if (value.length() == 0) continue;
+                    ++count;
+                    Double.valueOf(value);
                 }//for
+                if (count == 0)
+                    throw new NumberFormatException();
             }//try
             catch(IndexOutOfBoundsException | NumberFormatException e) {
                 DataView.this.getLog().debug(e.getMessage());
@@ -254,7 +289,7 @@ public class DataView extends AbstractJavaFXGriffonView {
         public void changed(ObservableValue<? extends Object> observable, Object oldValue, Object newValue) {
             if ((oldValue == null) ||
                     !oldValue.equals(newValue))
-                model.setDirty(true);
+                controller.getModel().setDirty(true);
             try {
                 Double.valueOf((String) newValue);
             }//try
@@ -280,28 +315,5 @@ public class DataView extends AbstractJavaFXGriffonView {
             checkAndResetChoiceBox(observedColumnChoiceBox, column);
             checkAndResetChoiceBox(expectedColumnChoiceBox, column);
         }
-    }
-
-    void plotButtonActiveDeactive() {
-        boolean result =
-                analysesChoiceBox.getSelectionModel().getSelectedIndex()       != INVALID_INDEX &&
-                uncertaintyChoiceBox.getSelectionModel().getSelectedIndex()    != INVALID_INDEX &&
-                kernelFunctionChoiceBox.getSelectionModel().getSelectedIndex() != INVALID_INDEX &&
-                xChoiceBox.getSelectionModel().getSelectedIndex()              != INVALID_INDEX &&
-                observedColumnChoiceBox.getSelectionModel().getSelectedIndex() != INVALID_INDEX &&
-                expectedColumnChoiceBox.getSelectionModel().getSelectedIndex() != INVALID_INDEX;
-        plotButton.setDisable(!result);
-    }
-
-    @Nullable
-    public File openDocumentFile() {
-        Window window = (Window) getApplication().getWindowManager().getStartingWindow();
-        return fileChooser.showOpenDialog(window);
-    }
-
-    @Nullable
-    public File saveDocument() {
-        Window window = (Window) getApplication().getWindowManager().getStartingWindow();
-        return fileChooser.showSaveDialog(window);
     }
 }

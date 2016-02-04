@@ -13,7 +13,8 @@
         fx:controller="org.mtv.ChartController">
 
     <center>
-        <WebView fx:id="chartWebView" />
+        <WebView fx:id="chartWebView">
+        </WebView>
     </center>
 
     <left>
