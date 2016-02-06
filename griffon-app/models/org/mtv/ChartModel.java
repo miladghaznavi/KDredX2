@@ -4,6 +4,8 @@ import griffon.core.artifact.GriffonModel;
 import griffon.metadata.ArtifactProviderFor;
 import javafx.beans.property.*;
 import org.codehaus.griffon.runtime.core.artifact.AbstractGriffonModel;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.mtv.statistics.KernelDensityEstimation;
 import org.mtv.statistics.KernelFunctionType;
 import org.mtv.statistics.ReducedChiSquared;
@@ -29,13 +31,14 @@ public class ChartModel extends AbstractGriffonModel {
     private ArrayList<Double> uncertainties;
     private DoubleProperty weightedMean = new SimpleDoubleProperty();
     private DoubleProperty weightedUncertainty = new SimpleDoubleProperty();
-    private DoubleProperty mswd = new SimpleDoubleProperty();
+    private IntegerProperty rejected = new SimpleIntegerProperty();
 
     // Reduced-Chi-Squared
     private ReducedChiSquared reducedChiSquaredCal = new ReducedChiSquared();
     private ArrayList<Double> observed;
     private ArrayList<Double> expected;
     private DoubleProperty reducedChiSquared = new SimpleDoubleProperty();
+    private DoubleProperty mswd = new SimpleDoubleProperty();
 
     // Kernel Density Estimation
     //TODO: rename X to Xi
@@ -209,6 +212,18 @@ public class ChartModel extends AbstractGriffonModel {
         this.weightedUncertainty.set(weightedUncertainty);
     }
 
+    public int getRejected() {
+        return rejected.get();
+    }
+
+    public IntegerProperty rejectedProperty() {
+        return rejected;
+    }
+
+    public void setRejected(int rejected) {
+        this.rejected.set(rejected);
+    }
+
     public double getReducedChiSquared() {
         return reducedChiSquared.get();
     }
@@ -270,5 +285,53 @@ public class ChartModel extends AbstractGriffonModel {
 
     public void save(File file) throws IOException {
         //TODO
+    }
+
+    public JSONObject weightedMeanPack() throws JSONException {
+        JSONObject pack = new JSONObject();
+
+        pack.put(Constants.WEIGHTED_MEAN_ANALYSES, getAnalyses());
+        pack.put(Constants.WEIGHTED_MEAN_UNCERTAINTIES, getUncertainties());
+        pack.put(Constants.WEIGHTED_MEAN_WEIGHTED_MEAN, getWeightedMean());
+        pack.put(Constants.WEIGHTED_MEAN_WEIGHTED_UNCERTAINTY, getWeightedUncertainty());
+        pack.put(Constants.WEIGHTED_MEAN_PRECISION, 2);
+        pack.put(Constants.WEIGHTED_MEAN_TOTAL, analyses.size());
+        pack.put(Constants.WEIGHTED_MEAN_REJECTED, getRejected());
+        // TODO: weightedUncertainty is zero
+//        pack.put(Constants.WEIGHTED_MEAN_RATIO, getWeightedMean() / getWeightedUncertainty());
+        pack.put(Constants.WEIGHTED_MEAN_RATIO, getWeightedMean() / 10);
+
+        return pack;
+    }
+
+    public JSONObject KDEPack () throws JSONException {
+        JSONObject pack = new JSONObject();
+
+        // TODO: check for validity of following code
+        pack.put(Constants.KDE_X, getX());
+        pack.put(Constants.KDE_Y, getKde());
+
+        return pack;
+    }
+
+    public JSONObject RCSPack () throws JSONException {
+        JSONObject pack = new JSONObject();
+        pack.put(Constants.RCS_MSWD, getMswd());
+        return pack;
+    }
+
+    public double skewnessPack () {
+        return getSkewness();
+    }
+
+    public JSONObject getJsonPack() throws JSONException {
+        JSONObject pack = new JSONObject();
+
+        pack.put(Constants.WEIGHTED_MEAN_DATA, weightedMeanPack());
+        pack.put(Constants.KDE_DATA, KDEPack());
+        pack.put(Constants.RCS_DATA, RCSPack());
+        pack.put(Constants.SKEWNESS_DATA, skewnessPack());
+
+        return pack;
     }
 }

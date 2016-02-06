@@ -27,7 +27,7 @@
                         );
                     }//if
                     else if (data.type === 'line' &&
-                                data.series.name == 'weightedMean') {
+                        data.series.name == 'weightedMean') {
                         if (options.showMeanLine) {
                             var toPixelFactor = data.axisY.axisLength / (data.axisY.range.max - data.axisY.range.min);
                             data.element._node.setAttribute('style',
@@ -51,8 +51,6 @@
                 }//catch
 
                 var group = Chartist.Svg('g', { }, 'error-bar');
-
-                console.log(data);
 
                 // Vertical line
                 group.append(new Chartist.Svg('line', {

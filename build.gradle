@@ -58,6 +58,7 @@ dependencies {
     compile 'org.apache.commons:commons-csv:1.2'
     compile 'commons-io:commons-io:2.4'
     compile 'commons-logging:commons-logging:1.1.1'
+    compile 'org.json:json:20090211'
 
     runtime('log4j:log4j:1.2.17') {
         exclude group: 'ant',         module: 'ant-nodeps'
@@ -96,7 +97,7 @@ shadowJar {
     }
     transform(PropertiesFileTransformer) {
         paths = [
-            'META-INF/editors/java.beans.PropertyEditor'
+                'META-INF/editors/java.beans.PropertyEditor'
         ]
     }
 }

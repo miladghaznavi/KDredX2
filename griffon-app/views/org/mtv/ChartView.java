@@ -4,10 +4,13 @@ import griffon.core.artifact.GriffonView;
 import griffon.metadata.ArtifactProviderFor;
 import griffon.transform.Threading;
 import javafx.application.Platform;
+import javafx.concurrent.Worker;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import org.codehaus.griffon.runtime.javafx.artifact.AbstractJavaFXGriffonView;
+import org.json.JSONException;
 
 import java.net.URL;
 
@@ -19,6 +22,7 @@ public class ChartView extends AbstractJavaFXGriffonView {
 
     @FXML
     private WebView chartWebView;
+    private WebEngine webEngine;
 
     public void setController(ChartController controller) {
         this.controller = controller;
@@ -38,13 +42,35 @@ public class ChartView extends AbstractJavaFXGriffonView {
 
     @Threading(Threading.Policy.INSIDE_UITHREAD_SYNC)
     private void initWebView() {
-//        URL resource = getClass().getResource("chart-ui/chart.html");
         URL resource = application.getResourceHandler().getResourceAsURL("chart-ui/chart.html");
         if (resource == null) {
             //TODO
         }//if
         else {
-            chartWebView.getEngine().load(resource.toExternalForm());
+            webEngine = chartWebView.getEngine();
+            webEngine.setJavaScriptEnabled(true);
+            webEngine.load(resource.toExternalForm());
+
+            webEngine.getLoadWorker().stateProperty().addListener(
+                    (ov, oldState, newState) -> {
+                        if (newState == Worker.State.SUCCEEDED) {
+
+                            try {
+
+                                String script = "drawPageByJson('"
+                                        +
+                                        controller.getModel().getJsonPack().toString()
+                                        +
+                                        "')";
+                                System.out.println(script);
+                                chartWebView.getEngine().executeScript(script);
+                            }//try
+                            catch(JSONException e) {
+                                Util.alertInfo(e.getMessage());
+                            }//catch
+                        }//if
+                    }
+            );
         }//else
     }
 }

@@ -1,66 +1,82 @@
 var weightedMeanData = null;
 var KDEData = null;
 var RCSData = null;
-var skwenessData = null;
+var skewnessData = null;
 
-(function() {
-    randomData();
-    draw(weightedMeanData, KDEData);
-    setInfo(weightedMeanData, RCSData, skewnessData);
-})();
+//(function() {
+//    randomData();
+//    draw(weightedMeanData, KDEData);
+//    setInfo(weightedMeanData, RCSData, skewnessData);
+//})();
+//
+//function randomData() {
+//    // Weighted mean data
+//    var labels = [];
+//    var analyses = [];
+//    var uncertainties = [];
+//    var weightedMean = 0;
+//    var weightedUncertainty = 10;
+//
+//    var COUNT = 20;
+//    for (var i = 0; i < COUNT; ++i) {
+//        var label = i;
+//        var newVal = Math.random() * 100;
+//        var error = Math.random() * 10;
+//
+//        labels.push(label);
+//        analyses.push(newVal);
+//        uncertainties.push(error);
+//
+//        weightedMean += newVal;
+//    }//for
+//
+//    weightedMean /= analyses.length;
+//
+//    weightedMeanData = {
+//        labels: labels,
+//        analyses: analyses,
+//        uncertainties: uncertainties,
+//        weightedMean: weightedMean,
+//        weightedUncertainty: weightedUncertainty,
+//        ratio: weightedMean / weightedUncertainty,
+//        rejected: Math.round(Math.random() * COUNT),
+//        total: analyses.length
+//    };
+//
+//    // Kernel Density Estimation
+//    var X = [];
+//    var Y = [];
+//    for (i = 0; i < COUNT; ++i) {
+//        X.push(i);
+//        Y.push(Math.random() * 100);
+//    }//for
+//
+//    KDEData = {
+//        X: X,
+//        Y: Y
+//    };
+//
+//    RCSData = {
+//        mswd: 20
+//    };
+//
+//    skewnessData = 3.3;
+//}
 
-function randomData() {
-    // Weighted mean data
-    var labels = [];
-    var analyses = [];
-    var uncertainties = [];
-    var weightedMean = 0;
-    var weightedUncertainty = 10;
+function drawPageByJson(jsonPack) {
+    // Unpacking
+    var unpacked = JSON.parse(jsonPack);
+    drawPage(
+        unpacked.weightedMeanData,
+        unpacked.KDEData,
+        unpacked.RCSData,
+        unpacked.skewnessData
+    );
+}
 
-    var COUNT = 20;
-    for (var i = 0; i < COUNT; ++i) {
-        var label = i;
-        var newVal = Math.random() * 100;
-        var error = Math.random() * 10;
-
-        labels.push(label);
-        analyses.push(newVal);
-        uncertainties.push(error);
-
-        weightedMean += newVal;
-    }//for
-
-    weightedMean /= analyses.length;
-
-    weightedMeanData = {
-        labels: labels,
-        analyses: analyses,
-        uncertainties: uncertainties,
-        weightedMean: weightedMean,
-        weightedUncertainty: weightedUncertainty,
-        ratio: weightedMean / weightedUncertainty,
-        rejected: Math.round(Math.random() * COUNT),
-        total: analyses.length
-    };
-
-    // Kernel Density Estimation
-    var X = [];
-    var Y = [];
-    for (i = 0; i < COUNT; ++i) {
-        X.push(i);
-        Y.push(Math.random() * 100);
-    }//for
-
-    KDEData = {
-        X: X,
-        Y: Y
-    };
-
-    RCSData = {
-        mswd: 20
-    };
-
-    skewnessData = 3.3;
+function drawPage(wmd, kded, rcsd, sd) {
+    draw(wmd, kded);
+    setInfo(wmd, rcsd, sd);
 }
 
 /**
@@ -71,24 +87,22 @@ function randomData() {
  */
 function draw(weightedMeanData, KDEData) {
     drawWeightedMeanChart(
-        weightedMeanData.labels,
-        weightedMeanData.analyses,
-        weightedMeanData.uncertainties,
-        weightedMeanData.weightedMean,
-        weightedMeanData.weightedUncertainty,
-        weightedMeanData.options
+        weightedMeanData.analyses,           /* This data comes from model */
+        weightedMeanData.uncertainties,      /* This data comes from model */
+        weightedMeanData.weightedMean,       /* This data comes from model */
+        weightedMeanData.weightedUncertainty,/* This data comes from model */
+        weightedMeanData.options             /* This data comes from ? */
     );
 
     drawKDEChart(
-        KDEData.X,
-        KDEData.Y,
-        KDEData.options
+        KDEData.X,      /* This data comes from model */
+        KDEData.Y,      /* This data comes from model */
+        KDEData.options /* This data comes from ? */
     );
 }
 
 /**
  * Draw the weighted mean chart
- * @param labels
  * @param analyses
  * @param uncertainties
  * @param weightedMean
@@ -96,10 +110,21 @@ function draw(weightedMeanData, KDEData) {
  * @param options containing styling options for weighted mean chart
  * @returns {*} weighted-mean chart object
  */
-function drawWeightedMeanChart(labels, analyses, uncertainties, weightedMean, weightedUncertainty, options) {
+function drawWeightedMeanChart(analyses, uncertainties, weightedMean, weightedUncertainty, options) {
+    var labels = [];
     var means = [];
+    var analysesData = [];
     for (var i = 0; i < analyses.length; ++i) {
-        means.push(weightedMean);
+        //means.push(weightedMean);
+        means.push({
+            x: i,
+            y: weightedMean,
+        });
+        analysesData.push({
+            x: i,
+            y: analyses[i]
+        });
+        labels.push(i);
     }//for
 
     var defaultOptions = {
@@ -123,13 +148,11 @@ function drawWeightedMeanChart(labels, analyses, uncertainties, weightedMean, we
         fullWidth: true,
         axisX: {
             showLabel: false,
-            showGrid: false
+            showGrid: false,
+            type: Chartist.AutoScaleAxis
         },
         axisY: {
-            high: 110,
-            low: -10,
-            type: Chartist.FixedScaleAxis,
-            divisor: 12
+            type: Chartist.AutoScaleAxis
         }
     };
     options = Chartist.extend({ }, defaultOptions, options);
@@ -137,15 +160,15 @@ function drawWeightedMeanChart(labels, analyses, uncertainties, weightedMean, we
     return new Chartist.Line('#weighted-mean-chart-box', {
             labels: labels,
             series: [{
-                    name: 'weightedMean',
-                    data: means,
-                    weightedMean: weightedMean,
-                    weightedUncertainty: weightedUncertainty
-                }, {
-                    name: 'analyses',
-                    data: analyses,
-                    uncertainties: uncertainties
-                }
+                name: 'weightedMean',
+                data: means,
+                weightedMean: weightedMean,
+                weightedUncertainty: weightedUncertainty
+            }, {
+                name: 'analyses',
+                data: analysesData,
+                uncertainties: uncertainties
+            }
             ]},
         options
     );
@@ -204,12 +227,23 @@ function drawKDEChart(X, Y, options) {
     );
 }
 
+/**
+ * Set the additional information given in the text
+ * @param weightedMeanData
+ * @param RCSData
+ * @param skewnessData
+ */
 function setInfo(weightedMeanData, RCSData, skewnessData) {
-    setWeightedMeanInfo(weightedMeanData, 2);
+    setWeightedMeanInfo(weightedMeanData, weightedMeanData.precision);
     setRCSInfo(RCSData);
     setSkewnessInfo(skewnessData);
 }
 
+/**
+ * Set the additional information given in the text for the weighted mean
+ * @param weightedMeanData
+ * @param precision
+ */
 function setWeightedMeanInfo(weightedMeanData, precision) {
     $('#weighted-mean').text(weightedMeanData.weightedMean.toFixed(precision));
     $('#weighted-uncertainty').text(weightedMeanData.weightedUncertainty.toFixed(precision));
@@ -218,10 +252,18 @@ function setWeightedMeanInfo(weightedMeanData, precision) {
     $('#ratio').text(weightedMeanData.ratio.toFixed(precision));
 }
 
+/**
+ * Set the additional information given in the text for the Reduced Chi-Squared
+ * @param RCSData
+ */
 function setRCSInfo(RCSData) {
     $('#mswd').text(RCSData.mswd);
 }
 
+/**
+ * Set the additional information given in the text for the skewness
+ * @param skewnessData
+ */
 function setSkewnessInfo(skewnessData) {
     $('#skewness').text(skewnessData);
 }
