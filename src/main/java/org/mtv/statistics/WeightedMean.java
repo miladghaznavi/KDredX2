@@ -142,4 +142,58 @@ public class WeightedMean {
     public double meanSquareWeightedDeviation() {
         return meanSquareWeightedDeviation(analyses, uncertainties);
     }
+
+    /**
+     * Check if the analyses range and weighted-mean range intersect
+     * @param analysis the analyses
+     * @param uncertainty the uncertainty
+     * @param weightedMean the weighted mean
+     * @param weightedUncertainty weighted uncertainty
+     * @return true if analyses range and weighted-mean range intersect, otherwise false.
+     */
+    private boolean intersect(double analysis, double uncertainty,
+                              double weightedMean, double weightedUncertainty) {
+        double lower = Math.min(
+                weightedMean - weightedUncertainty,
+                weightedMean + weightedUncertainty);
+        double upper = Math.max(
+                weightedMean - weightedUncertainty,
+                weightedMean + weightedUncertainty);
+
+        double b0 = Math.min(
+                analysis - uncertainty,
+                analysis + uncertainty);
+
+        double b1 = Math.max(
+                analysis - uncertainty,
+                analysis + uncertainty);
+
+        if (b0 <= lower) {
+            return (b1 > lower);
+        }//if
+        else {
+            return (b0 < upper && b1 >= b0);
+        }//else
+    }
+
+    /**
+     * Compute the number of rejected values. A rejected value lays outside of weighted-mean range.
+     * @param weightedMean the weighted mean
+     * @param weightedUncertainty weighted uncertainty
+     * @return the number of rejected values
+     */
+    public int rejected(ArrayList<Double> analyses, ArrayList<Double> uncertainties,
+                        double weightedMean, double weightedUncertainty) {
+        int rejected = 0;
+
+        for (int i = 0; i < analyses.size(); ++i) {
+            if (!intersect(
+                    analyses.get(i), uncertainties.get(i),
+                    weightedMean, weightedUncertainty)) {
+                ++rejected;
+            }//if
+        }//for
+
+        return rejected;
+    }
 }

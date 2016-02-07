@@ -277,14 +277,18 @@ public class ChartModel extends AbstractGriffonModel {
 
     public void calculate() {
         // Weighted weightedMean
-        this.weightedMean.set(this.weightedMeanCal.weightedMean(analyses, uncertainties));
-        this.setWeightedMean(this.weightedMeanCal.weightedUncertainty(uncertainties));
-        this.setMswd(this.weightedMeanCal.meanSquareWeightedDeviation(analyses, uncertainties));
-
+        this.setWeightedMean(this.weightedMeanCal.weightedMean(analyses, uncertainties));
+        this.setWeightedUncertainty(this.weightedMeanCal.weightedUncertainty(uncertainties));
+        this.setRejected(
+            this.weightedMeanCal.rejected(
+                analyses, uncertainties, getWeightedMean(), getWeightedUncertainty()
+            )
+        );
         // Reduced chi-squared
         this.setReducedChiSquared(
             this.reducedChiSquaredCal.reducedChiSquare(observed, expected)
         );
+        this.setMswd(this.reducedChiSquaredCal.reducedChiSquare(observed, expected));
 
         KernelDensityEstimation kde;
         switch (getKernelFunction()) {
