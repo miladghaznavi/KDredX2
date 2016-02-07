@@ -2,6 +2,7 @@ package org.mtv.statistics;
 
 import org.apache.commons.math3.stat.StatUtils;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class KernelDensityEstimation {
@@ -9,6 +10,7 @@ public class KernelDensityEstimation {
     protected KernelFunction kernelFunction;
     protected KernelFunctionType kernelFunctionsType;
     private double bandwidth;
+    private ArrayList<Double> X;
     private ArrayList<Double> Xi;
 
     /**
@@ -44,6 +46,22 @@ public class KernelDensityEstimation {
     }
 
     /**
+     * Getter of X array
+     * @return X array
+     */
+    public ArrayList<Double> getX() {
+        return X;
+    }
+
+    /**
+     * Setter of X array
+     * @param X to set array X
+     */
+    public void setX(ArrayList<Double> X) {
+        this.X = X;
+    }
+
+    /**
      * Get Xi array
      * @return Xi array
      */
@@ -68,7 +86,8 @@ public class KernelDensityEstimation {
      * @param h smooth parameter
      * @throws ArithmeticException
      */
-    public KernelDensityEstimation(ArrayList<Double> Xi, double h) throws ArithmeticException {
+    public KernelDensityEstimation(ArrayList<Double> X, ArrayList<Double> Xi, double h) throws ArithmeticException {
+        setX(X);
         setXi(Xi);
         setBandwidth(h);
         kernelFunctionsType = KernelFunctionType.Unknown;
@@ -102,6 +121,16 @@ public class KernelDensityEstimation {
         return 1 / n * A;
     }
 
+    public ArrayList<Double> kernelDesnsityEstimation(ArrayList<Double> X) {
+        ArrayList<Double> result = new ArrayList<>();
+
+        for (double x: X) {
+            result.add(kernelDesnsityEstimation(x));
+        }//for
+
+        return result;
+    }
+
     /**
      * Compute the skewness of X values
      * @return skewness
@@ -123,8 +152,6 @@ public class KernelDensityEstimation {
 
         double skewness = 0;
         for (double x: Xi) {
-            //TODO: I don't understand why x_i is mean in the Christopher's reply!
-            //TODO: I use x as x_i, but it should be double checked
             skewness += Math.pow((x - mode) / std, 3.0);
         }//for
         skewness *= (double)n / (double)((n - 1) * ( n -2));
@@ -136,15 +163,15 @@ public class KernelDensityEstimation {
      * Kernel Density Estimation Types
      */
     public static class KernelDensityEstimationTypes {
-        public static KernelDensityEstimation getGaussian(ArrayList<Double> X, double h) {
-            KernelDensityEstimation kde = new KernelDensityEstimation(X, h);
+        public static KernelDensityEstimation getGaussian(ArrayList<Double> X, ArrayList<Double> Xi, double h) {
+            KernelDensityEstimation kde = new KernelDensityEstimation(X, Xi, h);
             kde.setKernelFunction(new GaussianKernelFunction());
             kde.kernelFunctionsType = KernelFunctionType.Gaussian;
             return kde;
         }
 
-        public static KernelDensityEstimation getEpanechnikov(ArrayList<Double> X, double h) {
-            KernelDensityEstimation kde = new KernelDensityEstimation(X, h);
+        public static KernelDensityEstimation getEpanechnikov(ArrayList<Double> X, ArrayList<Double> Xi, double h) {
+            KernelDensityEstimation kde = new KernelDensityEstimation(X, Xi, h);
             kde.setKernelFunction(new EpanechnikovKernelFunction());
             kde.kernelFunctionsType = KernelFunctionType.Epanechnikov;
             return kde;
