@@ -198,7 +198,7 @@ public class DataView extends AbstractJavaFXGriffonView {
                 uncertaintyChoiceBox.getSelectionModel().getSelectedIndex()    != INVALID_INDEX &&
                 kernelFunctionChoiceBox.getSelectionModel().getSelectedIndex() != INVALID_INDEX &&
                 xChoiceBox.getSelectionModel().getSelectedIndex()              != INVALID_INDEX &&
-                xiChoiceBox.getSelectionModel().getSelectedIndex()             != INVALID_INDEX &&
+                    xChoiceBox.getSelectionModel().getSelectedIndex()              != INVALID_INDEX &&
                 observedColumnChoiceBox.getSelectionModel().getSelectedIndex() != INVALID_INDEX &&
                 expectedColumnChoiceBox.getSelectionModel().getSelectedIndex() != INVALID_INDEX;
         plotButton.setDisable(!result);

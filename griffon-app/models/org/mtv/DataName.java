@@ -5,6 +5,6 @@ public enum DataName {
     Uncertainties,
     Observed,
     Expected,
-    //TODO: Rename X to Xi
-    X
+    X,
+    Xi,
 }

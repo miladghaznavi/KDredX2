@@ -41,8 +41,8 @@ public class ChartModel extends AbstractGriffonModel {
     private DoubleProperty mswd = new SimpleDoubleProperty();
 
     // Kernel Density Estimation
-    //TODO: rename X to Xi
     private ArrayList<Double> X;
+    private ArrayList<Double> Xi;
     private ObjectProperty<KernelFunctionType> kernelFunction = new SimpleObjectProperty<>(KernelFunctionType.Unknown);
     private ObjectProperty<ArrayList<Double>> kde = new SimpleObjectProperty<>();
     private DoubleProperty skewness = new SimpleDoubleProperty();
@@ -96,6 +96,9 @@ public class ChartModel extends AbstractGriffonModel {
             case X:
                 setX(data);
                 break;
+            case Xi:
+                setXi(data);
+                break;
         }//switch
     }
 
@@ -117,8 +120,12 @@ public class ChartModel extends AbstractGriffonModel {
             case X:
                 data = getX();
                 break;
+            case Xi:
+                data = getXi();
+                break;
             default:
                 data = new ArrayList<>();
+                break;
         }//switch
 
         return data;
@@ -174,6 +181,14 @@ public class ChartModel extends AbstractGriffonModel {
 
     public void setX(ArrayList<Double> x) {
         X = x;
+    }
+
+    public ArrayList<Double> getXi() {
+        return Xi;
+    }
+
+    public void setXi(ArrayList<Double> xi) {
+        Xi = xi;
     }
 
     public double getWeightedMean() {
@@ -271,16 +286,22 @@ public class ChartModel extends AbstractGriffonModel {
             this.reducedChiSquaredCal.reducedChiSquare(observed, expected)
         );
 
-        //TODO: Kernel Density Estimation
         KernelDensityEstimation kde;
         switch (getKernelFunction()) {
             case Epanechnikov:
-//                kde = KernelDensityEstimation.KernelDensityEstimationTypes.
-//                        getEpanechnikov(this.getX(), this.get)
+                //TODO: check if the bandwidth is equal to n - 1
+                kde = KernelDensityEstimation.KernelDensityEstimationTypes.
+                        getEpanechnikov(this.getX(), this.getXi(), this.getXi().size() - 1);
                 break;
             case Gaussian:
+                //TODO: check if the bandwidth is equal to n - 1
+                kde = KernelDensityEstimation.KernelDensityEstimationTypes.
+                        getGaussian(this.getX(), this.getXi(), this.getXi().size() - 1);
                 break;
+            default:
+                kde = null;
         }//switch
+        this.setKde(kde.kernelDesnsityEstimation(this.getX()));
     }
 
     public void save(File file) throws IOException {

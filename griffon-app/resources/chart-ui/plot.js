@@ -3,69 +3,14 @@ var KDEData = null;
 var RCSData = null;
 var skewnessData = null;
 
-//(function() {
-//    randomData();
-//    draw(weightedMeanData, KDEData);
-//    setInfo(weightedMeanData, RCSData, skewnessData);
-//})();
-//
-//function randomData() {
-//    // Weighted mean data
-//    var labels = [];
-//    var analyses = [];
-//    var uncertainties = [];
-//    var weightedMean = 0;
-//    var weightedUncertainty = 10;
-//
-//    var COUNT = 20;
-//    for (var i = 0; i < COUNT; ++i) {
-//        var label = i;
-//        var newVal = Math.random() * 100;
-//        var error = Math.random() * 10;
-//
-//        labels.push(label);
-//        analyses.push(newVal);
-//        uncertainties.push(error);
-//
-//        weightedMean += newVal;
-//    }//for
-//
-//    weightedMean /= analyses.length;
-//
-//    weightedMeanData = {
-//        labels: labels,
-//        analyses: analyses,
-//        uncertainties: uncertainties,
-//        weightedMean: weightedMean,
-//        weightedUncertainty: weightedUncertainty,
-//        ratio: weightedMean / weightedUncertainty,
-//        rejected: Math.round(Math.random() * COUNT),
-//        total: analyses.length
-//    };
-//
-//    // Kernel Density Estimation
-//    var X = [];
-//    var Y = [];
-//    for (i = 0; i < COUNT; ++i) {
-//        X.push(i);
-//        Y.push(Math.random() * 100);
-//    }//for
-//
-//    KDEData = {
-//        X: X,
-//        Y: Y
-//    };
-//
-//    RCSData = {
-//        mswd: 20
-//    };
-//
-//    skewnessData = 3.3;
-//}
-
+/**
+ * Draw the page
+ * @param jsonPack The string of json object containing all information
+ */
 function drawPageByJson(jsonPack) {
     // Unpacking
     var unpacked = JSON.parse(jsonPack);
+    refineByPresicion(unpacked);
     drawPage(
         unpacked.weightedMeanData,
         unpacked.KDEData,
@@ -74,6 +19,33 @@ function drawPageByJson(jsonPack) {
     );
 }
 
+function refineByPresicion(unpacked) {
+    var precision = unpacked.weightedMeanData.precision;
+    for (var i = 0; i < unpacked.weightedMeanData.analyses.length; ++i)
+        unpacked.weightedMeanData.analyses[i] = unpacked.weightedMeanData.analyses[i].toFixed(precision);
+
+    for (var i = 0; i < unpacked.weightedMeanData.uncertainties.length; ++i)
+        unpacked.weightedMeanData.uncertainties[i] = unpacked.weightedMeanData.uncertainties[i].toFixed(precision);
+
+    unpacked.weightedMeanData.weightedMean = unpacked.weightedMeanData.weightedMean.toFixed(precision);
+    unpacked.weightedMeanData.weightedUncertainty = unpacked.weightedMeanData.weightedUncertainty.toFixed(precision);
+    unpacked.weightedMeanData.ratio = unpacked.weightedMeanData.ratio.toFixed(precision);
+
+    for (var i = 0; i < unpacked.KDEData.X.length; ++i)
+        unpacked.KDEData.X[i] = unpacked.KDEData.X[i].toFixed(precision);
+    for (var i = 0; i < unpacked.KDEData.Y.length; ++i)
+        unpacked.KDEData.Y[i] = unpacked.KDEData.Y[i].toFixed(precision);
+
+    unpacked.RCSData.mswd = unpacked.RCSData.mswd.toFixed(precision);
+}
+
+/**
+ * Draw the charts and set the information in the page
+ * @param wmd Weighted Mean Data
+ * @param kded Kernel Density Estimation Data
+ * @param rcsd Reduced Chi-Squared Data
+ * @param sd Skewness Data
+ */
 function drawPage(wmd, kded, rcsd, sd) {
     draw(wmd, kded);
     setInfo(wmd, rcsd, sd);
@@ -188,7 +160,9 @@ function drawKDEChart(X, Y, options) {
         // new X is the reflected of Y's elements
         // new Y is the reversed of X's elements
         data.push({
+            //TODO
             x: Y[i],
+            //x: Math.random() * 1000,
             y: X[X.length - (i + 1)]
         });
     }//for
@@ -232,7 +206,7 @@ function drawKDEChart(X, Y, options) {
  * @param weightedMeanData
  * @param RCSData
  * @param skewnessData
- */
+ */;
 function setInfo(weightedMeanData, RCSData, skewnessData) {
     setWeightedMeanInfo(weightedMeanData, weightedMeanData.precision);
     setRCSInfo(RCSData);
@@ -245,11 +219,11 @@ function setInfo(weightedMeanData, RCSData, skewnessData) {
  * @param precision
  */
 function setWeightedMeanInfo(weightedMeanData, precision) {
-    $('#weighted-mean').text(weightedMeanData.weightedMean.toFixed(precision));
-    $('#weighted-uncertainty').text(weightedMeanData.weightedUncertainty.toFixed(precision));
+    $('#weighted-mean').text(weightedMeanData.weightedMean);
+    $('#weighted-uncertainty').text(weightedMeanData.weightedUncertainty);
     $('#rejected').text(weightedMeanData.rejected);
     $('#total').text(weightedMeanData.total);
-    $('#ratio').text(weightedMeanData.ratio.toFixed(precision));
+    $('#ratio').text(weightedMeanData.ratio);
 }
 
 /**

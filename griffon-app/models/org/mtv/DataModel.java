@@ -259,6 +259,10 @@ public class DataModel extends AbstractGriffonModel {
                 index = X.get();
                 break;
 
+            case Xi:
+                index = Xi.get();
+                break;
+
             default:
                 index = INVALID_INDEX;
         }//switch

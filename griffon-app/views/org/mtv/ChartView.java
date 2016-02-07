@@ -51,24 +51,26 @@ public class ChartView extends AbstractJavaFXGriffonView {
             webEngine.load(resource.toExternalForm());
 
             webEngine.getLoadWorker().stateProperty().addListener(
-                    (ov, oldState, newState) -> {
-                        if (newState == Worker.State.SUCCEEDED) {
+                (ov, oldState, newState) -> {
+                    if (newState == Worker.State.SUCCEEDED) {
 
-                            try {
-
-                                String script = "drawPageByJson('"
-                                        +
-                                        controller.getModel().getJsonPack().toString()
-                                        +
-                                        "')";
-                                System.out.println(script);
-                                chartWebView.getEngine().executeScript(script);
-                            }//try
-                            catch(JSONException e) {
-                                Util.alertInfo(e.getMessage());
-                            }//catch
-                        }//if
-                    }
+                        try {
+                            System.out.println(
+                                    controller.getModel().getJsonPack().toString()
+                            );
+                            String script = "drawPageByJson('"
+                                    +
+                                    controller.getModel().getJsonPack().toString()
+                                    +
+                                    "')";
+                            System.out.println(script);
+                            chartWebView.getEngine().executeScript(script);
+                        }//try
+                        catch(JSONException e) {
+                            Util.alertInfo(e.getMessage());
+                        }//catch
+                    }//if
+                }
             );
         }//else
     }
