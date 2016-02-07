@@ -50,6 +50,8 @@ public class DataView extends AbstractJavaFXGriffonView {
     @FXML
     ChoiceBox xChoiceBox;
     @FXML
+    ChoiceBox xiChoiceBox;
+    @FXML
     ChoiceBox observedColumnChoiceBox;
     @FXML
     ChoiceBox expectedColumnChoiceBox;
@@ -156,6 +158,10 @@ public class DataView extends AbstractJavaFXGriffonView {
                 new AtomicReference<>(xChoiceBox),
                 new AtomicReference<>(controller.getModel().xProperty())
         );
+        resetChoiceBox(
+                new AtomicReference<>(xiChoiceBox),
+                new AtomicReference<>(controller.getModel().xiProperty())
+        );
     }
 
     private GridBase defaultGrid() {
@@ -192,6 +198,7 @@ public class DataView extends AbstractJavaFXGriffonView {
                 uncertaintyChoiceBox.getSelectionModel().getSelectedIndex()    != INVALID_INDEX &&
                 kernelFunctionChoiceBox.getSelectionModel().getSelectedIndex() != INVALID_INDEX &&
                 xChoiceBox.getSelectionModel().getSelectedIndex()              != INVALID_INDEX &&
+                xiChoiceBox.getSelectionModel().getSelectedIndex()             != INVALID_INDEX &&
                 observedColumnChoiceBox.getSelectionModel().getSelectedIndex() != INVALID_INDEX &&
                 expectedColumnChoiceBox.getSelectionModel().getSelectedIndex() != INVALID_INDEX;
         plotButton.setDisable(!result);

@@ -29,14 +29,6 @@ public class DataModel extends AbstractGriffonModel {
     private AtomicReference<Grid> grid;
     private boolean dirty = DEFAULT_DIRTY;
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
     // Target chart
     private IntegerProperty plotIn = new SimpleIntegerProperty();
 
@@ -49,9 +41,17 @@ public class DataModel extends AbstractGriffonModel {
     private IntegerProperty expected = new SimpleIntegerProperty();
 
     // Kernel Density Estimation
-    //TODO: Rename X to Xi
     private IntegerProperty X = new SimpleIntegerProperty();
+    private IntegerProperty Xi = new SimpleIntegerProperty();
     private SimpleStringProperty kernelFunction = new SimpleStringProperty();
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getPath() {
         return path;
@@ -222,6 +222,18 @@ public class DataModel extends AbstractGriffonModel {
             this.X = new SimpleIntegerProperty();
         }//if
         this.X.set(x);
+    }
+
+    public int getXi() {
+        return Xi.get();
+    }
+
+    public IntegerProperty xiProperty() {
+        return Xi;
+    }
+
+    public void setXi(int xi) {
+        this.Xi.set(xi);
     }
 
     public int getColumnIndex(DataName name) {

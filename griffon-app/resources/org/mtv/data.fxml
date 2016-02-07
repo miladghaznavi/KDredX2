@@ -67,14 +67,22 @@
             <Separator />
 
             <Label text="%Data.kernelDensityEstimation" />
+            <Label text="%Data.kernelFunction" />
+            <ChoiceBox fx:id="kernelFunctionChoiceBox">
+                <tooltip>
+                    <Tooltip text="%Data.selectKernelFunction"/>
+                </tooltip>
+            </ChoiceBox>
+
             <Label text="%Data.X" />
             <ChoiceBox fx:id="xChoiceBox">
                 <tooltip>
                     <Tooltip text="%Data.selectKernelFunction"/>
                 </tooltip>
             </ChoiceBox>
-            <Label text="%Data.kernelFunction" />
-            <ChoiceBox fx:id="kernelFunctionChoiceBox">
+
+            <Label text="%Data.Xi" />
+            <ChoiceBox fx:id="xiChoiceBox">
                 <tooltip>
                     <Tooltip text="%Data.selectKernelFunction"/>
                 </tooltip>

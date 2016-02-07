@@ -3,7 +3,6 @@ package org.mtv;
 import griffon.core.artifact.GriffonView;
 import griffon.metadata.ArtifactProviderFor;
 import griffon.transform.Threading;
-import javafx.application.Platform;
 import javafx.concurrent.Worker;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
