@@ -1,0 +1,225 @@
+.title {
+    font-size: 16px;
+    font-variant: small-caps;
+}
+
+.little-info {
+    font-size: 10px;
+}
+
+.error-bar line {
+    /* Set the colour of this series line */
+    stroke: #f05b4f;
+    stroke-width: 4px;
+    stroke-linecap: butt;
+}
+
+.chart-line {
+
+}
+
+.label {
+
+}
+
+.labelGroup {
+
+}
+
+.series {
+
+}
+
+.line {
+
+}
+
+.point {
+
+}
+
+.area {
+
+}
+
+.grids {
+
+}
+
+.grid {
+    stroke: rgba(0, 0, 0, .2);
+    stroke-width: 1px;
+    stroke-dasharray: 2px
+}
+
+.gridGroup {
+
+}
+
+.vertical {
+
+}
+
+.horizontal {
+
+}
+
+.start {
+
+}
+
+.end {
+
+}
+
+/*#weighted-mean-box {*/
+    /*width: 800px;*/
+/*}*/
+
+/*#weighted-mean-chart-box {*/
+    /*height: 400px;*/
+/*}*/
+
+#weighted-mean-title {
+    display: block;
+    text-align: center;
+}
+
+#weighted-mean-top-info {
+    display: block;
+    text-align: right;
+}
+
+#weighted-mean-chart-line {
+
+}
+
+#weighted-mean-label {
+
+}
+
+#weighted-mean-labels {
+
+}
+
+#weighted-mean-series {
+
+}
+
+#weighted-mean-line {
+
+}
+
+#weighted-mean-point {
+
+}
+
+#weighted-mean-area {
+
+}
+
+#weighted-mean-grid {
+    stroke: rgba(0, 0, 0, .2);
+    stroke-width: 1px;
+    stroke-dasharray: 2px;
+}
+
+#weighted-mean-grids {
+
+}
+
+#weighted-mean-vertical {
+
+}
+
+#weighted-mean-horizontal {
+
+}
+
+#weighted-mean-start {
+
+}
+
+#weighted-mean-end {
+
+}
+
+#weighted-mean-chart-box {
+
+}
+
+/* Use this selector to override the error-bar line */
+#weighted-mean-error-bar line {
+    fill: none;
+    stroke-width: 4px;
+    stroke: rgba(248, 37, 30, 0.8) !important;
+}
+
+/* Use this selector to override the weightedMean line */
+#weighted-mean-mean-line {
+    stroke: rgba(0, 142, 15, .8) !important;
+}
+
+/* Use this selector to override the error-bar */
+#weighted-mean-error-bar {
+
+}
+
+#info-box {
+    text-align: center;
+}
+
+#mean-info {
+    display: block;
+}
+
+#mean-info-extra {
+    display: block;
+}
+
+#mswd-info {
+    display: block;
+}
+
+#meta-info {
+    display: block;
+}
+
+/* Use this selector to override the line style on weightedMean-line series */
+.ct-series-a .ct-point {
+    /* Set the colour of this series line */
+    stroke: rgba(0, 142, 15, .8) !important;
+    stroke-width: 4px;
+    stroke-linecap: butt;
+}
+
+.ct-series-a .ct-line {
+    /*Set the colour of this series line*/
+    stroke: rgba(0, 142, 15, .8) !important;
+    stroke-width: 4px;
+    stroke-linecap: butt;
+}
+
+/* Use this selector to override the line style on data series */
+.ct-series-b .ct-point {
+    /* Set the colour of this series line */
+    stroke: #f05b4f !important;
+    /*stroke-width: 4px;*/
+    /*stroke-linecap: butt;*/
+}
+
+#kde-box {
+}
+
+#kde-chart-box {
+}
+
+#kde-title {
+    display: block;
+    text-align: center;
+}
+
+#skewness-info {
+    display: block;
+    text-align: center;
+}

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block header %}
+    <!-- This component belongs to main -->
+    {% include "components/header.html" %}
+{% endblock %}
+
+{% block rightsidebar %}
+    {% include "components/right.sidebar.html" %}
+{% endblock %}
+
+{% block controlsidebar %}
+    {% include "components/control.sidebar.html" %}
+{% endblock %}
+
+{% block leftsidebar %}
+    <!-- This component belongs to data -->
+    {% include "components/left.sidebar.html" %}
+{% endblock %}
+
+{% block dataplace %}
+    {% include "data.template.html" %}
+{% endblock %}
+
+{% block chartplace %}
+    {% include "chart.template.html" %}
+{% endblock %}
+
+{% block footer %}
+    {% include "components/footer.html" %}
+{% endblock %}

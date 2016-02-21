@@ -12,6 +12,7 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.web.WebView?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml"
             fx:id="mainContent"
             fx:controller="org.mtv.MultiTechVisController">
@@ -68,20 +69,9 @@
             </MenuBar>
         </top>
         <center>
-            <TabPane fx:id="tabGroup">
-                <Tab fx:id="dataTab" text="%Data.data" closable="false" />
-            </TabPane>
+            <WebView fx:id="portWebView">
+            </WebView>
         </center>
-        <bottom>
-            <BorderPane>
-                <left>
-                    <ProgressBar fx:id="progressBar" visible="false" />
-                </left>
-                <center>
-                    <Label fx:id="progressLabel" />
-                </center>
-            </BorderPane>
-        </bottom>
     </BorderPane>
     <stylesheets>
         <URL value="@styles.css"/>

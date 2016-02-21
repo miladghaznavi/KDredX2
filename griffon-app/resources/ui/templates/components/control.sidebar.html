@@ -1,0 +1,116 @@
+{% block controlsidebar %}
+<div class="control-sidebar control-sidebar-dark">
+    <!-- Create the tabs -->
+    <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+        <li class="active">
+            <a href="#chart-preferences" data-toggle="tab">Chart</a>
+        </li>
+        <li>
+            <a href="#axis-preferences" data-toggle="tab">
+                Axis
+            </a>
+        </li>
+        <li>
+            <a href="#arrange-preferences" data-toggle="tab">
+                Arrange
+            </a>
+        </li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <!-- Home tab content -->
+        <div class="tab-pane active" id="chart-preferences">
+            <h3 class="control-sidebar-heading">Chart Options</h3>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <div class="control-sidebar-subheading">
+                            <input id="titleCheckBox" type="checkbox" checked="">
+                            Title
+                        </div>
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="control-sidebar-subheading">
+                            <input id="borderCheckBox" type="checkbox" checked="">
+                            Border
+                        </div>
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="control-sidebar-subheading">
+                            <input id=legendCheckBox" type="checkbox" checked="">
+                            Legend
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <h3 class="control-sidebar-heading">Chart Font</h3>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="control-sidebar-subheading">
+                            <select id="fontFamilySelect" data-toggle="tooltip" title="Font Family">
+                                <option value="helvetica">Helvetica</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-8">
+                        <div class="control-sidebar-subheading">
+                            <select id="fontWeightSelect" data-toggle="tooltip" title="Font Face">
+                                <option value="normal" data-css-property="font-weight">Normal</option>
+                                <option value="bold" data-css-property="font-weight">Bold</option>
+                                <option value="bolder" data-css-property="font-weight">Bolder</option>
+                                <option value="lighter" data-css-property="font-weight">Light</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-4">
+                        <input type="number" name="fontSizeNumber" data-css-property="font-size"
+                               data-toggle="tooltip" title="Font Size"
+                               min="1" max="288">
+                    </div>
+
+                    <div class="col-xs-8">
+                        <div class="btn-group btn-group-sm" data-toggle="buttons">
+                            <button id="boldButton" data-toggle="tooltip" title="Bold" class="btn btn-default"
+                                    data-css-property="font-style" value="bold">
+                                <b>B</b>
+                            </button>
+                            <button id="italicButton" data-toggle="tooltip" title="Italic" class="btn btn-default"
+                                    data-css-property="font-style" value="italic">
+                                <i>I</i>
+                            </button>
+
+                            <button id="underlineButton" data-toggle="tooltip" title="Underline" class="btn btn-default"
+                                    data-css-property="font-decoration" value="underline"
+                                    style="text-decoration: underline">
+                                U
+                            </button>
+
+                            <button id="lineThroughButton" data-toggle="tooltip" title="Strikethrough" class="btn btn-default"
+                                    data-css-property="font-decoration" value="line-through"
+                                    style="text-decoration: line-through">
+                                S
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.control-sidebar-menu -->
+        </div>
+        <!-- /.tab-pane -->
+        <!-- Stats tab content -->
+        <div class="tab-pane" id="axis-preferences">
+
+        </div>
+        <!-- /.tab-pane -->
+        <!-- Settings tab content -->
+        <div class="tab-pane" id="arrange-preferences">
+            <form method="post">
+            </form>
+        </div>
+        <!-- /.tab-pane -->
+    </div>
+</div>
+{% endblock %}

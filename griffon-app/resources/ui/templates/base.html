@@ -1,0 +1,60 @@
+<div class="row content-container">
+    <nav class="navbar navbar-default navbar-fixed-top navbar-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-expand-toggle">
+                    <i class="fa fa-bars icon"></i>
+                </button>
+
+                {% block header %}
+                {% endblock %}
+            </div>
+
+            {% block rightsidebar %}
+            {% endblock %}
+        </div>
+    </nav>
+    <div id="sideControls" class="side-menu sidebar-inverse">
+        <nav class="navbar navbar-default" role="navigation">
+            <div class="side-menu-container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">
+                        <div class="icon fa fa-leaf"></div>
+                        <div class="title">Multi Tech Vis</div>
+                    </a>
+                    <button type="button" class="navbar-expand-toggle pull-right visible-xs">
+                        <i class="fa fa-times icon"></i>
+                    </button>
+                </div>
+                {% block leftsidebar %}
+                {% endblock %}
+            </div>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container-fluid">
+        <div id="middle-content" class="side-body padding-top">
+            <div class="row">
+                <div id="spreadsheet-container" class="col-lg-12">
+                    {% block dataplace %}
+                    {% endblock %}
+                </div>
+            </div>
+            <div class="row">
+                <div id="chart-container" class="col-lg-12">
+                    {% block chartplace %}
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Sidebar -->
+    {% block controlsidebar %}
+    {% endblock %}
+    <div class="control-sidebar-bg"></div>
+</div>
+
+{% block footer %}
+{% endblock %}

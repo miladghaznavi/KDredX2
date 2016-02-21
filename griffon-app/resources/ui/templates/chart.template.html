@@ -1,0 +1,75 @@
+
+<div id="chart-panel" class="panel" data-reload="false" data-close="false" data-edit-title="false">
+    <div class="panel-heading">
+        <div class="panel-title">
+            <h4 id="chart-panel-title"></h4>
+        </div>
+        <!--<ul class="list-inline pull-right">-->
+            <!--<li>-->
+                <!--<div class="dropdown">-->
+                    <!--<a id="chartSaveDialog"-->
+                       <!--data-toggle="dropdown" class="dropdown-toggle"-->
+                        <!--aria-expanded="false">-->
+                        <!--<i class="fa fa-save" data-toggle="tooltip" title="Save-as" data-placement="right"></i>-->
+                    <!--</a>-->
+                    <!--<ul class="dropdown-menu dropdown-menu-right">-->
+                        <!--<li><a href="#" id="saveChartAsPng" filetype="png">Save-as .png</a></li>-->
+                        <!--<li><a href="#" id="saveChartAsSvg" filetype="svg">Save-as .svg</a></li>-->
+                        <!--<li><a href="#" id="saveChartAsPdf" filetype="pdf">Save-as .pdf</a></li>-->
+                    <!--</ul>-->
+                <!--</div>-->
+            <!--</li>-->
+        <!--</ul>-->
+    </div>
+
+    <div id="chart-panel-body" class="panel-body">
+        <div id="chart-shown" class="row">
+            <div class="col-lg-7">
+                <div id="weighted-mean-box">
+                    <span id="weighted-mean-title" class="title">
+                        Weighted Average
+                    </span>
+                    <span id="weighted-mean-top-info" class="little-info">
+                        data-point error symbols are 2s
+                    </span>
+                    <div id="weighted-mean-chart-box" class="ct-perfect-fourth"></div>
+                    <div id="info-box">
+                        <span id="mean-info">
+                            Mean =
+                            <span id="weighted-mean"></span>
+                            &plusmn;
+                            <span id="weighted-uncertainty"></span>
+                            [
+                            <span id="ratio"></span>%
+                            ]
+                        </span>
+                        <span id="mean-info-extra">
+                            Wtd by data-pt errs only, <span id="rejected"></span> of <span id="total"></span> rej.
+                        </span>
+                        <span id="mswd-info">
+                            MSWD = <span id="mswd"></span>
+                        </span>
+                        <span id="meta-info">
+                            (error bars are 2s)
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5">
+                <div id="kde-box" class="box">
+                    <span id="kde-title" class="title">Kernel Density Estimation</span>
+                    <div id="kde-chart-box" class="ct-perfect-fourth"></div>
+                    <span id="skewness-info" class="info">
+                        Skewness = <span id="skewness"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div id="chart-not-shown" class="row">
+            <div class="col-lg-12">
+                No data available
+            </div>
+        </div>
+    </div>
+</div>

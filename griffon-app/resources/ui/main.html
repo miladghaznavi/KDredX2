@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Multi Tech Vis</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSS Libs -->
+    <link rel="stylesheet" type="text/css" href="lib/css/jquery-ui.min.css">
+    <link rel="stylesheet" type="text/css" href="lib/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="lib/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="lib/css/lobipanel.min.css">
+    <link rel="stylesheet" type="text/css" href="lib/css/lobibox.min.css">
+    <link rel="stylesheet" type="text/css" href="lib/css/handsontable.full.min.css">
+    <link rel="stylesheet" type="text/css" href="lib/css/chartist.min.css">
+
+    <!-- CSS App -->
+    <link rel="stylesheet" type="text/css" href="css/chart.css">
+    <link rel="stylesheet" type="text/css" href="css/themes/flat-blue.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/app.css">
+
+    <!-- Javascript Libs -->
+    <script type="text/javascript" src="lib/js/jquery.min.js"></script>
+    <script type="text/javascript" src="lib/js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="lib/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="lib/js/lobipanel.js"></script>
+    <script type="text/javascript" src="lib/js/bootstrap-switch.min.js"></script>
+    <script type="text/javascript" src="lib/js/nunjucks.min.js"></script>
+    <script type="text/javascript" src="lib/js/handsontable.full.min.js"></script>
+    <script type="text/javascript" src="lib/js/papaparse.min.js"></script>
+    <script type="text/javascript" src="lib/js/simple_statistics.min.js"></script>
+    <script type="text/javascript" src="lib/js/statistics/wm.js"></script>
+    <script type="text/javascript" src="lib/js/statistics/kde.js"></script>
+    <script type="text/javascript" src="lib/js/statistics/skewness.js"></script>
+    <script type="text/javascript" src="lib/js/chartist.min.js"></script>
+    <script type="text/javascript" src="lib/js/chartist-plugin-errorbar.js"></script>
+    <script type="text/javascript" src="lib/js/lobibox.min.js"></script>
+
+    <!-- Javascript App -->
+    <script type="text/javascript" src="js/utils.js"></script>
+</head>
+
+<body class="flat-blue">
+
+<div id="app-container" class="app-container"></div>
+
+<!-- Loading the templates -->
+<script type="text/javascript">
+    nunjucks.configure('templates', {
+        autoescape: true
+    });
+    $('#app-container').html(nunjucks.render("app.html"));
+
+    $(function() {
+    $(".navbar-expand-toggle").click(function() {
+        $(".app-container").toggleClass("expanded");
+            return $(".navbar-expand-toggle").toggleClass("fa-rotate-90");
+        });
+        return $(".navbar-right-expand-toggle").click(function() {
+            $(".navbar-right").toggleClass("expanded");
+            return $(".navbar-right-expand-toggle").toggleClass("fa-rotate-90");
+        });
+    });
+
+    $(function() {
+        return $('.toggle-checkbox').bootstrapSwitch({
+            size: "small"
+        });
+    });
+
+    $(function() {
+        return $(".side-menu .nav .dropdown").on('show.bs.collapse', function() {
+            return $(".side-menu .nav .dropdown .collapse").collapse('hide');
+        });
+    });
+</script>
+
+<!-- App -->
+<script type="text/javascript" src="js/app.js"></script>
+
+<!-- Models -->
+<script type="text/javascript" src="models/data.model.js"></script>
+<script type="text/javascript" src="models/chart.model.js"></script>
+<script type="text/javascript" src="models/main.model.js"></script>
+
+<!-- Views -->
+<script type="text/javascript" src="views/data.view.js"></script>
+<script type="text/javascript" src="views/chart.view.js"></script>
+<script type="text/javascript" src="views/main.view.js"></script>
+
+<!-- Controllers -->
+<script type="text/javascript" src="controllers/data.controller.js"></script>
+<script type="text/javascript" src="controllers/chart.controller.js"></script>
+<script type="text/javascript" src="controllers/main.controller.js"></script>
+
+<!-- Template -->
+<script type="text/javascript" src="lib/js/template.js"></script>
+</body>
+</html>

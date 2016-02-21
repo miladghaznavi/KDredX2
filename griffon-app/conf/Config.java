@@ -23,16 +23,6 @@ public class Config extends AbstractMapResourceBundle {
                     .e("view", "org.mtv.MultiTechVisView")
                     .e("controller", "org.mtv.MultiTechVisController")
                 )
-                .e("data", map()
-                    .e("model", "org.mtv.DataModel")
-                    .e("view", "org.mtv.DataView")
-                    .e("controller", "org.mtv.DataController")
-                )
-                .e("chart", map()
-                    .e("model", "org.mtv.ChartModel")
-                    .e("view", "org.mtv.ChartView")
-                    .e("controller", "org.mtv.ChartController")
-                )
             );
     }
 }
