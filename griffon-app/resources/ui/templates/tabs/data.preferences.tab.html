@@ -1,0 +1,47 @@
+{% block dataPreferencesTab %}
+<h4 class="control-sidebar-heading">Interpreting Data</h4>
+<div class="form-group">
+    <select id="uncertaintySigma"
+            class="selectpicker"
+            data-width="80%"
+            data-title="Uncertainty Sigma">
+        <option value="1">1 <i>&sigma;</i></option>
+        <option value="2">2 <i>&sigma;</i></option>
+    </select>
+</div>
+<div class="form-group">
+    <select id="rejectionRange"
+            class="selectpicker"
+            data-width="80%"
+            data-title="Rejection Range">
+        <option value="0">No Rejection</option>
+        <option value="1">Outside of 1 <i>&sigma;</i></option>
+        <option value="2">Outside of 2 <i>&sigma;</i></option>
+    </select>
+</div>
+<hr />
+
+<h4 class="control-sidebar-heading">Bandwidth</h4>
+<div class="form-group">
+    <input id="bandwidthSlider" type="range" />
+</div>
+<hr />
+
+<h4 class="control-sidebar-heading">Text Data</h4>
+<div class="form-group">
+    <input id="showErrorBarTextData" type="checkbox" />
+    Error bar text
+</div>
+<div class="form-group">
+    <input id="showMeanTextData" type="checkbox" />
+    Mean text
+</div>
+<div class="form-group">
+    <input id="showRejectionTextData" type="checkbox" />
+    Rejection text
+</div>
+<div class="form-group">
+    <input id="showSkewnessTextData" type="checkbox" />
+    Skewness text
+</div>
+{% endblock %}

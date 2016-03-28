@@ -1,0 +1,57 @@
+{% block axisPreferencesTab %}
+<div class="form-group text-center">
+    <div class="btn-group btn-flat" data-toggle="buttons">
+        <label class="btn btn-default active">
+            <input id="ySelected" name="whichAxisStyles" type="radio">Y
+        </label>
+        <label class="btn btn-default">
+            <input id="xSelected" name="whichAxisStyles" type="radio">X
+        </label>
+    </div>
+</div>
+<hr />
+
+<!-- For Y Axis -->
+<div id="yAxisStyles">
+    <h4 class="control-sidebar-heading">Axis Scale</h4>
+    <div class="form-group">
+        <label style="font-weight: normal;">Low</label>
+        <input id="yAxisLow" class="pull-right" data-option="low" type="number">
+    </div>
+    <div class="form-group">
+        <label style="font-weight: normal;">High</label>
+        <input id="yAxisHigh" class="pull-right" data-option="high" type="number">
+    </div>
+    <div class="form-group">
+        <label style="font-weight: normal;">Divisor</label>
+        <input id="yAxisDivisor" class="pull-right" data-option="divisor" type="number">
+    </div>
+    <hr />
+
+    <h4 class="control-sidebar-heading">Grid Lines</h4>
+    <div class="form-group">
+        <div class="control-sidebar-subheading">
+            <input id="yGridCheckBox" type="checkbox" data-option="showGrid">
+            Show Grid Lines
+        </div>
+    </div>
+    <div class="form-group">
+        <select id="yGridLineStroke"
+                class="selectpicker"
+                data-width="100%"
+                data-title="Grid Line Stroke">
+            <option value="0">Solid Line</option>
+            <option value="1">Dashed</option>
+            <option value="2">Points</option>
+        </select>
+    </div>
+    <ul class="list-unstyled clearfix">
+        <li style="float:left; width: 79.5%; margin-right: 1px">
+            <input id="yGridLineWidth" class="form-control" type="number">
+        </li>
+        <li style="float:left; width: 19.5%; margin-left: 1px">
+            <input id="yGridLineColor" class="color form-control" type="color">
+        </li>
+    </ul>
+</div>
+{% endblock %}

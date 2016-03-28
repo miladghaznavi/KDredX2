@@ -11,14 +11,15 @@ function MainController() {
     };
 
     self.isFirstRowValid = function(dataModel) {
-        var valid = true;
-        // TODO: fix this for
-        for (var key in MainModel.dataModelToChartModelMap) {
-            if (isNaN(dataModel.getDataAtCell(0, dataModel[key]))) {
-                valid = false;
-                break;
-            }//if
-        }//for
+        var valid =
+            !isNaN(
+                dataModel.getDataAtCell(0,
+                    dataModel.valuesSelect)
+            ) &&
+            !isNaN(
+                dataModel.getDataAtCell(0,
+                    dataModel.uncertaintiesSelect)
+            );
 
         return valid;
     };
@@ -73,12 +74,9 @@ function MainController() {
             }//if
             else {
                 Util.notifyWarning("The data for the chart is empty!<br/>" +
-                    "Please select columns which at least have one valid row!");
+                    "Please select uncertainty and analyses columns which at least have one valid data!");
             }//else
         }//if
-        else {
-            Util.notifyWarning("One of selected columns are not valid!");
-        }//else
     };
 }
 

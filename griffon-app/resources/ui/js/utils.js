@@ -29,5 +29,9 @@ function Util(){
         title = typeof title !== 'undefined' ? title : 'Success';
         Util.notify('success', msg, title);
     };
+    
+    Util.log = function() {
+
+    };
 }
 Util();

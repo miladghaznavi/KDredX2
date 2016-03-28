@@ -75,6 +75,18 @@ function WeightedMean() {
         }//else
     };
 
+    WeightedMean.rejectedIndices = function(analyses, uncertainties, weightedMean, weightedUncertainty, s) {
+        var indices = [];
+
+        for (var i = 0; i < analyses.length && s > 0; ++i) {
+            if (!WeightedMean.intersect(analyses[i], uncertainties[i], weightedMean, weightedUncertainty, s)) {
+                indices.push(i);
+            }//if
+        }//for
+
+        return indices;
+    };
+
     WeightedMean.rejected = function(analyses, uncertainties, weightedMean, weightedUncertainty, s) {
         var rejected = 0;
 
@@ -114,10 +126,11 @@ function WeightedMean() {
         var weightedMean = WeightedMean.weightedMean(pAnalyses, pUncertainties);
         var weightedUncr = WeightedMean.weightedUncertainty(pAnalyses, pUncertainties);
         return {
-            weightedMean: weightedMean,
+            weightedMean:        weightedMean,
             weightedUncertainty: weightedUncr,
-            mswd: WeightedMean.meanSquareWeightedDeviation(pAnalyses, pUncertainties),
-            rejected: WeightedMean.rejected(pAnalyses, pUncertainties, weightedMean, weightedUncr, s)
+            mswd:                WeightedMean.meanSquareWeightedDeviation(pAnalyses, pUncertainties),
+            rejected:            WeightedMean.rejected(pAnalyses, pUncertainties, weightedMean, weightedUncr, s),
+            rejectedIndices:     WeightedMean.rejectedIndices(pAnalyses, pUncertainties, weightedMean, weightedUncr, s)
         };
     };
 }

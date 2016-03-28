@@ -1,28 +1,27 @@
 
-<div id="chart-panel" class="panel" data-reload="false" data-close="false" data-edit-title="false">
-    <div class="panel-heading">
-        <div class="panel-title">
-            <h4 id="chart-panel-title"></h4>
+<div id="chart-panel" class="box no-margin">
+    <div class="box-header with-border">
+        <h3 id="chart-panel-title" class="box-title"></h3>
+
+        <div class="box-tools pull-right">
+            <div class="btn-group">
+                <button type="button" class="btn btn-box-tool dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    <i class="fa fa-save"></i></button>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a id="saveChartAsPng" href="#">Save as .png</a></li>
+                    <li><a id="saveChartAsJpg" href="#">Save as .jpg</a></li>
+                    <li><a id="saveChartAsSvg" href="#">Save as .svg</a></li>
+                    <li><a id="saveChartAsPdf" href="#">Save as .pdf</a></li>
+                </ul>
+            </div>
+
+            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                <i class="fa fa-minus"></i>
+            </button>
         </div>
-        <!--<ul class="list-inline pull-right">-->
-            <!--<li>-->
-                <!--<div class="dropdown">-->
-                    <!--<a id="chartSaveDialog"-->
-                       <!--data-toggle="dropdown" class="dropdown-toggle"-->
-                        <!--aria-expanded="false">-->
-                        <!--<i class="fa fa-save" data-toggle="tooltip" title="Save-as" data-placement="right"></i>-->
-                    <!--</a>-->
-                    <!--<ul class="dropdown-menu dropdown-menu-right">-->
-                        <!--<li><a href="#" id="saveChartAsPng" filetype="png">Save-as .png</a></li>-->
-                        <!--<li><a href="#" id="saveChartAsSvg" filetype="svg">Save-as .svg</a></li>-->
-                        <!--<li><a href="#" id="saveChartAsPdf" filetype="pdf">Save-as .pdf</a></li>-->
-                    <!--</ul>-->
-                <!--</div>-->
-            <!--</li>-->
-        <!--</ul>-->
     </div>
 
-    <div id="chart-panel-body" class="panel-body">
+    <div id="chart-panel-body" class="box-body">
         <div id="chart-shown" class="row">
             <div class="col-lg-7">
                 <div id="weighted-mean-box">
@@ -48,9 +47,6 @@
                         </span>
                         <span id="mswd-info">
                             MSWD = <span id="mswd"></span>
-                        </span>
-                        <span id="meta-info">
-                            (error bars are 2s)
                         </span>
                     </div>
                 </div>

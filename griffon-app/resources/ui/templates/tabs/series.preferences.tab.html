@@ -1,0 +1,63 @@
+{% block seriesPreferencesTab %}
+<h4 class="control-sidebar-heading">Data Points &amp; Error Bars</h4>
+<div class="form-group">
+    <div class="row">
+        <div class="col-xs-6">
+            <div class="control-sidebar-subheading">
+                <input id="pointsCheckBox" type="checkbox" checked="">
+                Points
+            </div>
+        </div>
+        <div class="col-xs-6">
+            <div class="control-sidebar-subheading">
+                <input id="capsCheckBox" type="checkbox" checked="">
+                Caps
+            </div>
+        </div>
+    </div>
+</div>
+<ul class="list-unstyled clearfix">
+    <li style="float:left; width: 79.5%; margin-right: 1px">
+        <input id="errorBarWidth"
+               class="form-control"
+               style="width: 100%;"
+               type="number"
+               title="Error bar width" />
+    </li>
+    <li style="float:left; width: 19.5%; margin-left: 1px">
+        <input id="errorBarColor" type="button" class="color btn btn-flat" style="width: 100%;" title="Color" />
+    </li>
+</ul>
+<hr />
+
+<h4 class="control-sidebar-heading">Mean</h4>
+<ul class="list-unstyled clearfix">
+    <li style="float:left; width: 19.5%; margin-left: 1px">
+        <input id="meanColor" type="button" class="color btn btn-flat" style="width: 100%;" title="Color" />
+    </li>
+</ul>
+<hr />
+
+<h4 class="control-sidebar-heading">KDE</h4>
+<div class="form-group">
+    <ul class="list-unstyled clearfix">
+        <li style="float:left; width: 79.5%; margin-right: 1px">
+            <input id="kdeSeriesWidth"
+                   class="form-control"
+                   style="width: 100%;"
+                   type="number"
+                   title="KDE series width" />
+        </li>
+        <li style="float:left; width: 19.5%; margin-left: 1px">
+            <input id="kdeSeriesColor" type="button" class="color btn btn-flat" style="width: 100%;" title="Color" />
+        </li>
+    </ul>
+</div>
+<div class="form-group">
+    <input id="kdeChartWidth"
+           class="form-control"
+           style="width: 80%;"
+           type="number"
+           title="KDE width" />
+</div>
+{% endblock %}

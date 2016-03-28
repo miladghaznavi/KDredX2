@@ -15,7 +15,7 @@ function ChartModel(id, title, dirty, dataAvailable) {
     // Values and uncertainties
     self.values = null;
     self.uncertainties = null;
-    self.s = null;
+    self.sigma = null;
 
     // Weighted mean
     self.weightedMean = null;
@@ -28,7 +28,7 @@ function ChartModel(id, title, dirty, dataAvailable) {
     // Kernel Density Estimation
     self.X = null;
     self.kernelFunction = null;
-    self.h = null;
+    self.bandwidth = null;
     self.kde = null;
 
     // Skewness
@@ -39,8 +39,8 @@ function ChartModel(id, title, dirty, dataAvailable) {
         uncertainties: 'uncertainties',
         KernelFunction:'kernelFunction',
         X:             'X',
-        h:             'h',
-        s:             's'
+        bandwidth:     'bandwidth',
+        sigma:         'sigma'
     };
 
     self.init = function(options) {
@@ -61,28 +61,19 @@ function ChartModel(id, title, dirty, dataAvailable) {
                 self.X = data;
                 break;
 
-            case ChartModel.DataNames.h:
-                self.h = data;
+            case ChartModel.DataNames.bandwidth:
+                self.bandwidth = data;
                 break;
 
-            case ChartModel.DataNames.s:
-                self.s = data;
+            case ChartModel.DataNames.sigma:
+                self.sigma = data;
                 break;
 
             case ChartModel.DataNames.KernelFunction:
-                if (value == KernelDensityEstimation.KernelFunction.epanechnikov) {
-                    self.kernelFunction = KernelDensityEstimation.KernelFunction.epanechnikov;
-                }//if
-                else if(value == KernelDensityEstimation.KernelFunction.gaussian) {
-                    self.kernelFunction = KernelDensityEstimation.KernelFunction.gaussian;
-                }//else if
-                else {
-                    //TODO:error
-                }//else
+                self.kernelFunction = data;
                 break;
 
             default:
-                //TODO: error
                 break;
         }//switch
     };
@@ -102,12 +93,12 @@ function ChartModel(id, title, dirty, dataAvailable) {
                 data = self.X;
                 break;
 
-            case ChartModel.DataNames.h:
-                data = self.h;
+            case ChartModel.DataNames.bandwidth:
+                data = self.bandwidth;
                 break;
 
-            case ChartModel.DataNames.s:
-                data = self.s;
+            case ChartModel.DataNames.sigma:
+                data = self.sigma;
                 break;
 
             case ChartModel.DataNames.KernelFunction:
@@ -115,7 +106,6 @@ function ChartModel(id, title, dirty, dataAvailable) {
                 break;
 
             default:
-                // TODO: error
                 break;
         }//switch
         return data;

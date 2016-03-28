@@ -15,7 +15,7 @@ function MainView(id) {
 
     self.registerEvents = function() {
         var controller = app.getController(self.id);
-        $('#drawButton').click(controller.plot);
+        $('#plotButton').click(controller.plot);
     };
 
     $(function() {

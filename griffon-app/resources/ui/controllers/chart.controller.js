@@ -23,13 +23,17 @@ function ChartController() {
 
     };
 
-    self.saveAs = function () {
-
+    self.saveAs = function (event) {
+        Util.notifyInfo(event.data.type);
     };
 
     self.saveEvent = function () {
 
     };
+
+    self.replot = function(event) {
+        Util.notifyInfo(event.data.options);
+    }
 }
 
 app.registerClass(ChartController);

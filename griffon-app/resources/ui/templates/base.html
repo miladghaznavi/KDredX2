@@ -1,60 +1,80 @@
-<div class="row content-container">
-    <nav class="navbar navbar-default navbar-fixed-top navbar-top">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-expand-toggle">
-                    <i class="fa fa-bars icon"></i>
-                </button>
+<!-- Main Header -->
+<header class="main-header">
 
-                {% block header %}
-                {% endblock %}
-            </div>
+    <!-- Logo -->
+    <a href="#" class="logo">
+        <!-- mini logo for sidebar mini 50x50 pixels -->
+        <span class="logo-mini"><b>M</b>TV</span>
+        <!-- logo for regular state and mobile devices -->
+        <span class="logo-lg"><b>Multi</b> Tech Vis</span>
+    </a>
 
-            {% block rightsidebar %}
-            {% endblock %}
+    <!-- Header Navbar -->
+    <nav class="navbar navbar-static-top" role="navigation">
+        <!-- Sidebar toggle button-->
+        <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Toggle navigation</span>
+        </a>
+
+        {% block header %}
+        {% endblock %}
+
+        <!-- Navbar Right Menu -->
+        <div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">
+                <!-- Control Sidebar Toggle Button -->
+                <li>
+                    <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+                </li>
+            </ul>
         </div>
     </nav>
-    <div id="sideControls" class="side-menu sidebar-inverse">
-        <nav class="navbar navbar-default" role="navigation">
-            <div class="side-menu-container">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="#">
-                        <div class="icon fa fa-leaf"></div>
-                        <div class="title">Multi Tech Vis</div>
-                    </a>
-                    <button type="button" class="navbar-expand-toggle pull-right visible-xs">
-                        <i class="fa fa-times icon"></i>
-                    </button>
-                </div>
-                {% block leftsidebar %}
+</header>
+
+<!-- Left side column. contains the logo and sidebar -->
+<aside class="main-sidebar">
+
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+        {% block leftsidebar %}
+        {% endblock %}
+    </section>
+    <!-- /.sidebar -->
+</aside>
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Main content -->
+    <section class="content no-padding">
+        <!-- Your Page Content Here -->
+        <div class="row">
+            <div id="spreadsheet-container" class="col-lg-12">
+                {% block dataplace %}
                 {% endblock %}
             </div>
-        </nav>
-    </div>
-
-    <!-- Main Content -->
-    <div class="container-fluid">
-        <div id="middle-content" class="side-body padding-top">
-            <div class="row">
-                <div id="spreadsheet-container" class="col-lg-12">
-                    {% block dataplace %}
-                    {% endblock %}
-                </div>
-            </div>
-            <div class="row">
-                <div id="chart-container" class="col-lg-12">
-                    {% block chartplace %}
-                    {% endblock %}
-                </div>
+        </div>
+        <div class="row">
+            <div id="chart-container" class="col-lg-12">
+                {% block chartplace %}
+                {% endblock %}
             </div>
         </div>
-    </div>
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
 
-    <!-- Main Sidebar -->
+<footer class="main-footer">
+    {% block footer %}
+    {% endblock %}
+</footer>
+
+<!-- Control Sidebar -->
+<aside class="control-sidebar control-sidebar-light">
     {% block controlsidebar %}
     {% endblock %}
-    <div class="control-sidebar-bg"></div>
-</div>
-
-{% block footer %}
-{% endblock %}
+</aside>
+<!-- /.control-sidebar -->
+<!-- Add the sidebar's background. This div must be placed
+     immediately after the control sidebar -->
+<div class="control-sidebar-bg"></div>

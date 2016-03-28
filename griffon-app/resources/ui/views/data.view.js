@@ -10,50 +10,16 @@ function DataView(id) {
 
     self.update = function () {
         if (app.getModel(self.id) != null) {
-            var controller = app.getController(self.id);
             $('#data-title').text(app.getModel(self.id).title);
-
-            $('#data-panel').lobiPanel({
-                unpin: false,
-                customControls: [
-                    {
-                        id: 'dataOpenDialog',
-                        func: 'open',
-                        tooltip: 'Open data file',
-                        icon: 'fa fa-folder-open',
-                        click: controller.openEvent
-                    },
-                    {
-                        id: 'dataSaveDialog',
-                        func: 'save',
-                        tooltip: 'Save data file',
-                        icon: 'fa fa-save',
-                        click: controller.saveEvent
-                    }
-                ]
-            });
 
             self.loadSpreadsheet(app.getModel(self.id).data);
             var headers = $("#spreadsheet").handsontable("getColHeader");
 
             // Weighted mean
-            self.renewSelect('#analysesSelect', headers);
-            $('<option>', {value: '-1'}).text('Select analyses column').prependTo('#analysesSelect');
+            self.renewSelect('#valuesSelect', headers);
+            // $('<option>', {value: '-1'}).text('Select values column').prependTo('#valuesSelect');
             self.renewSelect('#uncertaintiesSelect', headers);
-            $('<option>', {value: '-1'}).text('Select uncertainties column').prependTo('#uncertaintiesSelect');
-
-            // Reduced Chi-Squared
-            self.renewSelect('#observedSelect', headers);
-            $('<option>', {value: '-1'}).text('Select observed column').prependTo('#observedSelect');
-            self.renewSelect('#expectedSelect', headers);
-            $('<option>', {value: '-1'}).text('Select expected column').prependTo('#expectedSelect');
-
-            // Kernel Density Estimation
-            //$("#kernelFunctionSelect").val($("#kernelFunctionSelect option:first").val());
-            self.renewSelect('#XSelect', headers);
-            $('<option>', {value: '-1'}).text('Select X column').prependTo('#XSelect');
-            self.renewSelect('#XiSelect', headers);
-            $('<option>', {value: '-1'}).text('Select Xi column').prependTo('#XiSelect');
+            // $('<option>', {value: '-1'}).text('Select uncertainties column').prependTo('#uncertaintiesSelect');
         }//if
     };
 
@@ -64,6 +30,13 @@ function DataView(id) {
             $el.append($("<option></option>")
                 .attr("value", key).text(value));
         });
+
+        try {
+            $(selectId).selectpicker('refresh');
+        }//try
+        catch(e){
+            Util.log();
+        }//catch
     };
 
     self.loadSpreadsheet = function (data) {
@@ -111,20 +84,15 @@ function DataView(id) {
 
     self.registerEvents = function() {
         var controller = app.getController(id);
-        //$('#dataOpenDialog'  ).click (controller.openEvent);
+        $('#dataOpenDialog').click (controller.openEvent);
+        $('#dataSaveDialog').click (controller.saveEvent);
         $('#inputSpreadsheet').change(controller.loadCsv);
 
         // Weighted mean
-        $('#analysesSelect').on('change', controller.selectChanged);
+        $('#valuesSelect').on('change', controller.selectChanged);
         $('#uncertaintiesSelect').on('change', controller.selectChanged);
 
-        // Reduced Chi-Squared
-        $('#observedSelect').on('change', controller.selectChanged);
-        $('#expectedSelect').on('change', controller.selectChanged);
-
         // Kernel Density Estimation
-        $('#XSelect').on('change', controller.selectChanged);
-        $('#XiSelect').on('change', controller.selectChanged);
         $('#kernelFunctionSelect').on('change', controller.kernelFunctionChanged);
     };
 

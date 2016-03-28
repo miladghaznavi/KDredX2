@@ -1,31 +1,25 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-    <title>Multi Tech Vis</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <title>Multi Technique Visualization</title>
 
-    <!-- CSS Libs -->
-    <link rel="stylesheet" type="text/css" href="lib/css/jquery-ui.min.css">
     <link rel="stylesheet" type="text/css" href="lib/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="lib/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="lib/css/lobipanel.min.css">
+    <link rel="stylesheet" type="text/css" href="lib/css/AdminLTE.min.css">
+    <link rel="stylesheet" type="text/css" href="lib/css/skin-blue-light.css">
     <link rel="stylesheet" type="text/css" href="lib/css/lobibox.min.css">
     <link rel="stylesheet" type="text/css" href="lib/css/handsontable.full.min.css">
     <link rel="stylesheet" type="text/css" href="lib/css/chartist.min.css">
-
-    <!-- CSS App -->
-    <link rel="stylesheet" type="text/css" href="css/chart.css">
-    <link rel="stylesheet" type="text/css" href="css/themes/flat-blue.css">
+    <link rel="stylesheet" type="text/css" href="lib/css/pace.min.css">
+    <link rel="stylesheet" type="text/css" href="lib/css/bootstrap-select.min.css">
+    <link rel="stylesheet" type="text/css" href="lib/css/ion.rangeSlider.css">
+    <link rel="stylesheet" type="text/css" href="lib/css/ion.rangeSlider.skinFlat.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
-    <link rel="stylesheet" type="text/css" href="css/app.css">
 
-    <!-- Javascript Libs -->
     <script type="text/javascript" src="lib/js/jquery.min.js"></script>
     <script type="text/javascript" src="lib/js/jquery-ui.min.js"></script>
     <script type="text/javascript" src="lib/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="lib/js/lobipanel.js"></script>
-    <script type="text/javascript" src="lib/js/bootstrap-switch.min.js"></script>
     <script type="text/javascript" src="lib/js/nunjucks.min.js"></script>
     <script type="text/javascript" src="lib/js/handsontable.full.min.js"></script>
     <script type="text/javascript" src="lib/js/papaparse.min.js"></script>
@@ -36,15 +30,19 @@
     <script type="text/javascript" src="lib/js/chartist.min.js"></script>
     <script type="text/javascript" src="lib/js/chartist-plugin-errorbar.js"></script>
     <script type="text/javascript" src="lib/js/lobibox.min.js"></script>
+    <script type="text/javascript" src="lib/js/bootstrap-select.min.js"></script>
+    <script type="text/javascript" src="lib/js/ion.rangeSlider.min.js"></script>
+    <script type="text/javascript" src="lib/js/pace.js"></script>
+    <script type="text/javascript" src="lib/js/jqColorPicker.min.js"></script>
 
     <!-- Javascript App -->
     <script type="text/javascript" src="js/utils.js"></script>
 </head>
 
-<body class="flat-blue">
+<body class="sidebar-mini skin-blue-light">
+<div id="app-container" class="wrapper">
 
-<div id="app-container" class="app-container"></div>
-
+</div>
 <!-- Loading the templates -->
 <script type="text/javascript">
     nunjucks.configure('templates', {
@@ -52,29 +50,47 @@
     });
     $('#app-container').html(nunjucks.render("app.html"));
 
-    $(function() {
-    $(".navbar-expand-toggle").click(function() {
-        $(".app-container").toggleClass("expanded");
-            return $(".navbar-expand-toggle").toggleClass("fa-rotate-90");
-        });
-        return $(".navbar-right-expand-toggle").click(function() {
-            $(".navbar-right").toggleClass("expanded");
-            return $(".navbar-right-expand-toggle").toggleClass("fa-rotate-90");
-        });
-    });
-
-    $(function() {
-        return $('.toggle-checkbox').bootstrapSwitch({
-            size: "small"
-        });
-    });
-
-    $(function() {
-        return $(".side-menu .nav .dropdown").on('show.bs.collapse', function() {
-            return $(".side-menu .nav .dropdown .collapse").collapse('hide');
-        });
-    });
+    //    $(function() {
+//        $(".navbar-expand-toggle").click(function() {
+//            $(".app-container").toggleClass("expanded");
+//            return $(".navbar-expand-toggle").toggleClass("fa-rotate-90");
+//        });
+//        return $(".navbar-right-expand-toggle").click(function() {
+//            $(".navbar-right").toggleClass("expanded");
+//            return $(".navbar-right-expand-toggle").toggleClass("fa-rotate-90");
+//        });
+//    });
+//
+//    $(function() {
+//        return $('.toggle-checkbox').bootstrapSwitch({
+//            size: "small"
+//        });
+//    });
+//
+//    $(function() {
+//        return $(".side-menu .nav .dropdown").on('show.bs.collapse', function() {
+//            return $(".side-menu .nav .dropdown .collapse").collapse('hide');
+//        });
+//    });
 </script>
+
+<!-- AdminLTE -->
+<script>
+    var AdminLTEOptions = {
+        controlSidebarOptions: {
+            slide: false
+        }
+    };
+    var paceOptions = {
+        ajax: false, // disabled
+        document: true, // disabled
+        eventLag: true, // disabled
+        elements: {
+            selectors: ['#spreadsheet']
+        }
+    };
+</script>
+<script type="text/javascript" src="lib/js/app.min.js"></script>
 
 <!-- App -->
 <script type="text/javascript" src="js/app.js"></script>
@@ -94,7 +110,5 @@
 <script type="text/javascript" src="controllers/chart.controller.js"></script>
 <script type="text/javascript" src="controllers/main.controller.js"></script>
 
-<!-- Template -->
-<script type="text/javascript" src="lib/js/template.js"></script>
 </body>
 </html>

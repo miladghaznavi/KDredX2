@@ -27,20 +27,7 @@ function ChartView(id) {
     self.update = function(options) {
         var model = app.getModel(id);
         var controller = app.getController(self.id);
-
-        $('#chart-panel').lobiPanel({
-            unpin: false,
-            customControls: [
-                {
-                    id: 'chartSaveDialog',
-                    func: 'save',
-                    tooltip: 'Save chart',
-                    icon: 'fa fa-save',
-                    click: controller.saveEvent
-                }
-            ]
-        });
-
+        
         if (model.dataAvailable) {
             $('#chart-shown').show();
             $('#chart-not-shown').hide();
@@ -89,9 +76,15 @@ function ChartView(id) {
 
     self.registerEvents = function() {
         var controller = app.getController(self.id);
-        $('#saveChartAsPng').click(controller.saveAs);
-        $('#saveChartAsSvg').click(controller.saveAs);
-        $('#saveChartAsPdf').click(controller.saveAs);
+        $('#saveChartAsPng').click({type:'png'}, controller.saveAs);
+        $('#saveChartAsJpg').click({type:'jpg'}, controller.saveAs);
+        $('#saveChartAsSvg').click({type:'svg'}, controller.saveAs);
+        $('#saveChartAsPdf').click({type:'pdf'}, controller.saveAs);
+
+        // Color pickers
+        $('.color').colorPicker({
+            flat: true
+        });
     };
 
     self.drawWeightedMeanChart = function(options) {

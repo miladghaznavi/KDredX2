@@ -1,13 +1,26 @@
 <input id="inputSpreadsheet" class="hidden-input" type="file" />
 
-<div id="data-panel" class="panel" data-reload="false" data-close="false" data-edit-title="false">
-    <div class="panel-heading">
-        <div class="panel-title">
-            <h4 id="data-title"></h4>
+<div id="data-panel" class="box no-margin">
+    <div class="box-header with-border">
+        <h3 id="data-title" class="box-title"></h3>
+
+        <div class="box-tools pull-right">
+            <button id="dataOpenDialog" type="button" class="btn btn-box-tool" data-toggle="tooltip" title="Open">
+                <i class="fa fa-folder-open"></i>
+            </button>
+
+            <button id="dataSaveDialog" type="button" class="btn btn-box-tool" data-toggle="tooltip" title="Save">
+                <i class="fa fa-floppy-o"></i>
+            </button>
+
+            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                <i class="fa fa-minus"></i>
+            </button>
         </div>
     </div>
-
-    <div id="spreadsheet-panel-body" class="panel-body">
-        <div id="spreadsheet" class="dataTable spreadsheet"></div>
+    <div class="box-body no-padding">
+        <div id="spreadsheet-panel-body">
+            <div id="spreadsheet" class="dataTable spreadsheet"></div>
+        </div>
     </div>
 </div>

@@ -10,16 +10,13 @@ function MainModel(id) {
         // Data
         valuesSelect        : 'values',
         uncertaintiesSelect : 'uncertainties',
-
-        // Weighted Mean
-        //TODO: find a good name
-        s                   : 's',
-
+        
         // Kernel Function
-        kernelFunctionSelect: 'kernelFunction',
-        //TODO: find good names
-        X                   : 'X',
-        Bandwidth           : 'h'
+        kernelFunctionSelect: 'kernelFunction'
+    };
+
+    MainModel.chartModelToDataModelMao = {
+        //
     };
 
     self.init = function (args) {

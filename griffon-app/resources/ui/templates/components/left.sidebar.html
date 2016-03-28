@@ -1,126 +1,44 @@
 {% block leftsidebar %}
-<ul class="nav navbar-nav">
-    <!-- Weighted mean -->
-    <li class="panel panel-default dropdown">
-        <a data-toggle="collapse" href="#weightedMeanPanel">
-            <span class="icon">W</span><span class="title">Weighted Mean</span>
+<ul class="sidebar-menu">
+    <!-- Weighted Mean -->
+    <li class="header">Select Data</li>
+    <li class="treeview">
+        <a href="#">
+            <i class="fa fa-plug"></i>
+            <span>Weighted Mean</span>
+            <i class="fa fa-angle-left pull-right"></i>
         </a>
-        <div id="weightedMeanPanel" class="panel-collapse collapse">
-            <div class="panel-body">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a>
-                            <div class="form-inline">
-                                <div class="form-group">
-                                    <select id="analysesSelect" title="Weighted Mean"
-                                        class="form-control" data-toggle="tooltip">
-                                    </select>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a>
-                            <div class="form-inline">
-                                <div class="form-group">
-                                    <select id="uncertaintiesSelect" title="Uncertainties"
-                                        class="form-control" data-toggle="tooltip">
-                                    </select>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
+        <ul class="treeview-menu">
+            <li>
+                <select id="valuesSelect"
+                        data-title="Values"
+                        class="selectpicker"
+                        data-width="97%">
+                </select>
+            </li>
+            <li>
+                <select id="uncertaintiesSelect"
+                        data-title="Uncertainties"
+                        class="selectpicker"
+                        data-width="97%">
+                </select>
+            </li>
+        </ul>
     </li>
 
-    <!-- Reduced Chi-Squared -->
-    <li class="panel panel-default dropdown">
-        <a data-toggle="collapse" href="#reducedChiSquaredPanel">
-            <span class="icon">R</span><span class="title">Reduced Chi-Squared</span>
-        </a>
-        <div id="reducedChiSquaredPanel" class="panel-collapse collapse">
-            <div class="panel-body">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a>
-                            <div class="form-inline">
-                                <div class="form-group">
-                                    <select id="observedSelect" title="Observed"
-                                            class="form-control" data-toggle="tooltip">
-                                    </select>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a>
-                            <div class="form-inline">
-                                <div class="form-group">
-                                    <select id="expectedSelect" title="Expected"
-                                            class="form-control" data-toggle="tooltip">
-                                    </select>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
+    <!-- Draw Button -->
+    <li class="header">Plot Chart</li>
+    <li class="treeview text-center">
+        <button id="plotButton"
+                class="btn btn-flat btn-primary inline"
+                data-placement="bottom"
+                type="button"
+                data-toggle="tooltip"
+                title="Plot Chart"
+                style="margin-left: 2px; width: 95%;">
+            <i class="fa fa-magic"></i>
+            <span class="hidden-collapse">Plot</span>
+        </button>
     </li>
-
-    <!-- Kernel Density Estimation -->
-    <li class="panel panel-default dropdown">
-        <a data-toggle="collapse" href="#kernelDensityEstimation">
-            <span class="icon">K</span><span class="title">Kernel Density Estimation</span>
-        </a>
-        <div id="kernelDensityEstimation" class="panel-collapse collapse">
-            <div class="panel-body">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a>
-                            <div class="form-inline">
-                                <div class="form-group">
-                                    <select id="kernelFunctionSelect" title="Kernel Function"
-                                            class="form-control" data-toggle="tooltip">
-                                        <option value="-1">Select Kernel Function</option>
-                                        <option value="epanechnikov">Epanechnikov</option>
-                                        <option value="gaussian">Gaussian</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a>
-                            <div class="form-inline">
-                                <div class="form-group">
-                                    <select id="XSelect" title="X"
-                                            class="form-control" data-toggle="tooltip">
-                                    </select>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a>
-                            <div class="form-inline">
-                                <div class="form-group">
-                                    <select id="XiSelect" title="Xi"
-                                            class="form-control" data-toggle="tooltip">
-                                    </select>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </li>
-
 </ul>
 {% endblock %}
