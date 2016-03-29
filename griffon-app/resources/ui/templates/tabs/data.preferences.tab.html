@@ -1,47 +1,64 @@
 {% block dataPreferencesTab %}
 <h4 class="control-sidebar-heading">Interpreting Data</h4>
-<div class="form-group">
-    <select id="uncertaintySigma"
-            class="selectpicker"
-            data-width="80%"
-            data-title="Uncertainty Sigma">
-        <option value="1">1 <i>&sigma;</i></option>
-        <option value="2">2 <i>&sigma;</i></option>
-    </select>
-</div>
-<div class="form-group">
-    <select id="rejectionRange"
-            class="selectpicker"
-            data-width="80%"
-            data-title="Rejection Range">
-        <option value="0">No Rejection</option>
-        <option value="1">Outside of 1 <i>&sigma;</i></option>
-        <option value="2">Outside of 2 <i>&sigma;</i></option>
-    </select>
+<div class="form-horizontal">
+    <div class="form-group">
+        <label for="uncertaintyInterpret" class="col-sm-4 control-label">Uncertainty</label>
+        <div class="col-sm-8">
+            <select id="uncertaintyInterpret"
+                    class="selectpicker"
+                    data-width="100%"
+                    data-title="Uncertainty">
+                <option value="1" selected>1 <i>&sigma;</i></option>
+                <option value="2">2 <i>&sigma;</i></option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="rejectionRange" class="col-sm-4 control-label">Rejection</label>
+        <div class="col-sm-8">
+            <select id="rejectionRange"
+                    class="selectpicker"
+                    data-width="100%"
+                    data-title="Rejection Range">
+                <option value="1" selected>Outside 1 <i>&sigma;</i></option>
+                <option value="2">Outside 2 <i>&sigma;</i></option>
+                <option value="0">No Rejection</option>
+            </select>
+        </div>
+    </div>
 </div>
 <hr />
 
-<h4 class="control-sidebar-heading">Bandwidth</h4>
-<div class="form-group">
-    <input id="bandwidthSlider" type="range" />
-</div>
-<hr />
+<h4 class="control-sidebar-heading">Kernel Density Estimation</h4>
+<div class="form-horizontal">
+    <div class="form-group">
+        <label for="variablesCount" class="col-sm-7 control-label" style="text-align: left;">Variables Count</label>
+        <div class="col-sm-12">
+            <input id="variablesCount" class="form-controls" />
+        </div>
+    </div>
 
-<h4 class="control-sidebar-heading">Text Data</h4>
-<div class="form-group">
-    <input id="showErrorBarTextData" type="checkbox" />
-    Error bar text
+    <div class="form-group">
+        <label for="kernelFunction" class="col-sm-4 control-label">Function</label>
+        <div class="col-sm-8">
+            <select id="kernelFunction"
+                    title="Kernel Function"
+                    data-title="Kernel Function"
+                    class="selectpicker"
+                    data-width="100%">
+                <option value="gaussian" selected>Gaussian</option>
+                <option value="epanechnikov">Epanechnikov</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="bandwidth" class="col-sm-4 control-label">Bandwidth</label>
+        <div class="col-sm-8">
+            <input id="bandwidth" type="number" class="form-controls" style="width: 100%;" />
+        </div>
+    </div>
 </div>
-<div class="form-group">
-    <input id="showMeanTextData" type="checkbox" />
-    Mean text
-</div>
-<div class="form-group">
-    <input id="showRejectionTextData" type="checkbox" />
-    Rejection text
-</div>
-<div class="form-group">
-    <input id="showSkewnessTextData" type="checkbox" />
-    Skewness text
-</div>
+
 {% endblock %}

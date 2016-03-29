@@ -1,11 +1,11 @@
 {% block leftsidebar %}
 <ul class="sidebar-menu">
     <!-- Weighted Mean -->
-    <li class="header">Select Data</li>
+    <li class="header">Select Values and Uncertainties</li>
     <li class="treeview">
         <a href="#">
             <i class="fa fa-plug"></i>
-            <span>Weighted Mean</span>
+            <span>Select Data</span>
             <i class="fa fa-angle-left pull-right"></i>
         </a>
         <ul class="treeview-menu">
@@ -21,27 +21,6 @@
                         data-title="Uncertainties"
                         class="selectpicker"
                         data-width="97%">
-                </select>
-            </li>
-        </ul>
-    </li>
-
-    <!-- Kernel Density Estimation -->
-    <li class="treeview">
-        <a href="#">
-            <i class="fa fa-delicious"></i>
-            <span>Kernel Density Function</span>
-            <i class="fa fa-angle-left pull-right"></i>
-        </a>
-        <ul class="treeview-menu">
-            <li>
-                <select id="kernelFunctionSelect"
-                        title="Kernel Function"
-                        data-title="Kernel Function"
-                        class="selectpicker"
-                        data-width="97%">
-                    <option value="epanechnikov" selected>Epanechnikov</option>
-                    <option value="gaussian">Gaussian</option>
                 </select>
             </li>
         </ul>

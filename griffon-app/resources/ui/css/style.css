@@ -20,6 +20,10 @@
     margin-bottom: 5px;
 }
 
+.control-label {
+    font-weight: normal;
+}
+
 .cp-color-picker {
     z-index: 2000;
 }

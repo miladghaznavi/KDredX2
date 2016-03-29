@@ -8,7 +8,10 @@ function ChartView(id) {
         // Chart options
         titleCheckBox: '#titleCheckBox',
         borderCheckBox: '#borderCheckBox',
-        legendCheckBox: '#legendCheckBox',
+        legendCheckBox: '#legendCheckBox'
+    };
+
+    self.settings = {
         // Chart font
         fontFamilySelect: '#fontFamilySelect',
         fontWeightSelect: '#fontWeightSelect',
@@ -74,6 +77,30 @@ function ChartView(id) {
         self.updateKDEChart(options);
     };
 
+    self.setBandwidth = function (bandwidth, noEvent) {
+        noEvent = (noEvent == undefined) ? true : false;
+        if (noEvent) {
+            $('#bandwidth').attr('disabled','disabled');
+        }//if
+        $('#bandwidth').text(bandwidth);
+        if (noEvent) {
+            $('#bandwidth').removeAttr('disabled');
+        }//if
+    };
+
+    self.setVariablesCount = function (value, noEvent) {
+        noEvent = (noEvent == undefined) ? true : false;
+        if (noEvent) {
+            $('#variablesCount').attr('disabled','disabled');
+        }//if
+        $('#variablesCount').data.update({
+            from: value
+        });
+        if (noEvent) {
+            $('#variablesCount').removeAttr('disabled');
+        }//if
+    };
+
     self.registerEvents = function() {
         var controller = app.getController(self.id);
         $('#saveChartAsPng').click({type:'png'}, controller.saveAs);
@@ -85,6 +112,13 @@ function ChartView(id) {
         $('.color').colorPicker({
             flat: true
         });
+
+        // Interpret data
+        $('#kernelFunction').on('change', controller.kernelFunctionChange);
+        $('#uncertaintyInterpret').on('change', controller.uncertaintyInterpretChange);
+        $('#rejectionRange').on('change', controller.rejectionRangeChange);
+        $('#bandwidth').on('change', controller.bandwidthChange);
+        $('#variablesCount').on('change', controller.variablesCountChange);
     };
 
     self.drawWeightedMeanChart = function(options) {

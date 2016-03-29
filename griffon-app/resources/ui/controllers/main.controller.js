@@ -27,32 +27,18 @@ function MainController() {
     self.setChartDataModel = function(dataModel, chartModel) {
         var excludeFirstRow = !self.isFirstRowValid(dataModel);
 
-        var minSize = Number.MAX_VALUE;
-        for (var key in MainModel.dataModelToChartModelMap) {
-            if (MainModel.dataModelToChartModelMap[key] != MainModel.dataModelToChartModelMap.KernelFunctionSelect) {
-                var arr = dataModel.getDataAtCol(dataModel[key], excludeFirstRow, parseFloat);
-                minSize = Math.min(minSize, arr.length);
+        chartModel.values        = dataModel.getDataAtCol(dataModel.valuesSelect, excludeFirstRow, parseFloat);
+        chartModel.uncertainties = dataModel.getDataAtCol(dataModel.uncertaintiesSelect, excludeFirstRow, parseFloat);
+        var minSize = Math.min(chartModel.values.length, chartModel.uncertainties.length);
 
-                for (var i = 0; i < minSize; ++i) {
-                    if (isNaN(arr[i])) {
-                        minSize = i;
-                        break;
-                    }//if
-                }//for
-                chartModel[MainModel.dataModelToChartModelMap[key]] = arr;
+        for (var i = 0; i < minSize; ++i) {
+            if (isNaN(chartModel.values[i]) || isNaN(chartModel.uncertainties[i])) {
+                minSize = i;
+                break;
             }//if
-            else {
-                chartModel[MainModel.dataModelToChartModelMap[key]] = dataModel[key];
-            }//else
         }//for
-
-        // refine data
-        for (var key in MainModel.dataModelToChartModelMap) {
-            if (MainModel.dataModelToChartModelMap[key] != MainModel.dataModelToChartModelMap.KernelFunctionSelect) {
-                chartModel[MainModel.dataModelToChartModelMap[key]] =
-                    chartModel[MainModel.dataModelToChartModelMap[key]].slice(0, minSize);
-            }//if
-        }//if
+        chartModel.values        = chartModel.values.slice(0, minSize);
+        chartModel.uncertainties = chartModel.uncertainties.slice(0, minSize);
 
         if (minSize > 0) {
             // set data availability flag in chart model
@@ -77,6 +63,9 @@ function MainController() {
                     "Please select uncertainty and analyses columns which at least have one valid data!");
             }//else
         }//if
+        else {
+            Util.notifyError("Please select two columns as values and uncertainties!");
+        }//else
     };
 }
 

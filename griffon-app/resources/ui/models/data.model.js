@@ -1,9 +1,11 @@
 function DataModel(id, path, dirty, data) {
     var self = this;
+
     DataModel.DEFAULT_ROWS_COUNT = 50;
     DataModel.DEFAULT_COLUMNS_COUNT = 20;
     DataModel.INVALID_COLUMN = -1;
-
+    DataModel.INVALID_VALUE = -1;
+    
     id    = (typeof id    !== 'undefined') ? id: null;
     path  = (typeof path  !== 'undefined') ? path : '';
     dirty = (typeof dirty !== 'undefined') ? dirty: false;
@@ -32,9 +34,6 @@ function DataModel(id, path, dirty, data) {
     // Weighted mean
     self.valuesSelect = DataModel.INVALID_COLUMN;
     self.uncertaintiesSelect = DataModel.INVALID_COLUMN;
-
-    // Kernel Density Estimation
-    self.KernelFunctionSelect = DataModel.INVALID_COLUMN;
 
     self.init = function (args) {
 

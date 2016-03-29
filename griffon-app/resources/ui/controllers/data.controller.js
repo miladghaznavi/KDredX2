@@ -106,11 +106,11 @@ function DataController() {
     };
 
     self.areValuesValid = function() {
-        return self.valuesSelect != DataModel.INVALID_COLUMN;
+        return self.model.valuesSelect != DataModel.INVALID_COLUMN;
     };
 
     self.areUncertaintiesValid = function() {
-        return self.uncertaintiesSelect != DataModel.INVALID_COLUMN;
+        return self.model.uncertaintiesSelect != DataModel.INVALID_COLUMN;
     };
 
     self.areSelectsValid = function() {

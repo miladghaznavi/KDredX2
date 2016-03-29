@@ -3,6 +3,13 @@ function DataView(id) {
     id = typeof id !== 'undefined' ? id : null;
     self.id = id;
 
+    DataView.controls = {
+        kernelFunction: '#kernelFunction',
+        uncertainty: '#uncertainty',
+        rejectionRange: '#rejectionRange',
+        bandwidth: '#bandwidth'
+    };
+
     self.init = function(args) {
         self.update();
         self.registerEvents();
@@ -11,15 +18,13 @@ function DataView(id) {
     self.update = function () {
         if (app.getModel(self.id) != null) {
             $('#data-title').text(app.getModel(self.id).title);
-
+            
             self.loadSpreadsheet(app.getModel(self.id).data);
             var headers = $("#spreadsheet").handsontable("getColHeader");
 
             // Weighted mean
             self.renewSelect('#valuesSelect', headers);
-            // $('<option>', {value: '-1'}).text('Select values column').prependTo('#valuesSelect');
             self.renewSelect('#uncertaintiesSelect', headers);
-            // $('<option>', {value: '-1'}).text('Select uncertainties column').prependTo('#uncertaintiesSelect');
         }//if
     };
 
@@ -91,9 +96,6 @@ function DataView(id) {
         // Weighted mean
         $('#valuesSelect').on('change', controller.selectChanged);
         $('#uncertaintiesSelect').on('change', controller.selectChanged);
-
-        // Kernel Density Estimation
-        $('#kernelFunctionSelect').on('change', controller.kernelFunctionChanged);
     };
 
     self.reloadSelectsFromData = function () {

@@ -1,6 +1,10 @@
 function ChartModel(id, title, dirty, dataAvailable) {
     var self = this;
 
+    MainModel.DEFAULT_UNCERTAINTY_INTERPRET = 1;
+    MainModel.DEFAULT_REJECTION_RANGE = 1;
+    MainModel.DEFAULT_KERNEL_FUNCTION = 'gaussian';
+
     id    = (typeof id    !== 'undefined') ? id: null;
     title = (typeof title !== 'undefined') ? title: null;
     dirty = (typeof dirty !== 'undefined') ? dirty: false;
@@ -12,10 +16,18 @@ function ChartModel(id, title, dirty, dataAvailable) {
     self.dirty = dirty;
     self.dataAvailable = dataAvailable;
 
+    // Data Interprets
+    self.uncertaintyInterpret = MainModel.DEFAULT_UNCERTAINTY_INTERPRET;
+    self.rejectionRange   = MainModel.DEFAULT_REJECTION_RANGE;
+    self.kernelFunction   = MainModel.DEFAULT_KERNEL_FUNCTION;
+    self.bandwidth        = MainModel.INVALID_VALUE;
+    self.variablesCount   = MainModel.INVALID_VALUE;
+
     // Values and uncertainties
     self.values = null;
     self.uncertainties = null;
-    self.sigma = null;
+    self.uncertaintyInterpret = null;
+    self.rejectionRange = null;
 
     // Weighted mean
     self.weightedMean = null;
@@ -26,7 +38,7 @@ function ChartModel(id, title, dirty, dataAvailable) {
     self.ratio = null;
 
     // Kernel Density Estimation
-    self.X = null;
+    self.variables = null;
     self.kernelFunction = null;
     self.bandwidth = null;
     self.kde = null;

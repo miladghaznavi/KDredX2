@@ -1,4 +1,6 @@
 function KernelDensityEstimation () {
+    KernelDensityEstimation.STEPS_MIN_DEFAULT = 100;
+    KernelDensityEstimation.STEPS_MAX_DEFAULT = 200;
     KernelDensityEstimation.SKEWNESS_LEAST_DATA_POINTS = 1;
 
     KernelDensityEstimation.KernelFunction = {
@@ -59,6 +61,42 @@ function KernelDensityEstimation () {
         return {
             kde: KernelDensityEstimation.kernelDensityEstimations(X, Xi, bandwidth, kernelFunction)
         };
+    };
+
+    KernelDensityEstimation.bandwidthRange = function(values, uncertainties) {
+        var min = Number.MAX_VALUE;
+        var max = Number.MIN_VALUE;
+        var sum = 0;
+        for (var i = 0; i < values.length; ++i) {
+            min = min(min, values[i] - Math.abs(uncertainties[i]));
+            max = max(max, values[i] + Math.abs(uncertainties[i]));
+            sum += values[i] - uncertainties[i];
+        }//for
+
+        var defaultVal = sum / values.length;
+
+        return {
+            'min'    : min,
+            'max'    : max,
+            'default': defaultVal
+        };
+    };
+
+    KernelDensityEstimation.variables = function(values, uncertainties, count) {
+        var min = Number.MAX_VALUE;
+        var max = Number.MIN_VALUE;
+        for (var i = 0; i < values.length; ++i) {
+            min = Math.min(min, values[i] - Math.abs(uncertainties[i]));
+            max = Math.max(max, values[i] + Math.abs(uncertainties[i]));
+        }//for
+
+        var step = (max - min) / count;
+        var variables = [];
+        for (var i = 0; i < count; ++i) {
+            variables.push(min + i * step);
+        }//for
+
+        return variables;
     };
 }
 

@@ -10,14 +10,20 @@ function MainView(id) {
     };
 
     self.update = function () {
-
+        $('#variablesCount').ionRangeSlider({
+            grid: true,
+            step: 1,
+            min : 3,
+            max : 200,
+            from: 100
+        });
     };
 
     self.registerEvents = function() {
         var controller = app.getController(self.id);
         $('#plotButton').click(controller.plot);
     };
-
+    
     $(function() {
         $('[data-toggle="tooltip"]').tooltip();
     });
