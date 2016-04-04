@@ -4,7 +4,7 @@
 <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
     <li class="active">
         <a href="#data-preferences" data-toggle="tab">
-            <i class="fa fa-sliders"></i>
+            <i class="fa fa-wrench"></i>
         </a>
     </li>
     <li>
@@ -14,20 +14,14 @@
     </li>
     <li>
         <a href="#axis-preferences" data-toggle="tab">
-            <i class="fa fa-wrench">
-            </i>
-        </a>
-    </li>
-    <li>
-        <a href="#series-preferences" data-toggle="tab">
-            <i class="fa fa-signal">
+            <i class="fa fa-sliders">
             </i>
         </a>
     </li>
 </ul>
 
 <!-- Tab panes -->
-<div class="tab-content">
+<div class="tab-content" id="control-sidebar">
     <!-- Data Preferences -->
     <div class="tab-pane active" id="data-preferences">
         {% block dataPreferencesTab %}
@@ -46,13 +40,6 @@
     <div class="tab-pane" id="axis-preferences">
         {% block axisPreferencesTab %}
         {% include "tabs/axis.preferences.tab.html" %}
-        {% endblock %}
-    </div>
-
-    <!-- Series Preferences -->
-    <div class="tab-pane" id="series-preferences">
-        {% block seriesPreferencesTab %}
-        {% include "tabs/series.preferences.tab.html" %}
         {% endblock %}
     </div>
 </div>

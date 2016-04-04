@@ -1,0 +1,31 @@
+@font-face {
+    font-family: 'Source Sans Pro';
+    src: url('../../lib/fonts/SourceSansPro-Regular.otf.woff') format('woff');
+}
+@font-face {
+    font-family: 'Source Sans Pro';
+    src: url('../../lib/fonts/SourceSansPro-Bold.otf.woff') format('woff');
+    font-weight: bold;
+}
+@font-face {
+    font-family: 'Source Sans Pro';
+    src: url('../../lib/fonts/SourceSansPro-It.otf.woff') format('woff');
+    font-style: italic;
+}
+@font-face {
+    font-family: 'Source Sans Pro';
+    src: url('../../lib/fonts/SourceSansPro-BoldIt.otf.woff') format('woff');
+    font-weight: bold;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'Source Sans Pro';
+    src: url('../../lib/fonts/SourceSansPro-Light.otf.woff') format('woff');
+    font-weight: 300;
+}
+@font-face {
+    font-family: 'Source Sans Pro';
+    src: url('../../lib/fonts/SourceSansPro-LightIt.otf.woff') format('woff');
+    font-style: italic;
+    font-weight: 300;
+}

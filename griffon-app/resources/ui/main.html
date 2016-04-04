@@ -5,6 +5,7 @@
     <title>Multi Technique Visualization</title>
 
     <link rel="stylesheet" type="text/css" href="lib/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="lib/css/fonts.css">
     <link rel="stylesheet" type="text/css" href="lib/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="lib/css/AdminLTE.min.css">
     <link rel="stylesheet" type="text/css" href="lib/css/skin-blue-light.css">
@@ -15,6 +16,8 @@
     <link rel="stylesheet" type="text/css" href="lib/css/bootstrap-select.min.css">
     <link rel="stylesheet" type="text/css" href="lib/css/ion.rangeSlider.css">
     <link rel="stylesheet" type="text/css" href="lib/css/ion.rangeSlider.skinFlat.css">
+    <link rel="stylesheet" type="text/css" href="lib/css/jquery.bootstrap-touchspin.min.css">
+    <link rel="stylesheet" type="text/css" href="lib/css/awesome-bootstrap-checkbox.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
 
     <script type="text/javascript" src="lib/js/jquery.min.js"></script>
@@ -34,6 +37,7 @@
     <script type="text/javascript" src="lib/js/ion.rangeSlider.min.js"></script>
     <script type="text/javascript" src="lib/js/pace.js"></script>
     <script type="text/javascript" src="lib/js/jqColorPicker.min.js"></script>
+    <script type="text/javascript" src="lib/js/jquery.bootstrap-touchspin.min.js"></script>
 
     <!-- Javascript App -->
     <script type="text/javascript" src="js/utils.js"></script>
@@ -49,29 +53,6 @@
         autoescape: true
     });
     $('#app-container').html(nunjucks.render("app.html"));
-
-    //    $(function() {
-//        $(".navbar-expand-toggle").click(function() {
-//            $(".app-container").toggleClass("expanded");
-//            return $(".navbar-expand-toggle").toggleClass("fa-rotate-90");
-//        });
-//        return $(".navbar-right-expand-toggle").click(function() {
-//            $(".navbar-right").toggleClass("expanded");
-//            return $(".navbar-right-expand-toggle").toggleClass("fa-rotate-90");
-//        });
-//    });
-//
-//    $(function() {
-//        return $('.toggle-checkbox').bootstrapSwitch({
-//            size: "small"
-//        });
-//    });
-//
-//    $(function() {
-//        return $(".side-menu .nav .dropdown").on('show.bs.collapse', function() {
-//            return $(".side-menu .nav .dropdown .collapse").collapse('hide');
-//        });
-//    });
 </script>
 
 <!-- AdminLTE -->
@@ -83,11 +64,8 @@
     };
     var paceOptions = {
         ajax: false, // disabled
-        document: true, // disabled
-        eventLag: true, // disabled
-        elements: {
-            selectors: ['#spreadsheet']
-        }
+        document: false, // disabled
+        eventLag: false  // disabled
     };
 </script>
 <script type="text/javascript" src="lib/js/app.min.js"></script>

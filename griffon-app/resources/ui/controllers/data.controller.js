@@ -117,6 +117,10 @@ function DataController() {
         return self.areValuesValid() &&
                 self.areUncertaintiesValid();
     };
+
+    self.loadDefaults = function () {
+        
+    };
 }
 
 app.registerClass(DataController);

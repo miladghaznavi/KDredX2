@@ -1,129 +1,303 @@
 {% block chartPreferencesTab %}
-<h4 class="control-sidebar-heading">Chart Options</h4>
-<div class="form-group">
-    <div class="row">
-        <div class="col-xs-6">
-            <div class="control-sidebar-subheading">
-                <input id="titleCheckBox" type="checkbox" checked="">
-                Title
-            </div>
+<h4 class="control-sidebar-heading">Text Data</h4>
+<div class="form-inline row">
+    <div class="col-sm-6 no-padding">
+        <div class="checkbox">
+            <input id="showErrorBarTextData" type="checkbox" control-type="checkbox" checked/>
+            <label class="control-label" for="showErrorBarTextData">Error bar</label>
         </div>
-        <div class="col-xs-6">
-            <div class="control-sidebar-subheading">
-                <input id="borderCheckBox" type="checkbox" checked="">
-                Border
-            </div>
+    </div>
+    <div class="col-sm-6 no-padding">
+        <div class="checkbox">
+            <input id="showMeanTextData" type="checkbox" control-type="checkbox" checked/>
+            <label class="control-label" for="showMeanTextData">Mean</label>
         </div>
-        <div class="col-xs-6">
-            <div class="control-sidebar-subheading">
-                <input id=legendCheckBox" type="checkbox" checked="">
-                Legend
-            </div>
+    </div>
+    <div class="col-sm-6 no-padding">
+        <div class="checkbox">
+            <input id="showRejectionTextData" type="checkbox" control-type="checkbox" checked/>
+            <label class="control-label" for="showRejectionTextData">Rejection</label>
         </div>
-
-        <div class="col-xs-6">
-            <div class="control-sidebar-subheading">
-                <input id=labelCheckBox" type="checkbox" checked="">
-                Label
-            </div>
+    </div>
+    <div class="col-sm-6 no-padding">
+        <div class="checkbox">
+            <input id="showSkewnessTextData" type="checkbox" control-type="checkbox" checked/>
+            <label class="control-label" for="showSkewnessTextData">Skewness</label>
         </div>
     </div>
 </div>
 <hr />
 
-<h4 class="control-sidebar-heading">Size</h4>
-<div class="form-group">
-    <label style="font-weight: normal;">Width</label>
-    <input id="chartWidthNumber" class="pull-right" type="number" />
+<h4 class="control-sidebar-heading">Weighted Mean Chart</h4>
+
+<!-- Options -->
+<h6 id="wm-options-head" class="control-sidebar-subheading collapsed"
+    data-toggle="collapse" href="#wm-options">
+    Options
+    <span class="pull-right fa fa-angle-left hidden-close"></span>
+    <span class="pull-right fa fa-angle-down hidden-open hidden"></span>
+</h6>
+<div id="wm-options" class="form-inline row collapse" href="#wm-options-head">
+    <div class="col-xs-6 no-padding">
+        <div class="checkbox">
+            <input id="wmTitleCheckBox" type="checkbox" control-type="checkbox" checked>
+            <label class="control-label" for="wmTitleCheckBox">Title</label>
+        </div>
+    </div>
+    <div class="col-xs-6 no-padding">
+        <div class="checkbox">
+            <input id="wmBorderCheckBox" type="checkbox" control-type="checkbox" checked>
+            <label class="control-label" for="wmBorderCheckBox">Border</label>
+        </div>
+    </div>
+    <div class="col-xs-6 no-padding">
+        <div class="checkbox">
+            <input id="wmLegendCheckBox" type="checkbox" control-type="checkbox" checked>
+            <label class="control-label" for="wmLegendCheckBox">Legend</label>
+        </div>
+    </div>
+
+    <div class="col-xs-6 no-padding">
+        <div class="checkbox">
+            <input id="wmLabelCheckBox" type="checkbox" control-type="checkbox" checked>
+            <label class="control-label" for="wmLabelCheckBox">Label</label>
+        </div>
+    </div>
 </div>
-<div class="form-group">
-    <label style="font-weight: normal;">Height</label>
-    <input id="chartHeightNumber" class="pull-right" type="number" />
+
+<!-- Size -->
+<h6 id="wm-size-head" class="control-sidebar-subheading collapsed"
+    data-toggle="collapse" href="#wm-size">
+    Size
+    <span class="pull-right fa fa-angle-left hidden-close"></span>
+    <span class="pull-right fa fa-angle-down hidden-open hidden"></span>
+</h6>
+<div id="wm-size" class="form-horizontal collapse" href="#wm-size-head">
+    <div class="form-group">
+        <label for="wmChartWidthNumber" class="col-sm-4 control-label">Width</label>
+        <div class="col-sm-8">
+            <input id="wmChartWidthNumber" class="form-control" control-type="number" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="wmChartHeightNumber" class="col-sm-4 control-label">Height</label>
+        <div class="col-sm-8">
+            <input id="wmChartHeightNumber" class="form-control" control-type="number" />
+        </div>
+    </div>
+</div>
+
+<!-- Data points -->
+<h6 id="wm-datapoints-head" class="control-sidebar-subheading collapsed"
+    data-toggle="collapse" href="#wm-datapoints">
+    Data Points &amp; Bars
+    <span class="pull-right fa fa-angle-left hidden-close"></span>
+    <span class="pull-right fa fa-angle-down hidden-open hidden"></span>
+</h6>
+<div id="wm-datapoints" class="form-inline collapse" href="#wm-datapoints-head">
+    <div class="row margin-bottom">
+        <div class="col-sm-5 no-padding">
+            <div class="checkbox">
+                <input id="wmPointsCheckBox" type="checkbox" control-type="checkbox" checked="">
+                <label for="wmPointsCheckBox" class="control-label">Point</label>
+            </div>
+        </div>
+
+        <div class="col-sm-4 no-padding-left">
+            <input id="wmPointsWidth"
+                   class="form-control"
+                   control-type="number"
+                   title="Points width" />
+        </div>
+
+        <div class="col-sm-3 no-padding-left">
+            <input id="wmPointsColor" type="button" control-type="color" class="color btn btn-flat"
+                   style="width: 100%;" title="Color" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-5 no-padding">
+            <div class="checkbox">
+                <input id="wmCapsCheckBox" type="checkbox" control-type="checkbox" checked="">
+                <label for="wmCapsCheckBox" class="control-label">Bar Cap</label>
+            </div>
+        </div>
+
+        <div class="col-sm-4 no-padding-left">
+            <input id="wmBarWidth"
+                   class="form-control"
+                   control-type="number"
+                   title="Bar width" />
+        </div>
+
+        <div class="col-sm-3 no-padding-left">
+            <input id="wmBarColor" control-type="color" type="button" class="color btn btn-flat" style="width: 100%;" title="Bars Color" />
+        </div>
+    </div>
+</div>
+
+<!-- Mean Line -->
+<h6 id="wm-mean-line-head" class="control-sidebar-subheading collapsed"
+    data-toggle="collapse" href="#wm-mean-line">
+    Mean Line
+    <span class="pull-right fa fa-angle-left hidden-close"></span>
+    <span class="pull-right fa fa-angle-down hidden-open hidden"></span>
+</h6>
+<div id="wm-mean-line" class="form-horizontal collapse" href="#wm-mean-line-head">
+    <div class="form-group">
+        <div class="col-sm-9">
+            <label for="wmMeanLineColor" class="control-label">Mean Line Color</label>
+        </div>
+        <div class="col-sm-3 no-padding-left">
+            <input id="wmMeanLineColor" control-type="color" type="button"
+                   class="color btn btn-flat" style="width: 100%;" title="Mean Line Color" />
+        </div>
+    </div>
 </div>
 <hr />
 
-<h4 class="control-sidebar-heading">Chart Font</h4>
-<div class="form-group">
-    <ul class="list-unstyled clearfix">
-        <li style="float:left; width: 79.5%; margin-right: 1px">
+<h4 class="control-sidebar-heading">Kernel Density Est. Chart</h4>
+<h6 id="kde-options-head" class="control-sidebar-subheading collapsed"
+    data-toggle="collapse" href="#kde-options">
+    Options
+    <span class="pull-right fa fa-angle-left hidden-close"></span>
+    <span class="pull-right fa fa-angle-down hidden-open hidden"></span>
+</h6>
+<div id="kde-options" class="form-inline row collapse" href="#kde-options-head">
+    <div class="col-xs-6 no-padding">
+        <div class="checkbox">
+            <input id="kdeTitleCheckBox" type="checkbox" control-type="checkbox" checked>
+            <label class="control-label" for="kdeTitleCheckBox">Title</label>
+        </div>
+    </div>
+    <div class="col-xs-6 no-padding">
+        <div class="checkbox">
+            <input id="kdeBorderCheckBox" type="checkbox" control-type="checkbox" checked>
+            <label class="control-label" for="kdeBorderCheckBox">Border</label>
+        </div>
+    </div>
+</div>
+
+<h6 id="kde-size-head" class="control-sidebar-subheading collapsed"
+    data-toggle="collapse" href="#kde-size">
+    Size
+    <span class="pull-right fa fa-angle-left hidden-close"></span>
+    <span class="pull-right fa fa-angle-down hidden-open hidden"></span>
+</h6>
+<div id="kde-size" class="form-horizontal collapse" href="#kde-size-head">
+    <div class="form-group">
+        <div class="col-sm-4">
+            <label for="kdeChartWidth" class="control-label">Width</label>
+        </div>
+        <div class="col-sm-8">
+            <input id="kdeChartWidth"
+                   class="form-control"
+                   control-type="number"
+                   title="KDE width" />
+        </div>
+    </div>
+</div>
+
+<h6 id="kde-line-head" class="control-sidebar-subheading collapsed"
+    data-toggle="collapse" href="#kde-line">
+    Line
+    <span class="pull-right fa fa-angle-left hidden-close"></span>
+    <span class="pull-right fa fa-angle-down hidden-open hidden"></span>
+</h6>
+<div id="kde-line" class="form-horizontal collapse" href="#kde-line-head">
+    <div class="form-group">
+        <div class="col-sm-5">
+            <select control-type="select" id="kdeLineStyle"
+                    class="selectpicker no-padding"
+                    data-width="100%"
+                    data-title="KDE line width">
+                <option value="solid line">Solid Line</option>
+                <option value="dashed">Dashed</option>
+                <option value="points">Points</option>
+            </select>
+        </div>
+        <div class="col-sm-4 no-padding-left">
+            <input id="kdeLineWidth"
+                   class="form-control"
+                   control-type="number"
+                   data-width="100%"
+                   title="KDE line width" />
+        </div>
+        <div class="col-sm-3 no-padding-left">
+            <input id="kdeLineColor" type="button" control-type="color" class="color btn btn-flat"
+                   style="width: 100%;" title="KDE line color" />
+        </div>
+    </div>
+</div>
+<hr />
+
+<!--Font-->
+<h4 class="control-sidebar-heading">Font</h4>
+<div class="form-horizontal">
+    <div class="form-group">
+        <div class="col-sm-9 no-padding-right">
             <div class="btn-group" data-toggle="buttons">
-                <button id="boldButton" title="Bold" class="btn btn-default"
-                        data-css-property="font-style" value="bold">
+                <label title="Bold" class="btn btn-default"
+                        data-css-property="font-style">
+                    <input type="checkbox" control-type="checkbox" id="fontBoldCheckBox" autocomplete="off" />
                     <i class="fa fa-bold"></i>
-                </button>
-                <button id="italicButton" title="Italic" class="btn btn-default"
-                        data-css-property="font-style" value="italic">
+                </label>
+                <label title="Italic" class="btn btn-default"
+                        data-css-property="font-style">
+                    <input type="checkbox" control-type="checkbox" id="fontItalicCheckBox" autocomplete="off" />
                     <i class="fa fa-italic"></i>
-                </button>
+                </label>
 
-                <button id="underlineButton" title="Underline" class="btn btn-default"
-                        data-css-property="font-decoration" value="underline"
+                <label title="Underline" class="btn btn-default"
+                        data-css-property="font-decoration"
                         style="text-decoration: underline">
+                    <input type="checkbox" control-type="checkbox" id="fontUnderlineCheckBox" autocomplete="off" />
                     <i class="fa fa-underline"></i>
-                </button>
+                </label>
 
-                <button id="lineThroughButton" title="Strikethrough" class="btn btn-default"
-                        data-css-property="font-decoration" value="line-through"
+                <label title="Strikethrough" class="btn btn-default"
+                        data-css-property="font-decoration"
                         style="text-decoration: line-through">
+                    <input type="checkbox" control-type="checkbox" id="fontStrikethroughCheckBox" autocomplete="off" />
                     <i class="fa fa-strikethrough"></i>
-                </button>
+                </label>
             </div>
-        </li>
-        <li style="float:left; width: 19.5%; margin-left: 1px">
-            <input id="fontColor" type="button" class="color btn btn-flat" style="width: 100%;" title="Color" />
-        </li>
-    </ul>
-</div>
-<div class="form-group">
-    <div class="row">
-        <div class="col-xs-12">
-            <select id="fontFamilySelect" class="selectpicker" data-width="100%"
-                    data-title="Font Family">
-                <option value="helvetica">Helvetica</option>
-            </select>
+        </div>
+        <div class="col-sm-3 no-padding-left">
+            <input id="fontColor" type="button" control-type="color"
+                   class="color btn btn-flat" style="width: 100%;" title="Color" />
         </div>
     </div>
-</div>
-<div class="form-group">
-    <ul class="list-unstyled clearfix">
-        <li style="float:left; width: 49.5%; margin-right: 1px">
-            <select id="fontWeightSelect" class="selectpicker" data-width="100%" data-title="Font Face">
-                <option value="normal" data-css-property="font-weight">Normal</option>
-                <option value="bold" data-css-property="font-weight">Bold</option>
-                <option value="bolder" data-css-property="font-weight">Bolder</option>
-                <option value="lighter" data-css-property="font-weight">Light</option>
+
+    <div class="form-group">
+        <div class="col-sm-8">
+            <select control-type="select" id="fontFamilySelect" class="selectpicker" data-width="100%"
+                    data-title="Font Family">
             </select>
-        </li>
-        <li style="float:left; width: 49.5%; margin-left: 1px">
-            <input type="number"
-                   style="width: 100%;"
+        </div>
+        <div class="col-sm-4 no-padding-left">
+            <input control-type="number"
                    class="form-control"
                    name="fontSizeNumber"
+                   id="fontSizeNumber"
                    data-width="100%"
                    data-title="Font Size"
                    data-min="1"
                    data-max="288">
-        </li>
-    </ul>
+        </div>
+    </div>
 </div>
-<hr />
 
-<h4 class="control-sidebar-heading">Text Data</h4>
-<div class="form-group">
-    <input id="showErrorBarTextData" type="checkbox" />
-    Error bar text
-</div>
-<div class="form-group">
-    <input id="showMeanTextData" type="checkbox" />
-    Mean text
-</div>
-<div class="form-group">
-    <input id="showRejectionTextData" type="checkbox" />
-    Rejection text
-</div>
-<div class="form-group">
-    <input id="showSkewnessTextData" type="checkbox" />
-    Skewness text
-</div>
+
+<script type="text/javascript">
+    $('.collapse').on('shown.bs.collapse', function(){
+        $($(this).attr('href')).find(".hidden-open").removeClass("hidden");
+        $($(this).attr('href')).find(".hidden-close").addClass("hidden");
+    }).on('hidden.bs.collapse', function(){
+        $($(this).attr('href')).find(".hidden-close").removeClass("hidden");
+        $($(this).attr('href')).find(".hidden-open").addClass("hidden");
+    });
+</script>
 
 {% endblock %}

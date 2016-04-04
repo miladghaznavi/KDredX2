@@ -35,6 +35,8 @@ function App() {
                     self.controllers[id].mvcInit(self.args[id]);
                     self.controllers[id].model.init(self.args[id]);
                     self.controllers[id].view .init(self.args[id]);
+
+                    self.controllers[id].loadDefaults();
                 }//if
             }//for
         }//for

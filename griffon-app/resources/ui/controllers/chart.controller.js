@@ -4,35 +4,50 @@ function ChartController() {
     self.model = null;
     self.view  = null;
 
+    ChartController.inputsForcingReplot = [
+        'uncertaintyInterpret',
+        'rejectionRange',
+        'variablesCount',
+        'kernelFunction',
+        'bandwidth'
+    ];
+
+    ChartController.textDataInputs = [
+        'showErrorBarTextData',
+        'showMeanTextData',
+        'showRejectionTextData',
+        'showSkewnessTextData'
+    ];
+
     self.mvcInit = function (options) {
         self.id = options.id;
         self.model = new ChartModel(options.id, options.title, options.dirty);
         self.view  = new ChartView(options.id);
     };
 
-    self.kernelFunctionChange = function() {
-        Util.notifyInfo(this.id + ":" + this.value);
-        self.model.kernelFunction = this.value;
+    self.kernelFunctionChange = function(element) {
+        Util.notifyInfo(element.id + ":" + element.value);
+        self.model.kernelFunction = element.value;
     };
 
-    self.uncertaintyInterpretChange = function() {
-        Util.notifyInfo(this.id + ":" + this.value);
-        self.model.uncertaintyInterpret = this.value;
+    self.uncertaintyInterpretChange = function(element) {
+        Util.notifyInfo(element.id + ":" + element.value);
+        self.model.uncertaintyInterpret = element.value;
     };
 
-    self.rejectionRangeChange = function() {
-        Util.notifyInfo(this.id + ":" + this.value);
-        self.model.rejectionRange = this.value;
+    self.rejectionRangeChange = function(element) {
+        Util.notifyInfo(element.id + ":" + element.value);
+        self.model.rejectionRange = element.value;
     };
 
-    self.bandwidthChange = function() {
-        Util.notifyInfo(this.id + ":" + this.value);
-        self.bandwidth = this.value;
+    self.bandwidthChange = function(element) {
+        Util.notifyInfo(element);
+        self.bandwidth = element.value;
     };
 
-    self.variablesCountChange = function() {
-        self.variablesCount = this.value;
-        Util.notifyInfo(this.value);
+    self.variablesCountChange = function(element) {
+        self.variablesCount = element.value;
+        Util.notifyInfo(element.value);
     };
 
     self.setBandwidthRange = function(dataModel) {
@@ -47,39 +62,39 @@ function ChartController() {
 
     // This function prepares bandwidth and variables.
     self.prepareData = function () {
+        var uncertaintyInterpret = this.model.uncertaintyInterpret;
+        if (uncertaintyInterpret > 1) {
+            for (var i = 0; i < self.model.uncertainties.length; ++i) {
+                self.model.uncertainties[i] = self.model.uncertainties[i] / uncertaintyInterpret;
+            }//for
+        }//if
+
         var bandwidthRange = KernelDensityEstimation.bandwidthRange(self.model.values, self.model.uncertainties);
         if (self.model.bandwidth == null ||
             self.model.bandwidth <  bandwidthRange.min ||
             self.model.bandwidth >  bandwidthRange.max) {
             //set bandwidth to a default value
-            self.model.bandwidth = bandwidthRange.default;
+            self.model.bandwidth = bandwidthRange.from;
+            self.view.setInputValue(
+                'bandwidth',
+                bandwidthRange.from,
+                true
+            );
         }//if
 
         // update bandwidth ui without change event
-        self.view.setBandwidth(self.model.bandwidth, true);
+        self.view.setInputValue('bandwidth', bandwidthRange.from, true);
 
         self.model.variables = KernelDensityEstimation.variables(
-            self.model.values, self.model.uncertainties, self.model.variablesCount);
-    };
-
-    self.preparePreferences = function() {
-
+            self.model.values, self.model.uncertainties, self.model.variablesCount.from);
     };
 
     self.plot = function() {
-        self.prepareData();
-        self.preparePreferences();
-        self.model.calculate();
-
-        //TODO: add some options
-        var options = {
-            precision: 2
-        };
-        self.view.update(options);
-    };
-
-    self.replot = function() {
-        Util.notifyInfo(event.data.options);
+        if (self.model.dataAvailable) {
+            self.prepareData();
+            self.model.calculate();
+            self.view.update();
+        }//if
     };
 
     self.saveAs = function (event) {
@@ -88,6 +103,24 @@ function ChartController() {
 
     self.saveEvent = function () {
 
+    };
+
+    self.loadDefaults = function () {
+        for (var key in ChartModel.defaultValues) {
+            var value = ChartModel.defaultValues[key];
+            self.view.setInputValue(key, value, true);
+        }//for
+    };
+
+    self.inputChanged = function (input, newValue) {
+        this.model[input] = newValue;
+        Util.notifyInfo(input + ':' + newValue);
+        if (ChartController.inputsForcingReplot.indexOf(input) != -1) {
+            self.plot();
+        }//if
+        else if (ChartController.textDataInputs.indexOf(input) != -1) {
+
+        }//if
     };
 }
 
@@ -103,4 +136,3 @@ app.register(
     },
     ChartController
 );
-

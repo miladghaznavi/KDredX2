@@ -33,5 +33,44 @@ function Util(){
     Util.log = function() {
 
     };
+
+    Util.webSafeFonts = function() {
+        return [
+            // Serif Fonts
+            "Georgia",
+            "Palatino Linotype",
+            "Book Antiqua",
+            "Palatino",
+            "Times New Roman",
+            "Times",
+
+            // Sans-Serif Fonts
+            "Arial",
+            "Helvetica",
+            "Arial Black",
+            "Gadge",
+            "Comic Sans MS",
+            "cursive",
+            "sans-serif",
+            "Impact",
+            "Charcoal",
+            "Lucida Sans Unicode",
+            "Lucida Grande",
+            "Tahoma",
+            "Geneva",
+            "Trebuchet MS",
+            "Verdana",
+
+            // Monospace Fonts
+            "Courier New",
+            "Courier",
+            "Lucida Console",
+            "Monaco",
+
+            //
+            "MS Serif",
+            "New York",
+        ].sort();
+    };
 }
 Util();

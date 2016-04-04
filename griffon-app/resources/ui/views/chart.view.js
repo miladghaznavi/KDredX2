@@ -1,43 +1,163 @@
 function ChartView(id) {
+    ChartView.OLD_VALUE_DATA = 'oldValue';
+    ChartView.VALIDATE_NUMBER_INPUT = /^[0-9]+$/;
+    ChartView.DEFAULT_NUMBER_PRECISION = 2;
+
     var self = this;
     id = typeof id !== 'undefined' ? id : null;
     self.id = id;
     self.weightedMeanChart = null;
     self.KDEChart = null;
-    self.chartingControls = {
+
+    ChartView.chartingControls = {
         // Chart options
         titleCheckBox: '#titleCheckBox',
         borderCheckBox: '#borderCheckBox',
         legendCheckBox: '#legendCheckBox'
     };
 
-    self.settings = {
-        // Chart font
-        fontFamilySelect: '#fontFamilySelect',
-        fontWeightSelect: '#fontWeightSelect',
-        fontSizeNumber: '#fontSizeNumber',
-        boldButton: '#boldButton',
-        italicButton: '#italicButton',
-        underlineButton: '#underlineButton',
-        lineThroughButton: '#lineThroughButton'
+    ChartView.inputs = {
+        /* Data Preferences */
+        // Interpreting Data
+        uncertaintyInterpret: '#uncertaintyInterpret',
+        rejectionRange      : '#rejectionRange',
+
+        // Kernel Density Estimation
+        variablesCount      : '#variablesCount',
+        kernelFunction      : '#kernelFunction',
+        bandwidth           : '#bandwidth',
+
+        /* Data Preferences */
+        // Text Data
+        showErrorBarTextData : '#showErrorBarTextData',
+        showMeanTextData     : '#showMeanTextData',
+        showRejectionTextData: '#showRejectionTextData',
+        showSkewnessTextData : '#showSkewnessTextData',
+
+        // Weighted Mean Chart
+        // -- Options
+        WMShowTitle : '#wmTitleCheckBox',
+        WMShowBorder: '#wmBorderCheckBox',
+        WMShowLegend: '#wmLegendCheckBox',
+        WMShowLabel : '#wmLabelCheckBox',
+        // -- Size
+        WMChartWidth : '#wmChartWidthNumber',
+        WMChartHeight: '#wmChartHeightNumber',
+        // -- Data Points & bars
+        WMShowPoints   : '#wmPointsCheckBox',
+        WMPointsWidth  : '#wmPointsWidth',
+        WMPointsColor  : '#wmPointsColor',
+        WMShowCaps     : '#wmCapsCheckBox',
+        WMBarWidth     : '#wmBarWidth',
+        WMBarColor     : '#wmBarColor',
+        // -- Mean Line
+        WMMeanLineColor: '#wmMeanLineColor',
+        // Kernel Density Estimation Chart
+        // -- Options
+        KDEShowTitle : '#kdeTitleCheckBox',
+        KDEShowBorder: '#kdeBorderCheckBox',
+        // -- Size
+        KDEChartWidth: '#kdeChartWidth',
+        // -- Line
+        KDELineStyle: '#kdeLineStyle',
+        KDELineWidth: '#kdeLineWidth',
+        KDELineColor: '#kdeLineColor',
+
+        // Font
+        fontBold         : '#fontBoldCheckBox',
+        fontItalic       : '#fontItalicCheckBox',
+        fontUnderline    : '#fontUnderlineCheckBox',
+        fontStrikethrough: '#fontStrikethroughCheckBox',
+        fontFamily       : '#fontFamilySelect',
+        fontSize         : '#fontSizeNumber',
+        fontColor        : '#fontColor',
+
+        /* Axis Preferences */
+        // X Axis
+        //-- Axis Scale
+        xAxisLow    : '#xAxisLow',
+        xAxisHigh   : '#xAxisHigh',
+        xAxisDivisor: '#xAxisDivisor',
+        //-- Grid Lines
+        XGridLinesShow : '#xGridCheckBox',
+        XGridLineStroke: '#xGridLineStroke',
+        XGridLineWidth : '#xGridLineWidth',
+        XGridLineColor : '#xGridLineColor',
+
+        // Y Axis
+        //-- Axis Scale
+        YAxisLow    : '#yAxisLow',
+        YAxisHigh   : '#yAxisHigh',
+        YAxisDivisor: '#yAxisDivisor',
+        //-- Grid Lines
+        YGridLinesShow : '#yGridCheckBox',
+        YGridLineStroke: '#yGridLineStroke',
+        YGridLineWidth : '#yGridLineWidth',
+        YGridLineColor : '#yGridLineColor'
+    };
+
+    ChartView.textInfoViews = {
+        weightedMean            : '#weighted-mean',
+        weightedUncertainty     : '#weighted-uncertainty',
+        mswd                    : '#mswd',
+        ratio                   : '#ratio',
+        skewness                : '#skewness',
+        rejected                : '#rejected',
+        total                   : '#total'
+    };
+
+    ChartView.textInput2InfoViewMap = {
+        showErrorBarTextData : '#weighted-mean-top-info',
+        showMeanTextData     : '#mean-info',
+        showRejectionTextData: '#rejected-info',
+        showSkewnessTextData : '#skewness-info'
     };
 
     self.init = function(options) {
-        self.update(options);
+        self.initUI();
+        self.update();
         self.registerEvents();
     };
 
-    self.update = function(options) {
+    self.initUI = function() {
+        // Selects
+        $('input[control-type="select"]').selectpicker();
+
+        // Color pickers
+        $('input[control-type="color"]').colorPicker({
+            flat: true,
+            renderCallback: function(elm, toggled) {
+                elm.css('color',
+                    elm.css('background-color'));
+            }
+        });
+
+        // Number inputs
+        $('input[control-type="number"]').TouchSpin({ verticalbuttons: true});
+
+        // Sliders
+        $('input[control-type="slider"]').ionRangeSlider({
+            grid: true
+        });
+
+        // font family select
+        $.each(Util.webSafeFonts(), function(key, value) {
+            $(ChartView.inputs.fontFamily).append(
+                $('<option>', { value: value }).text(value).css('font-family', value)
+            );
+        });
+    };
+
+    self.update = function() {
         var model = app.getModel(id);
-        var controller = app.getController(self.id);
-        
+
         if (model.dataAvailable) {
             $('#chart-shown').show();
             $('#chart-not-shown').hide();
 
-            self.weightedMeanChart = self.drawWeightedMeanChart(options);
-            self.KDEChart = self.drawKDEChart(options);
-            self.setInfo(options);
+            self.weightedMeanChart = self.drawWeightedMeanChart();
+            self.KDEChart = self.drawKDEChart();
+            self.setInfo({precision: ChartView.DEFAULT_NUMBER_PRECISION});
             self.updateCharts({
                 axisX: {
                     low: 0,
@@ -77,30 +197,6 @@ function ChartView(id) {
         self.updateKDEChart(options);
     };
 
-    self.setBandwidth = function (bandwidth, noEvent) {
-        noEvent = (noEvent == undefined) ? true : false;
-        if (noEvent) {
-            $('#bandwidth').attr('disabled','disabled');
-        }//if
-        $('#bandwidth').text(bandwidth);
-        if (noEvent) {
-            $('#bandwidth').removeAttr('disabled');
-        }//if
-    };
-
-    self.setVariablesCount = function (value, noEvent) {
-        noEvent = (noEvent == undefined) ? true : false;
-        if (noEvent) {
-            $('#variablesCount').attr('disabled','disabled');
-        }//if
-        $('#variablesCount').data.update({
-            from: value
-        });
-        if (noEvent) {
-            $('#variablesCount').removeAttr('disabled');
-        }//if
-    };
-
     self.registerEvents = function() {
         var controller = app.getController(self.id);
         $('#saveChartAsPng').click({type:'png'}, controller.saveAs);
@@ -108,47 +204,84 @@ function ChartView(id) {
         $('#saveChartAsSvg').click({type:'svg'}, controller.saveAs);
         $('#saveChartAsPdf').click({type:'pdf'}, controller.saveAs);
 
-        // Color pickers
-        $('.color').colorPicker({
-            flat: true
-        });
-
-        // Interpret data
-        $('#kernelFunction').on('change', controller.kernelFunctionChange);
-        $('#uncertaintyInterpret').on('change', controller.uncertaintyInterpretChange);
-        $('#rejectionRange').on('change', controller.rejectionRangeChange);
-        $('#bandwidth').on('change', controller.bandwidthChange);
-        $('#variablesCount').on('change', controller.variablesCountChange);
+        $('#control-sidebar input, #control-sidebar select').change(self.onChangeInput);
     };
 
-    self.drawWeightedMeanChart = function(options) {
+    self.drawWeightedMeanChart = function() {
         var labels = [];
         var means = [];
-        var analysesData = [];
+        var valuesData = [];
         var model = app.getModel(self.id);
         var minY = Number.MAX_VALUE;
         var maxY = Number.MIN_VALUE;
 
-        for (var i = 0; i < model.analyses.length; ++i) {
-            minY = Math.min(minY, model.analyses[i] - model.uncertainties[i]);
-            maxY = Math.max(maxY, model.analyses[i] + model.uncertainties[i]);
+        for (var i = 0; i < model.values.length; ++i) {
+            minY = Math.min(minY, model.values[i] - model.uncertainties[i]);
+            maxY = Math.max(maxY, model.values[i] + model.uncertainties[i]);
             means.push({
                 x: i + 1,
                 y: model.weightedMean
             });
-            analysesData.push({
+            valuesData.push({
                 x: i + 1,
-                y: model.analyses[i]
+                y: model.values[i]
             });
             labels.push(i + 1);
         }//for
 
-        var defaultOptions = {
+        // ChartModel.preferencesList = [
+        //     // Weighted Mean Chart
+        //     // -- Options
+        //     'WMShowTitle',
+        //     'WMShowBorder',
+        //     'WMShowLegend',
+        //     'WMShowLabel',
+        //     // -- Size
+        //     'WMChartWidth',
+        //     'WMChartHeight',
+        //     // -- Data Points & bars
+        //     'WMShowPoints',
+        //     'WMPointsWidth',
+        //     'WMPointsColor',
+        //     'WMShowCaps',
+        //     'WMBarWidth',
+        //     'WMBarColor',
+        //     // -- Mean Line
+        //     'WMMeanLineColor',
+        //
+        //     /* Axis Preferences */
+        //     // X Axis
+        //     //-- Axis Scale
+        //     'xAxisLow',
+        //     'xAxisHigh',
+        //     'xAxisDivisor',
+        //     //-- Grid Lines
+        //     'XGridLinesShow',
+        //     'XGridLineStroke',
+        //     'XGridLineWidth',
+        //     'XGridLineColor',
+        //
+        //     // Y Axis
+        //     //-- Axis Scale
+        //     'YAxisLow',
+        //     'YAxisHigh',
+        //     'YAxisDivisor',
+        //     //-- Grid Lines
+        //     'YGridLinesShow',
+        //     'YGridLineStroke',
+        //     'YGridLineWidth',
+        //     'YGridLineColor'
+        // ];
+
+        console.log('Check here:');
+        console.log(model);
+
+        var preferences =  {
             series: {
                 'weightedMean': {
                     showLine: true
                 },
-                'analyses': {
+                'values': {
                     showLine: false
                 }
             },
@@ -156,7 +289,7 @@ function ChartView(id) {
                 Chartist.plugins.errorBar({
                     showPoint: false,
                     showHLine: true,
-                    precision: options.precision
+                    precision: ChartView.DEFAULT_NUMBER_PRECISION
                 })
             ],
             chartPadding: {
@@ -171,7 +304,7 @@ function ChartView(id) {
                 //showGrid: false,
                 type: Chartist.AutoScaleAxis,
                 low: 1,
-                high: analysesData.length,
+                high: model.values.length,
                 onlyInteger: true
             },
             axisY: {
@@ -183,31 +316,31 @@ function ChartView(id) {
                 right: 5
             }
         };
-        options = Chartist.extend({ }, defaultOptions, options);
 
         return new Chartist.Line('#weighted-mean-chart-box', {
                 labels: labels,
-                series: [{
-                    name: 'weightedMean',
-                    data: means,
-                    weightedMean: model.weightedMean,
-                    weightedUncertainty: model.weightedUncertainty
-                },
+                series: [
                     {
-                    name: 'analyses',
-                    data: analysesData,
-                    uncertainties: model.uncertainties
-                }
+                        name: 'weightedMean',
+                        data: means,
+                        weightedMean: model.weightedMean,
+                        weightedUncertainty: model.weightedUncertainty
+                    },
+                    {
+                        name: 'values',
+                        data: model.values,
+                        uncertainties: model.uncertainties
+                    }
                 ]
             },
-            options
+            preferences
         );
     };
 
     self.drawKDEChart = function(options) {
         var model = app.getModel(self.id);
         var data = [];
-        for (var i = 0; i < model.X.length; ++i) {
+        for (var i = 0; i < model.variables.length; ++i) {
             // We reflect and reverse the data.
             // new X is the reflected of Y's elements
             // new Y is the reversed of X's elements
@@ -215,7 +348,7 @@ function ChartView(id) {
                 //TODO
                 x: model.kde[i],
                 //x: Math.random() * 1000,
-                y: model.X[model.X.length - (i + 1)]
+                y: model.variables[model.variables.length - (i + 1)]
             });
         }//for
 
@@ -257,25 +390,115 @@ function ChartView(id) {
         var model = app.getModel(id);
         var precision = (options != null && options.precision != undefined) ? options.precision : null;
         if (precision != null) {
-            $('#weighted-mean').text(model.weightedMean.toFixed(precision));
-            $('#weighted-uncertainty').text(model.weightedUncertainty.toFixed(precision));
-            $('#mswd').text(model.mswd.toFixed(precision));
-            $('#ratio').text(model.ratio.toFixed(precision));
-            $('#skewness').text(model.skewness.toFixed(precision));
+            $(ChartView.textInfoViews.weightedMean).text(model.weightedMean.toFixed(precision));
+            $(ChartView.textInfoViews.weightedUncertainty).text(model.weightedUncertainty.toFixed(precision));
+            $(ChartView.textInfoViews.mswd).text(model.mswd.toFixed(precision));
+            $(ChartView.textInfoViews.ratio).text(model.ratio.toFixed(precision));
+            $(ChartView.textInfoViews.skewness).text(model.skewness.toFixed(precision));
         }//if
         else {
-            $('#weighted-mean').text(model.weightedMean);
-            $('#weighted-uncertainty').text(model.weightedUncertainty);
-            $('#mswd').text(model.mswd);
-            $('#ratio').text(model.ratio);
-            $('#skewness').text(model.skewness);
+            $(ChartView.textInfoViews.weightedMean).text(model.weightedMean);
+            $(ChartView.textInfoViews.weightedUncertainty).text(model.weightedUncertainty);
+            $(ChartView.textInfoViews.mswd).text(model.mswd);
+            $(ChartView.textInfoViews.ratio).text(model.ratio);
+            $(ChartView.textInfoViews.skewness).text(model.skewness);
         }//else
 
-        $('#rejected').text(model.rejected);
-        $('#total').text(model.total);
+        $(ChartView.textInfoViews.rejected).text(model.rejected);
+        $(ChartView.textInfoViews.total).text(model.total);
     };
 
-    self.getChartVis = function () {
-        //todo:
+    self.setInputValue = function(key, value, disableEvent) {
+        disableEvent = (disableEvent == undefined) ? false : disableEvent;
+        var inputId = ChartView.inputs[key];
+        var element = $(inputId);
+        var elementType = element.attr('control-type');
+        if (disableEvent && elementType !== 'select') {
+            element.off('change');
+        }//if
+
+        switch (elementType) {
+            case 'checkbox':
+                element.attr('checked', value);
+                break;
+
+            case 'slider':
+                var control = element.data("ionRangeSlider");
+                control.update(value);
+                break;
+
+            case 'number':
+                $(element).val(value);
+                break;
+
+            case 'color':
+                $(element).val(value);
+                $(element).css('background-color', value);
+                $(element).css('color', value);
+                break;
+
+            case 'select':
+                console.log($(inputId).selectpicker('val'));
+                $(inputId).selectpicker('val', value);
+                break;
+
+            default:
+                break;
+        }//switch
+
+        if (disableEvent && elementType !== 'select') {
+            element.change(self.onChangeInput);
+        }//if
+    };
+
+    self.getInputValue = function(key) {
+        var inputId = ChartView.inputs[key];
+        var element = $(inputId);
+        var elementType = element.attr('control-type');
+
+        var result = null;
+        switch (elementType) {
+            case 'checkbox':
+                result = element.attr('checked');
+                break;
+
+            case 'slider':
+                result = element.prop("value");
+                break;
+
+            case 'number':
+                result = $(element).val();
+                break;
+
+            case 'color':
+                result = $(element).val();
+                break;
+
+            case 'select':
+                result = $(element).val();
+                break;
+
+            default:
+                break;
+        }//switch
+
+        return result;
+    };
+
+    self.onChangeInput = function () {
+        // Interpret data
+        var controller = app.getController(self.id);
+
+        var input = null;
+        var id = '#' + this.id;
+        for (var key in ChartView.inputs) {
+            if (ChartView.inputs[key] == id) {
+                input = key;
+                break;
+            }//if
+        }//for
+
+        var value = self.getInputValue(key);
+        controller.inputChanged(input, value);
     };
 }

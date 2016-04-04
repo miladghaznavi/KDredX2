@@ -59,7 +59,8 @@ function MainController() {
                 chartController.plot();
             }//if
             else {
-                Util.notifyWarning("The data for the chart is empty!<br/>" +
+                Util.notifyWarning(
+                    "The data for the chart is empty!<br/>" +
                     "Please select uncertainty and analyses columns which at least have one valid data!");
             }//else
         }//if
@@ -67,6 +68,8 @@ function MainController() {
             Util.notifyError("Please select two columns as values and uncertainties!");
         }//else
     };
+
+    self.loadDefaults = function () {};
 }
 
 app.registerClass(MainController);

@@ -1,9 +1,187 @@
 function ChartModel(id, title, dirty, dataAvailable) {
     var self = this;
 
-    MainModel.DEFAULT_UNCERTAINTY_INTERPRET = 1;
-    MainModel.DEFAULT_REJECTION_RANGE = 1;
-    MainModel.DEFAULT_KERNEL_FUNCTION = 'gaussian';
+    ChartModel.defaultValues = {
+        /* Data Preferences */
+        // Interpreting Data
+        uncertaintyInterpret: 1,
+        rejectionRange      : 1,
+
+        // Kernel Density Estimation
+        variablesCount      : {'min': 3, 'max': 200, 'from': 100},
+        kernelFunction      : 'gaussian',
+
+        /* Data Preferences */
+        // Text Data
+        showErrorBarTextData : true,
+        showMeanTextData     : true,
+        showRejectionTextData: true,
+        showSkewnessTextData : true,
+
+        // Weighted Mean Chart
+        // -- Options
+        WMShowTitle : true,
+        WMShowBorder: true,
+        WMShowLegend: true,
+        WMShowLabel : true,
+        // -- Size
+        WMChartWidth : 600,
+        WMChartHeight: 400,
+        // -- Data Points & bars
+        WMShowPoints   : true,
+        WMPointsWidth  : 2,
+        WMPointsColor  : '#FB110B',
+        WMShowCaps     : true,
+        WMBarWidth     : 2,
+        WMBarColor     : '#FB110B',
+        // -- Mean Line
+        WMMeanLineColor: '#118002',
+
+        // Kernel Density Estimation Chart
+        // -- Options
+        KDEShowTitle : true,
+        KDEShowBorder: false,
+        // -- Size
+        KDEChartWidth: 300,
+        // -- Line
+        KDELineStyle: 'solid line',
+        KDELineWidth: 1,
+        KDELineColor: '#929292',
+
+        // Font
+        fontBold         : false,
+        fontItalic       : false,
+        fontUnderline    : false,
+        fontStrikethrough: false,
+        fontFamily       : 'Times',
+        fontSize         : 11,
+        fontColor        : '#8D8D8D',
+
+        /* Axis Preferences */
+        // X Axis
+        //-- Grid Lines
+        XGridLinesShow : false,
+        XGridLineStroke: 'dashed',
+        XGridLineWidth : 1,
+        XGridLineColor : '#8D8D8D',
+
+        // Y Axis
+        //-- Axis Scale
+        //-- Grid Lines
+        YGridLinesShow : true,
+        YGridLineStroke: 'dashed',
+        YGridLineWidth : 1,
+        YGridLineColor : '#8D8D8D'
+    };
+    ChartModel.preferencesList = [
+        /* Data Preferences */
+        // Interpreting Data
+        'uncertaintyInterpret',
+        'rejectionRange',
+
+        // Kernel Density Estimation
+        'variablesCount',
+        'kernelFunction',
+        'bandwidth',
+
+        /* Data Preferences */
+        // Text Data
+        'showErrorBarTextData',
+        'showMeanTextData',
+        'showRejectionTextData',
+        'showSkewnessTextData',
+
+        // Weighted Mean Chart
+        // -- Options
+        'WMShowTitle',
+        'WMShowBorder',
+        'WMShowLegend',
+        'WMShowLabel',
+        // -- Size
+        'WMChartWidth',
+        'WMChartHeight',
+        // -- Data Points & bars
+        'WMShowPoints',
+        'WMPointsWidth',
+        'WMPointsColor',
+        'WMShowCaps',
+        'WMBarWidth',
+        'WMBarColor',
+        // -- Mean Line
+        'WMMeanLineColor',
+        // Kernel Density Estimation Chart
+        // -- Options
+        'KDEShowTitle',
+        'KDEShowBorder',
+        // -- Size
+        'KDEChartWidth',
+        // -- Line
+        'KDELineStyle',
+        'KDELineWidth',
+        'KDELineColor',
+
+        // Font
+        'fontBold',
+        'fontItalic',
+        'fontUnderline',
+        'fontStrikethrough',
+        'fontFamily',
+        'fontSize',
+        'fontColor',
+
+        /* Axis Preferences */
+        // X Axis
+        //-- Axis Scale
+        'xAxisLow',
+        'xAxisHigh',
+        'xAxisDivisor',
+        //-- Grid Lines
+        'XGridLinesShow',
+        'XGridLineStroke',
+        'XGridLineWidth',
+        'XGridLineColor',
+
+        // Y Axis
+        //-- Axis Scale
+        'YAxisLow',
+        'YAxisHigh',
+        'YAxisDivisor',
+        //-- Grid Lines
+        'YGridLinesShow',
+        'YGridLineStroke',
+        'YGridLineWidth',
+        'YGridLineColor'
+    ];
+    ChartModel.chartPropertiesList = [
+        'id',
+        'title',
+        'dirty',
+        'dataAvailable'
+    ];
+    ChartModel.dataList = [
+        // Values and uncertainties
+        'values',
+        'uncertainties',
+
+        // Weighted mean
+        'weightedMean',
+        'weightedUncertainty',
+        'mswd',
+        'rejected',
+        'total',
+        'ratio',
+
+        // Kernel Density Estimation
+        'variables',
+        'kde',
+
+        // Skewness
+        'skewness'
+    ];
+
+    ChartModel.allLists = ChartModel.preferencesList.concat(
+                          ChartModel.chartPropertiesList).concat(
+                          ChartModel.dataList);
 
     id    = (typeof id    !== 'undefined') ? id: null;
     title = (typeof title !== 'undefined') ? title: null;
@@ -16,116 +194,67 @@ function ChartModel(id, title, dirty, dataAvailable) {
     self.dirty = dirty;
     self.dataAvailable = dataAvailable;
 
-    // Data Interprets
-    self.uncertaintyInterpret = MainModel.DEFAULT_UNCERTAINTY_INTERPRET;
-    self.rejectionRange   = MainModel.DEFAULT_REJECTION_RANGE;
-    self.kernelFunction   = MainModel.DEFAULT_KERNEL_FUNCTION;
-    self.bandwidth        = MainModel.INVALID_VALUE;
-    self.variablesCount   = MainModel.INVALID_VALUE;
-
-    // Values and uncertainties
-    self.values = null;
-    self.uncertainties = null;
-    self.uncertaintyInterpret = null;
-    self.rejectionRange = null;
-
-    // Weighted mean
-    self.weightedMean = null;
-    self.weightedUncertainty = null;
-    self.mswd = null;
-    self.rejected = null;
-    self.total = null;
-    self.ratio = null;
-
-    // Kernel Density Estimation
-    self.variables = null;
-    self.kernelFunction = null;
-    self.bandwidth = null;
-    self.kde = null;
-
-    // Skewness
-    self.skewness = null;
-
-    ChartModel.DataNames = {
-        values:        'values',
-        uncertainties: 'uncertainties',
-        KernelFunction:'kernelFunction',
-        X:             'X',
-        bandwidth:     'bandwidth',
-        sigma:         'sigma'
+    self.init = function(options) {
+        self.initData();
+        self.loadDefaults();
     };
 
-    self.init = function(options) {
+    /**
+     * This function initialize two lists: preferencesList and dataList.
+     * Note that we do not initialize chartPropertiesList because chartPropertiesList is set when it is declared
+     */
+    self.initData = function () {
+        self.initializer(ChartModel.preferencesList);
+        self.initializer(ChartModel.dataList);
+    };
 
+    self.initializer = function(list) {
+        var key = null;
+        for (var i = 0; i < list.length; ++i) {
+            key = list[i];
+            self[key] = null;
+        }//for
+    };
+
+    self.loadDefaults = function() {
+        for (var key in ChartModel.defaultValues) {
+            var value = ChartModel.defaultValues[key];
+            self[key] = value;
+        }//for
     };
 
     self.setData = function (name, data) {
-        switch (name) {
-            case ChartModel.DataNames.values:
-                self.values = data;
-                break;
+        if (!(name in ChartModel.allLists)) {
+            throw name + ' is not part of model';
+        }//if
 
-            case ChartModel.DataNames.uncertainties:
-                self.uncertainties = data;
-                break;
-
-            case ChartModel.DataNames.X:
-                self.X = data;
-                break;
-
-            case ChartModel.DataNames.bandwidth:
-                self.bandwidth = data;
-                break;
-
-            case ChartModel.DataNames.sigma:
-                self.sigma = data;
-                break;
-
-            case ChartModel.DataNames.KernelFunction:
-                self.kernelFunction = data;
-                break;
-
-            default:
-                break;
-        }//switch
+        self[name] = data;
     };
 
     self.getData = function (name) {
-        var data = null;
-        switch (name) {
-            case ChartModel.DataNames.values:
-                data = self.values;
-                break;
+        if (!(name in ChartModel.allLists)) {
+            throw name + ' is not part of model';
+        }//if
 
-            case ChartModel.DataNames.uncertainties:
-                data = self.uncertainties;
-                break;
+        return self[name];
+    };
 
-            case ChartModel.DataNames.X:
-                data = self.X;
-                break;
+    self.getList = function (list) {
+        var result = {};
+        for (var key in list)
+            result[key] = self[key];
 
-            case ChartModel.DataNames.bandwidth:
-                data = self.bandwidth;
-                break;
+        return result;
+    };
 
-            case ChartModel.DataNames.sigma:
-                data = self.sigma;
-                break;
-
-            case ChartModel.DataNames.KernelFunction:
-                data = self.kernelFunction;
-                break;
-
-            default:
-                break;
-        }//switch
-        return data;
+    self.getPreferences = function () {
+        return self.getList(ChartModel.preferencesList);
     };
 
     self.calculate = function() {
         // Weighted weightedMean
-        var aWm = WeightedMean.calculate(self.values, self.uncertainties, self.s);
+        var aWm = WeightedMean.calculate(self.values, self.uncertainties, self.rejectionRange);
+        console.log(aWm);
         for (var key in aWm) {
             self[key] = aWm[key];
         }//for
@@ -133,13 +262,13 @@ function ChartModel(id, title, dirty, dataAvailable) {
         self.total = self.values.length;
 
         // Kernel Density Estimation
-        var aKde = KernelDensityEstimation.calculate(self.X, self.values, self.h, self.kernelFunction);
+        var aKde = KernelDensityEstimation.calculate(self.variables, self.values, self.bandwidth, self.kernelFunction);
         for (var key in aKde) {
             self[key] = aKde[key];
         }//for
 
         //Skewness
-        var aSkewness = Skewness.calculate(self.X, self.values);
+        var aSkewness = Skewness.calculate(self.variables, self.values);
         for (var key in aSkewness) {
             self[key] = aSkewness[key];
         }//for
@@ -149,7 +278,7 @@ function ChartModel(id, title, dirty, dataAvailable) {
         self.calculate();
         return {
             weightedMean: {
-                analyses: self.values,
+                values: self.values,
                 uncertainties: self.uncertainties,
                 weightedMean: self.weightedMean,
                 weightedUncertainty: self.weightedUncertainty,
@@ -158,9 +287,9 @@ function ChartModel(id, title, dirty, dataAvailable) {
                 ratio: self.weightedUncertainty / self.weightedMean * 100
             },
             kernelDensityEstimation: {
-                X  : self.X,
-                Xi : self.Xi,
-                kde: self.kde
+                variables: self.variables,
+                values   : self.values,
+                kde      : self.kde
             },
             skewness: {
                 skewness: self.skewness

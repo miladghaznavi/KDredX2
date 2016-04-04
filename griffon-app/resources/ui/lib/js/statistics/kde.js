@@ -64,21 +64,19 @@ function KernelDensityEstimation () {
     };
 
     KernelDensityEstimation.bandwidthRange = function(values, uncertainties) {
-        var min = Number.MAX_VALUE;
         var max = Number.MIN_VALUE;
         var sum = 0;
         for (var i = 0; i < values.length; ++i) {
-            min = min(min, values[i] - Math.abs(uncertainties[i]));
-            max = max(max, values[i] + Math.abs(uncertainties[i]));
-            sum += values[i] - uncertainties[i];
+            max = Math.max(max, values[i] + Math.abs(uncertainties[i]));
+            sum += uncertainties[i];
         }//for
 
-        var defaultVal = sum / values.length;
+        var from = sum / values.length;
 
         return {
-            'min'    : min,
-            'max'    : max,
-            'default': defaultVal
+            'min' : 0,
+            'max' : max,
+            'from': from
         };
     };
 
