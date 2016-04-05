@@ -1,9 +1,4 @@
 function ChartController() {
-    var self = this;
-    self.id    = null;
-    self.model = null;
-    self.view  = null;
-
     ChartController.inputsForcingReplot = [
         'uncertaintyInterpret',
         'rejectionRange',
@@ -16,8 +11,20 @@ function ChartController() {
         'showErrorBarTextData',
         'showMeanTextData',
         'showRejectionTextData',
-        'showSkewnessTextData'
+        'showSkewnessTextData',
+        'showMSWDTextData',
+
+        // Weighted mean chart title
+        'WMShowTitle',
+
+        // KDE chart title
+        'KDEShowTitle',
     ];
+
+    var self = this;
+    self.id    = null;
+    self.model = null;
+    self.view  = null;
 
     self.mvcInit = function (options) {
         self.id = options.id;
@@ -62,13 +69,6 @@ function ChartController() {
 
     // This function prepares bandwidth and variables.
     self.prepareData = function () {
-        var uncertaintyInterpret = this.model.uncertaintyInterpret;
-        if (uncertaintyInterpret > 1) {
-            for (var i = 0; i < self.model.uncertainties.length; ++i) {
-                self.model.uncertainties[i] = self.model.uncertainties[i] / uncertaintyInterpret;
-            }//for
-        }//if
-
         var bandwidthRange = KernelDensityEstimation.bandwidthRange(self.model.values, self.model.uncertainties);
         if (self.model.bandwidth == null ||
             self.model.bandwidth <  bandwidthRange.min ||
@@ -83,7 +83,7 @@ function ChartController() {
         }//if
 
         // update bandwidth ui without change event
-        self.view.setInputValue('bandwidth', bandwidthRange.from, true);
+        self.view.setInputValue('bandwidth', self.model.bandwidth, true);
 
         self.model.variables = KernelDensityEstimation.variables(
             self.model.values, self.model.uncertainties, self.model.variablesCount.from);
@@ -119,7 +119,10 @@ function ChartController() {
             self.plot();
         }//if
         else if (ChartController.textDataInputs.indexOf(input) != -1) {
-
+            if (this.model[input])
+                self.view.showTextData(input);
+            else
+                self.view.hideTextData(input);
         }//if
     };
 }

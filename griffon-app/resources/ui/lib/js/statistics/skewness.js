@@ -1,17 +1,18 @@
 function Skewness() {
-    Skewness.skewness = function(X, Xi) {
-        var n = Xi.length;
+    Skewness.SKEWNESS_LEAST_DATA_POINTS = 1;
 
-        if (n < KernelDensityEstimation.SKEWNESS_LEAST_DATA_POINTS) {
-            throw "Number of Xi values must be equal or greater than " +
-            KernelDensityEstimation.SKEWNESS_LEAST_DATA_POINTS;
+    Skewness.skewness = function(values) {
+        var n = values.length;
+
+        if (n < Skewness.SKEWNESS_LEAST_DATA_POINTS) {
+            throw "Number of values must be equal or greater than " + Skewness.SKEWNESS_LEAST_DATA_POINTS;
         }//if
 
-        var mean = ss.mean(X);
+        var mean = ss.mean(values);
 
         var skewness = 0;
-        for (var i = 0; i < Xi.length; ++i) {
-            skewness += Math.pow((Xi[i] - mean), 2.0);
+        for (var i = 0; i < values.length; ++i) {
+            skewness += Math.pow((values[i] - mean), 2.0);
         }//for
         skewness /= (n - 1);
         skewness = Math.sqrt(skewness);
@@ -19,9 +20,9 @@ function Skewness() {
         return skewness;
     };
 
-    Skewness.calculate = function(X, Xi) {
+    Skewness.calculate = function(values) {
         return {
-            skewness: Skewness.skewness(X, Xi)
+            skewness: Skewness.skewness(values)
         };
     };
 }

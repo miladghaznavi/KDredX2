@@ -1,14 +1,12 @@
 function ChartModel(id, title, dirty, dataAvailable) {
-    var self = this;
-
     ChartModel.defaultValues = {
         /* Data Preferences */
         // Interpreting Data
         uncertaintyInterpret: 1,
-        rejectionRange      : 1,
+        rejectionRange      : 0,
 
         // Kernel Density Estimation
-        variablesCount      : {'min': 3, 'max': 200, 'from': 100},
+        variablesCount      : {'min': 3, 'max': 300, 'from': 150},
         kernelFunction      : 'gaussian',
 
         /* Data Preferences */
@@ -180,9 +178,10 @@ function ChartModel(id, title, dirty, dataAvailable) {
     ];
 
     ChartModel.allLists = ChartModel.preferencesList.concat(
-                          ChartModel.chartPropertiesList).concat(
-                          ChartModel.dataList);
+        ChartModel.chartPropertiesList).concat(
+        ChartModel.dataList);
 
+    var self = this;
     id    = (typeof id    !== 'undefined') ? id: null;
     title = (typeof title !== 'undefined') ? title: null;
     dirty = (typeof dirty !== 'undefined') ? dirty: false;
@@ -252,8 +251,14 @@ function ChartModel(id, title, dirty, dataAvailable) {
     };
 
     self.calculate = function() {
+        var uncertainties = [];
+        for (var i = 0; i < self.uncertainties.length; ++i) {
+            uncertainties.push(self.uncertainties[i] / self.uncertaintyInterpret);
+        }//for
+
         // Weighted weightedMean
-        var aWm = WeightedMean.calculate(self.values, self.uncertainties, self.rejectionRange);
+        var aWm = WeightedMean.calculate(self.values, uncertainties, Number(self.rejectionRange));
+        console.log('Weighted Mean:');
         console.log(aWm);
         for (var key in aWm) {
             self[key] = aWm[key];
@@ -266,12 +271,16 @@ function ChartModel(id, title, dirty, dataAvailable) {
         for (var key in aKde) {
             self[key] = aKde[key];
         }//for
+        console.log('KDE:');
+        console.log(aKde);
 
         //Skewness
-        var aSkewness = Skewness.calculate(self.variables, self.values);
+        var aSkewness = Skewness.calculate(self.values);
         for (var key in aSkewness) {
             self[key] = aSkewness[key];
         }//for
+        console.log('Skewness:');
+        console.log(aSkewness);
     };
 
     self.getStatistics = function() {
@@ -279,7 +288,7 @@ function ChartModel(id, title, dirty, dataAvailable) {
         return {
             weightedMean: {
                 values: self.values,
-                uncertainties: self.uncertainties,
+                uncertainties: uncertainties,
                 weightedMean: self.weightedMean,
                 weightedUncertainty: self.weightedUncertainty,
                 rejected: self.rejected,

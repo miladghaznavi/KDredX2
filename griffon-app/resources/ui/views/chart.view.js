@@ -1,21 +1,16 @@
 function ChartView(id) {
     ChartView.OLD_VALUE_DATA = 'oldValue';
+    ChartView.SLIDER_CONTROL_TYPE = 'slider';
+    ChartView.CHECKBOX_CONTROL_TYPE = 'checkbox';
     ChartView.VALIDATE_NUMBER_INPUT = /^[0-9]+$/;
     ChartView.DEFAULT_NUMBER_PRECISION = 2;
-
-    var self = this;
-    id = typeof id !== 'undefined' ? id : null;
-    self.id = id;
-    self.weightedMeanChart = null;
-    self.KDEChart = null;
-
+    ChartView.SHOW_HIDE_ANIMATION = "slow";
     ChartView.chartingControls = {
         // Chart options
         titleCheckBox: '#titleCheckBox',
         borderCheckBox: '#borderCheckBox',
         legendCheckBox: '#legendCheckBox'
     };
-
     ChartView.inputs = {
         /* Data Preferences */
         // Interpreting Data
@@ -33,6 +28,7 @@ function ChartView(id) {
         showMeanTextData     : '#showMeanTextData',
         showRejectionTextData: '#showRejectionTextData',
         showSkewnessTextData : '#showSkewnessTextData',
+        showMSWDTextData     : '#showMSWDTextData',
 
         // Weighted Mean Chart
         // -- Options
@@ -95,7 +91,6 @@ function ChartView(id) {
         YGridLineWidth : '#yGridLineWidth',
         YGridLineColor : '#yGridLineColor'
     };
-
     ChartView.textInfoViews = {
         weightedMean            : '#weighted-mean',
         weightedUncertainty     : '#weighted-uncertainty',
@@ -105,13 +100,25 @@ function ChartView(id) {
         rejected                : '#rejected',
         total                   : '#total'
     };
-
     ChartView.textInput2InfoViewMap = {
         showErrorBarTextData : '#weighted-mean-top-info',
         showMeanTextData     : '#mean-info',
         showRejectionTextData: '#rejected-info',
-        showSkewnessTextData : '#skewness-info'
+        showSkewnessTextData : '#skewness-info',
+        showMSWDTextData     : '#mswd-info',
+
+        // Weighted mean chart title
+        WMShowTitle: '#weighted-mean-title',
+
+        // kde chart title
+        KDEShowTitle: '#kde-title'
     };
+
+    var self = this;
+    id = typeof id !== 'undefined' ? id : null;
+    self.id = id;
+    self.weightedMeanChart = null;
+    self.KDEChart = null;
 
     self.init = function(options) {
         self.initUI();
@@ -138,6 +145,12 @@ function ChartView(id) {
         // Sliders
         $('input[control-type="slider"]').ionRangeSlider({
             grid: true
+        });
+
+        // Float values
+        $('input[control-type="real-number"]').numericInput({
+            allowFloat   : true,
+            allowNegative: false
         });
 
         // font family select
@@ -431,6 +444,10 @@ function ChartView(id) {
                 $(element).val(value);
                 break;
 
+            case 'real-number':
+                $(element).val(value);
+                break;
+
             case 'color':
                 $(element).val(value);
                 $(element).css('background-color', value);
@@ -459,7 +476,7 @@ function ChartView(id) {
         var result = null;
         switch (elementType) {
             case 'checkbox':
-                result = element.attr('checked');
+                result = document.getElementById(element.attr('id')).checked;
                 break;
 
             case 'slider':
@@ -467,6 +484,10 @@ function ChartView(id) {
                 break;
 
             case 'number':
+                result = $(element).val();
+                break;
+
+            case 'real-number':
                 result = $(element).val();
                 break;
 
@@ -491,6 +512,7 @@ function ChartView(id) {
 
         var input = null;
         var id = '#' + this.id;
+        var controlType = $(this).attr('control-type');
         for (var key in ChartView.inputs) {
             if (ChartView.inputs[key] == id) {
                 input = key;
@@ -498,7 +520,24 @@ function ChartView(id) {
             }//if
         }//for
 
-        var value = self.getInputValue(key);
+        var value = null;
+        if (controlType == ChartView.SLIDER_CONTROL_TYPE)
+            value = {
+                min : $(this).data('ionRangeSlider').result.min,
+                max : $(this).data('ionRangeSlider').result.max,
+                from: $(this).data('ionRangeSlider').result.from
+            };
+        else
+            value = self.getInputValue(key);
+
         controller.inputChanged(input, value);
+    };
+
+    self.hideTextData = function(whichTextInfo) {
+        $(ChartView.textInput2InfoViewMap[whichTextInfo]).hide(ChartView.SHOW_HIDE_ANIMATION);
+    };
+
+    self.showTextData = function(whichTextInfo) {
+        $(ChartView.textInput2InfoViewMap[whichTextInfo]).show(ChartView.SHOW_HIDE_ANIMATION);
     };
 }

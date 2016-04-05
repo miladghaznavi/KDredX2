@@ -1,6 +1,11 @@
 {% block chartPreferencesTab %}
-<h4 class="control-sidebar-heading">Text Data</h4>
-<div class="form-inline row">
+<h4 id="text-data-head" class="control-sidebar-subheading collapsed"
+    data-toggle="collapse" href="#text-data-options">
+    Text Data
+    <span class="pull-right fa fa-angle-left hidden-close"></span>
+    <span class="pull-right fa fa-angle-down hidden-open hidden"></span>
+</h4>
+<div id="text-data-options" class="form-inline row collapse" href="#text-data-head">
     <div class="col-sm-6 no-padding">
         <div class="checkbox">
             <input id="showErrorBarTextData" type="checkbox" control-type="checkbox" checked/>
@@ -17,6 +22,12 @@
         <div class="checkbox">
             <input id="showRejectionTextData" type="checkbox" control-type="checkbox" checked/>
             <label class="control-label" for="showRejectionTextData">Rejection</label>
+        </div>
+    </div>
+    <div class="col-sm-6 no-padding">
+        <div class="checkbox">
+            <input id="showMSWDTextData" type="checkbox" control-type="checkbox" checked/>
+            <label class="control-label" for="showMSWDTextData">MSWD</label>
         </div>
     </div>
     <div class="col-sm-6 no-padding">
@@ -107,7 +118,7 @@
         <div class="col-sm-4 no-padding-left">
             <input id="wmPointsWidth"
                    class="form-control"
-                   control-type="number"
+                   control-type="real-number"
                    title="Points width" />
         </div>
 
@@ -127,7 +138,7 @@
         <div class="col-sm-4 no-padding-left">
             <input id="wmBarWidth"
                    class="form-control"
-                   control-type="number"
+                   control-type="real-number"
                    title="Bar width" />
         </div>
 
@@ -220,7 +231,7 @@
         <div class="col-sm-4 no-padding-left">
             <input id="kdeLineWidth"
                    class="form-control"
-                   control-type="number"
+                   control-type="real-number"
                    data-width="100%"
                    title="KDE line width" />
         </div>

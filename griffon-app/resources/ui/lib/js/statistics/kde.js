@@ -1,8 +1,7 @@
 function KernelDensityEstimation () {
     KernelDensityEstimation.STEPS_MIN_DEFAULT = 100;
     KernelDensityEstimation.STEPS_MAX_DEFAULT = 200;
-    KernelDensityEstimation.SKEWNESS_LEAST_DATA_POINTS = 1;
-
+    
     KernelDensityEstimation.KernelFunction = {
         epanechnikov: 'epanechnikov',
         gaussian: 'gaussian'
@@ -22,44 +21,44 @@ function KernelDensityEstimation () {
         );
     };
 
-    KernelDensityEstimation.scaledKernel = function(x, xi, bandwidth, kernelFunction) {
+    KernelDensityEstimation.scaledKernel = function(variable, value, bandwidth, kernelFunction) {
         var result = 0;
         switch (kernelFunction) {
             case KernelDensityEstimation.KernelFunction.gaussian:
-                result = KernelDensityEstimation.gaussianKernelFunction((x - xi) / bandwidth);
+                result = KernelDensityEstimation.gaussianKernelFunction((variable - value) / bandwidth);
                 break;
 
             case KernelDensityEstimation.KernelFunction.epanechnikov:
-                result = KernelDensityEstimation.epanechnikovKernelFunction((x - xi) / bandwidth);
+                result = KernelDensityEstimation.epanechnikovKernelFunction((variable - value) / bandwidth);
                 break;
         }//switch
         return result;
     };
 
-    KernelDensityEstimation.kernelDensityEstimation = function(x, Xi, bandwidth, kernelFunction) {
-        var B = Xi.length * bandwidth;
+    KernelDensityEstimation.kernelDensityEstimation = function(variable, values, bandwidth, kernelFunction) {
+        var B = values.length * bandwidth;
         var A = 0;
-        for (var i = 0; i < Xi.length; ++i)
-            A += KernelDensityEstimation.scaledKernel(x, Xi[i], bandwidth, kernelFunction);
+        for (var i = 0; i < values.length; ++i)
+            A += KernelDensityEstimation.scaledKernel(variable, values[i], bandwidth, kernelFunction);
 
         return A / B;
     };
 
-    KernelDensityEstimation.kernelDensityEstimations = function (X, Xi, bandwidth, kernelFunction) {
+    KernelDensityEstimation.kernelDensityEstimations = function (variables, values, bandwidth, kernelFunction) {
         var result = [];
-        for (var i = 0; i < X.length; ++i) {
+        for (var i = 0; i < variables.length; ++i) {
             result.push(
                 KernelDensityEstimation.kernelDensityEstimation(
-                X[i], Xi, bandwidth, kernelFunction)
+                variables[i], values, bandwidth, kernelFunction)
             );
         }//for
 
         return result;
     };
 
-    KernelDensityEstimation.calculate = function (X, Xi, bandwidth, kernelFunction) {
+    KernelDensityEstimation.calculate = function (variables, values, bandwidth, kernelFunction) {
         return {
-            kde: KernelDensityEstimation.kernelDensityEstimations(X, Xi, bandwidth, kernelFunction)
+            kde: KernelDensityEstimation.kernelDensityEstimations(variables, values, bandwidth, kernelFunction)
         };
     };
 
