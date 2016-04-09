@@ -8,8 +8,7 @@ function ChartView(id) {
     ChartView.chartingControls = {
         // Chart options
         titleCheckBox: '#titleCheckBox',
-        borderCheckBox: '#borderCheckBox',
-        legendCheckBox: '#legendCheckBox'
+        borderCheckBox: '#borderCheckBox'
     };
     ChartView.inputs = {
         /* Data Preferences */
@@ -34,7 +33,6 @@ function ChartView(id) {
         // -- Options
         WMShowTitle : '#wmTitleCheckBox',
         WMShowBorder: '#wmBorderCheckBox',
-        WMShowLegend: '#wmLegendCheckBox',
         WMShowLabel : '#wmLabelCheckBox',
         // -- Size
         WMChartWidth : '#wmChartWidthNumber',
@@ -51,7 +49,7 @@ function ChartView(id) {
         // Kernel Density Estimation Chart
         // -- Options
         KDEShowTitle : '#kdeTitleCheckBox',
-        KDEShowBorder: '#kdeBorderCheckBox',
+        // KDEShowBorder: '#kdeBorderCheckBox',
         // -- Size
         KDEChartWidth: '#kdeChartWidth',
         // -- Line
@@ -71,9 +69,9 @@ function ChartView(id) {
         /* Axis Preferences */
         // X Axis
         //-- Axis Scale
-        xAxisLow    : '#xAxisLow',
-        xAxisHigh   : '#xAxisHigh',
-        xAxisDivisor: '#xAxisDivisor',
+        XAxisLow    : '#xAxisLow',
+        XAxisHigh   : '#xAxisHigh',
+        XAxisDivisor: '#xAxisDivisor',
         //-- Grid Lines
         XGridLinesShow : '#xGridCheckBox',
         XGridLineStroke: '#xGridLineStroke',
@@ -134,8 +132,12 @@ function ChartView(id) {
         $('input[control-type="color"]').colorPicker({
             flat: true,
             renderCallback: function(elm, toggled) {
-                elm.css('color',
-                    elm.css('background-color'));
+                elm.css('color', elm.css('background-color'));
+
+                // If selected color changes
+                if (toggled === undefined) {
+                    elm.change();
+                }//if
             }
         });
 
@@ -168,21 +170,11 @@ function ChartView(id) {
             $('#chart-shown').show();
             $('#chart-not-shown').hide();
 
-            self.weightedMeanChart = self.drawWeightedMeanChart();
-            self.KDEChart = self.drawKDEChart();
+            var preferences = self.preferences();
+
+            self.weightedMeanChart = self.drawWeightedMeanChart(preferences);
+            self.KDEChart = self.drawKDEChart(preferences);
             self.setInfo({precision: ChartView.DEFAULT_NUMBER_PRECISION});
-            self.updateCharts({
-                axisX: {
-                    low: 0,
-                    high: 19,
-                },
-                plugins: [
-                    Chartist.plugins.errorBar({
-                        showPoint: false,
-                        showHLine: false
-                    })
-                ]
-            });
         }//if
         else {
             $('#chart-shown').hide();
@@ -201,13 +193,13 @@ function ChartView(id) {
         self.updateChart(self.weightedMeanChart, options);
     };
 
-    self.updateKDEChart = function(options) {
+    self.updateKDEChart = function(preferences) {
         self.updateChart(self.KDEChart, options);
     };
 
-    self.updateCharts = function(options) {
-        self.updateWeightedMeanChart(options);
-        self.updateKDEChart(options);
+    self.updateCharts = function(preferences) {
+        self.updateWeightedMeanChart(preferences);
+        self.updateKDEChart(preferences);
     };
 
     self.registerEvents = function() {
@@ -220,7 +212,70 @@ function ChartView(id) {
         $('#control-sidebar input, #control-sidebar select').change(self.onChangeInput);
     };
 
-    self.drawWeightedMeanChart = function() {
+    self.preferences = function() {
+        var model = app.getModel(self.id);
+        return {
+            wm: {
+                // border: model.WMShowBorder,
+                width : model.WMChartWidth,
+                height: model.WMChartHeight,
+                label : model.WMShowLabel,
+                points: {
+                    show : model.WMShowPoints,
+                    width: model.WMPointsWidth,
+                    color: model.WMPointsColor
+                },
+                bars: {
+                    showCaps: model.WMShowCaps,
+                    width   : model.WMBarWidth,
+                    color   : model.WMBarColor
+                },
+                meanLineColor: model.WMMeanLineColor,
+                xAxis: {
+                    low: model.XAxisLow,
+                    high: model.XAxisHigh,
+                    divisor: model.XAxisDivisor,
+                    gridLines: {
+                        show : model.XGridLinesShow,
+                        style: model.XGridLineStroke,
+                        size : model.XGridLineWidth,
+                        color: model.XGridLineColor
+                    }
+                },
+                yAxis: {
+                    low:     model.YAxisLow,
+                    high:    model.YAxisHigh,
+                    divisor: model.YAxisDivisor,
+                    gridLines: {
+                        show : model.YGridLinesShow,
+                        style: model.YGridLineStroke,
+                        size : model.YGridLineWidth,
+                        color: model.YGridLineColor
+                    }
+                }
+            },
+            kde: {
+                // border: model.KDEShowBorder,
+                width : model.KDEChartWidth,
+                line  : {
+                    style: model.KDELineStyle,
+                    width: model.KDELineWidth,
+                    color: model.KDELineColor
+                }
+            },
+            fonts: {
+                bold  : model.fontBold,
+                italic: model.fontItalic,
+                underline: model.fontUnderline,
+                strikethrough: model.fontStrikethrough,
+                color: model.fontColor,
+                family: model.fontFamily,
+                size: model.fontSize
+            }
+        };
+    };
+
+    self.drawWeightedMeanChart = function(preferences) {
         var labels = [];
         var means = [];
         var valuesData = [];
@@ -229,8 +284,8 @@ function ChartView(id) {
         var maxY = Number.MIN_VALUE;
 
         for (var i = 0; i < model.values.length; ++i) {
-            minY = Math.min(minY, model.values[i] - model.uncertainties[i]);
-            maxY = Math.max(maxY, model.values[i] + model.uncertainties[i]);
+            minY = Math.min(minY, model.values[i] - 2 * model.uncertainties[i]);
+            maxY = Math.max(maxY, model.values[i] + 2 * model.uncertainties[i]);
             means.push({
                 x: i + 1,
                 y: model.weightedMean
@@ -242,80 +297,23 @@ function ChartView(id) {
             labels.push(i + 1);
         }//for
 
-        // ChartModel.preferencesList = [
-        //     // Weighted Mean Chart
-        //     // -- Options
-        //     'WMShowTitle',
-        //     'WMShowBorder',
-        //     'WMShowLegend',
-        //     'WMShowLabel',
-        //     // -- Size
-        //     'WMChartWidth',
-        //     'WMChartHeight',
-        //     // -- Data Points & bars
-        //     'WMShowPoints',
-        //     'WMPointsWidth',
-        //     'WMPointsColor',
-        //     'WMShowCaps',
-        //     'WMBarWidth',
-        //     'WMBarColor',
-        //     // -- Mean Line
-        //     'WMMeanLineColor',
-        //
-        //     /* Axis Preferences */
-        //     // X Axis
-        //     //-- Axis Scale
-        //     'xAxisLow',
-        //     'xAxisHigh',
-        //     'xAxisDivisor',
-        //     //-- Grid Lines
-        //     'XGridLinesShow',
-        //     'XGridLineStroke',
-        //     'XGridLineWidth',
-        //     'XGridLineColor',
-        //
-        //     // Y Axis
-        //     //-- Axis Scale
-        //     'YAxisLow',
-        //     'YAxisHigh',
-        //     'YAxisDivisor',
-        //     //-- Grid Lines
-        //     'YGridLinesShow',
-        //     'YGridLineStroke',
-        //     'YGridLineWidth',
-        //     'YGridLineColor'
-        // ];
+        console.log('preferences');
+        console.log(preferences);
 
-        console.log('Check here:');
-        console.log(model);
-
-        var preferences =  {
+        var options = {
             series: {
                 'weightedMean': {
                     showLine: true
                 },
                 'values': {
-                    showLine: false
+                    showLine : true,
+                    showPoint: true,
+                    showHLine: true
                 }
             },
-            plugins: [
-                Chartist.plugins.errorBar({
-                    showPoint: false,
-                    showHLine: true,
-                    precision: ChartView.DEFAULT_NUMBER_PRECISION
-                })
-            ],
-            chartPadding: {
-                top: 0,
-                right: 0,
-                bottom: 0,
-                left: 0
-            },
-            fullWidth: true,
             axisX: {
-                //showLabel: false,
-                //showGrid: false,
-                type: Chartist.AutoScaleAxis,
+                showLabel: preferences.wm.label,
+                showGrid: false,
                 low: 1,
                 high: model.values.length,
                 onlyInteger: true
@@ -325,10 +323,30 @@ function ChartView(id) {
                 low: minY,
                 high: maxY
             },
+            plugins: [
+                Chartist.plugins.errorBar(
+                    // {
+                    //     points: preferences.wm.points,
+                    //     bars  : preferences.wm.bars,
+                    //     meanLineColor: preferences.wm.meanLineColor
+                    // }
+                    preferences.wm
+                )
+            ],
+            chartPadding: {
+                top: 0,
+                right: 0,
+                bottom: 0,
+                left: 0
+            },
+            fullWidth: true,
             chartPadding: {
                 right: 5
             }
         };
+
+        console.log('Check here:');
+        console.log(model);
 
         return new Chartist.Line('#weighted-mean-chart-box', {
                 labels: labels,
@@ -346,7 +364,7 @@ function ChartView(id) {
                     }
                 ]
             },
-            preferences
+            options
         );
     };
 
@@ -509,28 +527,28 @@ function ChartView(id) {
     self.onChangeInput = function () {
         // Interpret data
         var controller = app.getController(self.id);
-
         var input = null;
         var id = '#' + this.id;
         var controlType = $(this).attr('control-type');
         for (var key in ChartView.inputs) {
-            if (ChartView.inputs[key] == id) {
+            if (ChartView.inputs[key] === id) {
                 input = key;
                 break;
             }//if
         }//for
+        if (input !== null) {
+            var value = null;
+            if (controlType == ChartView.SLIDER_CONTROL_TYPE)
+                value = {
+                    min: $(this).data('ionRangeSlider').result.min,
+                    max: $(this).data('ionRangeSlider').result.max,
+                    from: $(this).data('ionRangeSlider').result.from
+                };
+            else
+                value = self.getInputValue(key);
 
-        var value = null;
-        if (controlType == ChartView.SLIDER_CONTROL_TYPE)
-            value = {
-                min : $(this).data('ionRangeSlider').result.min,
-                max : $(this).data('ionRangeSlider').result.max,
-                from: $(this).data('ionRangeSlider').result.from
-            };
-        else
-            value = self.getInputValue(key);
-
-        controller.inputChanged(input, value);
+            controller.inputChanged(input, value);
+        }//if
     };
 
     self.hideTextData = function(whichTextInfo) {

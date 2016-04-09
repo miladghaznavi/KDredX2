@@ -72,11 +72,11 @@ function WeightedMean() {
         return result;
     };
 
-    WeightedMean.rejectedIndices = function(values, uncertainties, weightedMean, weightedUncertainty, rejectionRange) {
+    WeightedMean.rejectedIndices = function(values, uncertainties, weightedMean, weightedUncertainty) {
         var indices = [];
 
         for (var i = 0; i < values.length; ++i) {
-            if (!WeightedMean.intersect(values[i], uncertainties[i], weightedMean, weightedUncertainty, rejectionRange)) {
+            if (!WeightedMean.intersect(values[i], uncertainties[i], weightedMean, weightedUncertainty, 2)) {
                 indices.push(i);
             }//if
         }//for
@@ -85,15 +85,7 @@ function WeightedMean() {
     };
 
     WeightedMean.rejected = function(values, uncertainties, weightedMean, weightedUncertainty) {
-        var rejected = 0;
-
-        for (var i = 0; i < values.length; ++i) {
-            if (!WeightedMean.intersect(values[i], uncertainties[i], weightedMean, weightedUncertainty, 2)) {
-                ++rejected;
-            }//if
-        }//for
-
-        return rejected;
+        return WeightedMean.rejectedIndices(values, uncertainties, weightedMean, weightedUncertainty).length;
     };
 
     WeightedMean.removeRejected = function(values, uncertainties, weightedMean, weightedUncertainty, rejectionRange) {

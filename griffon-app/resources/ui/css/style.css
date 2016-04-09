@@ -47,3 +47,7 @@
 .margin-bottom {
     margin-bottom: 4px;
 }
+
+.form-inline .form-control {
+    width: 100%;
+}

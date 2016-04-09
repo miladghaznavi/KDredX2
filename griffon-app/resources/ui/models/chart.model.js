@@ -20,14 +20,13 @@ function ChartModel(id, title, dirty, dataAvailable) {
         // -- Options
         WMShowTitle : true,
         WMShowBorder: true,
-        WMShowLegend: true,
         WMShowLabel : true,
         // -- Size
         WMChartWidth : 600,
         WMChartHeight: 400,
         // -- Data Points & bars
         WMShowPoints   : true,
-        WMPointsWidth  : 2,
+        WMPointsWidth  : 10,
         WMPointsColor  : '#FB110B',
         WMShowCaps     : true,
         WMBarWidth     : 2,
@@ -92,8 +91,7 @@ function ChartModel(id, title, dirty, dataAvailable) {
         // Weighted Mean Chart
         // -- Options
         'WMShowTitle',
-        'WMShowBorder',
-        'WMShowLegend',
+        // 'WMShowBorder',
         'WMShowLabel',
         // -- Size
         'WMChartWidth',
@@ -130,9 +128,9 @@ function ChartModel(id, title, dirty, dataAvailable) {
         /* Axis Preferences */
         // X Axis
         //-- Axis Scale
-        'xAxisLow',
-        'xAxisHigh',
-        'xAxisDivisor',
+        'XAxisLow',
+        'XAxisHigh',
+        'XAxisDivisor',
         //-- Grid Lines
         'XGridLinesShow',
         'XGridLineStroke',
