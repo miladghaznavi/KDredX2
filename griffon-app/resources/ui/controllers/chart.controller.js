@@ -250,10 +250,12 @@ function ChartController() {
             }//if
         }//if
 
-        Util.notifyInfo(input + ':' + this.model[input]);
-        if (ChartController.inputsForcingReplot.indexOf(input) != -1) {
-            self.plot();
-        }//if
+        // Util.notifyInfo(input + ':' + this.model[input]);
+        // if (ChartController.inputsForcingReplot.indexOf(input) != -1) {
+        //     self.plot();
+        // }//if
+        // TODO: make this more efficient, we do not need to replot and recalculate every thing, when only some styles are changed
+        self.plot();
     };
 }
 

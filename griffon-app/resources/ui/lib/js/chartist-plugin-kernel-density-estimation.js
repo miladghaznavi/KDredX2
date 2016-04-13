@@ -21,13 +21,9 @@
 
     Chartist.plugins = Chartist.plugins || {};
     Chartist.plugins.kernelDensityEstimation = function(options) {
-        console.log('Options:');
-        console.log(options);
         return function errorBar(chart) {
             if(chart instanceof Chartist.Line) {
                 chart.on('draw', function(data) {
-                    console.log(data);
-
                     if(data.type == 'point') {
                         data.element.remove();
                     }//if

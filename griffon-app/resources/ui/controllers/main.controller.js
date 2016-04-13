@@ -56,6 +56,7 @@ function MainController() {
 
         if (dataController.areSelectsValid()) {
             if (self.setChartDataModel(dataModel, chartModel) > 0) {
+                
                 chartController.plot();
             }//if
             else {

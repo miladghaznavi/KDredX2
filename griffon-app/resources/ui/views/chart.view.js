@@ -60,7 +60,7 @@ function ChartView(id) {
     };
     ChartView.DEFAULT_TEXT_INFO        = {
         weightedMeanInfo: 'Mean = {weightedMean} &plusmn; {weightedUncertainty} [{ratio}%]',
-        rejectionInfo   : 'Wtd by data-pt errs only {rejected} of {total} rej.',
+        rejectionInfo   : 'Wtd by data-pt errs {rejected} of {total} rej.',
         mswdInfo        : 'MSWD = {mswd}',
         errorBarInfo    : "(error bars are 2 &sigma;)",
         skewnessInfo    : 'Skewness = {skewness}'

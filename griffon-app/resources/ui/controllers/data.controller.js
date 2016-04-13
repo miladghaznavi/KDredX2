@@ -26,8 +26,6 @@ function DataController() {
         // Parse local CSV file
         Papa.parse(file, {
             complete: function(results) {
-                Util.notifyInfo("In complete event!");
-
                 if (results.errors.length > 0) {
                     Util.notifyError("Error in loading the data!");
                 }//if
@@ -38,6 +36,7 @@ function DataController() {
                     self.model.spreadsheet = self.view.getSpreadsheet();
                     self.view.update();
                 }//else
+                Util.notifyInfo("Data have been loaded!");
             },
             error: function(error, file) {
                 Util.notifyError(error.message);
