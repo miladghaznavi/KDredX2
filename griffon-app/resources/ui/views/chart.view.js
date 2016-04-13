@@ -21,6 +21,12 @@ function ChartView(id) {
         right : 10,
         left  : 10
     };
+    ChartView.KDE_CHART_PADDING_DEFAULT= {
+        top   : 0,
+        bottom: 0,
+        right : 10,
+        left  : 10
+    };
     ChartView.DEFAULT_CLASSES          = {
         wm: {
             points: 'wmPoints',
@@ -48,11 +54,11 @@ function ChartView(id) {
             }
         }
     };
-    ChartView.DEFAULT_TITLES = {
+    ChartView.DEFAULT_TITLES           = {
         WMTitle         : 'Weighted Mean',
         KDETitle        : 'Kernel Density Estimation'
     };
-    ChartView.DEFAULT_TEXT_INFO = {
+    ChartView.DEFAULT_TEXT_INFO        = {
         weightedMeanInfo: 'Mean = {weightedMean} &plusmn; {weightedUncertainty} [{ratio}%]',
         rejectionInfo   : 'Wtd by data-pt errs only {rejected} of {total} rej.',
         mswdInfo        : 'MSWD = {mswd}',
@@ -441,7 +447,7 @@ function ChartView(id) {
                         class: ChartView.DEFAULT_CLASSES.kde.xAxis.gridLines
                     },
                     labels: {
-                        show : model.WMXLabelsShow,
+                        show : model.KDEXLabelsShow,
                         font : {
                             fontFamily: model.KDEXLabelsFontFamily,
                             fontSize  : model.KDEXLabelsFontSize,
@@ -687,42 +693,35 @@ function ChartView(id) {
                 //TODO
                 x: model.kde[i],
                 y: model.variables[i]
-                //x: Math.random() * 1000,
-                // y: model.variables[model.variables.length - (i + 1)]
             });
         }//for
 
         var options = {
             axisX: {
-                showLabel: true,
-                showGrid : true,
-                type: Chartist.FixedScaleAxis,
-                low : preferences.kde.xAxis.scales.low,
-                high: preferences.kde.xAxis.scales.high,
-                divisor: preferences.kde.xAxis.scales.divisor
+                showLabel: preferences.kde.xAxis.labels.show,
+                showGrid : preferences.kde.xAxis.gridLines.show,
+                type:      Chartist.FixedScaleAxis,
+                low :      preferences.kde.xAxis.scales.low,
+                high:      preferences.kde.xAxis.scales.high,
+                divisor:   preferences.kde.xAxis.scales.divisor
             },
             axisY: {
-                showLabel: true,
-                showGrid : true,
-                type: Chartist.FixedScaleAxis,
-                low : preferences.kde.yAxis.scales.low,
-                high: preferences.kde.yAxis.scales.high ,
-                divisor: preferences.kde.yAxis.scales.divisor
+                showLabel: preferences.kde.yAxis.labels.show,
+                showGrid : preferences.kde.yAxis.gridLines.show,
+                type:      Chartist.FixedScaleAxis,
+                low :      preferences.kde.yAxis.scales.low,
+                high:      preferences.kde.yAxis.scales.high,
+                divisor:   preferences.kde.yAxis.scales.divisor
             },
-            // plugins: [
-            //     Chartist.plugins.kernelDensityEst(
-            //         preferences.kde
-            //     )
-            // ],
-            chartPadding: {
-                top: 0,
-                right: 0,
-                bottom: 0,
-                left: 0
-            },
-            // fullWidth: true,
+            plugins: [
+                Chartist.plugins.kernelDensityEstimation(
+                    preferences.kde
+                )
+            ],
+            chartPadding: ChartView.KDE_CHART_PADDING_DEFAULT,
             width : preferences.kde.size.width,
-            height: preferences.kde.size.height
+            height: preferences.kde.size.height,
+            fullWidth: true
         };
 
         return new Chartist.Line('#kde-chart-box', {
@@ -749,8 +748,6 @@ function ChartView(id) {
         }//else
 
         // Draw KDE-chart title
-        console.log('preferences:');
-        console.log(preferences);
         if (preferences.kde.title.show == true) {
             $(ChartView.KDE_TITLE_TEXT).html(ChartView.DEFAULT_TITLES.KDETitle);
             $(ChartView.KDE_TITLE_TEXT).attr({
@@ -782,8 +779,6 @@ function ChartView(id) {
     };
 
     self.setInfo = function(preferences) {
-        console.log('Old Preferences: ');
-        console.log(preferences);
         var model = app.getModel(id);
         var precision = (preferences != null && preferences.precision != undefined) ? preferences.precision : null;
 
@@ -826,8 +821,6 @@ function ChartView(id) {
             );
         }//else
 
-        console.log('Preferences: ');
-        console.log(preferences);
         if (preferences.WMText.weightedMean.show == false)
             $(ChartView.textInfoViews.weightedMeanInfo).html(null);
 

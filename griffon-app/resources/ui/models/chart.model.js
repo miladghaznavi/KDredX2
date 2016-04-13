@@ -117,7 +117,7 @@ function ChartModel(id, title, dirty, dataAvailable) {
         KDEXGridLineWidth : 1,
         KDEXGridLineColor : '#8D8D8D',
         //-- Labels
-        KDEXLabelsShow: true,
+        KDEXLabelsShow             : false,
         KDEXLabelsFontFamily       : 'Times',
         KDEXLabelsFontSize         : 11,
         KDEXLabelsFontBold         : false,

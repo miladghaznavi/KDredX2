@@ -67,6 +67,7 @@ function ChartController() {
     ChartController.DEFAULT_AXIS_SCALES = {
         WMXAxisLowDefault    : 1,
         WMYAxisDivisorDefault: 16,
+        KDEXAxisDivisorDefault: 16,
     };
 
     ChartController.IMAGE_TYPES = {
@@ -154,7 +155,25 @@ function ChartController() {
 
         self.view.setInputValue('WMYAxisLow'    , self.model.WMYAxisLow , true);
         self.view.setInputValue('WMYAxisHigh'   , self.model.WMYAxisHigh, true);
-        self.view.setInputValue('WMYAxisDivisor', self.model.WMYAxisDivisor, true)
+        self.view.setInputValue('WMYAxisDivisor', self.model.WMYAxisDivisor, true);
+
+        // Kernel Density Estimation - Axis X
+        self.model.KDEXAxisLow = (self.model.KDEXAxisLow  == null) ?
+            Util.min(self.model.kde) : self.model.KDEXAxisLow;
+
+        self.model.KDEXAxisHigh = (self.model.KDEXAxisHigh == null) ?
+            Util.max(self.model.kde): self.model.KDEXAxisHigh;
+
+        self.model.KDEXAxisDivisor = (self.model.KDEXAxisDivisor == null) ?
+            ChartController.DEFAULT_AXIS_SCALES.KDEXAxisDivisorDefault : self.model.KDEXAxisDivisor;
+        self.view.setInputValue('KDEXAxisLow'    , self.model.KDEXAxisLow , true);
+        self.view.setInputValue('KDEXAxisHigh'   , self.model.KDEXAxisHigh, true);
+        self.view.setInputValue('KDEXAxisDivisor', self.model.KDEXAxisDivisor, true);
+
+        // Kernel Density Estimation - Axis Y
+        self.model.KDEYAxisLow     = self.model.WMYAxisLow;
+        self.model.KDEYAxisHigh    = self.model.WMYAxisHigh;
+        self.model.KDEYAxisDivisor = self.model.WMYAxisDivisor;
     };
 
     // This function prepares bandwidth and variables.
@@ -177,14 +196,13 @@ function ChartController() {
 
         self.model.variables = KernelDensityEstimation.variables(
             self.model.values, self.model.uncertainties, self.model.variablesCount.from);
-
-        self.prepareAxisScales();
     };
 
     self.plot = function() {
         if (self.model.dataAvailable) {
             self.prepareData();
             self.model.calculate();
+            self.prepareAxisScales();
             self.view.update();
 
             self.model.chartBeenDrawn = true;
@@ -236,12 +254,6 @@ function ChartController() {
         if (ChartController.inputsForcingReplot.indexOf(input) != -1) {
             self.plot();
         }//if
-        // else if (ChartController.textDataInputs.indexOf(input) != -1) {
-        //     if (this.model[input])
-        //         self.view.showTextData(input);
-        //     else
-        //         self.view.hideTextData(input);
-        // }//if
     };
 }
 
