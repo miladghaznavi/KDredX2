@@ -51,3 +51,10 @@
 .form-inline .form-control {
     width: 100%;
 }
+
+hr {
+    margin-top: 12px;
+    margin-bottom: 12px;
+    border: 0;
+    border-top: 1px solid #eee;
+}

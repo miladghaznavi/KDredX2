@@ -1,152 +1,55 @@
 {% block axisPreferencesTab %}
 <div class="form-group text-center">
     <div class="btn-group btn-flat" data-toggle="buttons">
-        <label class="btn btn-default active">
-            <input id="xAxisSelected" name="whichAxis" type="radio">X
+        <label class="btn btn-default active" title="Weighted Mean Chart">
+            <input id="wmAxisSelected" name="whichChartAxis" type="radio" checked>WM
         </label>
-        <label class="btn btn-default">
+        <label class="btn btn-default" title="Kernel Density Estimation Chart">
+            <input id="kdeAxisSelected" name="whichChartAxis" type="radio">KDE
+        </label>
+    </div>
+
+    <div class="btn-group btn-flat" data-toggle="buttons">
+        <label class="btn btn-default active" title="Axis X">
+            <input id="xAxisSelected" name="whichAxis" type="radio" checked>X
+        </label>
+        <label class="btn btn-default" title="Axis Y">
             <input id="yAxisSelected" name="whichAxis" type="radio">Y
         </label>
     </div>
 </div>
+
 <hr />
 
-<!-- For X Axis -->
-<div id="xAxisStyles">
-    <h4 class="control-sidebar-heading">Axis Scale</h4>
-    <div class="form-horizontal">
-        <div class="form-group">
-            <div class="col-xs-3">
-                <label class="control-label">Low</label>
-            </div>
-            <div class="col-xs-9">
-                <input id="xAxisLow" control-type="slider" class="form-control" />
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-xs-3">
-                <label control-type="number" class="control-label">High</label>
-            </div>
-            <div class="col-xs-9">
-                <input id="xAxisHigh" control-type="slider" class="form-control" />
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-xs-3">
-                <label class="control-label">Divisor</label>
-            </div>
-            <div class="col-xs-9">
-                <input id="xAxisDivisor" control-type="slider" class="form-control" />
-            </div>
-        </div>
-    </div>
+<div id="wm-axis-preferences">
+    <h4 class="control-sidebar-heading text-center">Weighted Mean Chart</h4>
+    <h4 class="control-sidebar-heading text-center xAxisStyles">Axis X</h4>
+    <h4 class="control-sidebar-heading text-center yAxisStyles hidden">Axis Y</h4>
     <hr />
-
-    <h4 class="control-sidebar-heading">Grid Lines</h4>
-    <div class="form-inline">
-        <div class="row margin-bottom">
-            <div class="col-xs-12 no-padding">
-                <div class="checkbox">
-                    <input id="xGridCheckBox"  type="checkbox" control-type="checkbox" data-option="showGrid">
-                    <label for="xGridCheckBox" class="control-label">Grids</label>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="form-horizontal">
-        <div class="form-group">
-            <div class="col-xs-6">
-                <select id="xGridLineStroke"
-                        class="selectpicker"
-                        data-width="100%"
-                        control-type="select"
-                        data-title="Grid Line Stroke">
-                    <option value="solid line">Solid Line</option>
-                    <option value="dashed">Dashed</option>
-                    <option value="points">Points</option>
-                </select>
-            </div>
-            <div class="col-xs-3 no-padding-left">
-                <input id="xGridLineWidth" class="form-control" control-type="real-number">
-            </div>
-            <div class="col-xs-2 no-padding">
-                <input id="xGridLineColor" control-type="color" class="color form-control" type="button">
-            </div>
-        </div>
-    </div>
+    {% block wmAxisPreferences %}
+        {% include "tabs/wm.axis.preferences.tab.html" %}
+    {% endblock %}
 </div>
 
-<!-- For Y Axis -->
-<div id="yAxisStyles" class="hidden">
-    <h4 class="control-sidebar-heading">Axis Scale</h4>
-    <div class="form-horizontal">
-        <div class="form-group">
-            <div class="col-xs-3">
-                <label class="control-label">Low</label>
-            </div>
-            <div class="col-xs-9">
-                <input id="yAxisLow" control-type="slider" class="form-control" />
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-xs-3">
-                <label class="control-label">High</label>
-            </div>
-            <div class="col-xs-9">
-                <input id="yAxisHigh" control-type="slider" class="form-control" />
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-xs-3">
-                <label class="control-label">Divisor</label>
-            </div>
-            <div class="col-xs-9">
-                <input id="yAxisDivisor" control-type="slider" class="form-control" />
-            </div>
-        </div>
-    </div>
+<div id="kde-axis-preferences" class="hidden">
+    <h4 class="control-sidebar-heading text-center">Kernel Density Est. Chart</h4>
+    <h4 class="control-sidebar-heading text-center xAxisStyles">Axis X</h4>
+    <h4 class="control-sidebar-heading text-center yAxisStyles hidden">Axis Y</h4>
     <hr />
-
-    <h4 class="control-sidebar-heading">Grid Lines</h4>
-    <div class="form-inline">
-        <div class="row margin-bottom">
-            <div class="col-xs-12 no-padding">
-                <div class="checkbox">
-                    <input id="yGridCheckBox" type="checkbox" control-type="checkbox" data-option="showGrid">
-                    <label for="yGridCheckBox" class="control-label">Grids</label>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="form-horizontal">
-        <div class="form-group">
-            <div class="col-xs-6">
-                <select control-type="select"
-                        id="yGridLineStroke"
-                        class="selectpicker"
-                        data-width="100%"
-                        data-title="Grid Line Stroke">
-                    <option value="solid line">Solid Line</option>
-                    <option value="dashed">Dashed</option>
-                    <option value="points">Points</option>
-                </select>
-            </div>
-            <div class="col-xs-3 no-padding-left">
-                <input id="yGridLineWidth" class="form-control" control-type="real-number">
-            </div>
-            <div class="col-xs-2 no-padding">
-                <input id="yGridLineColor" class="color form-control" type="button" control-type="color">
-            </div>
-        </div>
-    </div>
+    {% block kdeAxisPreferences %}
+        {% include "tabs/kde.axis.preferences.tab.html" %}
+    {% endblock %}
 </div>
 
 <script type="text/javascript">
     $("input[name=whichAxis]:radio").change(function () {
-        $('#xAxisStyles').toggleClass('hidden');
-        $('#yAxisStyles').toggleClass('hidden');
+        $('.xAxisStyles').toggleClass('hidden');
+        $('.yAxisStyles').toggleClass('hidden');
+    });
+
+    $("input[name=whichChartAxis]:radio").change(function () {
+        $('#wm-axis-preferences').toggleClass('hidden');
+        $('#kde-axis-preferences').toggleClass('hidden');
     });
 </script>
 {% endblock %}

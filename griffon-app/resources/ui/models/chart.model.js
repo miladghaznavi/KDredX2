@@ -1,6 +1,7 @@
 function ChartModel(id, title, dirty, dataAvailable) {
     ChartModel.defaultValues = {
         /* Data Preferences */
+
         // Interpreting Data
         uncertaintyInterpret: 1,
         rejectionRange      : 0,
@@ -9,66 +10,137 @@ function ChartModel(id, title, dirty, dataAvailable) {
         variablesCount      : {'min': 3, 'max': 300, 'from': 150},
         kernelFunction      : 'gaussian',
 
-        /* Data Preferences */
-        // Text Data
+        /* Chart Preferences */
+        // Weighted Mean
+        //-- Title
+        WMShowTitle             : true,
+        WMTitleFontFamily       : 'Times',
+        WMTitleFontSize         : 14,
+        WMTitleFontBold         : false,
+        WMTitleFontItalic       : false,
+        WMTitleFontUnderline    : false,
+        WMTitleFontStrikethrough: false,
+        WMTitleFontColor        : '#000',
+
+        //-- Text
         showErrorBarTextData : true,
         showMeanTextData     : true,
         showRejectionTextData: true,
-        showSkewnessTextData : true,
+        showMSWDTextData     : true,
+        WMTextFontFamily       : 'Times',
+        WMTextFontSize         : 11,
+        WMTextFontBold         : false,
+        WMTextFontItalic       : false,
+        WMTextFontUnderline    : false,
+        WMTextFontStrikethrough: false,
+        WMTextFontColor        : '#8D8D8D',
 
-        // Weighted Mean Chart
-        // -- Options
-        WMShowTitle : true,
-        WMShowBorder: true,
-        WMShowLabel : true,
-        // -- Size
+        //-- Size
         WMChartWidth : 600,
         WMChartHeight: 400,
-        // -- Data Points & bars
-        WMShowPoints   : true,
-        WMPointsWidth  : 10,
-        WMPointsColor  : '#FB110B',
-        WMShowCaps     : true,
-        WMBarWidth     : 2,
-        WMBarColor     : '#FB110B',
-        // -- Mean Line
+
+        //-- Data Points & bars
+        WMShowPoints : true,
+        WMPointsWidth: 10,
+        WMPointsColor: '#FB110B',
+        WMShowCaps   : true,
+        WMBarWidth   : 2,
+        WMBarColor   : '#FB110B',
+
+        //-- Mean Line
         WMMeanLineColor: '#118002',
 
         // Kernel Density Estimation Chart
-        // -- Options
-        KDEShowTitle : true,
-        KDEShowBorder: false,
-        // -- Size
+        //-- Title
+        KDEShowTitle             : true,
+        KDETitleFontFamily       : 'Times',
+        KDETitleFontSize         : 14,
+        KDETitleFontBold         : false,
+        KDETitleFontItalic       : false,
+        KDETitleFontUnderline    : false,
+        KDETitleFontStrikethrough: false,
+        KDETitleFontColor        : '#000',
+        // -- Text
+        showSkewnessTextData    : true,
+        KDETextFontFamily       : 'Times',
+        KDETextFontSize         : 11,
+        KDETextFontBold         : false,
+        KDETextFontItalic       : false,
+        KDETextFontUnderline    : false,
+        KDETextFontStrikethrough: false,
+        KDETextFontColor        : '#8D8D8D',
+
+        // Size
         KDEChartWidth: 300,
-        // -- Line
+        // Line
         KDELineStyle: 'solid line',
         KDELineWidth: 1,
         KDELineColor: '#929292',
 
-        // Font
-        fontBold         : false,
-        fontItalic       : false,
-        fontUnderline    : false,
-        fontStrikethrough: false,
-        fontFamily       : 'Times',
-        fontSize         : 11,
-        fontColor        : '#8D8D8D',
-
         /* Axis Preferences */
-        // X Axis
+        // WM X Axis
         //-- Grid Lines
-        XGridLinesShow : false,
-        XGridLineStroke: 'dashed',
-        XGridLineWidth : 1,
-        XGridLineColor : '#8D8D8D',
+        WMXGridLinesShow : false,
+        WMXGridLineStroke: 'dashed',
+        WMXGridLineWidth : 1,
+        WMXGridLineColor : '#8D8D8D',
+        //-- Labels
+        WMXLabelsShow             : true,
+        WMXLabelsFontFamily       : 'Times',
+        WMXLabelsFontSize         : 11,
+        WMXLabelsFontBold         : false,
+        WMXLabelsFontItalic       : false,
+        WMXLabelsFontUnderline    : false,
+        WMXLabelsFontStrikethrough: false,
+        WMXLabelsFontColor        : '#8D8D8D',
 
-        // Y Axis
-        //-- Axis Scale
+        // WM Y Axis
         //-- Grid Lines
-        YGridLinesShow : true,
-        YGridLineStroke: 'dashed',
-        YGridLineWidth : 1,
-        YGridLineColor : '#8D8D8D'
+        WMYGridLinesShow : true,
+        WMYGridLineStroke: 'dashed',
+        WMYGridLineWidth : 1,
+        WMYGridLineColor : '#8D8D8D',
+        //-- Labels
+        WMYLabelsShow             : true,
+        WMYLabelsFontFamily       : 'Times',
+        WMYLabelsFontSize         : 11,
+        WMYLabelsFontBold         : false,
+        WMYLabelsFontItalic       : false,
+        WMYLabelsFontUnderline    : false,
+        WMYLabelsFontStrikethrough: false,
+        WMYLabelsFontColor        : '#8D8D8D',
+
+        // KDE X Axis
+        //-- Grid Lines
+        KDEXGridLinesShow : false,
+        KDEXGridLineStroke: false,
+        KDEXGridLineWidth : 1,
+        KDEXGridLineColor : '#8D8D8D',
+        //-- Labels
+        KDEXLabelsShow: true,
+        KDEXLabelsFontFamily       : 'Times',
+        KDEXLabelsFontSize         : 11,
+        KDEXLabelsFontBold         : false,
+        KDEXLabelsFontItalic       : false,
+        KDEXLabelsFontUnderline    : false,
+        KDEXLabelsFontStrikethrough: false,
+        KDEXLabelsFontColor        : '#8D8D8D',
+
+        // KDE Y Axis
+        //-- Grid Lines
+        KDEYGridLinesShow : false,
+        KDEYGridLineStroke: 'dashed',
+        KDEYGridLineWidth : 1,
+        KDEYGridLineColor : '#8D8D8D',
+        //-- Labels
+        KDEYLabelsShow: false,
+        KDEYLabelsFontFamily       : 'Times',
+        KDEYLabelsFontSize         : 11,
+        KDEYLabelsFontBold         : false,
+        KDEYLabelsFontItalic       : false,
+        KDEYLabelsFontUnderline    : false,
+        KDEYLabelsFontStrikethrough: false,
+        KDEYLabelsFontColor        : '#8D8D8D'
     };
     ChartModel.preferencesList = [
         /* Data Preferences */
@@ -81,72 +153,153 @@ function ChartModel(id, title, dirty, dataAvailable) {
         'kernelFunction',
         'bandwidth',
 
-        /* Data Preferences */
-        // Text Data
+        /* Chart Preferences */
+        // Weighted Mean
+        //-- Title
+        'WMShowTitle',
+        'WMTitleFontFamily',
+        'WMTitleFontSize',
+        'WMTitleFontBold',
+        'WMTitleFontItalic',
+        'WMTitleFontUnderline',
+        'WMTitleFontStrikethrough',
+        'WMTitleFontColor',
+
+        //-- Text
         'showErrorBarTextData',
         'showMeanTextData',
         'showRejectionTextData',
-        'showSkewnessTextData',
+        'showMSWDTextData',
+        'WMTextFontFamily',
+        'WMTextFontSize',
+        'WMTextFontBold',
+        'WMTextFontItalic',
+        'WMTextFontUnderline',
+        'WMTextFontStrikethrough',
+        'WMTextFontColor',
 
-        // Weighted Mean Chart
-        // -- Options
-        'WMShowTitle',
-        // 'WMShowBorder',
-        'WMShowLabel',
-        // -- Size
+        //-- Size
         'WMChartWidth',
         'WMChartHeight',
-        // -- Data Points & bars
+
+        //-- Data Points & bars
         'WMShowPoints',
         'WMPointsWidth',
         'WMPointsColor',
         'WMShowCaps',
         'WMBarWidth',
         'WMBarColor',
-        // -- Mean Line
+
+        //-- Mean Line
         'WMMeanLineColor',
+
         // Kernel Density Estimation Chart
-        // -- Options
+        //-- Title
         'KDEShowTitle',
-        'KDEShowBorder',
-        // -- Size
+        'KDETitleFontFamily',
+        'KDETitleFontSize',
+        'KDETitleFontBold',
+        'KDETitleFontItalic',
+        'KDETitleFontUnderline',
+        'KDETitleFontStrikethrough',
+        'KDETitleFontColor',
+        // -- Text
+        'showSkewnessTextData',
+        'KDETextFontFamily',
+        'KDETextFontSize',
+        'KDETextFontBold',
+        'KDETextFontItalic',
+        'KDETextFontUnderline',
+        'KDETextFontStrikethrough',
+        'KDETextFontColor',
+
+        // Size
         'KDEChartWidth',
-        // -- Line
+        // Line
         'KDELineStyle',
         'KDELineWidth',
         'KDELineColor',
 
-        // Font
-        'fontBold',
-        'fontItalic',
-        'fontUnderline',
-        'fontStrikethrough',
-        'fontFamily',
-        'fontSize',
-        'fontColor',
-
         /* Axis Preferences */
-        // X Axis
+        // WM X Axis
         //-- Axis Scale
-        'XAxisLow',
-        'XAxisHigh',
-        'XAxisDivisor',
+        'WMXAxisLow',
+        'WMXAxisHigh',
+        'WMXAxisDivisor',
         //-- Grid Lines
-        'XGridLinesShow',
-        'XGridLineStroke',
-        'XGridLineWidth',
-        'XGridLineColor',
+        'WMXGridLinesShow',
+        'WMXGridLineStroke',
+        'WMXGridLineWidth',
+        'WMXGridLineColor',
+        //-- Labels
+        'WMXLabelsShow',
+        'WMXLabelsFontFamily',
+        'WMXLabelsFontSize',
+        'WMXLabelsFontBold',
+        'WMXLabelsFontItalic',
+        'WMXLabelsFontUnderline',
+        'WMXLabelsFontStrikethrough',
+        'WMXLabelsFontColor',
 
-        // Y Axis
+        // WM Y Axis
         //-- Axis Scale
-        'YAxisLow',
-        'YAxisHigh',
-        'YAxisDivisor',
+        'WMYAxisLow',
+        'WMYAxisHigh',
+        'WMYAxisDivisor',
         //-- Grid Lines
-        'YGridLinesShow',
-        'YGridLineStroke',
-        'YGridLineWidth',
-        'YGridLineColor'
+        'WMYGridLinesShow',
+        'WMYGridLineStroke',
+        'WMYGridLineWidth',
+        'WMYGridLineColor',
+        //-- Labels
+        'WMYLabelsShow',
+        'WMYLabelsFontFamily',
+        'WMYLabelsFontSize',
+        'WMYLabelsFontBold',
+        'WMYLabelsFontItalic',
+        'WMYLabelsFontUnderline',
+        'WMYLabelsFontStrikethrough',
+        'WMYLabelsFontColor',
+
+        // KDE X Axis
+        //-- Axis Scale
+        'KDEXAxisLow',
+        'KDEXAxisHigh',
+        'KDEXAxisDivisor',
+        //-- Grid Lines
+        'KDEXGridLinesShow',
+        'KDEXGridLineStroke',
+        'KDEXGridLineWidth',
+        'KDEXGridLineColor',
+        //-- Labels
+        'KDEXLabelsShow',
+        'KDEXLabelsFontFamily',
+        'KDEXLabelsFontSize',
+        'KDEXLabelsFontBold',
+        'KDEXLabelsFontItalic',
+        'KDEXLabelsFontUnderline',
+        'KDEXLabelsFontStrikethrough',
+        'KDEXLabelsFontColor',
+
+        // KDE Y Axis
+        //-- Axis Scale
+        // KDEYAxisLow    : '#kdeYAxisLow',
+        // KDEYAxisHigh   : '#kdeYAxisHigh',
+        // KDEYAxisDivisor: '#kdeYAxisDivisor',
+        //-- Grid Lines
+        'KDEYGridLinesShow',
+        'KDEYGridLineStroke',
+        'KDEYGridLineWidth',
+        'KDEYGridLineColor',
+        //-- Labels
+        'KDEYLabelsShow',
+        'KDEYLabelsFontFamily',
+        'KDEYLabelsFontSize',
+        'KDEYLabelsFontBold',
+        'KDEYLabelsFontItalic',
+        'KDEYLabelsFontUnderline',
+        'KDEYLabelsFontStrikethrough',
+        'KDEYLabelsFontColor'
     ];
     ChartModel.chartPropertiesList = [
         'id',
@@ -174,7 +327,6 @@ function ChartModel(id, title, dirty, dataAvailable) {
         // Skewness
         'skewness'
     ];
-
     ChartModel.allLists = ChartModel.preferencesList.concat(
         ChartModel.chartPropertiesList).concat(
         ChartModel.dataList);
@@ -190,6 +342,7 @@ function ChartModel(id, title, dirty, dataAvailable) {
     self.title = title;
     self.dirty = dirty;
     self.dataAvailable = dataAvailable;
+    self.chartBeenDrawn = false;
 
     self.init = function(options) {
         self.initData();
@@ -254,10 +407,8 @@ function ChartModel(id, title, dirty, dataAvailable) {
             uncertainties.push(self.uncertainties[i] / self.uncertaintyInterpret);
         }//for
 
-        // Weighted weightedMean
+        // Weighted Mean
         var aWm = WeightedMean.calculate(self.values, uncertainties, Number(self.rejectionRange));
-        console.log('Weighted Mean:');
-        console.log(aWm);
         for (var key in aWm) {
             self[key] = aWm[key];
         }//for
@@ -269,16 +420,12 @@ function ChartModel(id, title, dirty, dataAvailable) {
         for (var key in aKde) {
             self[key] = aKde[key];
         }//for
-        console.log('KDE:');
-        console.log(aKde);
 
         //Skewness
         var aSkewness = Skewness.calculate(self.values);
         for (var key in aSkewness) {
             self[key] = aSkewness[key];
         }//for
-        console.log('Skewness:');
-        console.log(aSkewness);
     };
 
     self.getStatistics = function() {

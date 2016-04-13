@@ -1,0 +1,259 @@
+{% block wmPreferences %}
+<!-- Title -->
+<h6 id="wm-title-head" class="control-sidebar-subheading collapsed"
+    data-toggle="collapse" href="#wm-title-options">
+    Title
+    <span class="pull-right fa fa-angle-left hidden-close"></span>
+    <span class="pull-right fa fa-angle-down hidden-open hidden"></span>
+</h6>
+<div id="wm-title-options" class="form-inline row collapse" href="#wm-title-head">
+    <div class="form-group">
+        <div class="checkbox">
+            <input id="wmTitleCheckBox" type="checkbox" control-type="checkbox" checked>
+            <label class="control-label" for="wmTitleCheckBox">Title</label>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-8">
+            <select control-type="select" id="wmTitleFontFamilySelect" class="selectpicker font-families" data-width="100%"
+                    data-title="Font Family">
+            </select>
+        </div>
+        <div class="col-sm-4 no-padding-left">
+            <input control-type="number"
+                   class="form-control"
+                   name="fontSizeNumber"
+                   id="wmTitleFontSizeNumber"
+                   data-width="100%"
+                   data-title="Font Size"
+                   data-min="1"
+                   data-max="288">
+        </div>
+    </div>
+    <div>
+        <div class="col-sm-9 no-padding-right">
+            <div class="btn-group" data-toggle="buttons">
+                <label title="Bold" class="btn btn-default"
+                       data-css-property="font-style">
+                    <input type="checkbox" control-type="checkbox" id="wmTitleFontBoldCheckBox" autocomplete="off" />
+                    <i class="fa fa-bold"></i>
+                </label>
+                <label title="Italic" class="btn btn-default"
+                       data-css-property="font-style">
+                    <input type="checkbox" control-type="checkbox" id="wmTitleFontItalicCheckBox" autocomplete="off" />
+                    <i class="fa fa-italic"></i>
+                </label>
+
+                <label title="Underline" class="btn btn-default"
+                       data-css-property="font-decoration"
+                       style="text-decoration: underline">
+                    <input type="checkbox" control-type="checkbox" id="wmTitleFontUnderlineCheckBox" autocomplete="off" />
+                    <i class="fa fa-underline"></i>
+                </label>
+
+                <label title="Strikethrough" class="btn btn-default"
+                       data-css-property="font-decoration"
+                       style="text-decoration: line-through">
+                    <input type="checkbox" control-type="checkbox" id="wmTitleFontStrikethroughCheckBox" autocomplete="off" />
+                    <i class="fa fa-strikethrough"></i>
+                </label>
+            </div>
+        </div>
+        <div class="col-sm-2 no-padding">
+            <input id="wmTitleFontColor" type="button" control-type="color"
+                   class="color btn btn-flat" style="width: 100%;" title="Color" />
+        </div>
+    </div>
+</div>
+
+<!-- Text -->
+<hr />
+<h6 id="wm-text-data-head" class="control-sidebar-subheading collapsed"
+    data-toggle="collapse" href="#wm-text-data-options">
+    Text
+    <span class="pull-right fa fa-angle-left hidden-close"></span>
+    <span class="pull-right fa fa-angle-down hidden-open hidden"></span>
+</h6>
+<div id="wm-text-data-options" class="collapse" href="#wm-text-data-head">
+    <div class="form-inline row margin-bottom">
+        <div class="col-sm-6 no-padding">
+            <div class="checkbox">
+                <input id="showErrorBarTextData" type="checkbox" control-type="checkbox" checked/>
+                <label class="control-label" for="showErrorBarTextData">Error</label>
+            </div>
+        </div>
+        <div class="col-sm-6 no-padding">
+            <div class="checkbox">
+                <input id="showMeanTextData" type="checkbox" control-type="checkbox" checked/>
+                <label class="control-label" for="showMeanTextData">Mean</label>
+            </div>
+        </div>
+        <div class="col-sm-6 no-padding">
+            <div class="checkbox">
+                <input id="showRejectionTextData" type="checkbox" control-type="checkbox" checked/>
+                <label class="control-label" for="showRejectionTextData">Rejection</label>
+            </div>
+        </div>
+        <div class="col-sm-6 no-padding">
+        <div class="checkbox">
+            <input id="showMSWDTextData" type="checkbox" control-type="checkbox" checked/>
+            <label class="control-label" for="showMSWDTextData">MSWD</label>
+        </div>
+    </div>
+    </div>
+    <div class="form-inline row margin-bottom">
+        <div class="col-sm-8">
+            <select control-type="select" id="wmTextFontFamilySelect" class="selectpicker font-families" data-width="100%"
+                    data-title="Font Family">
+            </select>
+        </div>
+        <div class="col-sm-4 no-padding-left">
+            <input control-type="number"
+                   class="form-control"
+                   name="fontSizeNumber"
+                   id="wmTextFontSizeNumber"
+                   data-width="100%"
+                   data-title="Font Size"
+                   data-min="1"
+                   data-max="288">
+        </div>
+    </div>
+    <div class="form-inline row">
+        <div class="col-sm-9 no-padding-right">
+            <div class="btn-group" data-toggle="buttons">
+                <label title="Bold" class="btn btn-default"
+                       data-css-property="font-style">
+                    <input type="checkbox" control-type="checkbox" id="wmTextFontBoldCheckBox" autocomplete="off" />
+                    <i class="fa fa-bold"></i>
+                </label>
+                <label title="Italic" class="btn btn-default"
+                       data-css-property="font-style">
+                    <input type="checkbox" control-type="checkbox" id="wmTextFontItalicCheckBox" autocomplete="off" />
+                    <i class="fa fa-italic"></i>
+                </label>
+
+                <label title="Underline" class="btn btn-default"
+                       data-css-property="font-decoration"
+                       style="text-decoration: underline">
+                    <input type="checkbox" control-type="checkbox" id="wmTextFontUnderlineCheckBox" autocomplete="off" />
+                    <i class="fa fa-underline"></i>
+                </label>
+
+                <label title="Strikethrough" class="btn btn-default"
+                       data-css-property="font-decoration"
+                       style="text-decoration: line-through">
+                    <input type="checkbox" control-type="checkbox" id="wmTextFontStrikethroughCheckBox" autocomplete="off" />
+                    <i class="fa fa-strikethrough"></i>
+                </label>
+            </div>
+        </div>
+        <div class="col-sm-2 no-padding">
+            <input id="wmTextFontColor" type="button" control-type="color"
+                   class="color btn btn-flat" style="width: 100%;" title="Color" />
+        </div>
+    </div>
+</div>
+
+<!-- Size -->
+<hr />
+<h6 id="wm-size-head" class="control-sidebar-subheading collapsed"
+    data-toggle="collapse" href="#wm-size">
+    Size
+    <span class="pull-right fa fa-angle-left hidden-close"></span>
+    <span class="pull-right fa fa-angle-down hidden-open hidden"></span>
+</h6>
+<div id="wm-size" class="form-horizontal collapse" href="#wm-size-head">
+    <div class="form-group">
+        <label for="wmChartWidthNumber" class="col-sm-4 control-label">Width</label>
+        <div class="col-sm-8">
+            <input id="wmChartWidthNumber"
+                   class="form-control"
+                   control-type="number"
+                   data-min="1"
+                   data-max="1000"/>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="wmChartHeightNumber" class="col-sm-4 control-label">Height</label>
+        <div class="col-sm-8">
+            <input id="wmChartHeightNumber"
+                   class="form-control"
+                   control-type="number"
+                   data-min="1"
+                   data-max="1000"/>
+        </div>
+    </div>
+</div>
+
+<!-- Data points -->
+<hr />
+<h6 id="wm-datapoints-head" class="control-sidebar-subheading collapsed"
+    data-toggle="collapse" href="#wm-datapoints">
+    Data Points &amp; Bars
+    <span class="pull-right fa fa-angle-left hidden-close"></span>
+    <span class="pull-right fa fa-angle-down hidden-open hidden"></span>
+</h6>
+<div id="wm-datapoints" class="form-inline collapse" href="#wm-datapoints-head">
+    <div class="row margin-bottom">
+        <div class="col-sm-5 no-padding">
+            <div class="checkbox">
+                <input id="wmPointsCheckBox" type="checkbox" control-type="checkbox" checked="">
+                <label for="wmPointsCheckBox" class="control-label">Point</label>
+            </div>
+        </div>
+
+        <div class="col-sm-4 no-padding-left">
+            <input id="wmPointsWidth"
+                   class="form-control"
+                   control-type="real-number"
+                   title="Points width" />
+        </div>
+
+        <div class="col-sm-2 no-padding">
+            <input id="wmPointsColor" type="button" control-type="color" class="color btn btn-flat"
+                   style="width: 100%;" title="Color" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-5 no-padding">
+            <div class="checkbox">
+                <input id="wmCapsCheckBox" type="checkbox" control-type="checkbox" checked="">
+                <label for="wmCapsCheckBox" class="control-label">Bar Cap</label>
+            </div>
+        </div>
+
+        <div class="col-sm-4 no-padding-left">
+            <input id="wmBarWidth"
+                   class="form-control"
+                   control-type="real-number"
+                   title="Bar width" />
+        </div>
+
+        <div class="col-sm-2 no-padding">
+            <input id="wmBarColor" control-type="color" class="color btn btn-flat" style="width: 100%;"
+                   title="Bars Color" />
+        </div>
+    </div>
+</div>
+
+<!-- Mean Line -->
+<hr />
+<h6 id="wm-mean-line-head" class="control-sidebar-subheading collapsed"
+    data-toggle="collapse" href="#wm-mean-line">
+    Mean Line
+    <span class="pull-right fa fa-angle-left hidden-close"></span>
+    <span class="pull-right fa fa-angle-down hidden-open hidden"></span>
+</h6>
+<div id="wm-mean-line" class="form-horizontal collapse" href="#wm-mean-line-head">
+    <div class="form-group">
+        <div class="col-sm-9">
+            <label for="wmMeanLineColor" class="control-label">Mean Line Color</label>
+        </div>
+        <div class="col-sm-2 no-padding">
+            <input id="wmMeanLineColor" control-type="color" type="button"
+                   class="color btn btn-flat" style="width: 100%;" title="Mean Line Color" />
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,197 @@
+{% block kdePreferences %}
+<!-- Title -->
+<h6 id="kde-title-head" class="control-sidebar-subheading collapsed"
+    data-toggle="collapse" href="#kde-title-options">
+    Title
+    <span class="pull-right fa fa-angle-left hidden-close"></span>
+    <span class="pull-right fa fa-angle-down hidden-open hidden"></span>
+</h6>
+<div id="kde-title-options" class="form-inline row collapse" href="#kde-title-head">
+    <div class="form-group">
+        <div class="checkbox">
+            <input id="kdeTitleCheckBox" type="checkbox" control-type="checkbox" checked>
+            <label class="control-label" for="kdeTitleCheckBox">Title</label>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-8">
+            <select control-type="select" id="kdeTitleFontFamilySelect" class="selectpicker font-families" data-width="100%"
+                    data-title="Font Family">
+            </select>
+        </div>
+        <div class="col-sm-4 no-padding-left">
+            <input control-type="number"
+                   class="form-control"
+                   name="fontSizeNumber"
+                   id="kdeTitleFontSizeNumber"
+                   data-width="100%"
+                   data-title="Font Size"
+                   data-min="1"
+                   data-max="288">
+        </div>
+    </div>
+    <div>
+        <div class="col-sm-9 no-padding-right">
+            <div class="btn-group" data-toggle="buttons">
+                <label title="Bold" class="btn btn-default"
+                       data-css-property="font-style">
+                    <input type="checkbox" control-type="checkbox" id="kdeTitleFontBoldCheckBox" autocomplete="off" />
+                    <i class="fa fa-bold"></i>
+                </label>
+                <label title="Italic" class="btn btn-default"
+                       data-css-property="font-style">
+                    <input type="checkbox" control-type="checkbox" id="kdeTitleFontItalicCheckBox" autocomplete="off" />
+                    <i class="fa fa-italic"></i>
+                </label>
+
+                <label title="Underline" class="btn btn-default"
+                       data-css-property="font-decoration"
+                       style="text-decoration: underline">
+                    <input type="checkbox" control-type="checkbox" id="kdeTitleFontUnderlineCheckBox" autocomplete="off" />
+                    <i class="fa fa-underline"></i>
+                </label>
+
+                <label title="Strikethrough" class="btn btn-default"
+                       data-css-property="font-decoration"
+                       style="text-decoration: line-through">
+                    <input type="checkbox" control-type="checkbox" id="kdeTitleFontStrikethroughCheckBox" autocomplete="off" />
+                    <i class="fa fa-strikethrough"></i>
+                </label>
+            </div>
+        </div>
+        <div class="col-sm-2 no-padding">
+            <input id="kdeTitleFontColor" type="button" control-type="color"
+                   class="color btn btn-flat" style="width: 100%;" title="Color" />
+        </div>
+    </div>
+</div>
+
+<!-- Text -->
+<hr />
+<h4 id="kde-text-data-head" class="control-sidebar-subheading collapsed"
+    data-toggle="collapse" href="#kde-text-data-options">
+    Text
+    <span class="pull-right fa fa-angle-left hidden-close"></span>
+    <span class="pull-right fa fa-angle-down hidden-open hidden"></span>
+</h4>
+<div id="kde-text-data-options" class="collapse" href="#kde-text-data-head">
+    <div class="form-inline row margin-bottom">
+        <div class="col-sm-6 no-padding">
+            <div class="checkbox">
+                <input id="showSkewnessTextData" type="checkbox" control-type="checkbox" checked/>
+                <label class="control-label" for="showSkewnessTextData">Skewness</label>
+            </div>
+        </div>
+    </div>
+    <div class="form-inline row margin-bottom">
+        <div class="col-sm-8">
+            <select control-type="select" id="kdeTextFontFamilySelect" class="selectpicker font-families" data-width="100%"
+                    data-title="Font Family">
+            </select>
+        </div>
+        <div class="col-sm-4 no-padding-left">
+            <input control-type="number"
+                   class="form-control"
+                   name="fontSizeNumber"
+                   id="kdeTextFontSizeNumber"
+                   data-width="100%"
+                   data-title="Font Size"
+                   data-min="1"
+                   data-max="288">
+        </div>
+    </div>
+    <div class="form-inline row">
+        <div class="col-sm-9 no-padding-right">
+            <div class="btn-group" data-toggle="buttons">
+                <label title="Bold" class="btn btn-default"
+                       data-css-property="font-style">
+                    <input type="checkbox" control-type="checkbox" id="kdeTextFontBoldCheckBox" autocomplete="off" />
+                    <i class="fa fa-bold"></i>
+                </label>
+                <label title="Italic" class="btn btn-default"
+                       data-css-property="font-style">
+                    <input type="checkbox" control-type="checkbox" id="kdeTextFontItalicCheckBox" autocomplete="off" />
+                    <i class="fa fa-italic"></i>
+                </label>
+
+                <label title="Underline" class="btn btn-default"
+                       data-css-property="font-decoration"
+                       style="text-decoration: underline">
+                    <input type="checkbox" control-type="checkbox" id="kdeTextFontUnderlineCheckBox" autocomplete="off" />
+                    <i class="fa fa-underline"></i>
+                </label>
+
+                <label title="Strikethrough" class="btn btn-default"
+                       data-css-property="font-decoration"
+                       style="text-decoration: line-through">
+                    <input type="checkbox" control-type="checkbox" id="kdeTextFontStrikethroughCheckBox" autocomplete="off" />
+                    <i class="fa fa-strikethrough"></i>
+                </label>
+            </div>
+        </div>
+        <div class="col-sm-2 no-padding">
+            <input id="kdeTextFontColor" type="button" control-type="color"
+                   class="color btn btn-flat" style="width: 100%;" title="Color" />
+        </div>
+    </div>
+</div>
+
+<!-- Size -->
+<hr />
+<h6 id="kde-size-head" class="control-sidebar-subheading collapsed"
+    data-toggle="collapse" href="#kde-size">
+    Size
+    <span class="pull-right fa fa-angle-left hidden-close"></span>
+    <span class="pull-right fa fa-angle-down hidden-open hidden"></span>
+</h6>
+<div id="kde-size" class="form-horizontal collapse" href="#kde-size-head">
+    <div class="form-group">
+        <div class="col-sm-4">
+            <label for="kdeChartWidth" class="control-label">Width</label>
+        </div>
+        <div class="col-sm-8">
+            <input id="kdeChartWidth"
+                   class="form-control"
+                   control-type="number"
+                   data-min="1"
+                   data-max="100000"
+                   title="KDE width" />
+        </div>
+    </div>
+</div>
+
+<!-- Line -->
+<hr />
+<h6 id="kde-line-head" class="control-sidebar-subheading collapsed"
+    data-toggle="collapse" href="#kde-line">
+    Line
+    <span class="pull-right fa fa-angle-left hidden-close"></span>
+    <span class="pull-right fa fa-angle-down hidden-open hidden"></span>
+</h6>
+<div id="kde-line" class="form-horizontal collapse" href="#kde-line-head">
+    <div class="form-group">
+        <div class="col-sm-6">
+            <select control-type="select" id="kdeLineStyle"
+                    class="selectpicker no-padding"
+                    data-width="100%"
+                    data-title="KDE line width">
+                <option value="solid line">Solid Line</option>
+                <option value="dashed">Dashed</option>
+                <option value="points">Points</option>
+            </select>
+        </div>
+        <div class="col-sm-3 no-padding-left">
+            <input id="kdeLineWidth"
+                   class="form-control"
+                   control-type="real-number"
+                   data-width="100%"
+                   title="KDE line width" />
+        </div>
+        <div class="col-sm-2 no-padding">
+            <input id="kdeLineColor" type="button" control-type="color" class="color btn btn-flat"
+                   style="width: 100%;" title="KDE line color" />
+        </div>
+    </div>
+</div>
+
+{% endblock %}

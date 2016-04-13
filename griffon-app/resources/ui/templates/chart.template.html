@@ -21,43 +21,31 @@
         </div>
     </div>
 
-    <div id="chart-panel-body" class="box-body">
+    <div id="chart-panel-body" class="box-body" style="overflow: scroll;">
         <div id="chart-shown" class="row">
-            <div class="col-lg-7">
+            <div class="col-sm-12">
                 <div id="weighted-mean-box">
-                    <span id="weighted-mean-title" class="title">
-                        Weighted Average
-                    </span>
-                    <span id="weighted-mean-top-info" class="little-info">
-                        data-point error symbols are 2s
-                    </span>
-                    <div id="weighted-mean-chart-box" class="ct-perfect-fourth"></div>
-                    <div id="info-box">
-                        <span id="mean-info">
-                            Mean =
-                            <span id="weighted-mean"></span>
-                            &plusmn;
-                            <span id="weighted-uncertainty"></span>
-                            [
-                            <span id="ratio"></span>%
-                            ]
-                        </span>
-                        <span id="rejected-info">
-                            Wtd by data-pt errs only, <span id="rejected"></span> of <span id="total"></span> rej.
-                        </span>
-                        <span id="mswd-info">
-                            MSWD = <span id="mswd"></span>
-                        </span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-5">
-                <div id="kde-box" class="box">
-                    <span id="kde-title" class="title">Kernel Density Estimation</span>
-                    <div id="kde-chart-box" class="ct-perfect-fourth"></div>
-                    <span id="skewness-info" class="info">
-                        Skewness = <span id="skewness"></span>
-                    </span>
+                    <svg id="chart-box">
+                        <svg id="title-box">
+                            <text id="wm-title-text" dominant-baseline="text-before-edge" text-anchor="middle">
+                            </text>
+                            <text id="kde-title-text" dominant-baseline="text-before-edge" text-anchor="middle">
+                            </text>
+                        </svg>
+                        <svg id="weighted-mean-chart-box"></svg>
+                        <svg id="kde-chart-box"></svg>
+                        <svg id="text-box">
+                            <text id="wm-text-info" dominant-baseline="use-script" text-anchor="middle">
+                                <tspan id="mean-info" dy="1.4em"></tspan>
+                                <tspan id="rejected-info" dy="1.4em"></tspan>
+                                <tspan id="mswd-info" dy="1.4em"></tspan>
+                                <tspan id="error-bar-info" dy="1.4em"></tspan>
+                            </text>
+
+                            <text id="skewness-info" dominant-baseline="text-before-edge" text-anchor="middle">
+                            </text>
+                        </svg>
+                    </svg>
                 </div>
             </div>
         </div>

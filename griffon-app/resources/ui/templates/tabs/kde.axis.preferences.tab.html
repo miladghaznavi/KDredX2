@@ -1,0 +1,264 @@
+{% block kdePreferences %}
+<!-- For X Axis -->
+<div class="xAxisStyles">
+    <!-- X Axis scale -->
+    <h6 id="kde-x-axis-scale-head" class="control-sidebar-subheading collapsed"
+        data-toggle="collapse" href="#kde-x-axis-options">
+        Axis Scale
+        <span class="pull-right fa fa-angle-left hidden-close"></span>
+        <span class="pull-right fa fa-angle-down hidden-open hidden"></span>
+    </h6>
+    <div id="kde-x-axis-options" class="form-horizontal collapse" href="#kde-x-axis-scale-head">
+        <div class="form-group">
+            <div class="col-xs-3">
+                <label class="control-label">Low</label>
+            </div>
+            <div class="col-xs-9">
+                <input id="kdeXAxisLow"
+                       control-type="number"
+                       data-forcestepdivisibility="none"
+                       data-min="-9007199254740991"
+                       data-max="+9007199254740991"
+                       class="form-control" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-xs-3">
+                <label class="control-label">High</label>
+            </div>
+            <div class="col-xs-9">
+                <input id="kdeXAxisHigh"
+                       control-type="number"
+                       data-forcestepdivisibility="none"
+                       data-min="-9007199254740991"
+                       data-max="+9007199254740991"
+                       class="form-control" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-xs-3">
+                <label class="control-label">Divisor</label>
+            </div>
+            <div class="col-xs-9">
+                <input id="kdeXAxisDivisor"
+                       control-type="number"
+                       data-forcestepdivisibility="none"
+                       data-min="1"
+                       data-max="+9007199254740991"
+                       class="form-control" />
+            </div>
+        </div>
+    </div>
+
+    <!-- X Gridlines -->
+    <hr />
+    <h6 id="kde-x-axis-gridlines-head" class="control-sidebar-subheading collapsed"
+        data-toggle="collapse" href="#kde-x-axis-gridlines-options">
+        Grid Lines
+        <span class="pull-right fa fa-angle-left hidden-close"></span>
+        <span class="pull-right fa fa-angle-down hidden-open hidden"></span>
+    </h6>
+    <div id="kde-x-axis-gridlines-options" class="form-inline row collapse" href="#kde-x-axis-gridlines-head">
+        <div class="form-group">
+            <div class="checkbox">
+                <input id="kdeXGridCheckBox"  type="checkbox" control-type="checkbox" data-option="showGrid">
+                <label for="kdeXGridCheckBox" class="control-label">Grids</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-xs-6">
+                <select id="kdeXGridLineStroke"
+                        class="selectpicker"
+                        data-width="100%"
+                        control-type="select"
+                        data-title="Grid Line Stroke">
+                    <option value="solid line">Solid Line</option>
+                    <option value="dashed">Dashed</option>
+                    <option value="points">Points</option>
+                </select>
+            </div>
+            <div class="col-xs-3 no-padding-left">
+                <input id="kdeXGridLineWidth" class="form-control" control-type="real-number">
+            </div>
+            <div class="col-xs-2 no-padding">
+                <input id="kdeXGridLineColor" control-type="color" class="color form-control" type="button">
+            </div>
+        </div>
+    </div>
+
+    <!-- X Label -->
+    <hr />
+    <h6 id="kde-x-axis-label-head" class="control-sidebar-subheading collapsed"
+        data-toggle="collapse" href="#kde-x-axis-label-options">
+        Labels
+        <span class="pull-right fa fa-angle-left hidden-close"></span>
+        <span class="pull-right fa fa-angle-down hidden-open hidden"></span>
+    </h6>
+    <div id="kde-x-axis-label-options" class="form-inline row collapse" href="#kde-x-axis-label-head">
+        <div class="form-group">
+            <div class="checkbox">
+                <input id="kdeXLabelsCheckBox" type="checkbox" control-type="checkbox" checked>
+                <label class="control-label" for="kdeXLabelsCheckBox">Labels</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-8">
+                <select control-type="select" id="kdeXLabelsFontFamilySelect" class="selectpicker font-families" data-width="100%"
+                        data-title="Font Family">
+                </select>
+            </div>
+            <div class="col-sm-4 no-padding-left">
+                <input control-type="number"
+                       class="form-control"
+                       name="fontSizeNumber"
+                       id="kdeXLabelsFontSizeNumber"
+                       data-width="100%"
+                       data-title="Font Size"
+                       data-min="1"
+                       data-max="288">
+            </div>
+        </div>
+        <div>
+            <div class="col-sm-9 no-padding-right">
+                <div class="btn-group" data-toggle="buttons">
+                    <label title="Bold" class="btn btn-default"
+                           data-css-property="font-style">
+                        <input type="checkbox" control-type="checkbox" id="kdeXLabelsFontBoldCheckBox" autocomplete="off" />
+                        <i class="fa fa-bold"></i>
+                    </label>
+                    <label title="Italic" class="btn btn-default"
+                           data-css-property="font-style">
+                        <input type="checkbox" control-type="checkbox" id="kdeXLabelsFontItalicCheckBox" autocomplete="off" />
+                        <i class="fa fa-italic"></i>
+                    </label>
+
+                    <label title="Underline" class="btn btn-default"
+                           data-css-property="font-decoration"
+                           style="text-decoration: underline">
+                        <input type="checkbox" control-type="checkbox" id="kdeXLabelsFontUnderlineCheckBox" autocomplete="off" />
+                        <i class="fa fa-underline"></i>
+                    </label>
+
+                    <label title="Strikethrough" class="btn btn-default"
+                           data-css-property="font-decoration"
+                           style="text-decoration: line-through">
+                        <input type="checkbox" control-type="checkbox" id="kdeXLabelsFontStrikethroughCheckBox" autocomplete="off" />
+                        <i class="fa fa-strikethrough"></i>
+                    </label>
+                </div>
+            </div>
+            <div class="col-sm-2 no-padding">
+                <input id="kdeXLabelsFontColor" type="button" control-type="color"
+                       class="color btn btn-flat" style="width: 100%;" title="Color" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- For Y Axis -->
+<div class="yAxisStyles hidden">
+     <!--Y Gridlines -->
+    <h6 id="kde-y-axis-gridlines-head" class="control-sidebar-subheading collapsed"
+        data-toggle="collapse" href="#kde-y-axis-gridlines-options">
+        Grid Lines
+        <span class="pull-right fa fa-angle-left hidden-close"></span>
+        <span class="pull-right fa fa-angle-down hidden-open hidden"></span>
+    </h6>
+    <div id="kde-y-axis-gridlines-options" class="form-inline row collapse" href="#kde-y-axis-gridlines-head">
+        <div class="form-group">
+            <div class="checkbox">
+                <input id="kdeYGridCheckBox"  type="checkbox" control-type="checkbox" data-option="showGrid">
+                <label for="kdeYGridCheckBox" class="control-label">Grids</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-xs-6">
+                <select id="kdeYGridLineStroke"
+                        class="selectpicker"
+                        data-width="100%"
+                        control-type="select"
+                        data-title="Grid Line Stroke">
+                    <option value="solid line">Solid Line</option>
+                    <option value="dashed">Dashed</option>
+                    <option value="points">Points</option>
+                </select>
+            </div>
+            <div class="col-xs-3 no-padding-left">
+                <input id="kdeYGridLineWidth" class="form-control" control-type="real-number">
+            </div>
+            <div class="col-xs-2 no-padding">
+                <input id="kdeYGridLineColor" control-type="color" class="color form-control" type="button">
+            </div>
+        </div>
+    </div>
+
+    <!-- Y Label -->
+    <hr />
+    <h6 id="kde-y-axis-label-head" class="control-sidebar-subheading collapsed"
+        data-toggle="collapse" href="#kde-y-axis-label-options">
+        Labels
+        <span class="pull-right fa fa-angle-left hidden-close"></span>
+        <span class="pull-right fa fa-angle-down hidden-open hidden"></span>
+    </h6>
+    <div id="kde-y-axis-label-options" class="form-inline row collapse" href="#kde-y-axis-label-head">
+        <div class="form-group">
+            <div class="checkbox">
+                <input id="kdeYLabelsCheckBox" type="checkbox" control-type="checkbox" checked>
+                <label class="control-label" for="kdeYLabelsCheckBox">Labels</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-8">
+                <select control-type="select" id="kdeYLabelsFontFamilySelect" class="selectpicker font-families" data-width="100%"
+                        data-title="Font Family">
+                </select>
+            </div>
+            <div class="col-sm-4 no-padding-left">
+                <input control-type="number"
+                       class="form-control"
+                       name="fontSizeNumber"
+                       id="kdeYLabelsFontSizeNumber"
+                       data-width="100%"
+                       data-title="Font Size"
+                       data-min="1"
+                       data-max="288">
+            </div>
+        </div>
+        <div>
+            <div class="col-sm-9 no-padding-right">
+                <div class="btn-group" data-toggle="buttons">
+                    <label title="Bold" class="btn btn-default"
+                           data-css-property="font-style">
+                        <input type="checkbox" control-type="checkbox" id="kdeYLabelsFontBoldCheckBox" autocomplete="off" />
+                        <i class="fa fa-bold"></i>
+                    </label>
+                    <label title="Italic" class="btn btn-default"
+                           data-css-property="font-style">
+                        <input type="checkbox" control-type="checkbox" id="kdeYLabelsFontItalicCheckBox" autocomplete="off" />
+                        <i class="fa fa-italic"></i>
+                    </label>
+
+                    <label title="Underline" class="btn btn-default"
+                           data-css-property="font-decoration"
+                           style="text-decoration: underline">
+                        <input type="checkbox" control-type="checkbox" id="kdeYLabelsFontUnderlineCheckBox" autocomplete="off" />
+                        <i class="fa fa-underline"></i>
+                    </label>
+
+                    <label title="Strikethrough" class="btn btn-default"
+                           data-css-property="font-decoration"
+                           style="text-decoration: line-through">
+                        <input type="checkbox" control-type="checkbox" id="kdeYLabelsFontStrikethroughCheckBox" autocomplete="off" />
+                        <i class="fa fa-strikethrough"></i>
+                    </label>
+                </div>
+            </div>
+            <div class="col-sm-2 no-padding">
+                <input id="kdeYLabelsFontColor" type="button" control-type="color"
+                       class="color btn btn-flat" style="width: 100%;" title="Color" />
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
