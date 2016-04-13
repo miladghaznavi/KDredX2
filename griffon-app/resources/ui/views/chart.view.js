@@ -659,6 +659,11 @@ function ChartView(id) {
             fullWidth: true
         };
 
+        var uncertainties = [];
+        for (var i = 0; i < model.uncertainties.length; ++i) {
+            uncertainties.push(model.uncertainties[i] / model.uncertaintyInterpret);
+        }//for
+
         return new Chartist.Line(ChartView.WM_CHART_BOX, {
                 labels: labels,
                 series: [
@@ -671,7 +676,7 @@ function ChartView(id) {
                     {
                         name: 'values',
                         data: model.values,
-                        uncertainties: model.uncertainties
+                        uncertainties: uncertainties
                     }
                 ]
             },

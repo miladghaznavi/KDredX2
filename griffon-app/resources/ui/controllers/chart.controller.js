@@ -178,7 +178,12 @@ function ChartController() {
 
     // This function prepares bandwidth and variables.
     self.prepareData = function () {
-        var bandwidthRange = KernelDensityEstimation.bandwidthRange(self.model.values, self.model.uncertainties);
+        var uncertainties = [];
+        for (var i = 0; i < self.model.uncertainties.length; ++i) {
+            uncertainties.push(self.model.uncertainties[i] / self.model.uncertaintyInterpret);
+        }//for
+
+        var bandwidthRange = KernelDensityEstimation.bandwidthRange(self.model.values, uncertainties);
         if (self.model.bandwidth == null ||
             self.model.bandwidth <  bandwidthRange.min ||
             self.model.bandwidth >  bandwidthRange.max) {
@@ -195,7 +200,7 @@ function ChartController() {
         self.view.setInputValue('bandwidth', self.model.bandwidth, true);
 
         self.model.variables = KernelDensityEstimation.variables(
-            self.model.values, self.model.uncertainties, self.model.variablesCount.from);
+            self.model.values, uncertainties, self.model.variablesCount.from);
     };
 
     self.plot = function() {
@@ -217,6 +222,11 @@ function ChartController() {
             case ChartController.IMAGE_TYPES.SVG:
                 images = Util.saveAsSVG(ChartView.CHART_BOX);
                 window.location.href = images[0];
+                break;
+
+            case ChartController.IMAGE_TYPES.PDF:
+                images = Util.saveAsPDF(ChartView.CHART_BOX);
+                console.log(images);
                 break;
 
             default:

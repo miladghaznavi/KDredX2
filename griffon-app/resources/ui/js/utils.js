@@ -330,6 +330,16 @@ function Util(){
         return result;
     };
 
+    Util.saveAsPDF = function(query) {
+        var svg = $(query).get(0);
+        var pdf = new jsPDF('p', 'pt', 'a4');
+        svgElementToPdf(svg, pdf, {
+            scale: 72/96, // this is the ratio of px to pt units
+            removeInvalid: true // this removes elements that could not be translated to pdf from the source svg
+        });
+        pdf.output('datauri'); // use output() to get the jsPDF buffer
+    };
+
     Util.createSVGElement = function(tag) {
         return document.createElementNS("http://www.w3.org/2000/svg", tag);
     };
