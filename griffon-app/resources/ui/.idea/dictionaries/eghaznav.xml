@@ -2,6 +2,7 @@
   <dictionary name="eghaznav">
     <words>
       <w>endblock</w>
+      <w>fevent</w>
       <w>replot</w>
     </words>
   </dictionary>

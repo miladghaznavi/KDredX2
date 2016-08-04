@@ -3,6 +3,11 @@ function DataView(id) {
     id = typeof id !== 'undefined' ? id : null;
     self.id = id;
 
+    DataView.MaxHeight = 800;
+    DataView.MinHeight = 400;
+    DataView.MaxWidth  = 1280;
+    DataView.MinWidth  = 600;
+
     DataView.controls = {
         kernelFunction: '#kernelFunction',
         uncertainty: '#uncertainty',
@@ -40,7 +45,7 @@ function DataView(id) {
             $(selectId).selectpicker('refresh');
         }//try
         catch(e){
-            Util.log();
+            Util.log(e);
         }//catch
     };
 
@@ -52,16 +57,18 @@ function DataView(id) {
         var calculateSize = function () {
             availableWidth  = $('#spreadsheet-panel-body').width();
             availableHeight = $('#spreadsheet-panel-body').height();
+            availableWidth  = Math.min(Math.max(availableWidth , DataView.MinWidth ), DataView.MaxWidth );
+            availableHeight = Math.min(Math.max(availableHeight, DataView.MinHeight), DataView.MaxHeight);
         };
         spreadsheet.on('resize', calculateSize);
-        $(window).on('resize', calculateSize());
+        $(window).on('resize', calculateSize);
 
         spreadsheet.handsontable({
             data: data,
             rowHeaders: true,
             colHeaders: true,
             minSpareRows: 1,
-            stretchH: 'all',
+            // stretchH: 'all',
             contextMenu: true,
             afterChange: app.getController(self.id).cellChanged,
             width: function () {

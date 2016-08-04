@@ -16,8 +16,17 @@ function DataController() {
     };
 
     self.saveEvent = function () {
-        console.log('In data save event!');
-        alert('Data save event');
+        // var result = null;
+        // if (self.model.dirty != false && JavaJSBridge != undefined) {
+        //     Util.notifySuccess("Before!");
+        //     var json = {
+        //         path: self.model.path,
+        //         data: self.model.data
+        //     };
+        //     var str = JSON.stringify(json);
+        //     result = JavaJSBridge.saveCSVFile(str);
+        //     Util.notifySuccess(result);
+        // }//if
     };
 
     self.loadCsv = function (fevent) {

@@ -47,13 +47,6 @@
 
   <locale>
     <langpack iso3="eng"/>
-    <langpack iso3="deu"/>
-    <langpack iso3="fra"/>
-    <langpack iso3="jpn"/>
-    <langpack iso3="ita"/>
-    <langpack iso3="por"/>
-    <langpack iso3="rus"/>
-    <langpack iso3="spa"/>
   </locale>
 
   <resources>
@@ -70,6 +63,9 @@
     <res id="shortcutSpec.xml" src="resources/emptyShortcutSpec.xml" />
     <res id="ProcessPanel.Spec.xml" src="resources/processSpec.xml" />
     <res id="RegistrySpec.xml" src="resources/RegistrySpec.xml" />
+
+    <!-- Javascript, CSS, and HTML resources -->
+    <!--TODO-->
   </resources>
 
   <native type="izpack" name="ShellLink.dll"/>

@@ -105,6 +105,12 @@ function Util(){
                 unit: ''
             }
         },
+        rects: {
+            color: {
+                prop: 'fill',
+                unit: ''
+            }
+        },
         // TODO
         scale: {}
     };
@@ -140,8 +146,8 @@ function Util(){
         Util.notify('success', msg, title);
     };
     
-    Util.log = function() {
-
+    Util.log = function(e) {
+        console.log(e);
     };
 
     Util.webSafeFonts = function() {
@@ -252,6 +258,11 @@ function Util(){
                 (parseFloat(low) < parseFloat(high));
     };
 
+    Util.checkUnit = function(unit, other, kwargs) {
+        return (unit == null) ||
+            (parseFloat(unit) > 0.0);
+    };
+
     Util.max = function(array) {
         var max = (array.length > 0) ? array[0] : NaN;
 
@@ -270,32 +281,32 @@ function Util(){
         return min;
     };
 
-    // Util.extractSVGs = function(query) {
-    //     var result = [];
-    //     $(query).each(function(index, element){
-    //         var serializer = new XMLSerializer();
-    //         var source = serializer.serializeToString(element);
-    //
-    //         //add name spaces.
-    //         if(!source.match(/^<svg[^>]+xmlns="http\:\/\/www\.w3\.org\/2000\/svg"/)){
-    //             source = source.replace(/^<svg/, '<svg xmlns="http://www.w3.org/2000/svg"');
-    //         }
-    //         if(!source.match(/^<svg[^>]+"http\:\/\/www\.w3\.org\/1999\/xlink"/)){
-    //             source = source.replace(/^<svg/, '<svg xmlns:xlink="http://www.w3.org/1999/xlink"');
-    //         }
-    //
-    //         //add xml declaration
-    //         source = '<?xml version="1.0" standalone="no"?>\r\n' + source;
-    //
-    //         // //convert svg source to URI data scheme.
-    //         var url = "data:image/svg+xml;charset=utf-8,"+encodeURIComponent(source);
-    //
-    //         //save the url
-    //         result.push(url);
-    //     });
-    //
-    //     return result;
-    // };
+    Util.extractSVGs = function(query) {
+        var result = [];
+        $(query).each(function(index, element){
+            var serializer = new XMLSerializer();
+            var source = serializer.serializeToString(element);
+
+            //add name spaces.
+            if(!source.match(/^<svg[^>]+xmlns="http\:\/\/www\.w3\.org\/2000\/svg"/)){
+                source = source.replace(/^<svg/, '<svg xmlns="http://www.w3.org/2000/svg"');
+            }
+            if(!source.match(/^<svg[^>]+"http\:\/\/www\.w3\.org\/1999\/xlink"/)){
+                source = source.replace(/^<svg/, '<svg xmlns:xlink="http://www.w3.org/1999/xlink"');
+            }
+
+            //add xml declaration
+            source = '<?xml version="1.0" standalone="no"?>\r\n' + source;
+
+            // //convert svg source to URI data scheme.
+            var url = "data:image/svg+xml;charset=utf-8,"+encodeURIComponent(source);
+
+            //save the url
+            result.push(url);
+        });
+
+        return result;
+    };
 
     Util.saveAsPNG = function(query) {
         var result = [];

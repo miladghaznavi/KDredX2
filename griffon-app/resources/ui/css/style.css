@@ -52,6 +52,11 @@
     width: 100%;
 }
 
+.title-checkbox {
+    display: flex !important;
+    top: 8px !important;
+}
+
 hr {
     margin-top: 12px;
     margin-bottom: 12px;

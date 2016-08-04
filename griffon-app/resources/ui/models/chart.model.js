@@ -14,6 +14,7 @@ function ChartModel(id, title, dirty, dataAvailable) {
         // Weighted Mean
         //-- Title
         WMShowTitle             : true,
+        WMTitleText             : 'Weighted Mean',
         WMTitleFontFamily       : 'Times',
         WMTitleFontSize         : 14,
         WMTitleFontBold         : false,
@@ -47,12 +48,16 @@ function ChartModel(id, title, dirty, dataAvailable) {
         WMBarWidth   : 2,
         WMBarColor   : '#FB110B',
 
-        //-- Mean Line
-        WMMeanLineColor: '#118002',
+        //-- Mean
+        WMBoxColor: '#118002',
+        WMLineStyle: 'solid line',
+        WMLineWidth: 1,
+        WMLineColor: '#929292',
 
         // Kernel Density Estimation Chart
         //-- Title
         KDEShowTitle             : true,
+        KDETitleText             : 'Kernel Density Estimation',
         KDETitleFontFamily       : 'Times',
         KDETitleFontSize         : 14,
         KDETitleFontBold         : false,
@@ -157,6 +162,7 @@ function ChartModel(id, title, dirty, dataAvailable) {
         // Weighted Mean
         //-- Title
         'WMShowTitle',
+        'WMTitleText',
         'WMTitleFontFamily',
         'WMTitleFontSize',
         'WMTitleFontBold',
@@ -190,12 +196,16 @@ function ChartModel(id, title, dirty, dataAvailable) {
         'WMBarWidth',
         'WMBarColor',
 
-        //-- Mean Line
-        'WMMeanLineColor',
+        //-- Mean
+        'WMBoxColor',
+        'WMLineStyle',
+        'WMLineWidth',
+        'WMLineColor',
 
         // Kernel Density Estimation Chart
         //-- Title
         'KDEShowTitle',
+        'KDETitleText',
         'KDETitleFontFamily',
         'KDETitleFontSize',
         'KDETitleFontBold',

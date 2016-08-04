@@ -53,12 +53,12 @@ javafx {
 
 dependencies {
     compile "org.codehaus.griffon:griffon-guice:${griffon.version}"
-    compile 'org.controlsfx:controlsfx:8.40.10'
-    compile 'org.apache.commons:commons-math3:3.5'
+//    compile 'org.controlsfx:controlsfx:8.40.10'
+//    compile 'org.apache.commons:commons-math3:3.5'
     compile 'org.apache.commons:commons-csv:1.2'
-    compile 'commons-io:commons-io:2.4'
-    compile 'commons-logging:commons-logging:1.1.1'
-    compile 'org.json:json:20090211'
+//    compile 'commons-io:commons-io:2.4'
+//    compile 'commons-logging:commons-logging:1.1.1'
+//    compile 'org.json:json:20090211'
 
     runtime('log4j:log4j:1.2.17') {
         exclude group: 'ant',         module: 'ant-nodeps'
@@ -115,7 +115,7 @@ if (hasProperty('debugRun') && ((project.debugRun as boolean))) {
     }
 }
 
-dependencies {
-    griffon 'org.codehaus.griffon.plugins:griffon-fontawesome-plugin:1.4.0'
-    griffon 'org.codehaus.griffon.plugins:griffon-icomoonicons-plugin:1.1.0'
-}
+//dependencies {
+//    griffon 'org.codehaus.griffon.plugins:griffon-fontawesome-plugin:1.4.0'
+//    griffon 'org.codehaus.griffon.plugins:griffon-icomoonicons-plugin:1.1.0'
+//}

@@ -54,8 +54,8 @@ function DataModel(id, path, dirty, data) {
         else {
             for (var i = 0; i < data.length; ++i)
                 result.push(data[i]);
-        }//if
-
+        }//else
+        
         return result;
     };
 

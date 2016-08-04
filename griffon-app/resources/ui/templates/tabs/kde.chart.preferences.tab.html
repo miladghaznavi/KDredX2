@@ -8,9 +8,14 @@
 </h6>
 <div id="kde-title-options" class="form-inline row collapse" href="#kde-title-head">
     <div class="form-group">
-        <div class="checkbox">
-            <input id="kdeTitleCheckBox" type="checkbox" control-type="checkbox" checked>
-            <label class="control-label" for="kdeTitleCheckBox">Title</label>
+        <div class="col-sm-2">
+            <div class="checkbox title-checkbox">
+                <input id="kdeTitleCheckBox" type="checkbox" control-type="checkbox" checked>
+                <label class="control-label" for="kdeTitleCheckBox" />
+            </div>
+        </div>
+        <div class="col-sm-10">
+            <input id="kdeTitleTextBox" class="form-control" control-type="text" />
         </div>
     </div>
     <div class="form-group">
@@ -174,7 +179,7 @@
             <select control-type="select" id="kdeLineStyle"
                     class="selectpicker no-padding"
                     data-width="100%"
-                    data-title="KDE line width">
+                    data-title="KDE line">
                 <option value="solid line">Solid Line</option>
                 <option value="dashed">Dashed</option>
                 <option value="points">Points</option>

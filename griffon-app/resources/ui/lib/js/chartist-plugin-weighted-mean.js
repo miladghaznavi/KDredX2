@@ -54,7 +54,7 @@
                     }//else if
                     else if (data.type == 'line'  && data.series.name == 'weightedMean') {
                         var toPixelFactor = data.axisY.axisLength / (data.axisY.range.max - data.axisY.range.min);
-                        options.meanLine['width'] = 4 * toPixelFactor * data.series.weightedUncertainty;
+                        options.meanBox['width'] = 4 * toPixelFactor * data.series.weightedUncertainty;
 
                         var yPos = (data.axisY.range.max - data.values[0].y) * toPixelFactor
                                     + data.chartRect.padding.top;
@@ -64,7 +64,7 @@
                             y1: yPos,
                             y2: yPos
                         });
-                        meanLineStyling(line, options);
+                        meanBoxStyling(line, options);
                         data.group.append(line);
                         data.element.remove();
                     }//else if
@@ -94,16 +94,16 @@
                 element.addClass(options.points.class);
             }
 
-            function meanLineStyling(element, options) {
-                var meanLinePref = options.meanLine;
-                if (meanLinePref.show) {
+            function meanBoxStyling(element, options) {
+                var meanBoxPref = options.meanBox;
+                if (meanBoxPref.show) {
                     element._node.setAttribute(
                         'style',
-                        Util.preferencesToCssStyles(meanLinePref, 'lines')
+                        Util.preferencesToCssStyles(meanBoxPref, 'lines')
                     );
                     element._node.setAttribute(
                         'class',
-                        options.meanLine.class
+                        options.meanBox.class
                     );
                 }//if
                 else {

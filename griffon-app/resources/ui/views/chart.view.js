@@ -29,9 +29,10 @@ function ChartView(id) {
     };
     ChartView.DEFAULT_CLASSES          = {
         wm: {
-            points: 'wmPoints',
-            bars: 'wmBars',
-            meanLine: 'wmMeanLine',
+            points  : 'wmPoints',
+            bars    : 'wmBars',
+            meanBox : 'wmBox',
+            meanLine: 'wmLine',
             xAxis: {
                 gridLines: 'wmXGridLines',
                 labels   : 'wmXLabels'
@@ -87,6 +88,7 @@ function ChartView(id) {
         // Weighted Mean
         //-- Title
         WMShowTitle             : '#wmTitleCheckBox',
+        WMTitleText             : '#wmTitleTextBox',
         WMTitleFontFamily       : '#wmTitleFontFamilySelect',
         WMTitleFontSize         : '#wmTitleFontSizeNumber',
         WMTitleFontBold         : '#wmTitleFontBoldCheckBox',
@@ -120,12 +122,16 @@ function ChartView(id) {
         WMBarWidth     : '#wmBarWidth',
         WMBarColor     : '#wmBarColor',
 
-        //-- Mean Line
-        WMMeanLineColor: '#wmMeanLineColor',
+        //-- Mean
+        WMBoxColor : '#wmBoxColor',
+        WMLineStyle: '#wmLineStyle',
+        WMLineWidth: '#wmLineWidth',
+        WMLineColor: '#wmLineColor',
 
         // Kernel Density Estimation Chart
         //-- Title
         KDEShowTitle             : '#kdeTitleCheckBox',
+        KDETitleText             : '#kdeTitleTextBox',
         KDETitleFontFamily       : '#kdeTitleFontFamilySelect',
         KDETitleFontSize         : '#kdeTitleFontSizeNumber',
         KDETitleFontBold         : '#kdeTitleFontBoldCheckBox',
@@ -153,9 +159,9 @@ function ChartView(id) {
         /* Axis Preferences */
         // WM X Axis
         //-- Axis Scale
-        WMXAxisLow    : '#wmXAxisLow',
-        WMXAxisHigh   : '#wmXAxisHigh',
-        WMXAxisDivisor: '#wmXAxisDivisor',
+        WMXAxisLow : '#wmXAxisLow',
+        WMXAxisHigh: '#wmXAxisHigh',
+        WMXAxisUnit: '#wmXAxisUnit',
         //-- Grid Lines
         WMXGridLinesShow : '#wmXGridCheckBox',
         WMXGridLineStroke: '#wmXGridLineStroke',
@@ -173,9 +179,9 @@ function ChartView(id) {
 
         // WM Y Axis
         //-- Axis Scale
-        WMYAxisLow    : '#wmYAxisLow',
-        WMYAxisHigh   : '#wmYAxisHigh',
-        WMYAxisDivisor: '#wmYAxisDivisor',
+        WMYAxisLow : '#wmYAxisLow',
+        WMYAxisHigh: '#wmYAxisHigh',
+        WMYAxisUnit: '#wmYAxisUnit',
         //-- Grid Lines
         WMYGridLinesShow : '#wmYGridCheckBox',
         WMYGridLineStroke: '#wmYGridLineStroke',
@@ -193,9 +199,9 @@ function ChartView(id) {
 
         // KDE X Axis
         //-- Axis Scale
-        KDEXAxisLow    : '#kdeXAxisLow',
-        KDEXAxisHigh   : '#kdeXAxisHigh',
-        KDEXAxisDivisor: '#kdeXAxisDivisor',
+        KDEXAxisLow : '#kdeXAxisLow',
+        KDEXAxisHigh: '#kdeXAxisHigh',
+        KDEXAxisUnit: '#kdeXAxisUnit',
         //-- Grid Lines
         KDEXGridLinesShow : '#kdeXGridCheckBox',
         KDEXGridLineStroke: '#kdeXGridLineStroke',
@@ -213,9 +219,9 @@ function ChartView(id) {
 
         // KDE Y Axis
         //-- Axis Scale
-        // KDEYAxisLow    : '#kdeYAxisLow',
-        // KDEYAxisHigh   : '#kdeYAxisHigh',
-        // KDEYAxisDivisor: '#kdeYAxisDivisor',
+        // KDEYAxisLow : '#kdeYAxisLow',
+        // KDEYAxisHigh: '#kdeYAxisHigh',
+        // KDEYAxisUnit: '#kdeYAxisUnit',
         //-- Grid Lines
         KDEYGridLinesShow : '#kdeYGridCheckBox',
         KDEYGridLineStroke: '#kdeYGridLineStroke',
@@ -320,7 +326,6 @@ function ChartView(id) {
     self.registerEvents = function() {
         var controller = app.getController(self.id);
         $('#saveChartAsPng').click({type:'png'}, controller.saveAs);
-        $('#saveChartAsJpg').click({type:'jpg'}, controller.saveAs);
         $('#saveChartAsSvg').click({type:'svg'}, controller.saveAs);
         $('#saveChartAsPdf').click({type:'pdf'}, controller.saveAs);
 
@@ -348,15 +353,22 @@ function ChartView(id) {
                     color   : model.WMBarColor,
                     class: ChartView.DEFAULT_CLASSES.wm.bars
                 },
-                meanLine: {
+                meanBox: {
                     show : true,
-                    color: model.WMMeanLineColor,
+                    color: model.WMBoxColor,
+                    class: ChartView.DEFAULT_CLASSES.wm.meanBox
+                },
+                meanLine: {
+                    style: model.WMLineStyle,
+                    width: model.WMLineWidth,
+                    color: model.WMLineColor,
                     class: ChartView.DEFAULT_CLASSES.wm.meanLine
                 },
                 xAxis: {
                     scales: {
                         low: model.WMXAxisLow,
                         high: model.WMXAxisHigh,
+                        unit: model.WMXAxisUnit,
                         divisor: model.WMXAxisDivisor
                     },
                     gridLines: {
@@ -384,7 +396,8 @@ function ChartView(id) {
                     scales: {
                         low: model.WMYAxisLow,
                         high: model.WMYAxisHigh,
-                        divisor: model.WMYAxisDivisor
+                        unit: model.WMYAxisUnit,
+                        divisor: model.WMYAxisDivisor,
                     },
                     gridLines: {
                         show : model.WMYGridLinesShow,
@@ -408,6 +421,7 @@ function ChartView(id) {
                     }
                 },
                 title: {
+                    text: model.WMTitleText,
                     show: model.WMShowTitle,
                     value: 0,
                     font : {
@@ -437,6 +451,7 @@ function ChartView(id) {
                     scales: {
                         low: model.KDEXAxisLow,
                         high: model.KDEXAxisHigh,
+                        unit: model.KDEXAxisUnit,
                         divisor: model.KDEXAxisDivisor
                     },
                     gridLines: {
@@ -463,9 +478,10 @@ function ChartView(id) {
                 yAxis: {
                     // The scale is same as the weighted mean chart
                     scales: {
-                        low: model.WMYAxisLow,
+                        low : model.WMYAxisLow,
                         high: model.WMYAxisHigh,
-                        divisor: model.WMYAxisDivisor
+                        unit: model.WMYAxisUnit,
+                        divisor: model.WMYAxisDivisor,
                     },
                     gridLines: {
                         show : model.KDEYGridLinesShow,
@@ -489,6 +505,7 @@ function ChartView(id) {
                     }
                 },
                 title: {
+                    text: model.KDETitleText,
                     show: model.KDEShowTitle,
                     value: 0,
                     font : {
@@ -594,7 +611,6 @@ function ChartView(id) {
             titleHeight + preferences.wm.size.height + textHeight,
             true
         );
-
     };
 
     self.drawWeightedMeanChart = function(preferences) {
@@ -636,17 +652,19 @@ function ChartView(id) {
                 showLabel: preferences.wm.xAxis.labels.show,
                 showGrid : preferences.wm.xAxis.gridLines.show,
                 type:      Chartist.FixedScaleAxis,
+                unit:      preferences.wm.xAxis.scales.unit,
+                divisor:   preferences.wm.xAxis.scales.divisor,
                 low :      preferences.wm.xAxis.scales.low,
-                high:      preferences.wm.xAxis.scales.high,
-                divisor:   preferences.wm.xAxis.scales.divisor
+                high:      preferences.wm.xAxis.scales.low + preferences.wm.xAxis.scales.unit * preferences.wm.xAxis.scales.divisor,
             },
             axisY: {
                 showLabel: preferences.wm.yAxis.labels.show,
                 showGrid : preferences.wm.yAxis.gridLines.show,
                 type:      Chartist.FixedScaleAxis,
+                unit:      preferences.wm.yAxis.scales.unit,
+                divisor:   preferences.wm.yAxis.scales.divisor,
                 low :      preferences.wm.yAxis.scales.low,
-                high:      preferences.wm.yAxis.scales.high,
-                divisor:   preferences.wm.yAxis.scales.divisor
+                high:      preferences.wm.yAxis.scales.low + preferences.wm.yAxis.scales.unit * preferences.wm.yAxis.scales.divisor,
             },
             plugins: [
                 Chartist.plugins.weightedMean(
@@ -658,6 +676,13 @@ function ChartView(id) {
             height: preferences.wm.size.height,
             fullWidth: true
         };
+
+        // Fix axis ranges
+        if (options.axisX.high < preferences.wm.xAxis.scales.high)
+            options.axisX.high += preferences.wm.xAxis.scales.unit;
+
+        if (options.axisY.high < preferences.wm.yAxis.scales.high)
+            options.axisY.high += preferences.wm.yAxis.scales.unit;
 
         var uncertainties = [];
         for (var i = 0; i < model.uncertainties.length; ++i) {
@@ -706,16 +731,16 @@ function ChartView(id) {
                 showLabel: preferences.kde.xAxis.labels.show,
                 showGrid : preferences.kde.xAxis.gridLines.show,
                 type:      Chartist.FixedScaleAxis,
+                divisor:   preferences.kde.xAxis.scales.divisor,
                 low :      preferences.kde.xAxis.scales.low,
-                high:      preferences.kde.xAxis.scales.high,
-                divisor:   preferences.kde.xAxis.scales.divisor
+                high:      preferences.kde.xAxis.scales.low + preferences.kde.xAxis.scales.unit * preferences.kde.xAxis.scales.divisor,
             },
             axisY: {
                 showLabel: preferences.kde.yAxis.labels.show,
                 showGrid : preferences.kde.yAxis.gridLines.show,
                 type:      Chartist.FixedScaleAxis,
                 low :      preferences.kde.yAxis.scales.low,
-                high:      preferences.kde.yAxis.scales.high,
+                high:      preferences.kde.yAxis.scales.low + preferences.kde.yAxis.scales.unit * preferences.kde.yAxis.scales.divisor,
                 divisor:   preferences.kde.yAxis.scales.divisor
             },
             plugins: [
@@ -728,6 +753,13 @@ function ChartView(id) {
             height: preferences.kde.size.height,
             fullWidth: true
         };
+
+        // Fix axis ranges
+        if (options.axisX.high < preferences.kde.xAxis.scales.high)
+            options.axisX.high += preferences.kde.xAxis.scales.unit;
+
+        if (options.axisY.high < preferences.kde.yAxis.scales.high)
+            options.axisY.high += preferences.kde.yAxis.scales.unit;
 
         return new Chartist.Line('#kde-chart-box', {
                 labels: model.kde,
@@ -742,7 +774,7 @@ function ChartView(id) {
     self.drawTitle = function(preferences) {
         // Draw WM chart title
         if (preferences.wm.title.show == true) {
-            $(ChartView.WM_TITLE_TEXT).html(ChartView.DEFAULT_TITLES.WMTitle);
+            $(ChartView.WM_TITLE_TEXT).html(preferences.wm.title.text);
             $(ChartView.WM_TITLE_TEXT).attr({
                 style: Util.preferencesToCssStyles(preferences.wm.title.font, 'svgFonts'),
                 x: preferences.wm.size.width / 2
@@ -754,7 +786,7 @@ function ChartView(id) {
 
         // Draw KDE-chart title
         if (preferences.kde.title.show == true) {
-            $(ChartView.KDE_TITLE_TEXT).html(ChartView.DEFAULT_TITLES.KDETitle);
+            $(ChartView.KDE_TITLE_TEXT).html(preferences.kde.title.text);
             $(ChartView.KDE_TITLE_TEXT).attr({
                 style: Util.preferencesToCssStyles(preferences.kde.title.font, 'svgFonts'),
                 x: preferences.wm.size.width + (preferences.kde.size.width / 2)
@@ -893,6 +925,10 @@ function ChartView(id) {
                 $(inputId).selectpicker('val', value);
                 break;
 
+            case 'text':
+                $(element).val(value);
+                break;
+
             default:
                 break;
         }//switch
@@ -930,6 +966,10 @@ function ChartView(id) {
                 break;
 
             case 'select':
+                result = $(element).val();
+                break;
+
+            case 'text':
                 result = $(element).val();
                 break;
 
