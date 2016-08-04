@@ -6,6 +6,10 @@
             errorBarHLineMinWidth: 1,
             errorBarHLineWidthFactor: 0.1,
         },
+        rejectedBars: {
+            errorBarHLineMinWidth: 1,
+            errorBarHLineWidthFactor: 0.1,
+        },
         meanLineGroupId: 'weightedMean-line',
     };
     var STYLES = {
@@ -32,15 +36,21 @@
         return function errorBar(chart) {
             if(chart instanceof Chartist.Line) {
                 chart.on('draw', function(data) {
-                    console.log(data);
-
                     if(data.type == 'point' && data.series.name == 'values') {
                         if (data.index + 1 >= data.axisX.range.min &&
                             data.index + 1 <= data.axisX.range.max) {
+
+                            var rejected = false;
+                            for (var i = 0; i < data.series.rejectedIndices.length && !rejected; ++i) {
+                                rejected = (data.series.rejectedIndices[i] == data.index);
+                            }//for
+
                             data.group.append(
                                 bar(data,
                                     data.series.uncertainties[data.index],
-                                    options)
+                                    options,
+                                    rejected
+                                )
                             );
                         }//if
 
@@ -90,8 +100,8 @@
                 });
             }
 
-            function pointStyling(element, options) {
-                var pointPref = options.points;
+            function pointStyling(element, options, rejected) {
+                var pointPref = (rejected) ? options.rejectedPoints : options.points;
 
                 if (pointPref.show) {
                     element._node.setAttribute('style',
@@ -174,8 +184,10 @@
                 );
             }
 
-            function bar(data, uncertainty, options) {
-                var barOptions = options.bars;
+            function bar(data, uncertainty, options, rejected) {
+                console.log(data);
+
+                var barOptions = (rejected) ? options.rejectedBars : options.bars;
                 var toYPixelFactor = data.axisY.axisLength / (data.axisY.range.max - data.axisY.range.min);
                 var toXPixelFactor = null;
                 try {
@@ -235,7 +247,7 @@
                     y2: data.y
                 });
 
-                pointStyling(point, options);
+                pointStyling(point, options, rejected);
                 group.append(point);
                 return group;
             }

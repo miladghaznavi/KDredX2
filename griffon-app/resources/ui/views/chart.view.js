@@ -31,6 +31,8 @@ function ChartView(id) {
         wm: {
             points  : 'wmPoints',
             bars    : 'wmBars',
+            rejectedPoints: 'wmRejectedPoints',
+            rejectedBars  : 'wmRejectedBars',
             meanBox : 'wmBox',
             meanLine: 'wmLine',
             xAxis: {
@@ -121,6 +123,14 @@ function ChartView(id) {
         WMShowCaps     : '#wmCapsCheckBox',
         WMBarWidth     : '#wmBarWidth',
         WMBarColor     : '#wmBarColor',
+
+        //-- Rejected Data Points & bars
+        WMShowRejectedPoints   : '#wmRejectedPointsCheckBox',
+        WMRejectedPointsWidth  : '#wmRejectedPointsWidth',
+        WMRejectedPointsColor  : '#wmRejectedPointsColor',
+        WMShowRejectedCaps     : '#wmRejectedCapsCheckBox',
+        WMRejectedBarWidth     : '#wmRejectedBarWidth',
+        WMRejectedBarColor     : '#wmRejectedBarColor',
 
         //-- Mean
         WMBoxColor : '#wmBoxColor',
@@ -352,6 +362,18 @@ function ChartView(id) {
                     width   : model.WMBarWidth,
                     color   : model.WMBarColor,
                     class: ChartView.DEFAULT_CLASSES.wm.bars
+                },
+                rejectedPoints: {
+                    show : model.WMShowRejectedPoints,
+                    width: model.WMRejectedPointsWidth,
+                    color: model.WMRejectedPointsColor,
+                    class: ChartView.DEFAULT_CLASSES.wm.rejectedPoints
+                },
+                rejectedBars: {
+                    showCaps: model.WMShowRejectedCaps,
+                    width   : model.WMRejectedBarWidth,
+                    color   : model.WMRejectedBarColor,
+                    class: ChartView.DEFAULT_CLASSES.wm.rejectedBars
                 },
                 meanBox: {
                     show : true,
@@ -701,7 +723,8 @@ function ChartView(id) {
                     {
                         name: 'values',
                         data: model.values,
-                        uncertainties: uncertainties
+                        uncertainties: uncertainties,
+                        rejectedIndices: model.rejectedIndices,
                     }
                 ]
             },

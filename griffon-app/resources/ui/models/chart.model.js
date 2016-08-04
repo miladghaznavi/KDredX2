@@ -48,6 +48,14 @@ function ChartModel(id, title, dirty, dataAvailable) {
         WMBarWidth   : 2,
         WMBarColor   : '#FB110B',
 
+        //-- Rejected Data Points & bars
+        WMShowRejectedPoints : true,
+        WMRejectedPointsWidth: 10,
+        WMRejectedPointsColor: '#8303A6',
+        WMShowRejectedCaps   : true,
+        WMRejectedBarWidth   : 2,
+        WMRejectedBarColor   : '#8303A6',
+
         //-- Mean
         WMBoxColor: '#118002',
         WMLineStyle: 'solid line',
@@ -195,6 +203,14 @@ function ChartModel(id, title, dirty, dataAvailable) {
         'WMShowCaps',
         'WMBarWidth',
         'WMBarColor',
+
+        //-- Rejected Data Points & bars
+        'WMShowRejectedPoints',
+        'WMRejectedPointsWidth',
+        'WMRejectedPointsColor',
+        'WMShowRejectedCaps',
+        'WMRejectedBarWidth',
+        'WMRejectedBarColor',
 
         //-- Mean
         'WMBoxColor',
