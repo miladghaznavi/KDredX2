@@ -32,6 +32,8 @@
         return function errorBar(chart) {
             if(chart instanceof Chartist.Line) {
                 chart.on('draw', function(data) {
+                    console.log(data);
+
                     if(data.type == 'point' && data.series.name == 'values') {
                         if (data.index + 1 >= data.axisX.range.min &&
                             data.index + 1 <= data.axisX.range.max) {
@@ -54,18 +56,29 @@
                     }//else if
                     else if (data.type == 'line'  && data.series.name == 'weightedMean') {
                         var toPixelFactor = data.axisY.axisLength / (data.axisY.range.max - data.axisY.range.min);
-                        options.meanBox['width'] = 4 * toPixelFactor * data.series.weightedUncertainty;
 
-                        var yPos = (data.axisY.range.max - data.values[0].y) * toPixelFactor
-                                    + data.chartRect.padding.top;
+                        // Mean box
+                        options.meanBox['width'] = 4 * toPixelFactor * data.series.weightedUncertainty;
+                        var yPos = (data.axisY.range.max - data.values[0].y) * toPixelFactor + data.chartRect.padding.top;
+                        var box = new Chartist.Svg('line', {
+                            x1: data.axisX.chartRect.x1,
+                            x2: data.axisX.chartRect.x2,
+                            y1: yPos,
+                            y2: yPos
+                        });
+                        meanBoxStyling(box, options);
+                        data.group.append(box);
+
+                        // Mean Line
                         var line = new Chartist.Svg('line', {
                             x1: data.axisX.chartRect.x1,
                             x2: data.axisX.chartRect.x2,
                             y1: yPos,
                             y2: yPos
                         });
-                        meanBoxStyling(line, options);
+                        meanLineStyling(line, options);
                         data.group.append(line);
+
                         data.element.remove();
                     }//else if
                     else if (data.type == 'grid') {
@@ -112,6 +125,18 @@
                         style + 'display: none;'
                     );
                 }//else
+            }
+
+            function meanLineStyling(element, options) {
+                var meanLinePref = options.meanLine;
+                element._node.setAttribute(
+                    'style',
+                    Util.preferencesToCssStyles(meanLinePref, 'lines')
+                );
+                element._node.setAttribute(
+                    'class',
+                    options.meanLine.class
+                )
             }
 
             function gridStyling(element, options, dir) {

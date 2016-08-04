@@ -148,65 +148,6 @@ function ChartController() {
     };
 
     self.prepareAxisScales = function() {
-        // // Weighted Mean Chart - Axis X
-        // self.model.WMXAxisLow = (self.model.WMXAxisLow  == null) ?
-        //     ChartController.DEFAULT_AXIS_SCALES.WMXAxisLowDefault : self.model.WMXAxisLow;
-        // self.model.WMXAxisHigh = (self.model.WMXAxisHigh == null) ?
-        //     Math.max(self.model.values.length, self.model.WMXAxisLow + 1): self.model.WMXAxisHigh;
-        // self.model.WMXAxisUnit = (self.model.WMXAxisUnit == null) ?
-        //     ChartController.DEFAULT_AXIS_SCALES.WMXAxisUnitDefault : self.model.WMXAxisUnit;
-        // self.model.WMXAxisDivisor = Math.ceil((self.model.WMXAxisHigh - self.model.WMXAxisLow) / self.model.WMXAxisUnit);
-        //
-        // self.view.setInputValue('WMXAxisLow' , self.model.WMXAxisLow , true);
-        // self.view.setInputValue('WMXAxisHigh', self.model.WMXAxisHigh, true);
-        // self.view.setInputValue('WMXAxisUnit', self.model.WMXAxisUnit, true);
-        //
-        // // Weighted Mean Chart - Axis Y
-        // var minY = Number.MAX_VALUE;
-        // var maxY = Number.MIN_VALUE;
-        // for (var i = 0; i < self.model.values.length; ++i) {
-        //     minY = Math.min(minY, self.model.values[i] - 2 * self.model.uncertainties[i]);
-        //     maxY = Math.max(maxY, self.model.values[i] + 2 * self.model.uncertainties[i]);
-        //
-        //     // We extend the range of the weighted-mean y-axis by +/-10%
-        //     minY = Math.min(minY, self.model.values[i] * ChartController.DEFAULT_AXIS_SCALES.WMYAxisLowCoeffDefault);
-        //     maxY = Math.max(maxY, self.model.values[i] * ChartController.DEFAULT_AXIS_SCALES.WMYAxisHighCoeffDefault);
-        // }//for
-        //
-        // minY = Math.floor(minY);
-        // maxY = Math.ceil (maxY);
-        //
-        // self.model.WMYAxisLow  = (self.model.WMYAxisLow  == null) ?  minY : self.model.WMYAxisLow;
-        // self.model.WMYAxisHigh = (self.model.WMYAxisHigh == null) ? maxY : self.model.WMYAxisHigh;
-        // self.model.WMYAxisUnit = (self.model.WMYAxisUnit == null) ?
-        //     Math.ceil((self.model.WMYAxisHigh - self.model.WMYAxisLow) / ChartController.DEFAULT_AXIS_SCALES.WMYAxisDivisorDefault):
-        //     self.model.WMYAxisUnit;
-        // self.model.WMYAxisDivisor = Math.ceil((self.model.WMYAxisHigh - self.model.WMYAxisLow) / self.model.WMYAxisUnit);
-        //
-        // self.view.setInputValue('WMYAxisLow'    , self.model.WMYAxisLow , true);
-        // self.view.setInputValue('WMYAxisHigh'   , self.model.WMYAxisHigh, true);
-        // self.view.setInputValue('WMYAxisDivisor', self.model.WMYAxisDivisor, true);
-        //
-        // // Kernel Density Estimation - Axis X
-        // self.model.KDEXAxisLow = (self.model.KDEXAxisLow  == null) ?
-        //     ChartController.DEFAULT_AXIS_SCALES.KDEXAxisLowDefault : self.model.KDEXAxisLow;
-        // self.model.KDEXAxisHigh = (self.model.KDEXAxisHigh == null) ?
-        //     Util.max(self.model.kde): self.model.KDEXAxisHigh;
-        // self.model.KDEXAxisUnit = (self.model.KDEXAxisUnit == null) ?
-        // (self.model.KDEXAxisHigh - self.model.KDEXAxisLow) / ChartController.DEFAULT_AXIS_SCALES.KDEXAxisDivisorDefault:
-        //     self.model.KDEXAxisUnit;
-        // self.model.KDEXAxisDivisor = Math.ceil((self.model.KDEXAxisHigh - self.model.KDEXAxisLow) / self.model.KDEXAxisUnit);
-        //
-        // self.view.setInputValue('KDEXAxisLow'    , self.model.KDEXAxisLow , true);
-        // self.view.setInputValue('KDEXAxisHigh'   , self.model.KDEXAxisHigh, true);
-        // self.view.setInputValue('KDEXAxisDivisor', self.model.KDEXAxisDivisor, true);
-        //
-        // // Kernel Density Estimation - Axis Y
-        // self.model.KDEYAxisLow     = self.model.WMYAxisLow;
-        // self.model.KDEYAxisHigh    = self.model.WMYAxisHigh;
-        // self.model.KDEYAxisUnit    = self.model.WMYAxisUnit;
-        // self.model.KDEYAxisDivisor = self.model.WMYAxisDivisor;
-        // Weighted Mean Chart - Axis X
         self.model.WMXAxisLow = (self.model.WMXAxisLow  == null) ?
             ChartController.DEFAULT_AXIS_SCALES.WMXAxisLowDefault : self.model.WMXAxisLow;
         self.model.WMXAxisHigh = (self.model.WMXAxisHigh == null) ?

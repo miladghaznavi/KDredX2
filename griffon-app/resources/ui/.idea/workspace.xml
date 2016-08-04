@@ -2,62 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7c245e7c-5580-4e97-bfb1-40403e7c4224" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../build/resources/main/application.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../build/resources/main/griffon-icon-128x128.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../build/resources/main/griffon-icon-16x16.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../build/resources/main/griffon-icon-24x24.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../build/resources/main/griffon-icon-256x256.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../build/resources/main/griffon-icon-32x32.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../build/resources/main/griffon-icon-48x48.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../build/resources/main/griffon-icon-64x64.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../build/resources/main/griffon.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../build/resources/main/log4j.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../build/resources/main/messages.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../build/resources/main/org/mtv/multiTechVis.fxml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../build/resources/main/org/mtv/styles.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../build/resources/main/resources.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../models/org/mtv/DataName.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../org/mtv/chart.fxml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../org/mtv/data.fxml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/css/checkbox3.min.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/css/jquery-ui.min.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/css/lobipanel.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/css/lobipanel.min.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/css/select2.min.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/js/bootstrap-slider.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/js/bootstrap-switch.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/js/bundle.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/js/icheck.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/js/lobipanel.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/js/lobipanel.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/js/select2.full.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/js/select2.min.js" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../.gradle/2.9/taskArtifacts/cache.properties.lock" afterPath="$PROJECT_DIR$/../../../.gradle/2.9/taskArtifacts/cache.properties.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../.gradle/2.9/taskArtifacts/fileHashes.bin" afterPath="$PROJECT_DIR$/../../../.gradle/2.9/taskArtifacts/fileHashes.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../.gradle/2.9/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/../../../.gradle/2.9/taskArtifacts/fileSnapshots.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../.gradle/2.9/taskArtifacts/outputFileStates.bin" afterPath="$PROJECT_DIR$/../../../.gradle/2.9/taskArtifacts/outputFileStates.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../.gradle/2.9/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/../../../.gradle/2.9/taskArtifacts/taskArtifacts.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../.idea/compiler.xml" afterPath="$PROJECT_DIR$/../../../.idea/compiler.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../build.gradle" afterPath="$PROJECT_DIR$/../../../build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../org/mtv/multiTechVis.fxml" afterPath="$PROJECT_DIR$/../org/mtv/multiTechVis.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dictionaries/eghaznav.xml" afterPath="$PROJECT_DIR$/.idea/dictionaries/eghaznav.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controllers/chart.controller.js" afterPath="$PROJECT_DIR$/controllers/chart.controller.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controllers/data.controller.js" afterPath="$PROJECT_DIR$/controllers/data.controller.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/css/style.css" afterPath="$PROJECT_DIR$/css/style.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/utils.js" afterPath="$PROJECT_DIR$/js/utils.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/js/chartist-plugin-kernel-density-estimation.js" afterPath="$PROJECT_DIR$/lib/js/chartist-plugin-kernel-density-estimation.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/js/chartist-plugin-weighted-mean.js" afterPath="$PROJECT_DIR$/lib/js/chartist-plugin-weighted-mean.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/chart.model.js" afterPath="$PROJECT_DIR$/models/chart.model.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/data.model.js" afterPath="$PROJECT_DIR$/models/data.model.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/tabs/kde.axis.preferences.tab.html" afterPath="$PROJECT_DIR$/templates/tabs/kde.axis.preferences.tab.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/tabs/kde.chart.preferences.tab.html" afterPath="$PROJECT_DIR$/templates/tabs/kde.chart.preferences.tab.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/tabs/wm.axis.preferences.tab.html" afterPath="$PROJECT_DIR$/templates/tabs/wm.axis.preferences.tab.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/tabs/wm.chart.preferences.tab.html" afterPath="$PROJECT_DIR$/templates/tabs/wm.chart.preferences.tab.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/chart.view.js" afterPath="$PROJECT_DIR$/views/chart.view.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/data.view.js" afterPath="$PROJECT_DIR$/views/data.view.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../views/org/mtv/MultiTechVisView.java" afterPath="$PROJECT_DIR$/../../views/org/mtv/MultiTechVisView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../src/main/izpack/install.xml" afterPath="$PROJECT_DIR$/../../../src/main/izpack/install.xml" />
     </list>
     <ignored path="ui.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -90,8 +38,8 @@
       <file leaf-file-name="wm.chart.preferences.tab.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/tabs/wm.chart.preferences.tab.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="16" column="30" selection-start-line="16" selection-start-column="30" selection-end-line="16" selection-end-column="30" />
+            <state relative-caret-position="345">
+              <caret line="263" column="49" selection-start-line="263" selection-start-column="49" selection-end-line="263" selection-end-column="49" />
               <folding>
                 <element signature="n#h6#0;n#!!top" expanded="false" />
                 <element signature="n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="false" />
@@ -156,8 +104,8 @@
       <file leaf-file-name="chart.controller.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/controllers/chart.controller.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1074">
-              <caret line="265" column="63" selection-start-line="265" selection-start-column="63" selection-end-line="265" selection-end-column="63" />
+            <state relative-caret-position="15">
+              <caret line="149" column="41" selection-start-line="149" selection-start-column="41" selection-end-line="149" selection-end-column="41" />
               <folding>
                 <element signature="e#71#208#0" expanded="false" />
                 <element signature="e#248#568#0" expanded="false" />
@@ -185,19 +133,75 @@
                 <element signature="e#3728#4159#0" expanded="false" />
                 <element signature="e#3903#3973#0" expanded="false" />
                 <element signature="e#4082#4147#0" expanded="false" />
-                <element signature="e#9179#9683#0" expanded="false" />
-                <element signature="e#11876#12930#0" expanded="false" />
-                <element signature="e#11976#12082#0" expanded="false" />
-                <element signature="e#12394#12647#0" expanded="false" />
-                <element signature="e#12968#13122#0" expanded="false" />
-                <element signature="e#13152#13431#0" expanded="false" />
-                <element signature="e#13469#14086#0" expanded="false" />
-                <element signature="e#14122#14130#0" expanded="false" />
-                <element signature="e#14169#14353#0" expanded="false" />
-                <element signature="e#14407#15375#0" expanded="false" />
-                <element signature="e#15045#15097#0" expanded="false" />
-                <element signature="e#15442#15536#0" expanded="false" />
-                <marker date="1470328773000" expanded="true" signature="15369:15375" ph="..." />
+                <element signature="e#5221#5725#0" expanded="false" />
+                <element signature="e#7918#8972#0" expanded="false" />
+                <element signature="e#8018#8124#0" expanded="false" />
+                <element signature="e#8436#8689#0" expanded="false" />
+                <element signature="e#9010#9164#0" expanded="false" />
+                <element signature="e#9194#9473#0" expanded="false" />
+                <element signature="e#9511#10128#0" expanded="false" />
+                <element signature="e#10164#10172#0" expanded="false" />
+                <element signature="e#10211#10395#0" expanded="false" />
+                <element signature="e#10449#11417#0" expanded="false" />
+                <element signature="e#11087#11139#0" expanded="false" />
+                <element signature="e#11484#11578#0" expanded="false" />
+                <marker date="1470329690000" expanded="true" signature="11411:11417" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="chartist-plugin-weighted-mean.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/lib/js/chartist-plugin-weighted-mean.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="105">
+              <caret line="51" column="30" selection-start-line="51" selection-start-column="30" selection-end-line="51" selection-end-column="30" />
+              <folding>
+                <element signature="e#84#245#0" expanded="false" />
+                <element signature="e#264#796#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="utils.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/js/utils.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="195">
+              <caret line="191" column="4" selection-start-line="191" selection-start-column="4" selection-end-line="191" selection-end-column="4" />
+              <folding>
+                <element signature="e#52#1052#0" expanded="false" />
+                <element signature="e#1072#2071#0" expanded="false" />
+                <element signature="e#2087#2287#0" expanded="false" />
+                <element signature="e#2767#2868#0" expanded="false" />
+                <element signature="e#2788#2858#0" expanded="false" />
+                <element signature="e#2948#3000#0" expanded="false" />
+                <element signature="e#3047#3144#0" expanded="false" />
+                <element signature="e#3078#3136#0" expanded="false" />
+                <element signature="e#3190#3303#0" expanded="false" />
+                <element signature="e#3351#3468#0" expanded="false" />
+                <element signature="e#3513#3624#0" expanded="false" />
+                <element signature="e#3672#3789#0" expanded="false" />
+                <element signature="e#3823#3854#0" expanded="false" />
+                <element signature="e#3892#4729#0" expanded="false" />
+                <element signature="e#6808#7069#0" expanded="false" />
+                <element signature="e#6871#6957#0" expanded="false" />
+                <element signature="e#7123#7201#0" expanded="false" />
+                <element signature="e#7235#7409#0" expanded="false" />
+                <element signature="e#7443#7617#0" expanded="false" />
+                <element signature="e#7659#8622#0" expanded="false" />
+                <element signature="e#7964#8072#0" expanded="false" />
+                <element signature="e#8153#8269#0" expanded="false" />
+                <element signature="e#8662#9297#0" expanded="false" />
+                <element signature="e#8731#9266#0" expanded="false" />
+                <element signature="e#9096#9254#0" expanded="false" />
+                <element signature="e#9159#9173#0" expanded="false" />
+                <element signature="e#9337#9557#0" expanded="false" />
+                <element signature="e#9410#9525#0" expanded="false" />
+                <element signature="e#9464#9513#0" expanded="false" />
+                <element signature="e#9597#9982#0" expanded="false" />
+                <element signature="e#9714#9903#0" expanded="false" />
+                <element signature="e#10027#10110#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -259,11 +263,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="chart.view.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="chart.view.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/views/chart.view.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="264">
-              <caret line="257" column="6" selection-start-line="257" selection-start-column="6" selection-end-line="257" selection-end-column="6" />
+            <state relative-caret-position="525">
+              <caret line="296" column="6" selection-start-line="296" selection-start-column="6" selection-end-line="296" selection-end-column="6" />
               <folding>
                 <element signature="e#948#1032#0" expanded="false" />
                 <element signature="e#1075#1159#0" expanded="false" />
@@ -451,15 +455,15 @@
         <option value="$PROJECT_DIR$/lib/js/chartist-plugin-kernel-density-estimation.js" />
         <option value="$PROJECT_DIR$/controllers/data.controller.js" />
         <option value="$PROJECT_DIR$/js/utils.js" />
-        <option value="$PROJECT_DIR$/lib/js/chartist-plugin-weighted-mean.js" />
-        <option value="$PROJECT_DIR$/templates/tabs/wm.chart.preferences.tab.html" />
         <option value="$PROJECT_DIR$/templates/tabs/wm.axis.preferences.tab.html" />
         <option value="$PROJECT_DIR$/templates/tabs/kde.chart.preferences.tab.html" />
         <option value="$PROJECT_DIR$/templates/tabs/kde.axis.preferences.tab.html" />
         <option value="$PROJECT_DIR$/css/style.css" />
         <option value="$PROJECT_DIR$/models/chart.model.js" />
-        <option value="$PROJECT_DIR$/controllers/chart.controller.js" />
         <option value="$PROJECT_DIR$/views/chart.view.js" />
+        <option value="$PROJECT_DIR$/controllers/chart.controller.js" />
+        <option value="$PROJECT_DIR$/templates/tabs/wm.chart.preferences.tab.html" />
+        <option value="$PROJECT_DIR$/lib/js/chartist-plugin-weighted-mean.js" />
       </list>
     </option>
   </component>
@@ -528,7 +532,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
+              <option name="myItemId" value="lib" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -542,7 +550,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="models" />
+              <option name="myItemId" value="lib" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -708,7 +716,7 @@
       <workItem from="1460673016874" duration="1689000" />
       <workItem from="1460736139386" duration="784000" />
       <workItem from="1470283448526" duration="13561000" />
-      <workItem from="1470328023069" duration="1590000" />
+      <workItem from="1470328023069" duration="3946000" />
     </task>
     <task id="LOCAL-00001" summary="Init">
       <created>1454949531089</created>
@@ -822,11 +830,18 @@
       <option name="project" value="LOCAL" />
       <updated>1460531334065</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Some of Christopher and Chris feed-backs are addressed.">
+      <created>1470329671988</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1470329671988</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="369861000" />
+    <option name="totallyTimeSpent" value="372217000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -841,23 +856,23 @@
     <frame x="0" y="23" width="1680" height="939" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18625678" sideWeight="0.49500713" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.11573237" sideWeight="0.49500713" order="1" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32952926" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.38450503" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32952926" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24665257" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32952926" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24947146" sideWeight="0.50499284" order="0" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32998565" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32952926" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3265306" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32952926" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -902,7 +917,8 @@
     <MESSAGE value="KDE drawing is working. Still I need to make sure that KDE calculation is correct!" />
     <MESSAGE value="Seems that every thing is working!" />
     <MESSAGE value="Seems that every thing is working! Considering uncertainty interpret in drawing the graph" />
-    <option name="LAST_COMMIT_MESSAGE" value="Seems that every thing is working! Considering uncertainty interpret in drawing the graph" />
+    <MESSAGE value="Some of Christopher and Chris feed-backs are addressed." />
+    <option name="LAST_COMMIT_MESSAGE" value="Some of Christopher and Chris feed-backs are addressed." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1076,6 +1092,17 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
           <caret line="15" column="6" selection-start-line="15" selection-start-column="6" selection-end-line="15" selection-end-column="6" />
+          <folding>
+            <element signature="e#258#420#0" expanded="false" />
+            <element signature="e#454#515#0" expanded="false" />
+            <element signature="e#548#976#0" expanded="false" />
+            <element signature="e#1031#1406#0" expanded="false" />
+            <element signature="e#1452#2766#0" expanded="false" />
+            <element signature="e#2802#2849#0" expanded="false" />
+            <element signature="e#2890#2946#0" expanded="false" />
+            <element signature="e#2986#3385#0" expanded="false" />
+            <marker date="1460592050000" expanded="true" signature="2257:2758" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1090,6 +1117,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-7907">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1097,6 +1125,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-2522">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1104,6 +1133,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-3527">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1140,6 +1170,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="12" column="28" selection-start-line="12" selection-start-column="28" selection-end-line="12" selection-end-column="28" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1182,20 +1213,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="465">
           <caret line="31" column="30" selection-start-line="31" selection-start-column="30" selection-end-line="31" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/js/chartist-plugin-weighted-mean.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="56" column="61" selection-start-line="56" selection-start-column="61" selection-end-line="56" selection-end-column="61" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/utils.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="18" selection-start-line="1" selection-start-column="18" selection-end-line="1" selection-end-column="18" />
+          <folding>
+            <element signature="e#1816#2451#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1217,6 +1237,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="898">
           <caret line="263" column="14" selection-start-line="263" selection-start-column="14" selection-end-line="263" selection-end-column="14" />
+          <folding>
+            <element signature="n#div#0;n#!!top" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1231,6 +1254,19 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
           <caret line="201" column="14" selection-start-line="201" selection-start-column="14" selection-end-line="201" selection-end-column="14" />
+          <folding>
+            <element signature="n#h6#0;n#!!top" expanded="false" />
+            <element signature="n#div#0;n#!!top" expanded="false" />
+            <element signature="n#div#0;n#div#0;n#!!top" expanded="false" />
+            <element signature="n#div#1;n#div#0;n#!!top" expanded="false" />
+            <element signature="n#div#2;n#div#0;n#!!top" expanded="false" />
+            <element signature="n#h4#0;n#!!top" expanded="false" />
+            <element signature="n#div#1;n#!!top" expanded="false" />
+            <element signature="n#h6#1;n#!!top" expanded="false" />
+            <element signature="n#div#2;n#!!top" expanded="false" />
+            <element signature="n#h6#2;n#!!top" expanded="false" />
+            <element signature="n#div#3;n#!!top" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1238,6 +1274,20 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="311" column="14" selection-start-line="311" selection-start-column="14" selection-end-line="311" selection-end-column="14" />
+          <folding>
+            <element signature="n#div#0;n#!!top" expanded="false" />
+            <element signature="n#h6#0;n#div#0;n#!!top" expanded="false" />
+            <element signature="n#div#0;n#div#0;n#!!top" expanded="false" />
+            <element signature="n#h6#1;n#div#0;n#!!top" expanded="false" />
+            <element signature="n#div#1;n#div#0;n#!!top" expanded="false" />
+            <element signature="n#h6#2;n#div#0;n#!!top" expanded="false" />
+            <element signature="n#div#2;n#div#0;n#!!top" expanded="false" />
+            <element signature="n#div#0;n#div#2;n#div#0;n#!!top" expanded="false" />
+            <element signature="n#div#1;n#div#2;n#div#0;n#!!top" expanded="false" />
+            <element signature="n#div#2;n#div#2;n#div#0;n#!!top" expanded="false" />
+            <element signature="n#div#1;n#!!top" expanded="false" />
+            <element signature="n#h6#0;n#div#1;n#!!top" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1262,70 +1312,6 @@
             <element signature="e#2989#3321#0" expanded="false" />
             <element signature="e#3369#3418#0" expanded="false" />
             <element signature="e#4190#4278#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/tabs/wm.chart.preferences.tab.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="16" column="30" selection-start-line="16" selection-start-column="30" selection-end-line="16" selection-end-column="30" />
-          <folding>
-            <element signature="n#h6#0;n#!!top" expanded="false" />
-            <element signature="n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="false" />
-            <element signature="n#div#1;n#div#0;n#!!top" expanded="false" />
-            <element signature="n#div#0;n#div#1;n#div#0;n#!!top" expanded="false" />
-            <element signature="n#select#0;n#div#0;n#div#1;n#div#0;n#!!top" expanded="false" />
-            <element signature="n#div#1;n#div#1;n#div#0;n#!!top" expanded="false" />
-            <element signature="n#input#0;n#div#1;n#div#1;n#div#0;n#!!top" expanded="false" />
-            <element signature="n#h6#1;n#!!top" expanded="false" />
-            <element signature="n#div#1;n#!!top" expanded="false" />
-            <element signature="n#div#0;n#div#1;n#!!top" expanded="false" />
-            <element signature="n#div#0;n#div#0;n#div#1;n#!!top" expanded="false" />
-            <element signature="n#div#0;n#div#0;n#div#0;n#div#1;n#!!top" expanded="false" />
-            <element signature="n#div#1;n#div#0;n#div#1;n#!!top" expanded="false" />
-            <element signature="n#div#0;n#div#1;n#div#0;n#div#1;n#!!top" expanded="false" />
-            <element signature="n#div#2;n#div#0;n#div#1;n#!!top" expanded="false" />
-            <element signature="n#div#0;n#div#2;n#div#0;n#div#1;n#!!top" expanded="false" />
-            <element signature="n#div#3;n#div#0;n#div#1;n#!!top" expanded="false" />
-            <element signature="n#div#0;n#div#3;n#div#0;n#div#1;n#!!top" expanded="false" />
-            <element signature="n#div#1;n#div#1;n#!!top" expanded="false" />
-            <element signature="n#div#0;n#div#1;n#div#1;n#!!top" expanded="false" />
-            <element signature="n#select#0;n#div#0;n#div#1;n#div#1;n#!!top" expanded="false" />
-            <element signature="n#div#1;n#div#1;n#div#1;n#!!top" expanded="false" />
-            <element signature="n#input#0;n#div#1;n#div#1;n#div#1;n#!!top" expanded="false" />
-            <element signature="n#div#2;n#div#1;n#!!top" expanded="false" />
-            <element signature="n#div#0;n#div#2;n#div#1;n#!!top" expanded="false" />
-            <element signature="n#div#0;n#div#0;n#div#2;n#div#1;n#!!top" expanded="false" />
-            <element signature="n#label#0;n#div#0;n#div#0;n#div#2;n#div#1;n#!!top" expanded="false" />
-            <element signature="n#label#1;n#div#0;n#div#0;n#div#2;n#div#1;n#!!top" expanded="false" />
-            <element signature="n#label#2;n#div#0;n#div#0;n#div#2;n#div#1;n#!!top" expanded="false" />
-            <element signature="n#label#3;n#div#0;n#div#0;n#div#2;n#div#1;n#!!top" expanded="false" />
-            <element signature="n#div#1;n#div#2;n#div#1;n#!!top" expanded="false" />
-            <element signature="n#input#0;n#div#1;n#div#2;n#div#1;n#!!top" expanded="false" />
-            <element signature="n#h6#2;n#!!top" expanded="false" />
-            <element signature="n#div#0;n#div#2;n#!!top" expanded="false" />
-            <element signature="n#div#0;n#div#0;n#div#2;n#!!top" expanded="false" />
-            <element signature="n#input#0;n#div#0;n#div#0;n#div#2;n#!!top" expanded="false" />
-            <element signature="n#div#1;n#div#2;n#!!top" expanded="false" />
-            <element signature="n#div#0;n#div#1;n#div#2;n#!!top" expanded="false" />
-            <element signature="n#h6#3;n#!!top" expanded="false" />
-            <element signature="n#div#3;n#!!top" expanded="false" />
-            <element signature="n#div#0;n#div#3;n#!!top" expanded="false" />
-            <element signature="n#div#0;n#div#0;n#div#3;n#!!top" expanded="false" />
-            <element signature="n#div#0;n#div#0;n#div#0;n#div#3;n#!!top" expanded="false" />
-            <element signature="n#div#1;n#div#0;n#div#3;n#!!top" expanded="false" />
-            <element signature="n#input#0;n#div#1;n#div#0;n#div#3;n#!!top" expanded="false" />
-            <element signature="n#div#2;n#div#0;n#div#3;n#!!top" expanded="false" />
-            <element signature="n#input#0;n#div#2;n#div#0;n#div#3;n#!!top" expanded="false" />
-            <element signature="n#div#1;n#div#3;n#!!top" expanded="false" />
-            <element signature="n#div#0;n#div#1;n#div#3;n#!!top" expanded="false" />
-            <element signature="n#div#0;n#div#0;n#div#1;n#div#3;n#!!top" expanded="false" />
-            <element signature="n#div#1;n#div#1;n#div#3;n#!!top" expanded="false" />
-            <element signature="n#input#0;n#div#1;n#div#1;n#div#3;n#!!top" expanded="false" />
-            <element signature="n#div#2;n#div#1;n#div#3;n#!!top" expanded="false" />
-            <element signature="n#input#0;n#div#2;n#div#1;n#div#3;n#!!top" expanded="false" />
-            <element signature="n#h6#4;n#!!top" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1386,8 +1372,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/controllers/chart.controller.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1074">
-          <caret line="265" column="63" selection-start-line="265" selection-start-column="63" selection-end-line="265" selection-end-column="63" />
+        <state relative-caret-position="15">
+          <caret line="149" column="41" selection-start-line="149" selection-start-column="41" selection-end-line="149" selection-end-column="41" />
           <folding>
             <element signature="e#71#208#0" expanded="false" />
             <element signature="e#248#568#0" expanded="false" />
@@ -1415,27 +1401,132 @@
             <element signature="e#3728#4159#0" expanded="false" />
             <element signature="e#3903#3973#0" expanded="false" />
             <element signature="e#4082#4147#0" expanded="false" />
-            <element signature="e#9179#9683#0" expanded="false" />
-            <element signature="e#11876#12930#0" expanded="false" />
-            <element signature="e#11976#12082#0" expanded="false" />
-            <element signature="e#12394#12647#0" expanded="false" />
-            <element signature="e#12968#13122#0" expanded="false" />
-            <element signature="e#13152#13431#0" expanded="false" />
-            <element signature="e#13469#14086#0" expanded="false" />
-            <element signature="e#14122#14130#0" expanded="false" />
-            <element signature="e#14169#14353#0" expanded="false" />
-            <element signature="e#14407#15375#0" expanded="false" />
-            <element signature="e#15045#15097#0" expanded="false" />
-            <element signature="e#15442#15536#0" expanded="false" />
-            <marker date="1470328773000" expanded="true" signature="15369:15375" ph="..." />
+            <element signature="e#5221#5725#0" expanded="false" />
+            <element signature="e#7918#8972#0" expanded="false" />
+            <element signature="e#8018#8124#0" expanded="false" />
+            <element signature="e#8436#8689#0" expanded="false" />
+            <element signature="e#9010#9164#0" expanded="false" />
+            <element signature="e#9194#9473#0" expanded="false" />
+            <element signature="e#9511#10128#0" expanded="false" />
+            <element signature="e#10164#10172#0" expanded="false" />
+            <element signature="e#10211#10395#0" expanded="false" />
+            <element signature="e#10449#11417#0" expanded="false" />
+            <element signature="e#11087#11139#0" expanded="false" />
+            <element signature="e#11484#11578#0" expanded="false" />
+            <marker date="1470329690000" expanded="true" signature="11411:11417" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/utils.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="191" column="4" selection-start-line="191" selection-start-column="4" selection-end-line="191" selection-end-column="4" />
+          <folding>
+            <element signature="e#52#1052#0" expanded="false" />
+            <element signature="e#1072#2071#0" expanded="false" />
+            <element signature="e#2087#2287#0" expanded="false" />
+            <element signature="e#2767#2868#0" expanded="false" />
+            <element signature="e#2788#2858#0" expanded="false" />
+            <element signature="e#2948#3000#0" expanded="false" />
+            <element signature="e#3047#3144#0" expanded="false" />
+            <element signature="e#3078#3136#0" expanded="false" />
+            <element signature="e#3190#3303#0" expanded="false" />
+            <element signature="e#3351#3468#0" expanded="false" />
+            <element signature="e#3513#3624#0" expanded="false" />
+            <element signature="e#3672#3789#0" expanded="false" />
+            <element signature="e#3823#3854#0" expanded="false" />
+            <element signature="e#3892#4729#0" expanded="false" />
+            <element signature="e#6808#7069#0" expanded="false" />
+            <element signature="e#6871#6957#0" expanded="false" />
+            <element signature="e#7123#7201#0" expanded="false" />
+            <element signature="e#7235#7409#0" expanded="false" />
+            <element signature="e#7443#7617#0" expanded="false" />
+            <element signature="e#7659#8622#0" expanded="false" />
+            <element signature="e#7964#8072#0" expanded="false" />
+            <element signature="e#8153#8269#0" expanded="false" />
+            <element signature="e#8662#9297#0" expanded="false" />
+            <element signature="e#8731#9266#0" expanded="false" />
+            <element signature="e#9096#9254#0" expanded="false" />
+            <element signature="e#9159#9173#0" expanded="false" />
+            <element signature="e#9337#9557#0" expanded="false" />
+            <element signature="e#9410#9525#0" expanded="false" />
+            <element signature="e#9464#9513#0" expanded="false" />
+            <element signature="e#9597#9982#0" expanded="false" />
+            <element signature="e#9714#9903#0" expanded="false" />
+            <element signature="e#10027#10110#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/tabs/wm.chart.preferences.tab.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="263" column="49" selection-start-line="263" selection-start-column="49" selection-end-line="263" selection-end-column="49" />
+          <folding>
+            <element signature="n#h6#0;n#!!top" expanded="false" />
+            <element signature="n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="false" />
+            <element signature="n#div#1;n#div#0;n#!!top" expanded="false" />
+            <element signature="n#div#0;n#div#1;n#div#0;n#!!top" expanded="false" />
+            <element signature="n#select#0;n#div#0;n#div#1;n#div#0;n#!!top" expanded="false" />
+            <element signature="n#div#1;n#div#1;n#div#0;n#!!top" expanded="false" />
+            <element signature="n#input#0;n#div#1;n#div#1;n#div#0;n#!!top" expanded="false" />
+            <element signature="n#h6#1;n#!!top" expanded="false" />
+            <element signature="n#div#1;n#!!top" expanded="false" />
+            <element signature="n#div#0;n#div#1;n#!!top" expanded="false" />
+            <element signature="n#div#0;n#div#0;n#div#1;n#!!top" expanded="false" />
+            <element signature="n#div#0;n#div#0;n#div#0;n#div#1;n#!!top" expanded="false" />
+            <element signature="n#div#1;n#div#0;n#div#1;n#!!top" expanded="false" />
+            <element signature="n#div#0;n#div#1;n#div#0;n#div#1;n#!!top" expanded="false" />
+            <element signature="n#div#2;n#div#0;n#div#1;n#!!top" expanded="false" />
+            <element signature="n#div#0;n#div#2;n#div#0;n#div#1;n#!!top" expanded="false" />
+            <element signature="n#div#3;n#div#0;n#div#1;n#!!top" expanded="false" />
+            <element signature="n#div#0;n#div#3;n#div#0;n#div#1;n#!!top" expanded="false" />
+            <element signature="n#div#1;n#div#1;n#!!top" expanded="false" />
+            <element signature="n#div#0;n#div#1;n#div#1;n#!!top" expanded="false" />
+            <element signature="n#select#0;n#div#0;n#div#1;n#div#1;n#!!top" expanded="false" />
+            <element signature="n#div#1;n#div#1;n#div#1;n#!!top" expanded="false" />
+            <element signature="n#input#0;n#div#1;n#div#1;n#div#1;n#!!top" expanded="false" />
+            <element signature="n#div#2;n#div#1;n#!!top" expanded="false" />
+            <element signature="n#div#0;n#div#2;n#div#1;n#!!top" expanded="false" />
+            <element signature="n#div#0;n#div#0;n#div#2;n#div#1;n#!!top" expanded="false" />
+            <element signature="n#label#0;n#div#0;n#div#0;n#div#2;n#div#1;n#!!top" expanded="false" />
+            <element signature="n#label#1;n#div#0;n#div#0;n#div#2;n#div#1;n#!!top" expanded="false" />
+            <element signature="n#label#2;n#div#0;n#div#0;n#div#2;n#div#1;n#!!top" expanded="false" />
+            <element signature="n#label#3;n#div#0;n#div#0;n#div#2;n#div#1;n#!!top" expanded="false" />
+            <element signature="n#div#1;n#div#2;n#div#1;n#!!top" expanded="false" />
+            <element signature="n#input#0;n#div#1;n#div#2;n#div#1;n#!!top" expanded="false" />
+            <element signature="n#h6#2;n#!!top" expanded="false" />
+            <element signature="n#div#0;n#div#2;n#!!top" expanded="false" />
+            <element signature="n#div#0;n#div#0;n#div#2;n#!!top" expanded="false" />
+            <element signature="n#input#0;n#div#0;n#div#0;n#div#2;n#!!top" expanded="false" />
+            <element signature="n#div#1;n#div#2;n#!!top" expanded="false" />
+            <element signature="n#div#0;n#div#1;n#div#2;n#!!top" expanded="false" />
+            <element signature="n#h6#3;n#!!top" expanded="false" />
+            <element signature="n#div#3;n#!!top" expanded="false" />
+            <element signature="n#div#0;n#div#3;n#!!top" expanded="false" />
+            <element signature="n#div#0;n#div#0;n#div#3;n#!!top" expanded="false" />
+            <element signature="n#div#0;n#div#0;n#div#0;n#div#3;n#!!top" expanded="false" />
+            <element signature="n#div#1;n#div#0;n#div#3;n#!!top" expanded="false" />
+            <element signature="n#input#0;n#div#1;n#div#0;n#div#3;n#!!top" expanded="false" />
+            <element signature="n#div#2;n#div#0;n#div#3;n#!!top" expanded="false" />
+            <element signature="n#input#0;n#div#2;n#div#0;n#div#3;n#!!top" expanded="false" />
+            <element signature="n#div#1;n#div#3;n#!!top" expanded="false" />
+            <element signature="n#div#0;n#div#1;n#div#3;n#!!top" expanded="false" />
+            <element signature="n#div#0;n#div#0;n#div#1;n#div#3;n#!!top" expanded="false" />
+            <element signature="n#div#1;n#div#1;n#div#3;n#!!top" expanded="false" />
+            <element signature="n#input#0;n#div#1;n#div#1;n#div#3;n#!!top" expanded="false" />
+            <element signature="n#div#2;n#div#1;n#div#3;n#!!top" expanded="false" />
+            <element signature="n#input#0;n#div#2;n#div#1;n#div#3;n#!!top" expanded="false" />
+            <element signature="n#h6#4;n#!!top" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/views/chart.view.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="257" column="6" selection-start-line="257" selection-start-column="6" selection-end-line="257" selection-end-column="6" />
+        <state relative-caret-position="525">
+          <caret line="296" column="6" selection-start-line="296" selection-start-column="6" selection-end-line="296" selection-end-column="6" />
           <folding>
             <element signature="e#948#1032#0" expanded="false" />
             <element signature="e#1075#1159#0" expanded="false" />
@@ -1559,6 +1650,17 @@
             <element signature="e#39122#39346#0" expanded="false" />
             <element signature="e#39431#39577#0" expanded="false" />
             <element signature="e#39604#39668#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/js/chartist-plugin-weighted-mean.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="51" column="30" selection-start-line="51" selection-start-column="30" selection-end-line="51" selection-end-column="30" />
+          <folding>
+            <element signature="e#84#245#0" expanded="false" />
+            <element signature="e#264#796#0" expanded="false" />
           </folding>
         </state>
       </provider>
