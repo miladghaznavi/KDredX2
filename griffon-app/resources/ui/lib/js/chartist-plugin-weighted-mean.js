@@ -25,7 +25,7 @@
                 'text-align: left; ' +
                 'display: flex; ' +
                 'line-height: 1; ' +
-                'justify-content: flex-start;',
+                'justify-content: flex-start;'
         },
         points: 'stroke-linecap: round;'
     };
@@ -185,8 +185,6 @@
             }
 
             function bar(data, uncertainty, options, rejected) {
-                console.log(data);
-
                 var barOptions = (rejected) ? options.rejectedBars : options.bars;
                 var toYPixelFactor = data.axisY.axisLength / (data.axisY.range.max - data.axisY.range.min);
                 var toXPixelFactor = null;

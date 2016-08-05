@@ -202,8 +202,6 @@ function ChartController() {
     };
 
     self.resetAndPlot = function() {
-        Util.notifyInfo("In reset all", "reset");
-
         // Reset some values
         self.model.bandwidth = null;
 
@@ -229,6 +227,9 @@ function ChartController() {
 
         // Load defaults for other fields
         self.model.loadDefaults();
+
+        // Load defaults to view
+        self.loadDefaults();
 
         // Update the view
         self.view.update();
