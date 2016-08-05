@@ -127,8 +127,10 @@ function WeightedMean() {
             weightedMean:        weightedMean,
             weightedUncertainty: weightedUncr,
             mswd:                mswd,
-            rejected:        WeightedMean.rejected       (values, uncertainties, weightedMean, weightedUncr),
-            rejectedIndices: WeightedMean.rejectedIndices(values, uncertainties, weightedMean, weightedUncr)
+            rejected:        (rejectionRange > 0) ?
+                WeightedMean.rejected(values, uncertainties, weightedMean, weightedUncr) : 0,
+            rejectedIndices: (rejectionRange > 0) ?
+                WeightedMean.rejectedIndices(values, uncertainties, weightedMean, weightedUncr) : []
         };
 
         return result;

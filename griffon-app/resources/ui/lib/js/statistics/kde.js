@@ -79,13 +79,15 @@ function KernelDensityEstimation () {
         };
     };
 
-    KernelDensityEstimation.variables = function(values, uncertainties, count) {
-        var min = Number.MAX_VALUE;
-        var max = Number.MIN_VALUE;
-        for (var i = 0; i < values.length; ++i) {
-            min = Math.min(min, values[i] - Math.abs(uncertainties[i]));
-            max = Math.max(max, values[i] + Math.abs(uncertainties[i]));
-        }//for
+    KernelDensityEstimation.variables = function(values, uncertainties, count, min, max) {
+        if (arguments.length == 3) {
+            min = Number.MAX_VALUE;
+            max = Number.MIN_VALUE;
+            for (var i = 0; i < values.length; ++i) {
+                min = Math.min(min, values[i] - Math.abs(uncertainties[i]));
+                max = Math.max(max, values[i] + Math.abs(uncertainties[i]));
+            }//for
+        }//if
 
         var step = (max - min) / count;
         var variables = [];

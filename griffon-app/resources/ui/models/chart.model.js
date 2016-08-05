@@ -58,9 +58,9 @@ function ChartModel(id, title, dirty, dataAvailable) {
 
         //-- Mean
         WMBoxColor: '#118002',
-        WMLineStyle: 'solid line',
+        WMLineStyle: 'dashed',
         WMLineWidth: 1,
-        WMLineColor: '#929292',
+        WMLineColor: '#F4F1F1',
 
         // Kernel Density Estimation Chart
         //-- Title
@@ -356,6 +356,17 @@ function ChartModel(id, title, dirty, dataAvailable) {
     ChartModel.allLists = ChartModel.preferencesList.concat(
         ChartModel.chartPropertiesList).concat(
         ChartModel.dataList);
+    ChartModel.DEFAULT_AXIS_SCALES = {
+        WMXAxisLowDefault     : 1,
+        WMXAxisUnitDefault    : 1,
+
+        WMYAxisDivisorDefault : 16,
+        WMYAxisLowCoeffDefault : 0.9,
+        WMYAxisHighCoeffDefault: 1.1,
+
+        KDEXAxisLowDefault    : 0.0,
+        KDEXAxisDivisorDefault: 16,
+    };
 
     var self = this;
     id    = (typeof id    !== 'undefined') ? id: null;
@@ -427,11 +438,76 @@ function ChartModel(id, title, dirty, dataAvailable) {
         return self.getList(ChartModel.preferencesList);
     };
 
-    self.calculate = function() {
+    self.precompute = function() {
         var uncertainties = [];
         for (var i = 0; i < self.uncertainties.length; ++i) {
             uncertainties.push(self.uncertainties[i] / self.uncertaintyInterpret);
         }//for
+
+        var bandwidthRange = KernelDensityEstimation.bandwidthRange(self.values, uncertainties);
+        if (self.bandwidth == null ||
+            self.bandwidth == ""   ||
+            self.bandwidth <  bandwidthRange.min ||
+            self.bandwidth >  bandwidthRange.max) {
+            //set bandwidth to a default value
+            self.bandwidth = bandwidthRange.from;
+        }//if
+
+        return uncertainties;
+    };
+
+    self.computeWMAxisScales = function() {
+        self.WMXAxisLow = (self.WMXAxisLow  == null) ?
+            ChartModel.DEFAULT_AXIS_SCALES.WMXAxisLowDefault : self.WMXAxisLow;
+        self.WMXAxisHigh = (self.WMXAxisHigh == null) ?
+            Math.max(self.values.length, self.WMXAxisLow + 1): self.WMXAxisHigh;
+        self.WMXAxisUnit = (self.WMXAxisUnit == null) ?
+            ChartModel.DEFAULT_AXIS_SCALES.WMXAxisUnitDefault : self.WMXAxisUnit;
+        self.WMXAxisDivisor = Math.ceil((self.WMXAxisHigh - self.WMXAxisLow) / self.WMXAxisUnit);
+
+        // Weighted Mean Chart - Axis Y
+        var minY = Number.MAX_VALUE;
+        var maxY = Number.MIN_VALUE;
+        for (var i = 0; i < self.values.length; ++i) {
+            minY = Math.min(minY, self.values[i] - 2 * self.uncertainties[i]);
+            maxY = Math.max(maxY, self.values[i] + 2 * self.uncertainties[i]);
+
+            // We extend the range of the weighted-mean y-axis by +/-10%
+            minY = Math.min(minY, self.values[i] * ChartModel.DEFAULT_AXIS_SCALES.WMYAxisLowCoeffDefault);
+            maxY = Math.max(maxY, self.values[i] * ChartModel.DEFAULT_AXIS_SCALES.WMYAxisHighCoeffDefault);
+        }//for
+
+        minY = Math.floor(minY);
+        maxY = Math.ceil (maxY);
+
+        self.WMYAxisLow  = (self.WMYAxisLow  == null) ? minY : self.WMYAxisLow;
+        self.WMYAxisHigh = (self.WMYAxisHigh == null) ? maxY : self.WMYAxisHigh;
+        self.WMYAxisUnit = (self.WMYAxisUnit == null) ?
+            Math.ceil((self.WMYAxisHigh - self.WMYAxisLow) / ChartModel.DEFAULT_AXIS_SCALES.WMYAxisDivisorDefault):
+            self.WMYAxisUnit;
+        self.WMYAxisDivisor = Math.ceil((self.WMYAxisHigh - self.WMYAxisLow) / self.WMYAxisUnit);
+    };
+
+    self.computeKDEAxisScales = function() {
+        // Kernel Density Estimation - Axis Y
+        self.KDEYAxisLow     = self.WMYAxisLow;
+        self.KDEYAxisHigh    = self.WMYAxisHigh;
+        self.KDEYAxisUnit    = self.WMYAxisUnit;
+        self.KDEYAxisDivisor = self.WMYAxisDivisor;
+
+        // Kernel Density Estimation - Axis X
+        self.KDEXAxisLow = (self.KDEXAxisLow  == null) ?
+            ChartModel.DEFAULT_AXIS_SCALES.KDEXAxisLowDefault : self.KDEXAxisLow;
+        self.KDEXAxisHigh = (self.KDEXAxisHigh == null) ?
+            Util.max(self.kde): self.KDEXAxisHigh;
+        self.KDEXAxisUnit = (self.KDEXAxisUnit == null) ?
+        (self.KDEXAxisHigh - self.KDEXAxisLow) / ChartModel.DEFAULT_AXIS_SCALES.KDEXAxisDivisorDefault:
+            self.KDEXAxisUnit;
+        self.KDEXAxisDivisor = Math.ceil((self.KDEXAxisHigh - self.KDEXAxisLow) / self.KDEXAxisUnit);
+    };
+
+    self.calculate = function() {
+        var uncertainties = self.precompute();
 
         // Weighted Mean
         var aWm = WeightedMean.calculate(self.values, uncertainties, Number(self.rejectionRange));
@@ -441,17 +517,29 @@ function ChartModel(id, title, dirty, dataAvailable) {
         self.ratio = self.weightedUncertainty / self.weightedMean * 100;
         self.total = self.values.length;
 
+        // Skewness
+        var aSkewness = Skewness.calculate(self.values);
+        for (var key in aSkewness) {
+            self[key] = aSkewness[key];
+        }//for
+
+        // WM Axis scales
+        self.computeWMAxisScales();
+
+        // Compute variables
+        // Note that we need Y Axis scales to compute the KDEs
+        self.variables = KernelDensityEstimation.variables(
+            self.values, uncertainties, self.variablesCount.from,
+            self.WMYAxisLow, self.WMYAxisHigh);
+
         // Kernel Density Estimation
         var aKde = KernelDensityEstimation.calculate(self.variables, self.values, self.bandwidth, self.kernelFunction);
         for (var key in aKde) {
             self[key] = aKde[key];
         }//for
 
-        //Skewness
-        var aSkewness = Skewness.calculate(self.values);
-        for (var key in aSkewness) {
-            self[key] = aSkewness[key];
-        }//for
+        // KDE Axis scales
+        self.computeKDEAxisScales();
     };
 
     self.getStatistics = function() {

@@ -14,7 +14,7 @@
             'text-align: left; ' +
             'display: flex; ' +
             'line-height: 1; ' +
-            'justify-content: flex-start;',
+            'justify-content: flex-start;'
         },
         points: 'stroke-linecap: round;'
     };

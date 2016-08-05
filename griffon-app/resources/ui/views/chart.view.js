@@ -340,6 +340,8 @@ function ChartView(id) {
         $('#saveChartAsPdf').click({type:'pdf'}, controller.saveAs);
 
         $('#control-sidebar input, #control-sidebar select').change(self.onChangeInput);
+
+        $('#resetAll').click({}, controller.resetAndPlot);
     };
 
     self.preferences = function() {
