@@ -69,6 +69,10 @@ function MainController() {
         }//else
     };
 
+    self.toggleViewEvent = function() {
+        self.view.toggleView();
+    };
+
     self.loadDefaults = function () {};
 }
 

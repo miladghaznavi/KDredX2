@@ -7,6 +7,7 @@ function MainModel(id) {
     self.id = id;
     self.dataId = null;
     self.chartId = null;
+    self.view = MainModel.DEFAULT_VIEW;
 
     self.init = function (args) {
         self.dataId  = args.dataControllerId;

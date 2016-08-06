@@ -1,8 +1,8 @@
 function DataModel(id, path, dirty, data) {
     var self = this;
 
-    DataModel.DEFAULT_ROWS_COUNT = 50;
-    DataModel.DEFAULT_COLUMNS_COUNT = 20;
+    DataModel.DEFAULT_ROWS_COUNT = 25;
+    DataModel.DEFAULT_COLUMNS_COUNT = 10;
     DataModel.INVALID_COLUMN = -1;
     DataModel.INVALID_VALUE = -1;
     

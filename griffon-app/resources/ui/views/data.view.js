@@ -3,8 +3,8 @@ function DataView(id) {
     id = typeof id !== 'undefined' ? id : null;
     self.id = id;
 
-    DataView.MaxHeight = 700;
-    DataView.MinHeight = 600;
+    DataView.MaxHeight = 800;
+    DataView.MinHeight = 610;
     DataView.MaxWidth  = 1280;
     DataView.MinWidth  = 600;
 
