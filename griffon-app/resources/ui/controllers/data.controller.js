@@ -12,7 +12,14 @@ function DataController() {
     };
 
     self.openEvent = function () {
-        self.view.openDialog();
+        if (typeof JavaJSBridge == typeof undefined) {
+            // Run in a browser
+            self.view.openDialog();
+        }//if
+        else {
+            // Run as part of a java application
+            self.loadCsvFromJava(JSON.parse(JavaJSBridge.openCSVFile("MTV")));
+        }//else
     };
 
     self.saveEvent = function () {
@@ -29,7 +36,7 @@ function DataController() {
         // }//if
     };
 
-    self.loadCsv = function (fevent) {
+    self.loadCsvFromHtml = function (fevent) {
         var file = fevent.target.files[0];
 
         // Parse local CSV file
@@ -39,6 +46,7 @@ function DataController() {
                     Util.notifyError("Error in loading the data!");
                 }//if
                 else {
+                    console.log(results.data);
                     self.model.data = results.data;
                     self.model.title = file.name;
                     self.model.dirty = false;
@@ -51,6 +59,32 @@ function DataController() {
                 Util.notifyError(error.message);
             }
         });
+    };
+
+    self.loadCsvFromJava = function(jsonData) {
+        if (jsonData.selected) {
+            try {
+                var errors = JSON.parse(jsonData.errors[0]);
+                if (errors.length > 0) {
+                    Util.notifyError("Error in loading the data!");
+                }//if
+                else {
+                    var fileData = JSON.parse(jsonData.file[0].split("=").join(":"));
+
+                    self.model.data = JSON.parse(jsonData.data[0]);
+                    self.model.title = fileData.name;
+                    self.model.path = fileData.path;
+                    self.model.dirty = false;
+                    self.model.spreadsheet = self.view.getSpreadsheet();
+                    self.view.update();
+
+                    Util.notifyInfo(self.model.path);
+                }//else
+            }//try
+            catch(exc) {
+                Util.notifyError(exc);
+            }//catch
+        }//if
     };
 
     self.cellChanged = function (changes, source) {

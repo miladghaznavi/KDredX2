@@ -22,11 +22,15 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
-        <module name="multi-tech-vis" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="multi-tech-vis" target="1.8" />
+      <module name="multi-tech-vis_functionalTest" target="1.8" />
+      <module name="multi-tech-vis_integrationTest" target="1.8" />
+      <module name="multi-tech-vis_main" target="1.8" />
+      <module name="multi-tech-vis_package" target="1.8" />
+      <module name="multi-tech-vis_test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

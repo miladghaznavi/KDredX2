@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.apache.sling:org.apache.sling.commons.json:2.0.6">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.sling/org.apache.sling.commons.json/2.0.6/77c543d494f4f767b949c4c37bc6d3168f3326a3/org.apache.sling.commons.json-2.0.6.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.sling/org.apache.sling.commons.json/2.0.6/3b783d7cd71408fff9b74cdc838bd092787ca26e/org.apache.sling.commons.json-2.0.6-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -43,6 +43,9 @@ function App() {
     };
 }
 
+// // Define bridge undefined
+// JavaJSBridge = undefined;
+
 app = new App();
 
 $(document).ready(function() {

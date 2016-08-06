@@ -2,7 +2,12 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/multi-tech-vis.iml" filepath="$PROJECT_DIR$/multi-tech-vis.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/multi-tech-vis.iml" filepath="$PROJECT_DIR$/.idea/modules/multi-tech-vis.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/multi-tech-vis_functionalTest.iml" filepath="$PROJECT_DIR$/.idea/modules/multi-tech-vis_functionalTest.iml" group="multi-tech-vis" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/multi-tech-vis_integrationTest.iml" filepath="$PROJECT_DIR$/.idea/modules/multi-tech-vis_integrationTest.iml" group="multi-tech-vis" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/multi-tech-vis_main.iml" filepath="$PROJECT_DIR$/.idea/modules/multi-tech-vis_main.iml" group="multi-tech-vis" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/multi-tech-vis_package.iml" filepath="$PROJECT_DIR$/.idea/modules/multi-tech-vis_package.iml" group="multi-tech-vis" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/multi-tech-vis_test.iml" filepath="$PROJECT_DIR$/.idea/modules/multi-tech-vis_test.iml" group="multi-tech-vis" />
     </modules>
   </component>
 </project>

@@ -98,7 +98,7 @@ function DataView(id) {
         var controller = app.getController(id);
         $('#dataOpenDialog').click (controller.openEvent);
         $('#dataSaveDialog').click (controller.saveEvent);
-        $('#inputSpreadsheet').change(controller.loadCsv);
+        $('#inputSpreadsheet').change(controller.loadCsvFromHtml);
 
         // Weighted mean
         $('#valuesSelect').on('change', controller.selectChanged);

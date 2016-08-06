@@ -3,7 +3,11 @@ package org.mtv;
 import griffon.core.artifact.GriffonView;
 import griffon.metadata.ArtifactProviderFor;
 import griffon.transform.Threading;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
+import javafx.concurrent.Worker.State;
+import javafx.beans.value.ChangeListener;
+import netscape.javascript.JSObject;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -19,6 +23,8 @@ import java.util.Collections;
 public class MultiTechVisView extends AbstractJavaFXGriffonView {
     private MultiTechVisController controller;
     private MultiTechVisModel model;
+    JSObject JavaJSBridge;
+    Stage stage;
 
     @FXML
     private WebView portWebView;
@@ -34,7 +40,7 @@ public class MultiTechVisView extends AbstractJavaFXGriffonView {
 
     @Override
     public void initUI() {
-        Stage stage = (Stage) getApplication()
+        stage = (Stage) getApplication()
             .createApplicationContainer(Collections.<String, Object>emptyMap());
         stage.setTitle(getApplication().getConfiguration().getAsString("application.title"));
         stage.setScene(init());
@@ -75,6 +81,18 @@ public class MultiTechVisView extends AbstractJavaFXGriffonView {
             webEngine = portWebView.getEngine();
             webEngine.setJavaScriptEnabled(true);
             webEngine.load(resource.toExternalForm());
+
+            webEngine.getLoadWorker().stateProperty().addListener(
+                    new ChangeListener<State>(){
+                        @Override
+                        public void changed(ObservableValue<? extends State> ov, State oldState, State newState) {
+                            if(newState == State.SUCCEEDED){
+                                JSObject window = (JSObject) webEngine.executeScript("window");
+                                window.setMember("JavaJSBridge", new Bridge(stage));
+                            }//if
+                        }
+                    });
+
             webEngine.setOnAlert(
                 arg0 -> {
                     Alert alert = new Alert(Alert.AlertType.NONE);
