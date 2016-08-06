@@ -9,11 +9,14 @@ import org.apache.batik.transcoder.TranscoderInput;
 import org.apache.batik.transcoder.TranscoderOutput;
 import org.apache.batik.transcoder.image.JPEGTranscoder;
 import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord;
+import org.apache.sling.commons.json.JSONArray;
 import org.apache.sling.commons.json.JSONException;
 import org.apache.sling.commons.json.JSONObject;
 
 import java.io.*;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,7 +26,7 @@ public class Bridge {
     public static final String ERRORS = "errors";
     public static final String SELECTED = "selected";
     public static final String FILE = "file";
-    public static final String NAME = "name";
+    public static final String TITLE = "title";
     public static final String PATH = "path";
     public static final String SVG = "svg";
     public static final String PNG = "png";
@@ -69,7 +72,7 @@ public class Bridge {
         if (selectedFile != null) {
             Map<String, String> file = new HashMap<>();
             file.put("\"" + PATH + "\"", "\"" + selectedFile.getAbsolutePath() + "\"");
-            file.put("\"" + NAME + "\"", "\"" + selectedFile.getName() + "\"");
+            file.put("\"" + TITLE + "\"", "\"" + selectedFile.getName() + "\"");
 
             ArrayList<ArrayList<String>> arrayLists = new ArrayList<>();
             ArrayList<Exception> exceptions = new ArrayList<>();
@@ -97,38 +100,53 @@ public class Bridge {
         return json;
     }
 
-    public JSONObject saveCSVFile(String formTitle, JSONObject data) {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle(formTitle);
-        File selectedFile = fileChooser.showSaveDialog(stage);
-
+    public JSONObject saveCSVFile(String formTitle, String paramStr) {
         JSONObject json = new JSONObject();
 
         try {
-            json.append(SELECTED, (selectedFile != null));
-        }//try
-        catch(Exception e) {}//catch
+            JSONObject dataJson = new JSONObject(paramStr);
+            String title = (!dataJson.isNull(TITLE)) ? dataJson.getString(TITLE) : "";
+            String path  = (!dataJson.isNull(PATH )) ? dataJson.getString(PATH ) : "";
 
-        if (selectedFile != null) {
+            FileChooser fileChooser = new FileChooser();
+
+            boolean selected = false;
+
+            if (title.equals("")) {
+                fileChooser.setTitle(formTitle);
+                File selectedFile = fileChooser.showSaveDialog(stage);
+                selected = (selectedFile != null);
+                if (selected) {
+                    path  = selectedFile.getAbsolutePath();
+                    title = selectedFile.getName();
+                }//if
+            }//if
+
+            json.append(SELECTED, selected);
             Map<String, String> file = new HashMap<>();
-            file.put(PATH, selectedFile.getAbsolutePath());
-            file.put(NAME, selectedFile.getName());
+            file.put(PATH, path);
+            file.put(TITLE, title);
+            json.append(FILE, file);
 
-            ArrayList<ArrayList<String>> arrayLists = new ArrayList<>();
             ArrayList<Exception> exceptions = new ArrayList<>();
-            try {
-                json.append(FILE, file);
+            if (!path.equals("")) {
+                ArrayList<ArrayList<String>> lists = toArrayList(dataJson);
+                try {
+                    FileWriter out = new FileWriter(path);
+                    CSVPrinter csvPrinter = new CSVPrinter(out, CSVFormat.EXCEL);
+                    csvPrinter.printRecords(lists);
+                    out.flush();
+                    out.close();
+                }//try
+                catch (IOException exc) {
+                    exceptions.add(exc);
+                }//catch
+            }//if
+            json.append(ERRORS, exceptions);
+        }//try
+        catch(JSONException jsonExc) {
 
-                Writer out = new FileWriter(selectedFile.getPath());
-
-                System.out.println(arrayLists.toString());
-                System.out.println(json.toString());
-            }//try
-            catch (Exception exc) {
-                exceptions.add(exc);
-            }//catch
-            this.append(json, arrayLists, exceptions);
-        }//else
+        }//catch
 
         return json;
     }
@@ -181,6 +199,25 @@ public class Bridge {
                 .transcode();
     }
 
+    private ArrayList<ArrayList<String>> toArrayList(JSONObject dataJson) throws JSONException {
+        JSONArray sheet = dataJson.getJSONArray(DATA);
+
+        ArrayList<ArrayList<String>> arrayLists = new ArrayList<>();
+
+        for (int i = 0; i < sheet.length(); ++i) {
+            JSONArray row = sheet.getJSONArray(i);
+
+            ArrayList<String> list = new ArrayList<>();
+            for (int j = 0; j < row.length(); ++j) {
+                String column = (row.isNull(j)) ? "" : row.getString(j);
+                list.add(column);
+            }//for
+            arrayLists.add(list);
+        }//for
+
+        return arrayLists;
+    }
+
     public JSONObject saveAs(String serializedSVGTag, String type) {
         JSONObject json = new JSONObject();
 
@@ -192,7 +229,7 @@ public class Bridge {
         if (selectedFile != null) {
             try {
                 file.put(PATH, selectedFile.getAbsolutePath());
-                file.put(NAME, selectedFile.getName());
+                file.put(TITLE, selectedFile.getName());
                 switch (type) {
                     case SVG:
                         saveAsSVG(serializedSVGTag, selectedFile.getAbsolutePath());

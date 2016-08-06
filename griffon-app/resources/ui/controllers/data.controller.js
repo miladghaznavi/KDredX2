@@ -23,17 +23,22 @@ function DataController() {
     };
 
     self.saveEvent = function () {
-        // var result = null;
-        // if (self.model.dirty != false && JavaJSBridge != undefined) {
-        //     Util.notifySuccess("Before!");
-        //     var json = {
-        //         path: self.model.path,
-        //         data: self.model.data
-        //     };
-        //     var str = JSON.stringify(json);
-        //     result = JavaJSBridge.saveCSVFile(str);
-        //     Util.notifySuccess(result);
-        // }//if
+        var result = null;
+        if (self.model.dirty && typeof JavaJSBridge != typeof undefined) {
+            var json = {
+                path : self.model.path,
+                title: self.model.title,
+                data : self.model.data
+            };
+            result = JavaJSBridge.saveCSVFile('MTV', JSON.stringify(json));
+        }//if
+
+        if (result != null) {
+            var errors = JSON.parse(result.errors[0]);
+            if (errors.length > 0) {
+                Util.notifyError("Error in saving!");
+            }//if
+        }//if
     };
 
     self.loadCsvFromHtml = function (fevent) {
@@ -66,60 +71,28 @@ function DataController() {
             try {
                 var errors = JSON.parse(jsonData.errors[0]);
                 if (errors.length > 0) {
-                    Util.notifyError("Error in loading the data!");
+                    Util.notifyError("Error in loading!");
                 }//if
                 else {
                     var fileData = JSON.parse(jsonData.file[0].split("=").join(":"));
 
                     self.model.data = JSON.parse(jsonData.data[0]);
-                    self.model.title = fileData.name;
+                    self.model.title = fileData.title;
                     self.model.path = fileData.path;
                     self.model.dirty = false;
                     self.model.spreadsheet = self.view.getSpreadsheet();
                     self.view.update();
-
-                    Util.notifyInfo(self.model.path);
                 }//else
             }//try
             catch(exc) {
-                Util.notifyError(exc);
+                // Util.notifyError(exc);
             }//catch
+
         }//if
     };
 
     self.cellChanged = function (changes, source) {
-        //console.log('Changes: ');
-        //console.log(changes);
-        //console.log('Source: ');
-        //console.log(source);
-
-        //// Weighted mean
-        //if (self.model.colAnalyses == this.value) {
-        //    self.model.colAnalyses = DataModel.INVALID_COLUMN;
-        //}//if
-        //if (self.model.colUncertainties == this.value) {
-        //    self.model.colUncertainties = DataModel.INVALID_COLUMN;
-        //}//if
-        //
-        //// Reduced Chi-Squared
-        //if (self.model.colObserved == this.value) {
-        //    self.model.colObserved = DataModel.INVALID_COLUMN;
-        //}//if
-        //
-        //if (self.model.colExpected == this.value) {
-        //    self.model.colExpected = DataModel.INVALID_COLUMN;
-        //}//if
-        //
-        //// Kernel Density Estimation
-        //if (self.model.colX == this.value) {
-        //    self.model.colX = DataModel.INVALID_COLUMN;
-        //}//if
-        //
-        //if (self.model.colXi == this.value) {
-        //    self.model.colXi = DataModel.INVALID_COLUMN;
-        //}//if
-        //
-        //self.view.reloadSelectsFromData();
+        self.model.dirty = true;
     };
 
     self.selectChanged = function(e) {
