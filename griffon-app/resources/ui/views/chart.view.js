@@ -62,10 +62,10 @@ function ChartView(id) {
         KDETitle        : 'Kernel Density Estimation'
     };
     ChartView.DEFAULT_TEXT_INFO        = {
-        weightedMeanInfo: 'Mean = {weightedMean} &plusmn; {weightedUncertainty} [{ratio}%]',
+        weightedMeanInfo: 'Mean = {weightedMean} ± {weightedUncertainty} [{ratio}%]',
         rejectionInfo   : 'Wtd by data-pt errs {rejected} of {total} rej.',
         mswdInfo        : 'MSWD = {mswd}',
-        errorBarInfo    : "(error bars are 2 &sigma;)",
+        errorBarInfo    : "(error bars are 2 σ)",
         skewnessInfo    : 'Skewness = {skewness}'
     };
 
@@ -799,27 +799,29 @@ function ChartView(id) {
 
     self.drawTitle = function(preferences) {
         // Draw WM chart title
+        var wmTitle = document.getElementById(ChartView.WM_TITLE_TEXT.substring(1, ChartView.WM_TITLE_TEXT.length));
         if (preferences.wm.title.show == true) {
-            $(ChartView.WM_TITLE_TEXT).html(preferences.wm.title.text);
+            wmTitle.textContent = preferences.wm.title.text;
             $(ChartView.WM_TITLE_TEXT).attr({
                 style: Util.preferencesToCssStyles(preferences.wm.title.font, 'svgFonts'),
                 x: preferences.wm.size.width / 2
             });
         }//if
         else {
-            $(ChartView.WM_TITLE_TEXT).html(null);
+            wmTitle.textContent = null;
         }//else
 
         // Draw KDE-chart title
+        var kdeTitle = document.getElementById(ChartView.KDE_TITLE_TEXT.substring(1, ChartView.KDE_TITLE_TEXT.length));
         if (preferences.kde.title.show == true) {
-            $(ChartView.KDE_TITLE_TEXT).html(preferences.kde.title.text);
+            kdeTitle.textContent = preferences.kde.title.text;
             $(ChartView.KDE_TITLE_TEXT).attr({
                 style: Util.preferencesToCssStyles(preferences.kde.title.font, 'svgFonts'),
                 x: preferences.wm.size.width + (preferences.kde.size.width / 2)
             });
         }//if
         else {
-            $(ChartView.KDE_TITLE_TEXT).html(null);
+            kdeTitle.textContent = null;
         }//else
     };
 
@@ -845,71 +847,70 @@ function ChartView(id) {
         var model = app.getModel(id);
         var precision = (preferences != null && preferences.precision != undefined) ? preferences.precision : null;
 
+        var weightedMeanInfo = document.getElementById(
+            ChartView.textInfoViews.weightedMeanInfo.substring(1, ChartView.textInfoViews.weightedMeanInfo.length));
+        var mswdInfo = document.getElementById(
+            ChartView.textInfoViews.mswdInfo.substring(1, ChartView.textInfoViews.mswdInfo.length));
+        var skewnessInfo = document.getElementById(
+            ChartView.textInfoViews.skewnessInfo.substring(1, ChartView.textInfoViews.skewnessInfo.length));
+
         if (precision != null) {
-            $(ChartView.textInfoViews.weightedMeanInfo).html(
-                format(ChartView.DEFAULT_TEXT_INFO.weightedMeanInfo, {
-                    weightedMean       : model.weightedMean.toFixed(precision),
-                    weightedUncertainty: (model.weightedUncertainty * 2).toFixed(precision),
-                    ratio              : model.ratio.toFixed(precision)
-                })
-            );
-            $(ChartView.textInfoViews.mswdInfo).html(
-                format(ChartView.DEFAULT_TEXT_INFO.mswdInfo, {
-                    mswd: model.mswd.toFixed(precision)
-                })
-            );
-            $(ChartView.textInfoViews.skewnessInfo).html(
-                format(ChartView.DEFAULT_TEXT_INFO.skewnessInfo, {
-                    skewness: model.skewness.toFixed(precision)
-                })
-            );
+            weightedMeanInfo.textContent = format(ChartView.DEFAULT_TEXT_INFO.weightedMeanInfo, {
+                weightedMean       : model.weightedMean.toFixed(precision),
+                weightedUncertainty: (model.weightedUncertainty * 2).toFixed(precision),
+                ratio              : model.ratio.toFixed(precision)
+            });
+            mswdInfo.textContent = format(ChartView.DEFAULT_TEXT_INFO.mswdInfo, {
+                mswd: model.mswd.toFixed(precision)
+            });
+            skewnessInfo.textContent = format(ChartView.DEFAULT_TEXT_INFO.skewnessInfo, {
+                skewness: model.skewness.toFixed(precision)
+            });
+
         }//if
         else {
-            $(ChartView.textInfoViews.weightedMeanInfo).html(
-                format(ChartView.DEFAULT_TEXT_INFO.weightedMeanInfo, {
-                    weightedMean       : model.weightedMean,
-                    weightedUncertainty: (model.weightedUncertainty * 2),
-                    ratio              : model.ratio
-                })
-            );
-            $(ChartView.textInfoViews.mswdInfo).html(
-                format(ChartView.DEFAULT_TEXT_INFO.mswdInfo, {
-                    mswd: model.mswd
-                })
-            );
-            $(ChartView.textInfoViews.skewnessInfo).html(
-                format(ChartView.DEFAULT_TEXT_INFO.skewnessInfo, {
-                    skewness: model.skewness
-                })
-            );
+            weightedMeanInfo.textContent = format(ChartView.DEFAULT_TEXT_INFO.weightedMeanInfo, {
+                weightedMean       : model.weightedMean,
+                weightedUncertainty: (model.weightedUncertainty * 2),
+                ratio              : model.ratio
+            });
+            mswdInfo.textContent = format(ChartView.DEFAULT_TEXT_INFO.mswdInfo, {
+                mswd: model.mswd
+            });
+            skewnessInfo.textContent = format(ChartView.DEFAULT_TEXT_INFO.skewnessInfo, {
+                skewness: model.skewness
+            });
+
         }//else
 
         if (preferences.WMText.weightedMean.show == false)
-            $(ChartView.textInfoViews.weightedMeanInfo).html(null);
+            weightedMeanInfo.textContent = null;
 
         if (preferences.WMText.mswd.show == false)
-            $(ChartView.textInfoViews.mswdInfo).html(null);
+            mswdInfo.textContent = null;
 
         if (preferences.KDEText.skewness.show == false)
-            $(ChartView.textInfoViews.skewnessInfo).html(null);
+            skewnessInfo.textContent = null;
 
+        var rejectionInfo = document.getElementById(
+            ChartView.textInfoViews.rejectionInfo.substring(1, ChartView.textInfoViews.rejectionInfo.length));
         if (preferences.WMText.rejection.show == true) {
-            $(ChartView.textInfoViews.rejectionInfo).html(
-                format(ChartView.DEFAULT_TEXT_INFO.rejectionInfo, {
-                    rejected: model.rejected,
-                    total: model.total
-                })
-            );
+            rejectionInfo.textContent = format(ChartView.DEFAULT_TEXT_INFO.rejectionInfo, {
+                rejected: model.rejected,
+                total: model.total
+            });
         }//if
         else {
-            $(ChartView.textInfoViews.rejectionInfo).html(null);
+            rejectionInfo.textContent = null;
         }//else
 
+        var errorBarInfo = document.getElementById(
+            ChartView.textInfoViews.errorBarInfo.substring(1, ChartView.textInfoViews.errorBarInfo.length));
         if (preferences.WMText.errorBar.show == true) {
-            $(ChartView.textInfoViews.errorBarInfo).html(ChartView.DEFAULT_TEXT_INFO.errorBarInfo);
+            errorBarInfo.textContent = ChartView.DEFAULT_TEXT_INFO.errorBarInfo;
         }//if
         else {
-            $(ChartView.textInfoViews.errorBarInfo).html(null);
+            errorBarInfo.textContent = null;
         }//else
     };
 

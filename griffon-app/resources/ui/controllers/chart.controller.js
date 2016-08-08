@@ -145,8 +145,7 @@ function ChartController() {
             self.view.update();
 
             self.model.chartBeenDrawn = true;
-
-            Util.notifySuccess("The chart has been plotted!");
+            // Util.notifySuccess("The chart has been plotted!");
         }//if
     };
 
