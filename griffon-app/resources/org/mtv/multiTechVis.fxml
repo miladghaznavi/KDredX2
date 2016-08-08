@@ -17,61 +17,11 @@
             AnchorPane.bottomAnchor="0.0"
             AnchorPane.leftAnchor="0.0"
             AnchorPane.rightAnchor="0.0">
-        <top>
-            <MenuBar fx:id="menuBar" useSystemMenuBar="true">
-                <menus>
-                    <Menu text="%FileMenu.file" mnemonicParsing="false">
-                        <items>
-                            <MenuItem fx:id="openActionTarget" text="%FileMenu.open" />
-                            <SeparatorMenuItem />
-                            <MenuItem fx:id="saveActionTarget"   text="%FileMenu.save" />
-                            <MenuItem fx:id="saveAsActionTarget"   text="%FileMenu.saveAs" />
-                            <SeparatorMenuItem />
-                            <MenuItem fx:id="printActionTarget"  text="%FileMenu.print" />
-                        </items>
-                    </Menu>
-
-                    <Menu text="%EditMenu.edit">
-                        <items>
-                            <MenuItem fx:id="undoActionTarget"  text="%EditMenu.undo"/>
-                            <MenuItem fx:id="redoActionTarget"  text="%EditMenu.redo" />
-                            <SeparatorMenuItem />
-                            <MenuItem fx:id="cutActionTarget"   text="%EditMenu.cut"   disable="true" />
-                            <MenuItem fx:id="copyActionTarget"  text="%EditMenu.copy"  disable="true" />
-                            <MenuItem fx:id="pasteActionTarget" text="%EditMenu.paste" disable="true" />
-                        </items>
-                    </Menu>
-
-                    <Menu text="%Data.data">
-                        <items>
-                            <MenuItem fx:id="plotActionTarget"  text="%Data.plot"/>
-                        </items>
-                    </Menu>
-
-                    <Menu text="%Chart.chart">
-                        <items>
-                            <MenuItem text="%Chart.traces"/>
-                            <SeparatorMenuItem />
-                            <MenuItem text="%Chart.layout"/>
-                            <SeparatorMenuItem />
-                            <MenuItem text="%Chart.axis" />
-                            <SeparatorMenuItem />
-                            <MenuItem text="%Chart.legend" />
-                            <SeparatorMenuItem />
-                            <MenuItem text="%Chart.themes" />
-                        </items>
-                    </Menu>
-                </menus>
-            </MenuBar>
-        </top>
         <center>
             <WebView fx:id="portWebView">
             </WebView>
         </center>
     </BorderPane>
-    <stylesheets>
-        <URL value="@styles.css"/>
-    </stylesheets>
 </AnchorPane>
 
 

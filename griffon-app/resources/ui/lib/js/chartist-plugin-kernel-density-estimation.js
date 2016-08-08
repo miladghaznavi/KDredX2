@@ -43,7 +43,7 @@
                 var linesPrefs = options.lines;
                 element._node.setAttribute(
                     'style',
-                    Util.preferencesToCssStyles(linesPrefs, 'lines')
+                    Util.preferencesToCssStyles(linesPrefs, 'lines') + 'fill: none;'
                 );
             }
 

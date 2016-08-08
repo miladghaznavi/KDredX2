@@ -62,7 +62,8 @@ function ChartController() {
     ChartController.IMAGE_TYPES = {
         PNG: 'png',
         SVG: 'svg',
-        PDF: 'pdf'
+        PDF: 'pdf',
+        EPS: 'eps'
     };
 
     var self = this;
@@ -144,28 +145,45 @@ function ChartController() {
             self.view.update();
 
             self.model.chartBeenDrawn = true;
+
+            Util.notifySuccess("The chart has been plotted!");
         }//if
     };
 
     self.saveAs = function (event) {
-        Util.notifyInfo(event.data.type);
         var images = null;
         var type = event.data.type;
-        switch(type) {
-            case ChartController.IMAGE_TYPES.SVG:
-                images = Util.saveAsSVG(ChartView.CHART_BOX);
-                window.location.href = images[0];
-                break;
+        var serializer = new XMLSerializer();
+        var serialized = serializer.serializeToString(document.getElementById('chart-box'));
 
-            case ChartController.IMAGE_TYPES.PDF:
-                images = Util.saveAsPDF(ChartView.CHART_BOX);
-                console.log(images);
-                break;
+        if (typeof JavaJSBridge != typeof undefined) {
+            var jsonData = JSON.parse(JavaJSBridge.saveAs(serialized, type));
+            if (jsonData.errors.length > 0) {
+                Util.notifyError("Error in saving the image file!");
+            }//if
+        }//if
+        else {
+            switch (type) {
+                case ChartController.IMAGE_TYPES.SVG:
+                    images = Util.saveAsSVG(ChartView.CHART_BOX);
+                    window.location.href = images[0];
+                    break;
 
-            default:
-                Util.notifyWarning('TODO: save as ' + type);
-                break;
-        }//switch
+                case ChartController.IMAGE_TYPES.EPS:
+                    images = Util.saveAsEPS(ChartView.CHART_BOX);
+                    console.log(images);
+                    break;
+
+                case ChartController.IMAGE_TYPES.PDF:
+                    images = Util.saveAsPDF(ChartView.CHART_BOX);
+                    console.log(images);
+                    break;
+
+                default:
+                    Util.notifyWarning('TODO: save as ' + type);
+                    break;
+            }//switch
+        }//else
     };
 
     self.saveEvent = function () {

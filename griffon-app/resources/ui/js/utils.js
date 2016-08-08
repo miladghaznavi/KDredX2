@@ -351,6 +351,10 @@ function Util(){
         pdf.output('datauri'); // use output() to get the jsPDF buffer
     };
 
+    Util.saveAsEPS = function(query) {
+        Util.notifyInfo("Currently saving in eps format is not supported in the web version. For saving in this format please use the application.");
+    };
+
     Util.createSVGElement = function(tag) {
         return document.createElementNS("http://www.w3.org/2000/svg", tag);
     };

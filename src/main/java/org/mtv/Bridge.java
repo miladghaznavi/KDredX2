@@ -16,7 +16,7 @@ import org.apache.sling.commons.json.JSONException;
 import org.apache.sling.commons.json.JSONObject;
 
 import java.io.*;
-import java.nio.file.Paths;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -47,16 +47,6 @@ public class Bridge {
         this.setStage(stage);
     }
 
-    private void append(JSONObject json, ArrayList<ArrayList<String>> arrayLists, ArrayList<Exception> exceptions) {
-        try {
-            json.append(ERRORS, exceptions);
-            if (exceptions.size() > 0) {
-                arrayLists.clear();
-            }//if
-            json.append(DATA, arrayLists);
-        } catch (JSONException e) { }//catch
-    }
-
     public JSONObject openCSVFile(String formTitle) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle(formTitle);
@@ -65,36 +55,44 @@ public class Bridge {
         JSONObject json = new JSONObject();
 
         try {
-            json.append(SELECTED, (selectedFile != null));
+            json.put(SELECTED, (selectedFile != null));
         }//try
         catch(Exception e) {}//catch
 
         if (selectedFile != null) {
             Map<String, String> file = new HashMap<>();
-            file.put("\"" + PATH + "\"", "\"" + selectedFile.getAbsolutePath() + "\"");
-            file.put("\"" + TITLE + "\"", "\"" + selectedFile.getName() + "\"");
 
-            ArrayList<ArrayList<String>> arrayLists = new ArrayList<>();
-            ArrayList<Exception> exceptions = new ArrayList<>();
+            file.put(PATH, selectedFile.getAbsolutePath());
+            file.put(TITLE, selectedFile.getName());
+
+            ArrayList<ArrayList<Object>> arrayLists = new ArrayList<>();
+            ArrayList<String> exceptions = new ArrayList<>();
             try {
-                json.append(FILE, file);
+                json.put(FILE, file);
 
                 Reader in = new FileReader(selectedFile.getPath());
                 Iterable<CSVRecord> records = CSVFormat.EXCEL.parse(in);
 
                 for (CSVRecord record : records) {
-                    ArrayList<String> recordArr = new ArrayList<>();
+                    ArrayList<Object> recordArr = new ArrayList<>();
                     for (Object field : record) {
-                        recordArr.add("\"" + field.toString() + "\"");
+                        recordArr.add(field.equals("") ? null : "\"" + field.toString() + "\"");
                     }//for
                     arrayLists.add(recordArr);
                 }//for
+
+                json.put(DATA, arrayLists);
             }//try
             catch (Exception exc) {
-                exceptions.add(exc);
+                exceptions.add(exc.getMessage());
             }//catch
 
-            this.append(json, arrayLists, exceptions);
+            try {
+                if (exceptions.size() > 0) {
+                    json.put(ERRORS, exceptions);
+                }//if
+            }//try
+            catch (JSONException jsonException) { }//catch
         }//else
 
         return json;
@@ -122,11 +120,12 @@ public class Bridge {
                 }//if
             }//if
 
-            json.append(SELECTED, selected);
+            json.put(SELECTED, selected);
             Map<String, String> file = new HashMap<>();
             file.put(PATH, path);
             file.put(TITLE, title);
-            json.append(FILE, file);
+
+            json.put(FILE, file);
 
             ArrayList<Exception> exceptions = new ArrayList<>();
             if (!path.equals("")) {
@@ -142,7 +141,8 @@ public class Bridge {
                     exceptions.add(exc);
                 }//catch
             }//if
-            json.append(ERRORS, exceptions);
+            if (exceptions.size() > 0)
+                json.put(ERRORS, exceptions);
         }//try
         catch(JSONException jsonExc) {
 
@@ -159,9 +159,9 @@ public class Bridge {
         t.addTranscodingHint(JPEGTranscoder.KEY_QUALITY,
                 new Float(.8));
 
-        // Create the transcoder input.
-        String svgURI = new File("/Users/eghaznav/Desktop/Test/test2.svg").toURL().toString();
-        TranscoderInput input = new TranscoderInput(svgURI);
+//          TranscoderInput input = new TranscoderInput(svgURI);
+        InputStream stream = new ByteArrayInputStream(serializedSVGTag.getBytes(StandardCharsets.UTF_8));
+        TranscoderInput input = new TranscoderInput(stream);
 
         // Create the transcoder output.
         OutputStream ostream = new FileOutputStream(path);
@@ -173,7 +173,6 @@ public class Bridge {
         // Flush and close the stream.
         ostream.flush();
         ostream.close();
-
     }
 
     public void saveAsSVG(String serializedSVGTag, String path) throws IOException {
@@ -209,7 +208,7 @@ public class Bridge {
 
             ArrayList<String> list = new ArrayList<>();
             for (int j = 0; j < row.length(); ++j) {
-                String column = (row.isNull(j)) ? "" : row.getString(j);
+                String column = (row.isNull(j)) ? null : row.getString(j);
                 list.add(column);
             }//for
             arrayLists.add(list);
@@ -225,11 +224,11 @@ public class Bridge {
         File selectedFile = fileChooser.showSaveDialog(stage);
 
         Map<String, String> file = new HashMap<>();
-        ArrayList<Exception> exceptions = new ArrayList<>();
+        ArrayList<String> exceptions = new ArrayList<>();
         if (selectedFile != null) {
             try {
-                file.put(PATH, selectedFile.getAbsolutePath());
-                file.put(TITLE, selectedFile.getName());
+                file.put("\"" + PATH + "\"", "\"" + selectedFile.getAbsolutePath() + "\"");
+                file.put("\"" + TITLE + "\"", "\"" + selectedFile.getName() + "\"");
                 switch (type) {
                     case SVG:
                         saveAsSVG(serializedSVGTag, selectedFile.getAbsolutePath());
@@ -249,14 +248,16 @@ public class Bridge {
                 }//switch
             }//try
             catch (Exception exc) {
-                exceptions.add(exc);
+                exceptions.add("\"" + exc.getMessage() + "\"");
             }//catch
         }//if
 
         try {
-            json.append(FILE, file);
-            json.append(ERRORS, exceptions);
-        } catch (JSONException e) { }
+            json.put(FILE, file);
+            if (exceptions.size() > 0)
+                json.put(ERRORS, exceptions);
+        }//try
+        catch (JSONException e) { }//catch
 
         return json;
     }

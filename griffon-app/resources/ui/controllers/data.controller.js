@@ -1,4 +1,6 @@
 function DataController() {
+    DataController.ERRORS = 'errors';
+
     var self = this;
     self.id    = null;
     self.model = null;
@@ -12,36 +14,46 @@ function DataController() {
     };
 
     self.openEvent = function () {
+        if (self.model.dirty) {
+            self.saveEvent();
+        }//if
+
         if (typeof JavaJSBridge == typeof undefined) {
             // Run in a browser
             self.view.openDialog();
         }//if
         else {
             // Run as part of a java application
-            self.loadCsvFromJava(JSON.parse(JavaJSBridge.openCSVFile("MTV")));
+            self.loadCsvJava(JavaJSBridge.openCSVFile("MTV"));
         }//else
     };
 
     self.saveEvent = function () {
-        var result = null;
-        if (self.model.dirty && typeof JavaJSBridge != typeof undefined) {
+        var jsonData = null;
+        if (self.model.dirty && (typeof JavaJSBridge != typeof undefined)) {
             var json = {
                 path : self.model.path,
                 title: self.model.title,
                 data : self.model.data
             };
-            result = JavaJSBridge.saveCSVFile('MTV', JSON.stringify(json));
+
+            jsonData = JSON.parse(JavaJSBridge.saveCSVFile('MTV', JSON.stringify(json)));
         }//if
 
-        if (result != null) {
-            var errors = JSON.parse(result.errors[0]);
-            if (errors.length > 0) {
+        if (jsonData != null) {
+            if (DataController.ERRORS in jsonData) {
                 Util.notifyError("Error in saving!");
             }//if
+            else if (jsonData.selected) {
+                self.model.title = jsonData.file.title;
+                self.model.path = jsonData.file.path;
+                self.model.dirty = false;
+                self.view.update();
+            }//else
         }//if
     };
 
-    self.loadCsvFromHtml = function (fevent) {
+    self.loadCsvJS = function (fevent) {
         var file = fevent.target.files[0];
 
         // Parse local CSV file
@@ -58,7 +70,6 @@ function DataController() {
                     self.model.spreadsheet = self.view.getSpreadsheet();
                     self.view.update();
                 }//else
-                Util.notifyInfo("Data have been loaded!");
             },
             error: function(error, file) {
                 Util.notifyError(error.message);
@@ -66,33 +77,46 @@ function DataController() {
         });
     };
 
-    self.loadCsvFromJava = function(jsonData) {
-        if (jsonData.selected) {
-            try {
-                var errors = JSON.parse(jsonData.errors[0]);
-                if (errors.length > 0) {
-                    Util.notifyError("Error in loading!");
-                }//if
-                else {
-                    var fileData = JSON.parse(jsonData.file[0].split("=").join(":"));
+    self.loadCsvJava = function(jsonData) {
+        jsonData = JSON.parse(jsonData);
 
-                    self.model.data = JSON.parse(jsonData.data[0]);
-                    self.model.title = fileData.title;
-                    self.model.path = fileData.path;
-                    self.model.dirty = false;
-                    self.model.spreadsheet = self.view.getSpreadsheet();
-                    self.view.update();
-                }//else
+        if (DataController.ERRORS in jsonData) {
+            Util.notifyError("Error in loading!");
+        }//if
+
+        if (jsonData.selected && !(DataController.ERRORS in jsonData)) {
+            try {
+                self.model.data = self.toArray(jsonData.data);
+                self.model.title = jsonData.file.title;
+                self.model.path = jsonData.file.path;
+                self.model.dirty = false;
+                self.model.spreadsheet = self.view.getSpreadsheet();
+                self.view.update();
             }//try
             catch(exc) {
-                // Util.notifyError(exc);
+                Util.notifyError(exc);
             }//catch
-
         }//if
     };
 
+    self.toArray = function(data) {
+        var array = [];
+
+        for (var i = 0; i < data.length; ++i)
+            array.push(JSON.parse(data[i]));
+
+        return array;
+    };
+
     self.cellChanged = function (changes, source) {
-        self.model.dirty = true;
+        console.log("In cell change!");
+        console.log(changes);
+        console.log(source);
+
+        if (changes != null)
+            self.model.dirty = true;
+
+        console.log(self.model.dirty);
     };
 
     self.selectChanged = function(e) {

@@ -338,6 +338,7 @@ function ChartView(id) {
         $('#saveChartAsPng').click({type:'png'}, controller.saveAs);
         $('#saveChartAsSvg').click({type:'svg'}, controller.saveAs);
         $('#saveChartAsPdf').click({type:'pdf'}, controller.saveAs);
+        $('#saveChartAsEps').click({type:'eps'}, controller.saveAs);
 
         $('#control-sidebar input, #control-sidebar select').change(self.onChangeInput);
 
