@@ -20,6 +20,7 @@
                 'display: flex; ' +
                 'line-height: 1; ' +
                 'justify-content: flex-end;',
+
             horizontal:
                 'align-items: flex-start; ' +
                 'text-align: left; ' +
