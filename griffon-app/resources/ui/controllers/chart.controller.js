@@ -150,6 +150,10 @@ function ChartController() {
     };
 
     self.saveAs = function (event) {
+        if (!self.model.chartBeenDrawn) {
+            return;
+        }//if
+
         var images = null;
         var type = event.data.type;
         var serializer = new XMLSerializer();
