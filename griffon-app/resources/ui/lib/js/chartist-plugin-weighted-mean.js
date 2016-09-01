@@ -152,7 +152,9 @@
 
             function gridStyling(element, options, dir) {
                 var gridPref = (dir == 'vertical') ? options.yAxis.gridLines : options.xAxis.gridLines;
-                var style = element._node.getAttribute('style') + ';';
+                var style = "";
+                if (element._node.getAttribute('style') != null)
+                    style += element._node.getAttribute('style') + ';';
 
                 if (gridPref.show == true) {
                     element._node.setAttribute('style',
