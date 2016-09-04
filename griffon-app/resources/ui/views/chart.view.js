@@ -68,7 +68,7 @@ function ChartView(id) {
         errorBarInfo    : "(error bars are 2 σ)",
         skewnessInfo    : 'Skewness = {skewness}'
     };
-
+    ChartView.SCALE_TEXT_HEIGHT        = 1.095;
     ChartView.chartingControls         = {
         // Chart options
         titleCheckBox: '#titleCheckBox',
@@ -612,8 +612,8 @@ function ChartView(id) {
     self.correctPlot = function(preferences) {
         var wmTitleHeight  = $(ChartView.WM_TITLE_TEXT ).height();
         var kdeTitleHeight = $(ChartView.KDE_TITLE_TEXT).height();
-        var titleHeight    = Math.max(wmTitleHeight, kdeTitleHeight);
-        var textHeight     = Math.max($(ChartView.WM_TEXT_BOX).height(), $(ChartView.KDE_TEXT_BOX).height());
+        var titleHeight    = Math.max(wmTitleHeight, kdeTitleHeight) * ChartView.SCALE_TEXT_HEIGHT;
+        var textHeight     = Math.max($(ChartView.WM_TEXT_BOX).height(), $(ChartView.KDE_TEXT_BOX).height()) * ChartView.SCALE_TEXT_HEIGHT;
 
         // Title
         self.stretch(ChartView.TITLE_BOX, preferences.wm.size.width + preferences.kde.size.width, titleHeight, true);
@@ -629,6 +629,9 @@ function ChartView(id) {
         // Text
         self.stretch(ChartView.TEXT_BOX, preferences.wm.size.width + preferences.kde.size.width, textHeight, true);
         self.shift  (ChartView.TEXT_BOX, 0, titleHeight + preferences.wm.size.height, true);
+        // // If the text box height is greater than the current calculated value, the text box height is updated
+        // textHeight = Math.max(textHeight, $(ChartView.TEXT_BOX).height());
+        // self.stretch(ChartView.TEXT_BOX, preferences.wm.size.width + preferences.kde.size.width, textHeight, true);
 
         // Chart Box
         self.stretch(ChartView.CHART_BOX,

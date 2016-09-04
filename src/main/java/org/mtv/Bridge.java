@@ -194,7 +194,7 @@ public class Bridge {
         new SVGExport()
                 .setInput (new ByteArrayInputStream(serializedSVGTag.getBytes()))
                 .setOutput(new FileOutputStream(path))
-                .setTranscoder(Format.PDF)
+                .setTranscoder(Format.EPS)
                 .transcode();
     }
 
