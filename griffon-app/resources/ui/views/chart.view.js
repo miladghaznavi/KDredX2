@@ -629,10 +629,7 @@ function ChartView(id) {
         // Text
         self.stretch(ChartView.TEXT_BOX, preferences.wm.size.width + preferences.kde.size.width, textHeight, true);
         self.shift  (ChartView.TEXT_BOX, 0, titleHeight + preferences.wm.size.height, true);
-        // // If the text box height is greater than the current calculated value, the text box height is updated
-        // textHeight = Math.max(textHeight, $(ChartView.TEXT_BOX).height());
-        // self.stretch(ChartView.TEXT_BOX, preferences.wm.size.width + preferences.kde.size.width, textHeight, true);
-
+        
         // Chart Box
         self.stretch(ChartView.CHART_BOX,
             preferences.wm.size.width  + preferences.kde.size.width,
