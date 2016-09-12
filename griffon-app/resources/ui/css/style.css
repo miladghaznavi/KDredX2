@@ -57,6 +57,10 @@
     top: 8px !important;
 }
 
+#spreadsheet-panel-body {
+    overflow: scroll;
+}
+
 hr {
     margin-top: 12px;
     margin-bottom: 12px;

@@ -22,7 +22,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Bridge {
-    public static final String DATA   = "data";
+    public static final String DATA = "data";
     public static final String ERRORS = "errors";
     public static final String SELECTED = "selected";
     public static final String FILE = "file";
@@ -57,7 +57,8 @@ public class Bridge {
         try {
             json.put(SELECTED, (selectedFile != null));
         }//try
-        catch(Exception e) {}//catch
+        catch (Exception e) {
+        }//catch
 
         if (selectedFile != null) {
             Map<String, String> file = new HashMap<>();
@@ -92,7 +93,8 @@ public class Bridge {
                     json.put(ERRORS, exceptions);
                 }//if
             }//try
-            catch (JSONException jsonException) { }//catch
+            catch (JSONException jsonException) {
+            }//catch
         }//else
 
         return json;
@@ -104,7 +106,7 @@ public class Bridge {
         try {
             JSONObject dataJson = new JSONObject(paramStr);
             String title = (!dataJson.isNull(TITLE)) ? dataJson.getString(TITLE) : "";
-            String path  = (!dataJson.isNull(PATH )) ? dataJson.getString(PATH ) : "";
+            String path = (!dataJson.isNull(PATH)) ? dataJson.getString(PATH) : "";
 
             FileChooser fileChooser = new FileChooser();
 
@@ -115,7 +117,7 @@ public class Bridge {
                 File selectedFile = fileChooser.showSaveDialog(stage);
                 selected = (selectedFile != null);
                 if (selected) {
-                    path  = selectedFile.getAbsolutePath();
+                    path = selectedFile.getAbsolutePath();
                     title = selectedFile.getName();
                 }//if
             }//if
@@ -144,7 +146,7 @@ public class Bridge {
             if (exceptions.size() > 0)
                 json.put(ERRORS, exceptions);
         }//try
-        catch(JSONException jsonExc) {
+        catch (JSONException jsonExc) {
 
         }//catch
 
@@ -184,7 +186,7 @@ public class Bridge {
 
     public void saveAsPDF(String serializedSVGTag, String path) throws IOException {
         new SVGExport()
-                .setInput (new ByteArrayInputStream(serializedSVGTag.getBytes()))
+                .setInput(new ByteArrayInputStream(serializedSVGTag.getBytes()))
                 .setOutput(new FileOutputStream(path))
                 .setTranscoder(Format.PDF)
                 .transcode();
@@ -192,7 +194,7 @@ public class Bridge {
 
     public void saveAsEPS(String serializedSVGTag, String path) throws IOException {
         new SVGExport()
-                .setInput (new ByteArrayInputStream(serializedSVGTag.getBytes()))
+                .setInput(new ByteArrayInputStream(serializedSVGTag.getBytes()))
                 .setOutput(new FileOutputStream(path))
                 .setTranscoder(Format.EPS)
                 .transcode();
@@ -257,7 +259,8 @@ public class Bridge {
             if (exceptions.size() > 0)
                 json.put(ERRORS, exceptions);
         }//try
-        catch (JSONException e) { }//catch
+        catch (JSONException e) {
+        }//catch
 
         return json;
     }

@@ -615,8 +615,14 @@ function ChartView(id) {
         var titleHeight    = Math.max(wmTitleHeight, kdeTitleHeight) * ChartView.SCALE_TEXT_HEIGHT;
         var textHeight     = Math.max($(ChartView.WM_TEXT_BOX).height(), $(ChartView.KDE_TEXT_BOX).height()) * ChartView.SCALE_TEXT_HEIGHT;
 
-        // Title
+        // Titles
+        // -- Weighted Mean
+        self.shift(ChartView.WM_TITLE_TEXT, $(ChartView.WM_TITLE_TEXT  ).attr('x'), wmTitleHeight * 0.87, true);
+        // -- Kernel Density Estimation
+        self.shift(ChartView.KDE_TITLE_TEXT, $(ChartView.KDE_TITLE_TEXT).attr('x'), kdeTitleHeight * 0.87, true);
+        // -- Title box
         self.stretch(ChartView.TITLE_BOX, preferences.wm.size.width + preferences.kde.size.width, titleHeight, true);
+
 
         // WM Chart
         self.stretch(ChartView.WM_CHART_BOX, preferences.wm.size.width, preferences.wm.size.height, true);

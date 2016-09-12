@@ -6,8 +6,8 @@ function MainView(id) {
     MainView.SPREADSHEET_CONTAINER = '#spreadsheet-container';
     MainView.CHART_CONTAINER = '#chart-container';
     MainView.ROW_VIEW_CLASS = 'col-sm-12';
-    MainView.SPREADSHEET_COLUMN_VIEW_CLASS = 'col-sm-5 no-padding-right';
-    MainView.CHART_COLUMN_VIEW_CLASS = 'col-sm-7 no-padding-left';
+    MainView.SPREADSHEET_COLUMN_VIEW_CLASS = 'col-sm-4 no-padding-right';
+    MainView.CHART_COLUMN_VIEW_CLASS = 'col-sm-8 no-padding-left';
 
     var self = this;
     id = typeof id !== 'undefined' ? id : null;
