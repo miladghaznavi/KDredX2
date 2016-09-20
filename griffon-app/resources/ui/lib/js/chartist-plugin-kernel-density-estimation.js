@@ -4,17 +4,19 @@
     var STYLES = {
         labels: {
             vertical:
-            'align-items: flex-end; ' +
-            'text-align: right; ' +
-            'display: flex; ' +
-            'line-height: 1; ' +
-            'justify-content: flex-end;',
+                // 'align-items: flex-end; ' +
+                // 'text-align: right; ' +
+                // 'display: flex; ' +
+                // 'line-height: 1; ' +
+                // 'justify-content: flex-end;',
+                '',
             horizontal:
-            'align-items: flex-start; ' +
-            'text-align: left; ' +
-            'display: flex; ' +
-            'line-height: 1; ' +
-            'justify-content: flex-start;'
+                // 'align-items: flex-start; ' +
+                // 'text-align: left; ' +
+                // 'display: flex; ' +
+                // 'line-height: 1; ' +
+                // 'justify-content: flex-start;'
+                ''
         },
         points: 'stroke-linecap: round;'
     };
@@ -34,7 +36,9 @@
                         gridStyling(data.element, options, (data.x1 == data.x2) ? 'horizontal' : 'vertical');
                     }//else if
                     else if (data.type == 'label') {
-                        labelStyling(data.element, options, data.axis.units.dir);
+                        // labelStyling(data.element, options, data.axis.units.dir);
+                        addLabel(data, options);
+                        data.element.remove();
                     }//else if
                 });
             }
@@ -48,8 +52,23 @@
             }
 
             function gridStyling(element, options, dir) {
+                // var gridPref = (dir == 'vertical') ? options.yAxis.gridLines : options.xAxis.gridLines;
+                // var style = element._node.getAttribute('style') + ';';
+                //
+                // if (gridPref.show == true) {
+                //     element._node.setAttribute('style',
+                //         style + Util.preferencesToCssStyles(gridPref, 'lines')
+                //     );
+                // }//if
+                // else {
+                //     element._node.setAttribute('style', style + 'display: none;');
+                // }//else
+                // element._node.setAttribute('class',
+                //     gridPref.class);
                 var gridPref = (dir == 'vertical') ? options.yAxis.gridLines : options.xAxis.gridLines;
-                var style = element._node.getAttribute('style') + ';';
+                var style = "";
+                if (element._node.getAttribute('style') != null)
+                    style += element._node.getAttribute('style') + ';';
 
                 if (gridPref.show == true) {
                     element._node.setAttribute('style',
@@ -80,6 +99,27 @@
                 element.querySelector('span')._node.setAttribute('class',
                     labelsPref.labels.class
                 );
+            }
+
+            function addLabel(data, options) {
+                var dir = data.axis.units.dir;
+                var labelsPref = (dir == 'vertical') ? options.yAxis : options.xAxis;
+                var labelId = 'kde-label-' + dir + '-' + data.index.toString();
+                var style = Util.preferencesToCssStyles(labelsPref.labels.font, 'svgFonts');
+
+                var labelTag = Chartist.Svg('text', {
+                    x: (dir == 'vertical') ? data.x + data.width : data.x,
+                    y: data.y + data.height,
+                    width: data.width,
+                    height: data.height,
+                    id: labelId,
+                    style: style,
+                    'dominant-baseline': 'alphabetical',
+                    'text-anchor': (dir == 'vertical') ? 'end' : 'middle'
+                });
+
+                data.group.append(labelTag);
+                document.getElementById(labelId).textContent = data.text;
             }
         };
     };

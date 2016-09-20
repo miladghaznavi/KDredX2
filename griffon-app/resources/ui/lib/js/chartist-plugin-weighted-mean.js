@@ -15,18 +15,8 @@
     var STYLES = {
         labels: {
             vertical:
-                // 'align-items: flex-end; ' +
-                // 'text-align: right; ' +
-                // 'display: flex; ' +
-                // 'line-height: 1; ' +
-                // 'justify-content: flex-end;',
                 '',
             horizontal:
-                // 'align-items: flex-start; ' +
-                // 'text-align: left; ' +
-                // 'display: flex; ' +
-                // 'line-height: 1; ' +
-                // 'justify-content: flex-start;'
                 ''
         },
         points: 'stroke-linecap: round;'
@@ -98,14 +88,12 @@
                     }//else if
                     else if (data.type == 'label') {
                         // labelStyling(data.element, options, data.axis.units.dir);
-
-                        addLabel(data, options);
                         // data.group.append(
                         //     label(data)
                         // );
 
+                        addLabel(data, options);
                         data.element.remove();
-
                     }//else if
                 });
             }
@@ -265,7 +253,7 @@
             function addLabel(data, options) {
                 var dir = data.axis.units.dir;
                 var labelsPref = (dir == 'vertical') ? options.yAxis : options.xAxis;
-                var labelId = 'label-' + dir + '-' + data.index.toString();
+                var labelId = 'wm-label-' + dir + '-' + data.index.toString();
                 var style = Util.preferencesToCssStyles(labelsPref.labels.font, 'svgFonts');
 
                 var labelTag = Chartist.Svg('text', {
@@ -281,8 +269,6 @@
 
                 data.group.append(labelTag);
                 document.getElementById(labelId).textContent = data.text;
-
-                // return labelTag;
             }
         };
     };
