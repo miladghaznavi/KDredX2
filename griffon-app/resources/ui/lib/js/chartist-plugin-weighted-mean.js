@@ -15,18 +15,19 @@
     var STYLES = {
         labels: {
             vertical:
-                'align-items: flex-end; ' +
-                'text-align: right; ' +
-                'display: flex; ' +
-                'line-height: 1; ' +
-                'justify-content: flex-end;',
-
+                // 'align-items: flex-end; ' +
+                // 'text-align: right; ' +
+                // 'display: flex; ' +
+                // 'line-height: 1; ' +
+                // 'justify-content: flex-end;',
+                '',
             horizontal:
-                'align-items: flex-start; ' +
-                'text-align: left; ' +
-                'display: flex; ' +
-                'line-height: 1; ' +
-                'justify-content: flex-start;'
+                // 'align-items: flex-start; ' +
+                // 'text-align: left; ' +
+                // 'display: flex; ' +
+                // 'line-height: 1; ' +
+                // 'justify-content: flex-start;'
+                ''
         },
         points: 'stroke-linecap: round;'
     };
@@ -96,7 +97,15 @@
                         gridStyling(data.element, options, (data.x1 == data.x2) ? 'horizontal' : 'vertical');
                     }//else if
                     else if (data.type == 'label') {
-                        labelStyling(data.element, options, data.axis.units.dir);
+                        // labelStyling(data.element, options, data.axis.units.dir);
+
+                        addLabel(data, options);
+                        // data.group.append(
+                        //     label(data)
+                        // );
+
+                        data.element.remove();
+
                     }//else if
                 });
             }
@@ -251,6 +260,29 @@
                 pointStyling(point, options, rejected);
                 group.append(point);
                 return group;
+            }
+
+            function addLabel(data, options) {
+                var dir = data.axis.units.dir;
+                var labelsPref = (dir == 'vertical') ? options.yAxis : options.xAxis;
+                var labelId = 'label-' + dir + '-' + data.index.toString();
+                var style = Util.preferencesToCssStyles(labelsPref.labels.font, 'svgFonts');
+
+                var labelTag = Chartist.Svg('text', {
+                    x: (dir == 'vertical') ? data.x + data.width : data.x,
+                    y: data.y + data.height,
+                    width: data.width,
+                    height: data.height,
+                    id: labelId,
+                    style: style,
+                    'dominant-baseline': 'alphabetical',
+                    'text-anchor': (dir == 'vertical') ? 'end' : 'middle'
+                });
+
+                data.group.append(labelTag);
+                document.getElementById(labelId).textContent = data.text;
+
+                // return labelTag;
             }
         };
     };
