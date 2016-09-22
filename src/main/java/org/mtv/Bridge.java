@@ -8,6 +8,7 @@ import org.apache.batik.transcoder.TranscoderException;
 import org.apache.batik.transcoder.TranscoderInput;
 import org.apache.batik.transcoder.TranscoderOutput;
 import org.apache.batik.transcoder.image.JPEGTranscoder;
+import org.apache.batik.transcoder.image.PNGTranscoder;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord;
@@ -15,6 +16,7 @@ import org.apache.sling.commons.json.JSONArray;
 import org.apache.sling.commons.json.JSONException;
 import org.apache.sling.commons.json.JSONObject;
 
+import java.awt.*;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -30,6 +32,7 @@ public class Bridge {
     public static final String PATH = "path";
     public static final String SVG = "svg";
     public static final String PNG = "png";
+    public static final String JPG = "jpg";
     public static final String PDF = "pdf";
     public static final String EPS = "eps";
 
@@ -155,11 +158,35 @@ public class Bridge {
 
     public void saveAsPNG(String serializedSVGTag, String path) throws IOException, TranscoderException {
         // Create a JPEG transcoder
+        PNGTranscoder t = new PNGTranscoder();
+
+        // Set the transcoding hints.
+        t.addTranscodingHint(PNGTranscoder.KEY_BACKGROUND_COLOR,
+                Color.WHITE);
+
+//          TranscoderInput input = new TranscoderInput(svgURI);
+        InputStream stream = new ByteArrayInputStream(serializedSVGTag.getBytes(StandardCharsets.UTF_8));
+        TranscoderInput input = new TranscoderInput(stream);
+
+        // Create the transcoder output.
+        OutputStream ostream = new FileOutputStream(path);
+        TranscoderOutput output = new TranscoderOutput(ostream);
+
+        // Save the image.
+        t.transcode(input, output);
+
+        // Flush and close the stream.
+        ostream.flush();
+        ostream.close();
+    }
+
+    public void saveAsJPG(String serializedSVGTag, String path) throws IOException, TranscoderException {
+        // Create a JPEG transcoder
         JPEGTranscoder t = new JPEGTranscoder();
 
         // Set the transcoding hints.
         t.addTranscodingHint(JPEGTranscoder.KEY_QUALITY,
-                new Float(.8));
+                new Float(1.0));
 
 //          TranscoderInput input = new TranscoderInput(svgURI);
         InputStream stream = new ByteArrayInputStream(serializedSVGTag.getBytes(StandardCharsets.UTF_8));
@@ -247,6 +274,9 @@ public class Bridge {
                     case PNG:
                         saveAsPNG(serializedSVGTag, selectedFile.getAbsolutePath());
                         break;
+
+                    case JPG:
+                        saveAsJPG(serializedSVGTag, selectedFile.getAbsolutePath());
                 }//switch
             }//try
             catch (Exception exc) {

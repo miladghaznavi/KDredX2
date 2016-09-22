@@ -337,6 +337,7 @@ function ChartView(id) {
     self.registerEvents = function() {
         var controller = app.getController(self.id);
         $('#saveChartAsPng').click({type:'png'}, controller.saveAs);
+        $('#saveChartAsJpg').click({type:'jpg'}, controller.saveAs);
         $('#saveChartAsSvg').click({type:'svg'}, controller.saveAs);
         $('#saveChartAsPdf').click({type:'pdf'}, controller.saveAs);
         $('#saveChartAsEps').click({type:'eps'}, controller.saveAs);

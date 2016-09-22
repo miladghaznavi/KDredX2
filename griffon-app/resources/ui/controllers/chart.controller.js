@@ -61,6 +61,7 @@ function ChartController() {
 
     ChartController.IMAGE_TYPES = {
         PNG: 'png',
+        JPG: 'jpg',
         SVG: 'svg',
         PDF: 'pdf',
         EPS: 'eps'
