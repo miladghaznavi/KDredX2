@@ -52,17 +52,15 @@
 
 <body class="sidebar-mini skin-blue-light">
 <div id="app-container" class="wrapper">
-
-</div>
-<div id="test">
-    <p id="testP"></p>
 </div>
 <!-- Loading the templates -->
 <script type="text/javascript">
     nunjucks.configure('templates', {
         autoescape: true
     });
-    $('#app-container').html(nunjucks.render("app.html"));
+    var rendered = nunjucks.render("app.html");
+    console.log(rendered);
+    $('#app-container').html(rendered);
 </script>
 
 <!-- AdminLTE -->

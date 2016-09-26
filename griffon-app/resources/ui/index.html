@@ -1,0 +1,1649 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Multi Technique Visualization</title>
+
+    <link rel="stylesheet" type="text/css" href="lib/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="lib/css/fonts.css">
+    <link rel="stylesheet" type="text/css" href="lib/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="lib/css/AdminLTE.min.css">
+    <link rel="stylesheet" type="text/css" href="lib/css/skin-blue-light.css">
+    <link rel="stylesheet" type="text/css" href="lib/css/lobibox.min.css">
+    <link rel="stylesheet" type="text/css" href="lib/css/handsontable.full.min.css">
+    <link rel="stylesheet" type="text/css" href="lib/css/chartist.min.css">
+    <link rel="stylesheet" type="text/css" href="lib/css/pace.min.css">
+    <link rel="stylesheet" type="text/css" href="lib/css/bootstrap-select.min.css">
+    <link rel="stylesheet" type="text/css" href="lib/css/ion.rangeSlider.css">
+    <link rel="stylesheet" type="text/css" href="lib/css/ion.rangeSlider.skinFlat.css">
+    <link rel="stylesheet" type="text/css" href="lib/css/jquery.bootstrap-touchspin.min.css">
+    <link rel="stylesheet" type="text/css" href="lib/css/awesome-bootstrap-checkbox.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+
+    <script type="text/javascript" src="lib/js/string-format.js"></script>
+    <script type="text/javascript" src="lib/js/jquery.min.js"></script>
+    <script type="text/javascript" src="lib/js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="lib/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="lib/js/nunjucks.min.js"></script>
+    <script type="text/javascript" src="lib/js/handsontable.full.min.js"></script>
+    <script type="text/javascript" src="lib/js/papaparse.min.js"></script>
+    <script type="text/javascript" src="lib/js/simple_statistics.min.js"></script>
+    <script type="text/javascript" src="lib/js/statistics/wm.js"></script>
+    <script type="text/javascript" src="lib/js/statistics/kde.js"></script>
+    <script type="text/javascript" src="lib/js/statistics/skewness.js"></script>
+    <script type="text/javascript" src="lib/js/chartist.min.js"></script>
+    <script type="text/javascript" src="lib/js/chartist-plugin-weighted-mean.js"></script>
+    <script type="text/javascript" src="lib/js/chartist-plugin-kernel-density-estimation.js"></script>
+    <script type="text/javascript" src="lib/js/lobibox.min.js"></script>
+    <script type="text/javascript" src="lib/js/bootstrap-select.min.js"></script>
+    <script type="text/javascript" src="lib/js/ion.rangeSlider.min.js"></script>
+    <script type="text/javascript" src="lib/js/numericInput.min.js"></script>
+    <script type="text/javascript" src="lib/js/pace.js"></script>
+    <script type="text/javascript" src="lib/js/jqColorPicker.min.js"></script>
+    <script type="text/javascript" src="lib/js/jquery.bootstrap-touchspin.min.js"></script>
+    <script type="text/javascript" src="lib/js/jspdf.min.js"></script>
+    <script type="text/javascript" src="lib/js/svgToPdf.js"></script>
+    <script type="text/javascript" src="lib/js/saveSvgAsPng.js"></script>
+
+
+    <!-- Javascript App -->
+    <script type="text/javascript" src="js/utils.js"></script>
+</head>
+
+<body class="sidebar-mini skin-blue-light">
+<div id="app-container" class="wrapper">
+    <!-- Main Header -->
+    <header class="main-header">
+
+        <!-- Logo -->
+        <a href="#" class="logo">
+            <!-- mini logo for sidebar mini 50x50 pixels -->
+            <span class="logo-mini"><b>M</b>TV</span>
+            <!-- logo for regular state and mobile devices -->
+            <span class="logo-lg"><b>Multi</b> Tech Vis</span>
+        </a>
+
+        <!-- Header Navbar -->
+        <nav class="navbar navbar-static-top" role="navigation">
+            <!-- Sidebar toggle button-->
+            <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                <span class="sr-only">Toggle navigation</span>
+            </a>
+
+
+
+
+
+
+            <!-- Navbar Right Menu -->
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <!-- Control Sidebar Toggle Button -->
+                    <li>
+                        <a href="#" id="view"><i id="viewIcon" class="fa fa-columns"></i></a>
+                    </li>
+                    <li>
+                        <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Left side column. contains the logo and sidebar -->
+    <aside class="main-sidebar">
+
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+
+
+            <ul class="sidebar-menu">
+                <!-- Weighted Mean -->
+                <li class="header">Select Values and Uncertainties</li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-plug"></i>
+                        <span>Select Data</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li>
+                            <select id="valuesSelect"
+                                    data-title="Values"
+                                    class="selectpicker"
+                                    data-width="97%">
+                            </select>
+                        </li>
+                        <li>
+                            <select id="uncertaintiesSelect"
+                                    data-title="Uncertainties"
+                                    class="selectpicker"
+                                    data-width="97%">
+                            </select>
+                        </li>
+                    </ul>
+                </li>
+
+                <!-- Draw Button -->
+                <li class="header">Plot Chart</li>
+                <li class="treeview text-center">
+                    <button id="plotButton"
+                            class="btn btn-flat btn-primary inline"
+                            data-placement="bottom"
+                            type="button"
+                            data-toggle="tooltip"
+                            title="Plot Chart"
+                            style="margin-left: 2px; width: 95%;">
+                        <i class="fa fa-magic"></i>
+                        <span class="hidden-collapse">Plot</span>
+                    </button>
+                </li>
+            </ul>
+
+
+        </section>
+        <!-- /.sidebar -->
+    </aside>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Main content -->
+        <section class="content no-padding">
+            <!-- Your Page Content Here -->
+            <div class="row">
+                <div id="spreadsheet-container" class="col-sm-12">
+
+                    <input id="inputSpreadsheet" class="hidden-input" type="file" />
+
+                    <div id="data-panel" class="box no-margin">
+                        <div class="box-header with-border">
+                            <h3 id="data-title" class="box-title"></h3>
+
+                            <div class="box-tools pull-right">
+                                <button id="dataOpenDialog" type="button" class="btn btn-box-tool" data-toggle="tooltip" title="Open">
+                                    <i class="fa fa-folder-open"></i>
+                                </button>
+
+                                <button id="dataSaveDialog" type="button" class="btn btn-box-tool" data-toggle="tooltip" title="Save">
+                                    <i class="fa fa-floppy-o"></i>
+                                </button>
+
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                    <i class="fa fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="box-body no-padding">
+                            <div id="spreadsheet-panel-body">
+                                <div id="spreadsheet" class="dataTable spreadsheet"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div id="chart-container" class="col-sm-12">
+
+
+                    <div id="chart-panel" class="box no-margin">
+                        <div class="box-header with-border">
+                            <h3 id="chart-panel-title" class="box-title"></h3>
+
+                            <div class="box-tools pull-right">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-box-tool dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                        <i class="fa fa-save"></i></button>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a id="saveChartAsPng" href="#">Save as .png</a></li>
+                                        <li><a id="saveChartAsJpg" href="#">Save as .jpg</a></li>
+                                        <li><a id="saveChartAsSvg" href="#">Save as .svg</a></li>
+                                        <!--<li><a id="saveChartAsEps" href="#">Save as .eps</a></li>-->
+                                        <li><a id="saveChartAsPdf" href="#">Save as .pdf</a></li>
+                                    </ul>
+                                </div>
+
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                    <i class="fa fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div id="chart-panel-body" class="box-body" style="overflow: scroll;">
+                            <div id="chart-shown" class="row">
+                                <div class="col-sm-12">
+                                    <div id="weighted-mean-box">
+                                        <svg id="chart-box">
+                                            <svg id="title-box">
+                                                <text id="wm-title-text" dominant-baseline="alphabetical" text-anchor="middle">
+                                                </text>
+                                                <text id="kde-title-text" dominant-baseline="alphabetical" text-anchor="middle">
+                                                </text>
+                                            </svg>
+                                            <svg id="weighted-mean-chart-box"></svg>
+                                            <svg id="kde-chart-box"></svg>
+                                            <svg id="text-box">
+                                                <text id="wm-text-info" dominant-baseline="use-script" text-anchor="middle">
+                                                    <tspan id="mean-info" dy="1.4em"></tspan>
+                                                    <tspan id="rejected-info" dy="1.4em"></tspan>
+                                                    <tspan id="mswd-info" dy="1.4em"></tspan>
+                                                    <tspan id="error-bar-info" dy="1.4em"></tspan>
+                                                </text>
+
+                                                <text id="skewness-info" dominant-baseline="alphabetical" text-anchor="middle">
+                                                </text>
+                                            </svg>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="chart-not-shown" class="row">
+                                <div class="col-lg-12">
+                                    No data available
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+    <footer class="main-footer">
+
+
+        <div class="pull-right hidden-xs">
+            <b>Version</b> 1.0.0
+        </div>
+        <b>M</b>ulti <b>T</b>echnique <b>V</b>isualization
+
+
+    </footer>
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-light">
+
+
+
+        <!-- Create the tabs -->
+        <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+            <li class="active">
+                <a href="#data-preferences" data-toggle="tab">
+                    <i class="fa fa-wrench"></i>
+                </a>
+            </li>
+            <li>
+                <a href="#chart-preferences" data-toggle="tab">
+                    <i class="fa fa-bar-chart"></i>
+                </a>
+            </li>
+            <li>
+                <a href="#axis-preferences" data-toggle="tab">
+                    <i class="fa fa-sliders">
+                    </i>
+                </a>
+            </li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content" id="control-sidebar">
+            <!-- Data Preferences -->
+            <div class="tab-pane active" id="data-preferences">
+
+
+                <h4 class="control-sidebar-heading">Interpreting Data</h4>
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label for="uncertaintyInterpret" class="col-xs-4 control-label">Uncertainty</label>
+                        <div class="col-xs-8">
+                            <select control-type="select"
+                                    id="uncertaintyInterpret"
+                                    class="selectpicker"
+                                    data-width="100%"
+                                    data-title="Uncertainty">
+                                <option value=1>1 <i>&sigma;</i></option>
+                                <option value=2>2 <i>&sigma;</i></option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="rejectionRange" class="col-xs-4 control-label">Rejection</label>
+                        <div class="col-xs-8">
+                            <select control-type="select"
+                                    id="rejectionRange"
+                                    class="selectpicker"
+                                    data-width="100%"
+                                    data-title="Rejection Range">
+                                <option value="0">No Rejection</option>
+                                <option value="1">Outside 1 <i>&sigma;</i></option>
+                                <option value="2">Outside 2 <i>&sigma;</i></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+
+                <h4 class="control-sidebar-heading">Kernel Density Estimation</h4>
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label for="variablesCount" class="col-xs-7 control-label" style="text-align: left;">Variables Count</label>
+                        <div class="col-xs-12">
+                            <input id="variablesCount" control-type="slider" class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="kernelFunction" class="col-xs-4 control-label">Function</label>
+                        <div class="col-xs-8">
+                            <select control-type="select"
+                                    id="kernelFunction"
+                                    title="Kernel Function"
+                                    data-title="Kernel Function"
+                                    class="selectpicker"
+                                    data-width="100%">
+                                <option value="gaussian" selected>Gaussian</option>
+                                <option value="epanechnikov">Epanechnikov</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bandwidth" class="col-xs-4 control-label">Bandwidth</label>
+                        <div class="col-xs-8">
+                            <input id="bandwidth" control-type="real-number" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+                <hr />
+
+                <h4 class="control-sidebar-heading">Reset to Defaults</h4>
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <button id="resetAll"
+                                    class="btn btn-flat btn-adn btn-block inline"
+                                    data-placement="bottom"
+                                    type="button"
+                                    data-toggle="tooltip"
+                                    title="Reset All">
+                                <span class="hidden-collapse">Reset and Plot</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <!-- Chart Preferences -->
+            <div class="tab-pane" id="chart-preferences">
+
+
+                <div class="form-group text-center">
+                    <div class="btn-group btn-flat" data-toggle="buttons">
+                        <label class="btn btn-default active">
+                            <input id="wm" name="whichChartPreferences" type="radio" checked>WM
+                        </label>
+                        <label class="btn btn-default">
+                            <input id="kde" name="whichChartPreferences" type="radio">KDE
+                        </label>
+                    </div>
+                </div>
+
+                <hr />
+                <div id="wm-preferences">
+                    <h4 class="control-sidebar-heading text-center">Weighted Mean Chart</h4>
+                    <hr />
+
+
+                    <!-- Title -->
+                    <h6 id="wm-title-head" class="control-sidebar-subheading collapsed"
+                        data-toggle="collapse" href="#wm-title-options">
+                        Title
+                        <span class="pull-right fa fa-angle-left hidden-close"></span>
+                        <span class="pull-right fa fa-angle-down hidden-open hidden"></span>
+                    </h6>
+                    <div id="wm-title-options" class="form-inline row collapse" href="#wm-title-head">
+                        <div class="form-group">
+                            <div class="col-sm-2">
+                                <div class="checkbox title-checkbox">
+                                    <input id="wmTitleCheckBox" type="checkbox" control-type="checkbox" checked>
+                                    <label class="control-label" for="wmTitleCheckBox"></label>
+                                </div>
+                            </div>
+                            <div class="col-sm-10">
+                                <input id="wmTitleTextBox" class="form-control" control-type="text" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-8">
+                                <select control-type="select" id="wmTitleFontFamilySelect" class="selectpicker font-families" data-width="100%"
+                                        data-title="Font Family">
+                                </select>
+                            </div>
+                            <div class="col-sm-4 no-padding-left">
+                                <input control-type="number"
+                                       class="form-control"
+                                       name="fontSizeNumber"
+                                       id="wmTitleFontSizeNumber"
+                                       data-width="100%"
+                                       data-title="Font Size"
+                                       data-min="1"
+                                       data-max="288">
+                            </div>
+                        </div>
+                        <div>
+                            <div class="col-sm-9 no-padding-right">
+                                <div class="btn-group" data-toggle="buttons">
+                                    <label title="Bold" class="btn btn-default"
+                                           data-css-property="font-style">
+                                        <input type="checkbox" control-type="checkbox" id="wmTitleFontBoldCheckBox" autocomplete="off" />
+                                        <i class="fa fa-bold"></i>
+                                    </label>
+                                    <label title="Italic" class="btn btn-default"
+                                           data-css-property="font-style">
+                                        <input type="checkbox" control-type="checkbox" id="wmTitleFontItalicCheckBox" autocomplete="off" />
+                                        <i class="fa fa-italic"></i>
+                                    </label>
+
+                                    <label title="Underline" class="btn btn-default"
+                                           data-css-property="font-decoration"
+                                           style="text-decoration: underline">
+                                        <input type="checkbox" control-type="checkbox" id="wmTitleFontUnderlineCheckBox" autocomplete="off" />
+                                        <i class="fa fa-underline"></i>
+                                    </label>
+
+                                    <label title="Strikethrough" class="btn btn-default"
+                                           data-css-property="font-decoration"
+                                           style="text-decoration: line-through">
+                                        <input type="checkbox" control-type="checkbox" id="wmTitleFontStrikethroughCheckBox" autocomplete="off" />
+                                        <i class="fa fa-strikethrough"></i>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-2 no-padding">
+                                <input id="wmTitleFontColor" type="button" control-type="color"
+                                       class="color btn btn-flat" style="width: 100%;" title="Color" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Text -->
+                    <hr />
+                    <h6 id="wm-text-data-head" class="control-sidebar-subheading collapsed"
+                        data-toggle="collapse" href="#wm-text-data-options">
+                        Text
+                        <span class="pull-right fa fa-angle-left hidden-close"></span>
+                        <span class="pull-right fa fa-angle-down hidden-open hidden"></span>
+                    </h6>
+                    <div id="wm-text-data-options" class="collapse" href="#wm-text-data-head">
+                        <div class="form-inline row margin-bottom">
+                            <div class="col-sm-6 no-padding">
+                                <div class="checkbox">
+                                    <input id="showErrorBarTextData" type="checkbox" control-type="checkbox" checked/>
+                                    <label class="control-label" for="showErrorBarTextData">Error</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 no-padding">
+                                <div class="checkbox">
+                                    <input id="showMeanTextData" type="checkbox" control-type="checkbox" checked/>
+                                    <label class="control-label" for="showMeanTextData">Mean</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 no-padding">
+                                <div class="checkbox">
+                                    <input id="showRejectionTextData" type="checkbox" control-type="checkbox" checked/>
+                                    <label class="control-label" for="showRejectionTextData">Rejection</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 no-padding">
+                                <div class="checkbox">
+                                    <input id="showMSWDTextData" type="checkbox" control-type="checkbox" checked/>
+                                    <label class="control-label" for="showMSWDTextData">MSWD</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-inline row margin-bottom">
+                            <div class="col-sm-8">
+                                <select control-type="select" id="wmTextFontFamilySelect" class="selectpicker font-families" data-width="100%"
+                                        data-title="Font Family">
+                                </select>
+                            </div>
+                            <div class="col-sm-4 no-padding-left">
+                                <input control-type="number"
+                                       class="form-control"
+                                       name="fontSizeNumber"
+                                       id="wmTextFontSizeNumber"
+                                       data-width="100%"
+                                       data-title="Font Size"
+                                       data-min="1"
+                                       data-max="288">
+                            </div>
+                        </div>
+                        <div class="form-inline row">
+                            <div class="col-sm-9 no-padding-right">
+                                <div class="btn-group" data-toggle="buttons">
+                                    <label title="Bold" class="btn btn-default"
+                                           data-css-property="font-style">
+                                        <input type="checkbox" control-type="checkbox" id="wmTextFontBoldCheckBox" autocomplete="off" />
+                                        <i class="fa fa-bold"></i>
+                                    </label>
+                                    <label title="Italic" class="btn btn-default"
+                                           data-css-property="font-style">
+                                        <input type="checkbox" control-type="checkbox" id="wmTextFontItalicCheckBox" autocomplete="off" />
+                                        <i class="fa fa-italic"></i>
+                                    </label>
+
+                                    <label title="Underline" class="btn btn-default"
+                                           data-css-property="font-decoration"
+                                           style="text-decoration: underline">
+                                        <input type="checkbox" control-type="checkbox" id="wmTextFontUnderlineCheckBox" autocomplete="off" />
+                                        <i class="fa fa-underline"></i>
+                                    </label>
+
+                                    <label title="Strikethrough" class="btn btn-default"
+                                           data-css-property="font-decoration"
+                                           style="text-decoration: line-through">
+                                        <input type="checkbox" control-type="checkbox" id="wmTextFontStrikethroughCheckBox" autocomplete="off" />
+                                        <i class="fa fa-strikethrough"></i>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-2 no-padding">
+                                <input id="wmTextFontColor" type="button" control-type="color"
+                                       class="color btn btn-flat" style="width: 100%;" title="Color" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Size -->
+                    <hr />
+                    <h6 id="wm-size-head" class="control-sidebar-subheading collapsed"
+                        data-toggle="collapse" href="#wm-size">
+                        Size
+                        <span class="pull-right fa fa-angle-left hidden-close"></span>
+                        <span class="pull-right fa fa-angle-down hidden-open hidden"></span>
+                    </h6>
+                    <div id="wm-size" class="form-horizontal collapse" href="#wm-size-head">
+                        <div class="form-group">
+                            <label for="wmChartWidthNumber" class="col-sm-4 control-label">Width</label>
+                            <div class="col-sm-8">
+                                <input id="wmChartWidthNumber"
+                                       class="form-control"
+                                       control-type="number"
+                                       data-min="1"
+                                       data-max="1000"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="wmChartHeightNumber" class="col-sm-4 control-label">Height</label>
+                            <div class="col-sm-8">
+                                <input id="wmChartHeightNumber"
+                                       class="form-control"
+                                       control-type="number"
+                                       data-min="1"
+                                       data-max="1000"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Data points -->
+                    <hr />
+                    <h6 id="wm-datapoints-head" class="control-sidebar-subheading collapsed"
+                        data-toggle="collapse" href="#wm-datapoints">
+                        Data Points &amp; Bars
+                        <span class="pull-right fa fa-angle-left hidden-close"></span>
+                        <span class="pull-right fa fa-angle-down hidden-open hidden"></span>
+                    </h6>
+                    <div id="wm-datapoints" class="form-inline collapse" href="#wm-datapoints-head">
+                        <div class="row margin-bottom">
+                            <div class="col-sm-5 no-padding">
+                                <div class="checkbox">
+                                    <input id="wmPointsCheckBox" type="checkbox" control-type="checkbox" checked="">
+                                    <label for="wmPointsCheckBox" class="control-label">Point</label>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-4 no-padding-left">
+                                <input id="wmPointsWidth"
+                                       class="form-control"
+                                       control-type="real-number"
+                                       title="Points width" />
+                            </div>
+
+                            <div class="col-sm-2 no-padding">
+                                <input id="wmPointsColor" type="button" control-type="color" class="color btn btn-flat"
+                                       style="width: 100%;" title="Color" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-5 no-padding">
+                                <div class="checkbox">
+                                    <input id="wmCapsCheckBox" type="checkbox" control-type="checkbox" checked="">
+                                    <label for="wmCapsCheckBox" class="control-label">Bar Cap</label>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-4 no-padding-left">
+                                <input id="wmBarWidth"
+                                       class="form-control"
+                                       control-type="real-number"
+                                       title="Bar width" />
+                            </div>
+
+                            <div class="col-sm-2 no-padding">
+                                <input id="wmBarColor" control-type="color" class="color btn btn-flat" style="width: 100%;"
+                                       title="Bars Color" />
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- Rejected points -->
+                    <hr />
+                    <h6 id="wm-rejected-points-head" class="control-sidebar-subheading collapsed"
+                        data-toggle="collapse" href="#wm-rejected-points">
+                        Rejected Data Points
+                        <span class="pull-right fa fa-angle-left hidden-close"></span>
+                        <span class="pull-right fa fa-angle-down hidden-open hidden"></span>
+                    </h6>
+                    <div id="wm-rejected-points" class="form-inline collapse" href="#wm-rejected-points-head">
+                        <div class="row margin-bottom">
+                            <div class="col-sm-5 no-padding">
+                                <div class="checkbox">
+                                    <input id="wmRejectedPointsCheckBox" type="checkbox" control-type="checkbox" checked="">
+                                    <label for="wmRejectedPointsCheckBox" class="control-label">Point</label>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-4 no-padding-left">
+                                <input id="wmRejectedPointsWidth"
+                                       class="form-control"
+                                       control-type="real-number"
+                                       title="Points width" />
+                            </div>
+
+                            <div class="col-sm-2 no-padding">
+                                <input id="wmRejectedPointsColor" type="button" control-type="color" class="color btn btn-flat"
+                                       style="width: 100%;" title="Color" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-5 no-padding">
+                                <div class="checkbox">
+                                    <input id="wmRejectedCapsCheckBox" type="checkbox" control-type="checkbox" checked="">
+                                    <label for="wmRejectedCapsCheckBox" class="control-label">Bar Cap</label>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-4 no-padding-left">
+                                <input id="wmRejectedBarWidth"
+                                       class="form-control"
+                                       control-type="real-number"
+                                       title="Bar width" />
+                            </div>
+
+                            <div class="col-sm-2 no-padding">
+                                <input id="wmRejectedBarColor" control-type="color" class="color btn btn-flat" style="width: 100%;"
+                                       title="Bars Color" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mean -->
+                    <hr />
+                    <h6 id="wm-mean-head" class="control-sidebar-subheading collapsed"
+                        data-toggle="collapse" href="#wm-mean-box">
+                        Mean
+                        <span class="pull-right fa fa-angle-left hidden-close"></span>
+                        <span class="pull-right fa fa-angle-down hidden-open hidden"></span>
+                    </h6>
+                    <div id="wm-mean-box" class="form-horizontal collapse" href="#wm-mean-head">
+                        <div class="form-group">
+                            <div class="col-sm-9">
+                                <label for="wmBoxColor" class="control-label">Mean Box Color</label>
+                            </div>
+                            <div class="col-sm-2 no-padding">
+                                <input id="wmBoxColor" control-type="color" type="button"
+                                       class="color btn btn-flat" style="width: 100%;" title="Mean Box Color" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-6">
+                                <select control-type="select" id="wmLineStyle"
+                                        class="selectpicker no-padding"
+                                        data-width="100%"
+                                        data-title="WM line">
+                                    <option value="solid line">Solid Line</option>
+                                    <option value="dashed">Dashed</option>
+                                    <option value="points">Points</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-3 no-padding-left">
+                                <input id="wmLineWidth"
+                                       class="form-control"
+                                       control-type="real-number"
+                                       data-width="100%"
+                                       title="WM line width" />
+                            </div>
+                            <div class="col-sm-2 no-padding">
+                                <input id="wmLineColor" type="button" control-type="color" class="color btn btn-flat"
+                                       style="width: 100%;" title="WM line color" />
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+
+                <div id="kde-preferences" class="hidden">
+                    <h4 class="control-sidebar-heading text-center">Kernel Density Est. Chart</h4>
+                    <hr />
+
+
+                    <!-- Title -->
+                    <h6 id="kde-title-head" class="control-sidebar-subheading collapsed"
+                        data-toggle="collapse" href="#kde-title-options">
+                        Title
+                        <span class="pull-right fa fa-angle-left hidden-close"></span>
+                        <span class="pull-right fa fa-angle-down hidden-open hidden"></span>
+                    </h6>
+                    <div id="kde-title-options" class="form-inline row collapse" href="#kde-title-head">
+                        <div class="form-group">
+                            <div class="col-sm-2">
+                                <div class="checkbox title-checkbox">
+                                    <input id="kdeTitleCheckBox" type="checkbox" control-type="checkbox" checked>
+                                    <label class="control-label" for="kdeTitleCheckBox" />
+                                </div>
+                            </div>
+                            <div class="col-sm-10">
+                                <input id="kdeTitleTextBox" class="form-control" control-type="text" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-8">
+                                <select control-type="select" id="kdeTitleFontFamilySelect" class="selectpicker font-families" data-width="100%"
+                                        data-title="Font Family">
+                                </select>
+                            </div>
+                            <div class="col-sm-4 no-padding-left">
+                                <input control-type="number"
+                                       class="form-control"
+                                       name="fontSizeNumber"
+                                       id="kdeTitleFontSizeNumber"
+                                       data-width="100%"
+                                       data-title="Font Size"
+                                       data-min="1"
+                                       data-max="288">
+                            </div>
+                        </div>
+                        <div>
+                            <div class="col-sm-9 no-padding-right">
+                                <div class="btn-group" data-toggle="buttons">
+                                    <label title="Bold" class="btn btn-default"
+                                           data-css-property="font-style">
+                                        <input type="checkbox" control-type="checkbox" id="kdeTitleFontBoldCheckBox" autocomplete="off" />
+                                        <i class="fa fa-bold"></i>
+                                    </label>
+                                    <label title="Italic" class="btn btn-default"
+                                           data-css-property="font-style">
+                                        <input type="checkbox" control-type="checkbox" id="kdeTitleFontItalicCheckBox" autocomplete="off" />
+                                        <i class="fa fa-italic"></i>
+                                    </label>
+
+                                    <label title="Underline" class="btn btn-default"
+                                           data-css-property="font-decoration"
+                                           style="text-decoration: underline">
+                                        <input type="checkbox" control-type="checkbox" id="kdeTitleFontUnderlineCheckBox" autocomplete="off" />
+                                        <i class="fa fa-underline"></i>
+                                    </label>
+
+                                    <label title="Strikethrough" class="btn btn-default"
+                                           data-css-property="font-decoration"
+                                           style="text-decoration: line-through">
+                                        <input type="checkbox" control-type="checkbox" id="kdeTitleFontStrikethroughCheckBox" autocomplete="off" />
+                                        <i class="fa fa-strikethrough"></i>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-2 no-padding">
+                                <input id="kdeTitleFontColor" type="button" control-type="color"
+                                       class="color btn btn-flat" style="width: 100%;" title="Color" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Text -->
+                    <hr />
+                    <h4 id="kde-text-data-head" class="control-sidebar-subheading collapsed"
+                        data-toggle="collapse" href="#kde-text-data-options">
+                        Text
+                        <span class="pull-right fa fa-angle-left hidden-close"></span>
+                        <span class="pull-right fa fa-angle-down hidden-open hidden"></span>
+                    </h4>
+                    <div id="kde-text-data-options" class="collapse" href="#kde-text-data-head">
+                        <div class="form-inline row margin-bottom">
+                            <div class="col-sm-6 no-padding">
+                                <div class="checkbox">
+                                    <input id="showSkewnessTextData" type="checkbox" control-type="checkbox" checked/>
+                                    <label class="control-label" for="showSkewnessTextData">Skewness</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-inline row margin-bottom">
+                            <div class="col-sm-8">
+                                <select control-type="select" id="kdeTextFontFamilySelect" class="selectpicker font-families" data-width="100%"
+                                        data-title="Font Family">
+                                </select>
+                            </div>
+                            <div class="col-sm-4 no-padding-left">
+                                <input control-type="number"
+                                       class="form-control"
+                                       name="fontSizeNumber"
+                                       id="kdeTextFontSizeNumber"
+                                       data-width="100%"
+                                       data-title="Font Size"
+                                       data-min="1"
+                                       data-max="288">
+                            </div>
+                        </div>
+                        <div class="form-inline row">
+                            <div class="col-sm-9 no-padding-right">
+                                <div class="btn-group" data-toggle="buttons">
+                                    <label title="Bold" class="btn btn-default"
+                                           data-css-property="font-style">
+                                        <input type="checkbox" control-type="checkbox" id="kdeTextFontBoldCheckBox" autocomplete="off" />
+                                        <i class="fa fa-bold"></i>
+                                    </label>
+                                    <label title="Italic" class="btn btn-default"
+                                           data-css-property="font-style">
+                                        <input type="checkbox" control-type="checkbox" id="kdeTextFontItalicCheckBox" autocomplete="off" />
+                                        <i class="fa fa-italic"></i>
+                                    </label>
+
+                                    <label title="Underline" class="btn btn-default"
+                                           data-css-property="font-decoration"
+                                           style="text-decoration: underline">
+                                        <input type="checkbox" control-type="checkbox" id="kdeTextFontUnderlineCheckBox" autocomplete="off" />
+                                        <i class="fa fa-underline"></i>
+                                    </label>
+
+                                    <label title="Strikethrough" class="btn btn-default"
+                                           data-css-property="font-decoration"
+                                           style="text-decoration: line-through">
+                                        <input type="checkbox" control-type="checkbox" id="kdeTextFontStrikethroughCheckBox" autocomplete="off" />
+                                        <i class="fa fa-strikethrough"></i>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-2 no-padding">
+                                <input id="kdeTextFontColor" type="button" control-type="color"
+                                       class="color btn btn-flat" style="width: 100%;" title="Color" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Size -->
+                    <hr />
+                    <h6 id="kde-size-head" class="control-sidebar-subheading collapsed"
+                        data-toggle="collapse" href="#kde-size">
+                        Size
+                        <span class="pull-right fa fa-angle-left hidden-close"></span>
+                        <span class="pull-right fa fa-angle-down hidden-open hidden"></span>
+                    </h6>
+                    <div id="kde-size" class="form-horizontal collapse" href="#kde-size-head">
+                        <div class="form-group">
+                            <div class="col-sm-4">
+                                <label for="kdeChartWidth" class="control-label">Width</label>
+                            </div>
+                            <div class="col-sm-8">
+                                <input id="kdeChartWidth"
+                                       class="form-control"
+                                       control-type="number"
+                                       data-min="1"
+                                       data-max="100000"
+                                       title="KDE width" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Line -->
+                    <hr />
+                    <h6 id="kde-line-head" class="control-sidebar-subheading collapsed"
+                        data-toggle="collapse" href="#kde-line">
+                        Line
+                        <span class="pull-right fa fa-angle-left hidden-close"></span>
+                        <span class="pull-right fa fa-angle-down hidden-open hidden"></span>
+                    </h6>
+                    <div id="kde-line" class="form-horizontal collapse" href="#kde-line-head">
+                        <div class="form-group">
+                            <div class="col-sm-6">
+                                <select control-type="select" id="kdeLineStyle"
+                                        class="selectpicker no-padding"
+                                        data-width="100%"
+                                        data-title="KDE line">
+                                    <option value="solid line">Solid Line</option>
+                                    <option value="dashed">Dashed</option>
+                                    <option value="points">Points</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-3 no-padding-left">
+                                <input id="kdeLineWidth"
+                                       class="form-control"
+                                       control-type="real-number"
+                                       data-width="100%"
+                                       title="KDE line width" />
+                            </div>
+                            <div class="col-sm-2 no-padding">
+                                <input id="kdeLineColor" type="button" control-type="color" class="color btn btn-flat"
+                                       style="width: 100%;" title="KDE line color" />
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+                <script type="text/javascript">
+                    $('.collapse').on('shown.bs.collapse', function(){
+                        $($(this).attr('href')).find(".hidden-open").removeClass("hidden");
+                        $($(this).attr('href')).find(".hidden-close").addClass("hidden");
+                    }).on('hidden.bs.collapse', function(){
+                        $($(this).attr('href')).find(".hidden-close").removeClass("hidden");
+                        $($(this).attr('href')).find(".hidden-open").addClass("hidden");
+                    });
+                    $("input[name=whichChartPreferences]:radio").change(function () {
+                        $('#wm-preferences' ).toggleClass('hidden');
+                        $('#kde-preferences').toggleClass('hidden');
+                    });
+                </script>
+
+
+            </div>
+
+            <!-- Axis Preferences -->
+            <div class="tab-pane" id="axis-preferences">
+
+
+                <div class="form-group text-center">
+                    <div class="btn-group btn-flat" data-toggle="buttons">
+                        <label class="btn btn-default active" title="Weighted Mean Chart">
+                            <input id="wmAxisSelected" name="whichChartAxis" type="radio" checked>WM
+                        </label>
+                        <label class="btn btn-default" title="Kernel Density Estimation Chart">
+                            <input id="kdeAxisSelected" name="whichChartAxis" type="radio">KDE
+                        </label>
+                    </div>
+
+                    <div class="btn-group btn-flat" data-toggle="buttons">
+                        <label class="btn btn-default active" title="Axis X">
+                            <input id="xAxisSelected" name="whichAxis" type="radio" checked>X
+                        </label>
+                        <label class="btn btn-default" title="Axis Y">
+                            <input id="yAxisSelected" name="whichAxis" type="radio">Y
+                        </label>
+                    </div>
+                </div>
+
+                <hr />
+
+                <div id="wm-axis-preferences">
+                    <h4 class="control-sidebar-heading text-center">Weighted Mean Chart</h4>
+                    <h4 class="control-sidebar-heading text-center xAxisStyles">Axis X</h4>
+                    <h4 class="control-sidebar-heading text-center yAxisStyles hidden">Axis Y</h4>
+                    <hr />
+
+
+                    <!-- For X Axis -->
+                    <div class="xAxisStyles">
+                        <!-- X Axis scale -->
+                        <h6 id="wm-x-axis-scale-head" class="control-sidebar-subheading collapsed"
+                            data-toggle="collapse" href="#wm-x-axis-options">
+                            Axis Scale
+                            <span class="pull-right fa fa-angle-left hidden-close"></span>
+                            <span class="pull-right fa fa-angle-down hidden-open hidden"></span>
+                        </h6>
+                        <div id="wm-x-axis-options" class="form-horizontal collapse" href="#wm-x-axis-scale-head">
+                            <div class="form-group">
+                                <div class="col-xs-3">
+                                    <label class="control-label">Low</label>
+                                </div>
+                                <div class="col-xs-9">
+                                    <input id="wmXAxisLow"
+                                           control-type="number"
+                                           data-forcestepdivisibility="none"
+                                           data-min="-9007199254740991"
+                                           data-max="+9007199254740991"
+                                           class="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-xs-3">
+                                    <label control-type="number" class="control-label">High</label>
+                                </div>
+                                <div class="col-xs-9">
+                                    <input id="wmXAxisHigh"
+                                           control-type="number"
+                                           data-forcestepdivisibility="none"
+                                           data-min="-9007199254740991"
+                                           data-max="+9007199254740991"
+                                           class="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-xs-3">
+                                    <label class="control-label">Unit</label>
+                                </div>
+                                <div class="col-xs-9">
+                                    <input id="wmXAxisUnit" control-type="number"
+                                           data-forcestepdivisibility="none"
+                                           data-min="0"
+                                           data-max="+9007199254740991"
+                                           class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- X Gridlines -->
+                        <hr />
+                        <h6 id="wm-x-axis-gridlines-head" class="control-sidebar-subheading collapsed"
+                            data-toggle="collapse" href="#wm-x-axis-gridlines-options">
+                            Grid Lines
+                            <span class="pull-right fa fa-angle-left hidden-close"></span>
+                            <span class="pull-right fa fa-angle-down hidden-open hidden"></span>
+                        </h6>
+                        <div id="wm-x-axis-gridlines-options" class="form-inline row collapse" href="#wm-x-axis-gridlines-head">
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <input id="wmXGridCheckBox"  type="checkbox" control-type="checkbox" data-option="showGrid">
+                                    <label for="wmXGridCheckBox" class="control-label">Grids</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-xs-6">
+                                    <select id="wmXGridLineStroke"
+                                            class="selectpicker"
+                                            data-width="100%"
+                                            control-type="select"
+                                            data-title="Grid Line Stroke">
+                                        <option value="solid line">Solid Line</option>
+                                        <option value="dashed">Dashed</option>
+                                        <option value="points">Points</option>
+                                    </select>
+                                </div>
+                                <div class="col-xs-3 no-padding-left">
+                                    <input id="wmXGridLineWidth" class="form-control" control-type="real-number">
+                                </div>
+                                <div class="col-xs-2 no-padding">
+                                    <input id="wmXGridLineColor" control-type="color" class="color form-control" type="button">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- X Label -->
+                        <hr />
+                        <h6 id="wm-x-axis-label-head" class="control-sidebar-subheading collapsed"
+                            data-toggle="collapse" href="#wm-x-axis-label-options">
+                            Labels
+                            <span class="pull-right fa fa-angle-left hidden-close"></span>
+                            <span class="pull-right fa fa-angle-down hidden-open hidden"></span>
+                        </h6>
+                        <div id="wm-x-axis-label-options" class="form-inline row collapse" href="#wm-x-axis-label-head">
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <input id="wmXLabelsCheckBox" type="checkbox" control-type="checkbox" checked>
+                                    <label class="control-label" for="wmXLabelsCheckBox">Labels</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-8">
+                                    <select control-type="select" id="wmXLabelsFontFamilySelect" class="selectpicker font-families" data-width="100%"
+                                            data-title="Font Family">
+                                    </select>
+                                </div>
+                                <div class="col-sm-4 no-padding-left">
+                                    <input control-type="number"
+                                           class="form-control"
+                                           name="fontSizeNumber"
+                                           id="wmXLabelsFontSizeNumber"
+                                           data-width="100%"
+                                           data-title="Font Size"
+                                           data-min="1"
+                                           data-max="288">
+                                </div>
+                            </div>
+                            <div>
+                                <div class="col-sm-9 no-padding-right">
+                                    <div class="btn-group" data-toggle="buttons">
+                                        <label title="Bold" class="btn btn-default"
+                                               data-css-property="font-style">
+                                            <input type="checkbox" control-type="checkbox" id="wmXLabelsFontBoldCheckBox" autocomplete="off" />
+                                            <i class="fa fa-bold"></i>
+                                        </label>
+                                        <label title="Italic" class="btn btn-default"
+                                               data-css-property="font-style">
+                                            <input type="checkbox" control-type="checkbox" id="wmXLabelsFontItalicCheckBox" autocomplete="off" />
+                                            <i class="fa fa-italic"></i>
+                                        </label>
+
+                                        <label title="Underline" class="btn btn-default"
+                                               data-css-property="font-decoration"
+                                               style="text-decoration: underline">
+                                            <input type="checkbox" control-type="checkbox" id="wmXLabelsFontUnderlineCheckBox" autocomplete="off" />
+                                            <i class="fa fa-underline"></i>
+                                        </label>
+
+                                        <label title="Strikethrough" class="btn btn-default"
+                                               data-css-property="font-decoration"
+                                               style="text-decoration: line-through">
+                                            <input type="checkbox" control-type="checkbox" id="wmXLabelsFontStrikethroughCheckBox" autocomplete="off" />
+                                            <i class="fa fa-strikethrough"></i>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2 no-padding">
+                                    <input id="wmXLabelsFontColor" type="button" control-type="color"
+                                           class="color btn btn-flat" style="width: 100%;" title="Color" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- For Y Axis -->
+                    <div class="yAxisStyles hidden">
+                        <!-- Y Axis scale -->
+                        <h6 id="wm-y-axis-scale-head" class="control-sidebar-subheading collapsed"
+                            data-toggle="collapse" href="#wm-y-axis-options">
+                            Axis Scale
+                            <span class="pull-right fa fa-angle-left hidden-close"></span>
+                            <span class="pull-right fa fa-angle-down hidden-open hidden"></span>
+                        </h6>
+                        <div id="wm-y-axis-options" class="form-horizontal collapse" href="#wm-y-axis-scale-head">
+                            <div class="form-group">
+                                <div class="col-xs-3">
+                                    <label class="control-label">Low</label>
+                                </div>
+                                <div class="col-xs-9">
+                                    <input id="wmYAxisLow"
+                                           control-type="number"
+                                           data-forcestepdivisibility="none"
+                                           data-min="-9007199254740991"
+                                           data-max="+9007199254740991"
+                                           class="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-xs-3">
+                                    <label control-type="number" class="control-label">High</label>
+                                </div>
+                                <div class="col-xs-9">
+                                    <input id="wmYAxisHigh" control-type="number"
+                                           data-forcestepdivisibility="none"
+                                           data-min="-9007199254740991"
+                                           data-max="+9007199254740991"
+                                           class="form-control" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-xs-3">
+                                    <label class="control-label">Unit</label>
+                                </div>
+                                <div class="col-xs-9">
+                                    <input id="wmYAxisUnit"
+                                           control-type="number"
+                                           data-forcestepdivisibility="none"
+                                           data-min="0"
+                                           data-max="+9007199254740991"
+                                           class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Y Gridlines -->
+                        <hr />
+                        <h6 id="wm-y-axis-gridlines-head" class="control-sidebar-subheading collapsed"
+                            data-toggle="collapse" href="#wm-y-axis-gridlines-options">
+                            Grid Lines
+                            <span class="pull-right fa fa-angle-left hidden-close"></span>
+                            <span class="pull-right fa fa-angle-down hidden-open hidden"></span>
+                        </h6>
+                        <div id="wm-y-axis-gridlines-options" class="form-inline row collapse" href="#wm-y-axis-gridlines-head">
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <input id="wmYGridCheckBox"  type="checkbox" control-type="checkbox" data-option="showGrid">
+                                    <label for="wmYGridCheckBox" class="control-label">Grids</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-xs-6">
+                                    <select id="wmYGridLineStroke"
+                                            class="selectpicker"
+                                            data-width="100%"
+                                            control-type="select"
+                                            data-title="Grid Line Stroke">
+                                        <option value="solid line">Solid Line</option>
+                                        <option value="dashed">Dashed</option>
+                                        <option value="points">Points</option>
+                                    </select>
+                                </div>
+                                <div class="col-xs-3 no-padding-left">
+                                    <input id="wmYGridLineWidth" class="form-control" control-type="real-number">
+                                </div>
+                                <div class="col-xs-2 no-padding">
+                                    <input id="wmYGridLineColor" control-type="color" class="color form-control" type="button">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Y Label -->
+                        <hr />
+                        <h6 id="wm-y-axis-label-head" class="control-sidebar-subheading collapsed"
+                            data-toggle="collapse" href="#wm-y-axis-label-options">
+                            Labels
+                            <span class="pull-right fa fa-angle-left hidden-close"></span>
+                            <span class="pull-right fa fa-angle-down hidden-open hidden"></span>
+                        </h6>
+                        <div id="wm-y-axis-label-options" class="form-inline row collapse" href="#wm-y-axis-label-head">
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <input id="wmYLabelsCheckBox" type="checkbox" control-type="checkbox" checked>
+                                    <label class="control-label" for="wmYLabelsCheckBox">Labels</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-8">
+                                    <select control-type="select" id="wmYLabelsFontFamilySelect" class="selectpicker font-families" data-width="100%"
+                                            data-title="Font Family">
+                                    </select>
+                                </div>
+                                <div class="col-sm-4 no-padding-left">
+                                    <input control-type="number"
+                                           class="form-control"
+                                           name="fontSizeNumber"
+                                           id="wmYLabelsFontSizeNumber"
+                                           data-width="100%"
+                                           data-title="Font Size"
+                                           data-min="1"
+                                           data-max="288">
+                                </div>
+                            </div>
+                            <div>
+                                <div class="col-sm-9 no-padding-right">
+                                    <div class="btn-group" data-toggle="buttons">
+                                        <label title="Bold" class="btn btn-default"
+                                               data-css-property="font-style">
+                                            <input type="checkbox" control-type="checkbox" id="wmYLabelsFontBoldCheckBox" autocomplete="off" />
+                                            <i class="fa fa-bold"></i>
+                                        </label>
+                                        <label title="Italic" class="btn btn-default"
+                                               data-css-property="font-style">
+                                            <input type="checkbox" control-type="checkbox" id="wmYLabelsFontItalicCheckBox" autocomplete="off" />
+                                            <i class="fa fa-italic"></i>
+                                        </label>
+
+                                        <label title="Underline" class="btn btn-default"
+                                               data-css-property="font-decoration"
+                                               style="text-decoration: underline">
+                                            <input type="checkbox" control-type="checkbox" id="wmYLabelsFontUnderlineCheckBox" autocomplete="off" />
+                                            <i class="fa fa-underline"></i>
+                                        </label>
+
+                                        <label title="Strikethrough" class="btn btn-default"
+                                               data-css-property="font-decoration"
+                                               style="text-decoration: line-through">
+                                            <input type="checkbox" control-type="checkbox" id="wmYLabelsFontStrikethroughCheckBox" autocomplete="off" />
+                                            <i class="fa fa-strikethrough"></i>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2 no-padding">
+                                    <input id="wmYLabelsFontColor" type="button" control-type="color"
+                                           class="color btn btn-flat" style="width: 100%;" title="Color" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div id="kde-axis-preferences" class="hidden">
+                    <h4 class="control-sidebar-heading text-center">Kernel Density Est. Chart</h4>
+                    <h4 class="control-sidebar-heading text-center xAxisStyles">Axis X</h4>
+                    <h4 class="control-sidebar-heading text-center yAxisStyles hidden">Axis Y</h4>
+                    <hr />
+
+
+                    <!-- For X Axis -->
+                    <div class="xAxisStyles">
+                        <!-- X Axis scale -->
+                        <h6 id="kde-x-axis-scale-head" class="control-sidebar-subheading collapsed"
+                            data-toggle="collapse" href="#kde-x-axis-options">
+                            Axis Scale
+                            <span class="pull-right fa fa-angle-left hidden-close"></span>
+                            <span class="pull-right fa fa-angle-down hidden-open hidden"></span>
+                        </h6>
+                        <div id="kde-x-axis-options" class="form-horizontal collapse" href="#kde-x-axis-scale-head">
+                            <div class="form-group">
+                                <div class="col-xs-3">
+                                    <label class="control-label">Low</label>
+                                </div>
+                                <div class="col-xs-9">
+                                    <input id="kdeXAxisLow"
+                                           control-type="number"
+                                           data-forcestepdivisibility="none"
+                                           data-min="-9007199254740991"
+                                           data-max="+9007199254740991"
+                                           class="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-xs-3">
+                                    <label class="control-label">High</label>
+                                </div>
+                                <div class="col-xs-9">
+                                    <input id="kdeXAxisHigh"
+                                           control-type="number"
+                                           data-forcestepdivisibility="none"
+                                           data-min="-9007199254740991"
+                                           data-max="+9007199254740991"
+                                           class="form-control" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-xs-3">
+                                    <label class="control-label">Unit</label>
+                                </div>
+                                <div class="col-xs-9">
+                                    <input id="kdeXAxisUnit"
+                                           control-type="number"
+                                           data-forcestepdivisibility="none"
+                                           data-min="0"
+                                           data-max="+9007199254740991"
+                                           class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- X Gridlines -->
+                        <hr />
+                        <h6 id="kde-x-axis-gridlines-head" class="control-sidebar-subheading collapsed"
+                            data-toggle="collapse" href="#kde-x-axis-gridlines-options">
+                            Grid Lines
+                            <span class="pull-right fa fa-angle-left hidden-close"></span>
+                            <span class="pull-right fa fa-angle-down hidden-open hidden"></span>
+                        </h6>
+                        <div id="kde-x-axis-gridlines-options" class="form-inline row collapse" href="#kde-x-axis-gridlines-head">
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <input id="kdeXGridCheckBox"  type="checkbox" control-type="checkbox" data-option="showGrid">
+                                    <label for="kdeXGridCheckBox" class="control-label">Grids</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-xs-6">
+                                    <select id="kdeXGridLineStroke"
+                                            class="selectpicker"
+                                            data-width="100%"
+                                            control-type="select"
+                                            data-title="Grid Line Stroke">
+                                        <option value="solid line">Solid Line</option>
+                                        <option value="dashed">Dashed</option>
+                                        <option value="points">Points</option>
+                                    </select>
+                                </div>
+                                <div class="col-xs-3 no-padding-left">
+                                    <input id="kdeXGridLineWidth" class="form-control" control-type="real-number">
+                                </div>
+                                <div class="col-xs-2 no-padding">
+                                    <input id="kdeXGridLineColor" control-type="color" class="color form-control" type="button">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- X Label -->
+                        <hr />
+                        <h6 id="kde-x-axis-label-head" class="control-sidebar-subheading collapsed"
+                            data-toggle="collapse" href="#kde-x-axis-label-options">
+                            Labels
+                            <span class="pull-right fa fa-angle-left hidden-close"></span>
+                            <span class="pull-right fa fa-angle-down hidden-open hidden"></span>
+                        </h6>
+                        <div id="kde-x-axis-label-options" class="form-inline row collapse" href="#kde-x-axis-label-head">
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <input id="kdeXLabelsCheckBox" type="checkbox" control-type="checkbox" checked>
+                                    <label class="control-label" for="kdeXLabelsCheckBox">Labels</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-8">
+                                    <select control-type="select" id="kdeXLabelsFontFamilySelect" class="selectpicker font-families" data-width="100%"
+                                            data-title="Font Family">
+                                    </select>
+                                </div>
+                                <div class="col-sm-4 no-padding-left">
+                                    <input control-type="number"
+                                           class="form-control"
+                                           name="fontSizeNumber"
+                                           id="kdeXLabelsFontSizeNumber"
+                                           data-width="100%"
+                                           data-title="Font Size"
+                                           data-min="1"
+                                           data-max="288">
+                                </div>
+                            </div>
+                            <div>
+                                <div class="col-sm-9 no-padding-right">
+                                    <div class="btn-group" data-toggle="buttons">
+                                        <label title="Bold" class="btn btn-default"
+                                               data-css-property="font-style">
+                                            <input type="checkbox" control-type="checkbox" id="kdeXLabelsFontBoldCheckBox" autocomplete="off" />
+                                            <i class="fa fa-bold"></i>
+                                        </label>
+                                        <label title="Italic" class="btn btn-default"
+                                               data-css-property="font-style">
+                                            <input type="checkbox" control-type="checkbox" id="kdeXLabelsFontItalicCheckBox" autocomplete="off" />
+                                            <i class="fa fa-italic"></i>
+                                        </label>
+
+                                        <label title="Underline" class="btn btn-default"
+                                               data-css-property="font-decoration"
+                                               style="text-decoration: underline">
+                                            <input type="checkbox" control-type="checkbox" id="kdeXLabelsFontUnderlineCheckBox" autocomplete="off" />
+                                            <i class="fa fa-underline"></i>
+                                        </label>
+
+                                        <label title="Strikethrough" class="btn btn-default"
+                                               data-css-property="font-decoration"
+                                               style="text-decoration: line-through">
+                                            <input type="checkbox" control-type="checkbox" id="kdeXLabelsFontStrikethroughCheckBox" autocomplete="off" />
+                                            <i class="fa fa-strikethrough"></i>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2 no-padding">
+                                    <input id="kdeXLabelsFontColor" type="button" control-type="color"
+                                           class="color btn btn-flat" style="width: 100%;" title="Color" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- For Y Axis -->
+                    <div class="yAxisStyles hidden">
+                        <!--Y Gridlines -->
+                        <h6 id="kde-y-axis-gridlines-head" class="control-sidebar-subheading collapsed"
+                            data-toggle="collapse" href="#kde-y-axis-gridlines-options">
+                            Grid Lines
+                            <span class="pull-right fa fa-angle-left hidden-close"></span>
+                            <span class="pull-right fa fa-angle-down hidden-open hidden"></span>
+                        </h6>
+                        <div id="kde-y-axis-gridlines-options" class="form-inline row collapse" href="#kde-y-axis-gridlines-head">
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <input id="kdeYGridCheckBox"  type="checkbox" control-type="checkbox" data-option="showGrid">
+                                    <label for="kdeYGridCheckBox" class="control-label">Grids</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-xs-6">
+                                    <select id="kdeYGridLineStroke"
+                                            class="selectpicker"
+                                            data-width="100%"
+                                            control-type="select"
+                                            data-title="Grid Line Stroke">
+                                        <option value="solid line">Solid Line</option>
+                                        <option value="dashed">Dashed</option>
+                                        <option value="points">Points</option>
+                                    </select>
+                                </div>
+                                <div class="col-xs-3 no-padding-left">
+                                    <input id="kdeYGridLineWidth" class="form-control" control-type="real-number">
+                                </div>
+                                <div class="col-xs-2 no-padding">
+                                    <input id="kdeYGridLineColor" control-type="color" class="color form-control" type="button">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Y Label -->
+                        <hr />
+                        <h6 id="kde-y-axis-label-head" class="control-sidebar-subheading collapsed"
+                            data-toggle="collapse" href="#kde-y-axis-label-options">
+                            Labels
+                            <span class="pull-right fa fa-angle-left hidden-close"></span>
+                            <span class="pull-right fa fa-angle-down hidden-open hidden"></span>
+                        </h6>
+                        <div id="kde-y-axis-label-options" class="form-inline row collapse" href="#kde-y-axis-label-head">
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <input id="kdeYLabelsCheckBox" type="checkbox" control-type="checkbox" checked>
+                                    <label class="control-label" for="kdeYLabelsCheckBox">Labels</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-8">
+                                    <select control-type="select" id="kdeYLabelsFontFamilySelect" class="selectpicker font-families" data-width="100%"
+                                            data-title="Font Family">
+                                    </select>
+                                </div>
+                                <div class="col-sm-4 no-padding-left">
+                                    <input control-type="number"
+                                           class="form-control"
+                                           name="fontSizeNumber"
+                                           id="kdeYLabelsFontSizeNumber"
+                                           data-width="100%"
+                                           data-title="Font Size"
+                                           data-min="1"
+                                           data-max="288">
+                                </div>
+                            </div>
+                            <div>
+                                <div class="col-sm-9 no-padding-right">
+                                    <div class="btn-group" data-toggle="buttons">
+                                        <label title="Bold" class="btn btn-default"
+                                               data-css-property="font-style">
+                                            <input type="checkbox" control-type="checkbox" id="kdeYLabelsFontBoldCheckBox" autocomplete="off" />
+                                            <i class="fa fa-bold"></i>
+                                        </label>
+                                        <label title="Italic" class="btn btn-default"
+                                               data-css-property="font-style">
+                                            <input type="checkbox" control-type="checkbox" id="kdeYLabelsFontItalicCheckBox" autocomplete="off" />
+                                            <i class="fa fa-italic"></i>
+                                        </label>
+
+                                        <label title="Underline" class="btn btn-default"
+                                               data-css-property="font-decoration"
+                                               style="text-decoration: underline">
+                                            <input type="checkbox" control-type="checkbox" id="kdeYLabelsFontUnderlineCheckBox" autocomplete="off" />
+                                            <i class="fa fa-underline"></i>
+                                        </label>
+
+                                        <label title="Strikethrough" class="btn btn-default"
+                                               data-css-property="font-decoration"
+                                               style="text-decoration: line-through">
+                                            <input type="checkbox" control-type="checkbox" id="kdeYLabelsFontStrikethroughCheckBox" autocomplete="off" />
+                                            <i class="fa fa-strikethrough"></i>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2 no-padding">
+                                    <input id="kdeYLabelsFontColor" type="button" control-type="color"
+                                           class="color btn btn-flat" style="width: 100%;" title="Color" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <script type="text/javascript">
+                    $("input[name=whichAxis]:radio").change(function () {
+                        $('.xAxisStyles').toggleClass('hidden');
+                        $('.yAxisStyles').toggleClass('hidden');
+                    });
+
+                    $("input[name=whichChartAxis]:radio").change(function () {
+                        $('#wm-axis-preferences').toggleClass('hidden');
+                        $('#kde-axis-preferences').toggleClass('hidden');
+                    });
+                </script>
+
+
+            </div>
+        </div>
+
+
+
+    </aside>
+    <!-- /.control-sidebar -->
+    <!-- Add the sidebar's background. This div must be placed
+         immediately after the control sidebar -->
+    <div class="control-sidebar-bg"></div>
+</div>
+
+<!-- AdminLTE -->
+<script>
+    var AdminLTEOptions = {
+        controlSidebarOptions: {
+            slide: false
+        }
+    };
+    var paceOptions = {
+        ajax: false, // disabled
+        document: false, // disabled
+        eventLag: false  // disabled
+    };
+</script>
+<script type="text/javascript" src="lib/js/app.min.js"></script>
+
+<!-- App -->
+<script type="text/javascript" src="js/app.js"></script>
+
+<!-- Models -->
+<script type="text/javascript" src="models/data.model.js"></script>
+<script type="text/javascript" src="models/chart.model.js"></script>
+<script type="text/javascript" src="models/main.model.js"></script>
+
+<!-- Views -->
+<script type="text/javascript" src="views/data.view.js"></script>
+<script type="text/javascript" src="views/chart.view.js"></script>
+<script type="text/javascript" src="views/main.view.js"></script>
+
+<!-- Controllers -->
+<script type="text/javascript" src="controllers/data.controller.js"></script>
+<script type="text/javascript" src="controllers/chart.controller.js"></script>
+<script type="text/javascript" src="controllers/main.controller.js"></script>
+
+</body>
+</html>

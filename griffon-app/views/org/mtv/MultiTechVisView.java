@@ -18,11 +18,10 @@ import javafx.stage.Stage;
 import org.codehaus.griffon.runtime.javafx.artifact.AbstractJavaFXGriffonView;
 import java.net.URL;
 import java.util.Collections;
-import java.util.Optional;
 
 @ArtifactProviderFor(GriffonView.class)
 public class MultiTechVisView extends AbstractJavaFXGriffonView {
-    private static final String MAIN_RESOURCE_URI = "ui/main.html";
+    private static final String UI_HTML = "ui/index.html";
     private static final String JS_JAVA_BRIDGE = "JavaJSBridge";
     private static final String RESOURCES_NOT_FOUND_ERROR_TITLE = "Resources not found error";
     private static final String RESOURCES_NOT_FOUND_ERROR_CONTENT = "Some of the resource files are missing. Please reinstall the application to fix the problem.";
@@ -76,7 +75,7 @@ public class MultiTechVisView extends AbstractJavaFXGriffonView {
     }
 
     private boolean checkResourcesExist() {
-        URL resource = application.getResourceHandler().getResourceAsURL(MultiTechVisView.MAIN_RESOURCE_URI);
+        URL resource = application.getResourceHandler().getResourceAsURL(MultiTechVisView.UI_HTML);
         return (resource != null);
     }
 
@@ -88,9 +87,9 @@ public class MultiTechVisView extends AbstractJavaFXGriffonView {
 
     @Threading(Threading.Policy.INSIDE_UITHREAD_SYNC)
     private void initWebView() {
-        URL resource = application.getResourceHandler().getResourceAsURL(MultiTechVisView.MAIN_RESOURCE_URI);
-//        portWebView.setContextMenuEnabled(false);
+        URL resource = application.getResourceHandler().getResourceAsURL(MultiTechVisView.UI_HTML);
         webEngine = portWebView.getEngine();
+
         webEngine.setJavaScriptEnabled(true);
         webEngine.load(resource.toExternalForm());
 
@@ -101,14 +100,13 @@ public class MultiTechVisView extends AbstractJavaFXGriffonView {
                         if(newState == State.SUCCEEDED){
                             JSObject window = (JSObject) webEngine.executeScript("window");
                             window.setMember(MultiTechVisView.JS_JAVA_BRIDGE, new Bridge(stage));
-                            alert(window.);
                         }//if
                     }
                 });
 
         webEngine.setOnAlert(
             arg0 -> {
-                Alert alert = new Alert(Alert.AlertType.NONE);
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setContentText(arg0.getData());
                 alert.showAndWait();
             }
