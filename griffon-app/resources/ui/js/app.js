@@ -5,6 +5,7 @@ function App() {
     self.controllerClasses = {};
     self.controllers = {};
     self.args = {};
+    self.contextMenuTargetsWhitelist = [];
 
     self.registerClass = function (classType) {
         self.classes.push(classType);
@@ -27,7 +28,27 @@ function App() {
         return self.controllers[id];
     };
 
+    self.catchContextMenuEvent = function () {
+        document.addEventListener("contextmenu", function (e) {
+            var found = false;
+            var id = $(e.target).attr('id');
+            for(var i = 0; i < self.contextMenuTargetsWhitelist.length && !found; ++i) {
+                found = (self.contextMenuTargetsWhitelist[i] == id);
+            }//for
+
+            console.log(e);
+            console.log(id);
+            console.log(found);
+
+            // If the element is not found in the white list, we disable the right click event
+            if(!found) {
+                e.preventDefault();
+            }//if
+        });
+    };
+
     self.init = function () {
+        self.catchContextMenuEvent();
         for (var i in self.classes) {
             for (var id in self.controllerClasses) {
                 if (self.controllerClasses[id] == self.classes[i]) {

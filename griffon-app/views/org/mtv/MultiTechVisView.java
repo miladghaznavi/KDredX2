@@ -18,9 +18,14 @@ import javafx.stage.Stage;
 import org.codehaus.griffon.runtime.javafx.artifact.AbstractJavaFXGriffonView;
 import java.net.URL;
 import java.util.Collections;
+import java.util.Optional;
 
 @ArtifactProviderFor(GriffonView.class)
 public class MultiTechVisView extends AbstractJavaFXGriffonView {
+    private static final String MAIN_RESOURCE_URI = "ui/main.html";
+    private static final String JS_JAVA_BRIDGE = "JavaJSBridge";
+    private static final String RESOURCES_NOT_FOUND_ERROR_TITLE = "Resources not found error";
+    private static final String RESOURCES_NOT_FOUND_ERROR_CONTENT = "Some of the resource files are missing. Please reinstall the application to fix the problem.";
     private MultiTechVisController controller;
     private MultiTechVisModel model;
     JSObject JavaJSBridge;
@@ -41,20 +46,25 @@ public class MultiTechVisView extends AbstractJavaFXGriffonView {
     @Override
     public void initUI() {
         stage = (Stage) getApplication()
-            .createApplicationContainer(Collections.<String, Object>emptyMap());
+            .createApplicationContainer(Collections.<String, Object> emptyMap());
         stage.setTitle(getApplication().getConfiguration().getAsString("application.title"));
         stage.setScene(init());
         stage.sizeToScene();
         getApplication().getWindowManager().attach("mainWindow", stage);
 
         if (!checkResourcesExist()) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Some of the resource files are missing. Please reinstall the application.");
-            alert.showAndWait();
-            System.exit(1);
+            alertResourcesNotFound();
+            application.shutdown();
         }//if
 
         initWebView();
+    }
+
+    private void alertResourcesNotFound() {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(MultiTechVisView.RESOURCES_NOT_FOUND_ERROR_TITLE);
+        alert.setContentText(MultiTechVisView.RESOURCES_NOT_FOUND_ERROR_CONTENT);
+        alert.showAndWait();
     }
 
     // build the UI
@@ -66,40 +76,42 @@ public class MultiTechVisView extends AbstractJavaFXGriffonView {
     }
 
     private boolean checkResourcesExist() {
-        boolean result = true;
-        // TODO: check if all resource files exist
-        return result;
+        URL resource = application.getResourceHandler().getResourceAsURL(MultiTechVisView.MAIN_RESOURCE_URI);
+        return (resource != null);
+    }
+
+    void alert(String msg) {
+        Alert alerting = new Alert(Alert.AlertType.INFORMATION);
+        alerting.setContentText(msg);
+        alerting.showAndWait();
     }
 
     @Threading(Threading.Policy.INSIDE_UITHREAD_SYNC)
     private void initWebView() {
-        URL resource = application.getResourceHandler().getResourceAsURL("ui/main.html");
-        if (resource == null) {
-            //TODO
-        }//if
-        else {
-            webEngine = portWebView.getEngine();
-            webEngine.setJavaScriptEnabled(true);
-            webEngine.load(resource.toExternalForm());
+        URL resource = application.getResourceHandler().getResourceAsURL(MultiTechVisView.MAIN_RESOURCE_URI);
+//        portWebView.setContextMenuEnabled(false);
+        webEngine = portWebView.getEngine();
+        webEngine.setJavaScriptEnabled(true);
+        webEngine.load(resource.toExternalForm());
 
-            webEngine.getLoadWorker().stateProperty().addListener(
-                    new ChangeListener<State>(){
-                        @Override
-                        public void changed(ObservableValue<? extends State> ov, State oldState, State newState) {
-                            if(newState == State.SUCCEEDED){
-                                JSObject window = (JSObject) webEngine.executeScript("window");
-                                window.setMember("JavaJSBridge", new Bridge(stage));
-                            }//if
-                        }
-                    });
+        webEngine.getLoadWorker().stateProperty().addListener(
+                new ChangeListener<State>(){
+                    @Override
+                    public void changed(ObservableValue<? extends State> ov, State oldState, State newState) {
+                        if(newState == State.SUCCEEDED){
+                            JSObject window = (JSObject) webEngine.executeScript("window");
+                            window.setMember(MultiTechVisView.JS_JAVA_BRIDGE, new Bridge(stage));
+                            alert(window.toString());
+                        }//if
+                    }
+                });
 
-            webEngine.setOnAlert(
-                arg0 -> {
-                    Alert alert = new Alert(Alert.AlertType.NONE);
-                    alert.setContentText(arg0.getData());
-                    alert.showAndWait();
-                }
-            );
-        }//else
+        webEngine.setOnAlert(
+            arg0 -> {
+                Alert alert = new Alert(Alert.AlertType.NONE);
+                alert.setContentText(arg0.getData());
+                alert.showAndWait();
+            }
+        );
     }
 }

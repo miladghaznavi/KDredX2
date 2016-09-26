@@ -187,6 +187,7 @@ public class Bridge {
         // Set the transcoding hints.
         t.addTranscodingHint(JPEGTranscoder.KEY_QUALITY,
                 new Float(1.0));
+        t.addTranscodingHint(JPEGTranscoder.KEY_PIXEL_UNIT_TO_MILLIMETER, new Float(0.01));
 
 //          TranscoderInput input = new TranscoderInput(svgURI);
         InputStream stream = new ByteArrayInputStream(serializedSVGTag.getBytes(StandardCharsets.UTF_8));
