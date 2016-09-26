@@ -101,7 +101,7 @@ public class MultiTechVisView extends AbstractJavaFXGriffonView {
                         if(newState == State.SUCCEEDED){
                             JSObject window = (JSObject) webEngine.executeScript("window");
                             window.setMember(MultiTechVisView.JS_JAVA_BRIDGE, new Bridge(stage));
-                            alert(window.toString());
+                            alert(window.);
                         }//if
                     }
                 });
