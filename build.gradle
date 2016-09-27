@@ -14,7 +14,6 @@ buildscript {
         classpath 'com.github.cr0:gradle-macappbundle-plugin:3.1.0'
         classpath 'org.kordamp.gradle:stats-gradle-plugin:0.1.5'
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.11.3'
-        classpath 'de.gliderpilot.gradle.jnlp:gradle-jnlp-plugin:0.2.1'
     }
 }
 
@@ -43,9 +42,6 @@ apply from: 'gradle/functional-test.gradle'
 apply from: 'gradle/package.gradle'
 apply from: 'gradle/docs.gradle'
 apply plugin: 'com.github.johnrengelman.shadow'
-apply plugin: 'org.kordamp.gradle.stats'
-apply plugin: 'com.github.ben-manes.versions'
-apply plugin: 'com.github.kt3k.coveralls'
 
 javafx {
     mainClass = mainClassName
@@ -85,22 +81,6 @@ tasks.withType(GroovyCompile) {
     targetCompatibility = project.targetCompatibility
 }
 
-import com.github.jengelman.gradle.plugins.shadow.transformers.*
-shadowJar {
-    transform(ServiceFileTransformer)
-    transform(ServiceFileTransformer) {
-        path = 'META-INF/griffon'
-    }
-    transform(ServiceFileTransformer) {
-        path = 'META-INF/types'
-    }
-    transform(PropertiesFileTransformer) {
-        paths = [
-                'META-INF/editors/java.beans.PropertyEditor'
-        ]
-    }
-}
-
 startScripts {
     doLast {
         if (!macosx) unixScript.text = unixScript.text.replaceAll('"(-Xdock:(name|icon)=)([^"]*?)(")', ' ')
@@ -113,8 +93,3 @@ if (hasProperty('debugRun') && ((project.debugRun as boolean))) {
         jvmArgs '-Xdebug', '-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005'
     }
 }
-
-//dependencies {
-//    griffon 'org.codehaus.griffon.plugins:griffon-fontawesome-plugin:1.4.0'
-//    griffon 'org.codehaus.griffon.plugins:griffon-icomoonicons-plugin:1.1.0'
-//}

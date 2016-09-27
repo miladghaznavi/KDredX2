@@ -33,9 +33,10 @@ function WeightedMean() {
 
     WeightedMean.meanSquareWeightedDeviation = function(values, uncertainties) {
         if (values.length != uncertainties.length)
-            throw "The length of values and uncertainties must be equal!";
+            throw "The number of values and uncertainties must be equal!";
         if (values.length < 2)
-            throw "The length of values must be greater than 1!";
+            throw "The number of not rejected values must be greater than 1. " +
+            "The weighted mean value cannot be calculated!";
 
         var mean = WeightedMean.weightedMean(values, uncertainties);
         var A = 0;

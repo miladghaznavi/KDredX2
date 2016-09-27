@@ -55,14 +55,19 @@ function MainController() {
         var chartController = app.getController(self.model.chartId);
 
         if (dataController.areSelectsValid()) {
-            if (self.setChartDataModel(dataModel, chartModel) > 0) {
-                chartController.plot();
-            }//if
-            else {
-                Util.notifyWarning(
-                    "The data for the chart is empty!<br/>" +
-                    "Please select uncertainty and analyses columns which at least have one valid data!");
-            }//else
+            try {
+                if (self.setChartDataModel(dataModel, chartModel) > 0) {
+                    chartController.plot();
+                }//if
+                else {
+                    Util.notifyWarning(
+                        "The data for the chart is empty!<br/>" +
+                        "Please select uncertainty and analyses columns which at least have one valid data!");
+                }//else
+            }//try
+            catch(exc) {
+                Util.notifyError(exc);
+            }//catch
         }//if
         else {
             Util.notifyError("Please select two columns as values and uncertainties!");

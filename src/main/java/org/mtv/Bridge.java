@@ -1,7 +1,5 @@
 package org.mtv;
 
-import de.bripkens.svgexport.Format;
-import de.bripkens.svgexport.SVGExport;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.apache.batik.transcoder.TranscoderException;
@@ -12,6 +10,8 @@ import org.apache.batik.transcoder.image.PNGTranscoder;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord;
+import org.apache.fop.render.ps.EPSTranscoder;
+import org.apache.fop.svg.PDFTranscoder;
 import org.apache.sling.commons.json.JSONArray;
 import org.apache.sling.commons.json.JSONException;
 import org.apache.sling.commons.json.JSONObject;
@@ -189,7 +189,6 @@ public class Bridge {
                 new Float(1.0));
         t.addTranscodingHint(JPEGTranscoder.KEY_PIXEL_UNIT_TO_MILLIMETER, new Float(0.01));
 
-//          TranscoderInput input = new TranscoderInput(svgURI);
         InputStream stream = new ByteArrayInputStream(serializedSVGTag.getBytes(StandardCharsets.UTF_8));
         TranscoderInput input = new TranscoderInput(stream);
 
@@ -212,20 +211,41 @@ public class Bridge {
         writer.close();
     }
 
-    public void saveAsPDF(String serializedSVGTag, String path) throws IOException {
-        new SVGExport()
-                .setInput(new ByteArrayInputStream(serializedSVGTag.getBytes()))
-                .setOutput(new FileOutputStream(path))
-                .setTranscoder(Format.PDF)
-                .transcode();
+    public void saveAsPDF(String serializedSVGTag, String path) throws IOException, TranscoderException {
+        // Create a JPEG transcoder
+        PDFTranscoder t = new PDFTranscoder();
+
+        InputStream stream = new ByteArrayInputStream(serializedSVGTag.getBytes(StandardCharsets.UTF_8));
+        TranscoderInput input = new TranscoderInput(stream);
+
+        // Create the transcoder output.
+        OutputStream ostream = new FileOutputStream(path);
+        TranscoderOutput output = new TranscoderOutput(ostream);
+
+        // Save the image.
+        t.transcode(input, output);
+
+        // Flush and close the stream.
+        ostream.flush();
+        ostream.close();
     }
 
-    public void saveAsEPS(String serializedSVGTag, String path) throws IOException {
-        new SVGExport()
-                .setInput(new ByteArrayInputStream(serializedSVGTag.getBytes()))
-                .setOutput(new FileOutputStream(path))
-                .setTranscoder(Format.EPS)
-                .transcode();
+    public void saveAsEPS(String serializedSVGTag, String path) throws IOException, TranscoderException {
+        EPSTranscoder t = new EPSTranscoder();
+
+        InputStream stream = new ByteArrayInputStream(serializedSVGTag.getBytes(StandardCharsets.UTF_8));
+        TranscoderInput input = new TranscoderInput(stream);
+
+        // Create the transcoder output.
+        OutputStream ostream = new FileOutputStream(path);
+        TranscoderOutput output = new TranscoderOutput(ostream);
+
+        // Save the image.
+        t.transcode(input, output);
+
+        // Flush and close the stream.
+        ostream.flush();
+        ostream.close();
     }
 
     private ArrayList<ArrayList<String>> toArrayList(JSONObject dataJson) throws JSONException {
