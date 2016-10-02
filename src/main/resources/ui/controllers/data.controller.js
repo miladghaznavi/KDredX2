@@ -160,6 +160,11 @@ function DataController() {
     self.loadDefaults = function () {
         
     };
+
+    self.copyToClipboard = function() {
+        console.log("Milad Clipboard");
+        Util.notifyInfo('NULL', 'Copy event');
+    };
 }
 
 app.registerClass(DataController);

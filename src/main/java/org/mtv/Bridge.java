@@ -19,9 +19,7 @@ import org.apache.sling.commons.json.JSONObject;
 import java.awt.*;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Bridge {
     public static final String DATA = "data";
@@ -35,6 +33,19 @@ public class Bridge {
     public static final String JPG = "jpg";
     public static final String PDF = "pdf";
     public static final String EPS = "eps";
+
+    public static final Map<String, String> EXTENSIONS_MAP;
+    static {
+        LinkedHashMap<String, String> tmp = new LinkedHashMap<>();
+
+        tmp.put(SVG, "Scalable Vector Graphics (*.svg)");
+        tmp.put(PNG, "Portable Network Graphics (*.png)");
+        tmp.put(JPG, "Joint Photographic Experts Group (*.jpg)");
+        tmp.put(PDF, "Portable Document Format (*.pdf)");
+        tmp.put(EPS, "Encapsulated Post Script (*.eps)");
+
+        EXTENSIONS_MAP = Collections.unmodifiableMap(tmp);
+    }
 
     private Stage stage;
 
@@ -271,6 +282,8 @@ public class Bridge {
         JSONObject json = new JSONObject();
 
         FileChooser fileChooser = new FileChooser();
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter(EXTENSIONS_MAP.get(type), "*."+ type);
+        fileChooser.getExtensionFilters().add(extFilter);
         File selectedFile = fileChooser.showSaveDialog(stage);
 
         Map<String, String> file = new HashMap<>();
