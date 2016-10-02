@@ -43,8 +43,10 @@ izpack {
 if (macosx) {
     macAppBundle {
         mainClassName = project.mainClassName
-        icon = 'src/media/griffon.icns'
+        icon = 'src/media/KDredX2.icns'
         javaProperties.put('apple.laf.useScreenMenuBar', 'true')
+        bundlePackageType = 'APPL'
+        bundleExtras.put("NSHighResolutionCapable", "true")
     }
 }
 

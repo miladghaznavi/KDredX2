@@ -7,7 +7,7 @@ import static java.util.Arrays.asList;
 import static griffon.util.CollectionUtils.map;
 
 public class Config extends AbstractMapResourceBundle {
-    private final static String TITLE = "Multi Tech Vis";
+    private final static String TITLE = "KDredX2";
 
     @Override
     protected void initialize(@Nonnull Map<String, Object> entries) {

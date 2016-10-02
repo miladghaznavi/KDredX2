@@ -16,12 +16,26 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import org.codehaus.griffon.runtime.javafx.artifact.AbstractJavaFXGriffonView;
+
+import java.io.File;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.file.FileSystem;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
 import java.util.Collections;
+import java.util.Optional;
 
 @ArtifactProviderFor(GriffonView.class)
 public class MultiTechVisView extends AbstractJavaFXGriffonView {
-    private static final String UI_HTML = "ui/index.html";
+    // For the application development, copy ui folder from "src/main/resources/ui" to "griffon-app/resources",
+    //and uncomment the following line.
+//    private static final String UI_HTML = "ui/index.html";
+
+    // For the application deployment remove ui folder from "griffon-app/resources" and copy "src/main/resources/ui" to
+    //the "Contents/Resources" folder of application.
+    private static final String UI_HTML = "../Resources/ui/index.html";
+
     private static final String JS_JAVA_BRIDGE = "JavaJSBridge";
     private static final String RESOURCES_NOT_FOUND_ERROR_TITLE = "Resources not found error";
     private static final String RESOURCES_NOT_FOUND_ERROR_CONTENT = "Some of the resource files are missing. Please reinstall the application to fix the problem.";
@@ -75,20 +89,31 @@ public class MultiTechVisView extends AbstractJavaFXGriffonView {
     }
 
     private boolean checkResourcesExist() {
-        URL resource = application.getResourceHandler().getResourceAsURL(MultiTechVisView.UI_HTML);
-        return (resource != null);
-    }
+        URL resource = null;
+        try {
+            String jarPath = this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
+            File jarFile = new File(jarPath);
+            if (FileSystems.getDefault().getPath(jarFile.getParent(), MultiTechVisView.UI_HTML).toFile().exists())
+                resource = FileSystems.getDefault().getPath(jarFile.getParent(), MultiTechVisView.UI_HTML).toUri().toURL();
+        }//try
+        catch(MalformedURLException exc) { }//catch
 
-    void alert(String msg) {
-        Alert alerting = new Alert(Alert.AlertType.INFORMATION);
-        alerting.setContentText(msg);
-        alerting.showAndWait();
+        return (resource != null);
     }
 
     @Threading(Threading.Policy.INSIDE_UITHREAD_SYNC)
     private void initWebView() {
-        URL resource = application.getResourceHandler().getResourceAsURL(MultiTechVisView.UI_HTML);
-        webEngine = portWebView.getEngine();
+        URL resource = null;
+        try {
+            String jarPath = this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
+            File jarFile = new File(jarPath);
+            resource = FileSystems.getDefault().getPath(jarFile.getParent(), MultiTechVisView.UI_HTML).toUri().toURL();
+            webEngine = portWebView.getEngine();
+        }//try
+        catch(MalformedURLException exc){
+            alertResourcesNotFound();
+            application.shutdown();
+        }//catch
 
         webEngine.setJavaScriptEnabled(true);
         webEngine.load(resource.toExternalForm());

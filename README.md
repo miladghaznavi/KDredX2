@@ -42,3 +42,4 @@ If you prefer building with Maven then execute the following commands
     mvn -Prun
 
 Don't forget to add any extra JAR dependencies to `pom.xml`!
+ 

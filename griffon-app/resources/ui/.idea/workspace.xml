@@ -2,33 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7c245e7c-5580-4e97-bfb1-40403e7c4224" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../src/main/java/de/bripkens/svgexport/Exporter.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../src/main/java/de/bripkens/svgexport/Format.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../src/main/java/de/bripkens/svgexport/SVGExport.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../src/main/java/de/bripkens/svgexport/SVGExportException.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../src/main/java/de/bripkens/svgexport/SVGTranscoder.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../src/main/java/org/mtv/Util.java" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../.gradle/2.9/taskArtifacts/cache.properties.lock" afterPath="$PROJECT_DIR$/../../../.gradle/2.9/taskArtifacts/cache.properties.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../.gradle/2.9/taskArtifacts/fileHashes.bin" afterPath="$PROJECT_DIR$/../../../.gradle/2.9/taskArtifacts/fileHashes.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../.gradle/2.9/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/../../../.gradle/2.9/taskArtifacts/fileSnapshots.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../.gradle/2.9/taskArtifacts/outputFileStates.bin" afterPath="$PROJECT_DIR$/../../../.gradle/2.9/taskArtifacts/outputFileStates.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../.gradle/2.9/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/../../../.gradle/2.9/taskArtifacts/taskArtifacts.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../.idea/gradle.xml" afterPath="$PROJECT_DIR$/../../../.idea/gradle.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../.idea/modules/multi-tech-vis.iml" afterPath="$PROJECT_DIR$/../../../.idea/modules/multi-tech-vis.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../.idea/modules/multi-tech-vis_functionalTest.iml" afterPath="$PROJECT_DIR$/../../../.idea/modules/multi-tech-vis_functionalTest.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../.idea/modules/multi-tech-vis_integrationTest.iml" afterPath="$PROJECT_DIR$/../../../.idea/modules/multi-tech-vis_integrationTest.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../.idea/modules/multi-tech-vis_main.iml" afterPath="$PROJECT_DIR$/../../../.idea/modules/multi-tech-vis_main.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../.idea/modules/multi-tech-vis_package.iml" afterPath="$PROJECT_DIR$/../../../.idea/modules/multi-tech-vis_package.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../.idea/modules/multi-tech-vis_test.iml" afterPath="$PROJECT_DIR$/../../../.idea/modules/multi-tech-vis_test.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../build.gradle" afterPath="$PROJECT_DIR$/../../../build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../gradle.properties" afterPath="$PROJECT_DIR$/../../../gradle.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../gradle/wrapper/gradle-wrapper.properties" afterPath="$PROJECT_DIR$/../../../gradle/wrapper/gradle-wrapper.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../models/org/mtv/MultiTechVisModel.java" afterPath="$PROJECT_DIR$/../../models/org/mtv/MultiTechVisModel.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controllers/main.controller.js" afterPath="$PROJECT_DIR$/controllers/main.controller.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/js/statistics/wm.js" afterPath="$PROJECT_DIR$/lib/js/statistics/wm.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../src/main/java/org/mtv/Bridge.java" afterPath="$PROJECT_DIR$/../../../src/main/java/org/mtv/Bridge.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../src/test/java/org/mtv/MultiTechVisControllerTest.java" afterPath="$PROJECT_DIR$/../../../src/test/java/org/mtv/MultiTechVisControllerTest.java" />
     </list>
     <ignored path="ui.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -209,8 +187,8 @@
       <file leaf-file-name="main.controller.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/controllers/main.controller.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="615">
-              <caret line="62" column="39" selection-start-line="62" selection-start-column="39" selection-end-line="62" selection-end-column="39" />
+            <state relative-caret-position="375">
+              <caret line="46" column="0" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -845,7 +823,7 @@
       <workItem from="1474921371345" duration="2280000" />
       <workItem from="1474928318961" duration="2399000" />
       <workItem from="1474990864698" duration="91000" />
-      <workItem from="1475010510487" duration="1176000" />
+      <workItem from="1475010510487" duration="1641000" />
     </task>
     <task id="LOCAL-00001" summary="Init">
       <created>1454949531089</created>
@@ -1113,11 +1091,18 @@
       <option name="project" value="LOCAL" />
       <updated>1474932579118</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="A bug in calculating weighted mean is resolved.">
+      <created>1475011858260</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1475011858261</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="478747000" />
+    <option name="totallyTimeSpent" value="479212000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1163,7 +1148,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Data is collected and sent to chart controller." />
     <MESSAGE value="Calculations seem to be working!" />
     <MESSAGE value="Before changing the user interface!" />
     <MESSAGE value="Every thing is working instead of KDE chart!" />
@@ -1188,7 +1172,8 @@
     <MESSAGE value="Prevent default right click on page elements." />
     <MESSAGE value="not important left over is deleted!&#10;" />
     <MESSAGE value="test.html is removed, index.html is added. index.html is the rendered version of main.html!" />
-    <option name="LAST_COMMIT_MESSAGE" value="test.html is removed, index.html is added. index.html is the rendered version of main.html!" />
+    <MESSAGE value="A bug in calculating weighted mean is resolved." />
+    <option name="LAST_COMMIT_MESSAGE" value="A bug in calculating weighted mean is resolved." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1903,8 +1888,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/controllers/main.controller.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="615">
-          <caret line="62" column="39" selection-start-line="62" selection-start-column="39" selection-end-line="62" selection-end-column="39" />
+        <state relative-caret-position="375">
+          <caret line="46" column="0" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
           <folding />
         </state>
       </provider>
