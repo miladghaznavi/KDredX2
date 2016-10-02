@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="7c245e7c-5580-4e97-bfb1-40403e7c4224" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/data.template.html" afterPath="$PROJECT_DIR$/templates/data.template.html" />
     </list>
     <ignored path="ui.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -512,7 +511,7 @@
       <workItem from="1474990864698" duration="91000" />
       <workItem from="1475010510487" duration="1641000" />
       <workItem from="1475380083109" duration="2049000" />
-      <workItem from="1475448655864" duration="1755000" />
+      <workItem from="1475448655864" duration="1789000" />
     </task>
     <task id="LOCAL-00001" summary="Init">
       <created>1454949531089</created>
@@ -787,11 +786,18 @@
       <option name="project" value="LOCAL" />
       <updated>1475011858261</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL-00040" summary="Reset button is added!">
+      <created>1475450493404</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1475450493404</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="483016000" />
+    <option name="totallyTimeSpent" value="483050000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -837,7 +843,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Calculations seem to be working!" />
     <MESSAGE value="Before changing the user interface!" />
     <MESSAGE value="Every thing is working instead of KDE chart!" />
     <MESSAGE value="KDE drawing is working. Still I need to make sure that KDE calculation is correct!" />
@@ -862,7 +867,8 @@
     <MESSAGE value="not important left over is deleted!&#10;" />
     <MESSAGE value="test.html is removed, index.html is added. index.html is the rendered version of main.html!" />
     <MESSAGE value="A bug in calculating weighted mean is resolved." />
-    <option name="LAST_COMMIT_MESSAGE" value="A bug in calculating weighted mean is resolved." />
+    <MESSAGE value="Reset button is added!" />
+    <option name="LAST_COMMIT_MESSAGE" value="Reset button is added!" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

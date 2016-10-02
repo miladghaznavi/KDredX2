@@ -161,9 +161,8 @@ function DataController() {
         
     };
 
-    self.copyToClipboard = function() {
-        console.log("Milad Clipboard");
-        Util.notifyInfo('NULL', 'Copy event');
+    self.refreshEvent = function() {
+        self.view.refreshSpreadsheet();
     };
 }
 

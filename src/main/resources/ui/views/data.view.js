@@ -96,11 +96,11 @@ function DataView(id) {
 
     self.registerEvents = function() {
         var controller = app.getController(id);
-        $('#dataOpenDialog').click (controller.openEvent);
-        $('#dataSaveDialog').click (controller.saveEvent);
+        $('#dataOpenDialog').click(controller.openEvent);
+        $('#dataSaveDialog').click(controller.saveEvent);
+        $('#dataResetDialog').click(controller.refreshEvent);
 
         $('#inputSpreadsheet').change(controller.loadCsvJS);
-        // $('#inputSpreadsheet').bind('paste', controller.copyToClipboard);
 
         // Weighted mean
         $('#valuesSelect').on('change', controller.selectChanged);
@@ -109,5 +109,9 @@ function DataView(id) {
 
     self.reloadSelectsFromData = function () {
         //TODO
+    };
+
+    self.refreshSpreadsheet = function() {
+        $('#spreadsheet').handsontable('clear');
     };
 }
