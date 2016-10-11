@@ -57,7 +57,7 @@ function MainController() {
         if (dataController.areSelectsValid()) {
             try {
                 if (self.setChartDataModel(dataModel, chartModel) > 0) {
-                    chartController.plot();
+                    chartController.freshWMAxisPlot();
                 }//if
                 else {
                     Util.notifyWarning(
