@@ -6,6 +6,10 @@ function ChartModel(id, title, dirty, dataAvailable) {
         uncertaintyInterpret: 1,
         rejectionRange      : 0,
 
+        // Output uncertainties
+        dataUncertainty: 1,
+        weightedAvgUncertainty: 1,
+
         // Kernel Density Estimation
         variablesCount      : {'min': 3, 'max': 300, 'from': 150},
         kernelFunction      : 'gaussian',
@@ -41,18 +45,18 @@ function ChartModel(id, title, dirty, dataAvailable) {
         WMChartHeight: 400,
 
         //-- Data Points & bars
-        WMShowPoints : true,
+        WMShowPoints : false,
         WMPointsWidth: 10,
         WMPointsColor: '#FB110B',
-        WMShowCaps   : true,
+        WMShowCaps   : false,
         WMBarWidth   : 2,
         WMBarColor   : '#FB110B',
 
         //-- Rejected Data Points & bars
-        WMShowRejectedPoints : true,
+        WMShowRejectedPoints : false,
         WMRejectedPointsWidth: 10,
         WMRejectedPointsColor: '#8303A6',
-        WMShowRejectedCaps   : true,
+        WMShowRejectedCaps   : false,
         WMRejectedBarWidth   : 2,
         WMRejectedBarColor   : '#8303A6',
 
@@ -141,12 +145,12 @@ function ChartModel(id, title, dirty, dataAvailable) {
 
         // KDE Y Axis
         //-- Grid Lines
-        KDEYGridLinesShow : false,
+        KDEYGridLinesShow : true,
         KDEYGridLineStroke: 'dashed',
         KDEYGridLineWidth : 1,
         KDEYGridLineColor : '#8D8D8D',
         //-- Labels
-        KDEYLabelsShow: false,
+        KDEYLabelsShow: true,
         KDEYLabelsFontFamily       : 'Times',
         KDEYLabelsFontSize         : 11,
         KDEYLabelsFontBold         : false,
@@ -160,6 +164,10 @@ function ChartModel(id, title, dirty, dataAvailable) {
         // Interpreting Data
         'uncertaintyInterpret',
         'rejectionRange',
+
+        // Output uncertainty
+        'dataUncertainty',
+        'weightedAvgUncertainty',
 
         // Kernel Density Estimation
         'variablesCount',
@@ -466,11 +474,13 @@ function ChartModel(id, title, dirty, dataAvailable) {
         self.WMXAxisDivisor = Math.ceil((self.WMXAxisHigh - self.WMXAxisLow) / self.WMXAxisUnit);
 
         // Weighted Mean Chart - Axis Y
-        var minY = Number.MAX_VALUE;
-        var maxY = Number.MIN_VALUE;
+        // var minY = Number.MAX_VALUE;
+        // var maxY = Number.MIN_VALUE;
+        var minY = self.weightedMean - self.weightedAvgUncertainty * self.weightedUncertainty;
+        var maxY = self.weightedMean + self.weightedAvgUncertainty * self.weightedUncertainty;
         for (var i = 0; i < self.values.length; ++i) {
-            minY = Math.min(minY, self.values[i] - 2 * self.uncertainties[i]);
-            maxY = Math.max(maxY, self.values[i] + 2 * self.uncertainties[i]);
+            minY = Math.min(minY, self.values[i] - self.dataUncertainty * self.uncertainties[i]);
+            maxY = Math.max(maxY, self.values[i] + self.dataUncertainty * self.uncertainties[i]);
 
             // We extend the range of the weighted-mean y-axis by +/-10%
             minY = Math.min(minY, self.values[i] * ChartModel.DEFAULT_AXIS_SCALES.WMYAxisLowCoeffDefault);
@@ -514,7 +524,7 @@ function ChartModel(id, title, dirty, dataAvailable) {
         for (var key in aWm) {
             self[key] = aWm[key];
         }//for
-        self.ratio = self.weightedUncertainty / self.weightedMean * 100;
+        self.ratio = (self.weightedUncertainty * self.weightedAvgUncertainty) / self.weightedMean * 100;
         self.total = self.values.length;
 
         // Skewness
