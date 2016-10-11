@@ -63,9 +63,9 @@ function ChartView(id) {
     };
     ChartView.DEFAULT_TEXT_INFO        = {
         weightedMeanInfo: 'Mean = {weightedMean} ± {weightedUncertainty} [{ratio}%]',
-        rejectionInfo   : 'Wtd by data-pt errs {rejected} of {total} rej.',
+        rejectionInfo   : 'Wtd by data-pt uncts {rejected} of {total} rej.',
         mswdInfo        : 'MSWD = {mswd}',
-        errorBarInfo    : "(error bars are 2 σ)",
+        errorBarInfo    : "(uncertainties are {dataUncertainty} σ)",
         skewnessInfo    : 'Skewness = {skewness}'
     };
     ChartView.SCALE_TEXT_HEIGHT        = 1.095;
@@ -86,6 +86,10 @@ function ChartView(id) {
         variablesCount      : '#variablesCount',
         kernelFunction      : '#kernelFunction',
         bandwidth           : '#bandwidth',
+
+        // Uncertainty output
+        dataUncertainty       : '#dataUncertainty',
+        weightedAvgUncertainty: '#weightedAvgUncertainty',
 
         /* Chart Preferences */
         // Weighted Mean
@@ -326,7 +330,7 @@ function ChartView(id) {
             self.drawText(preferences);
 
             // Correct plot
-            self.correctPlot(preferences);
+            self.correctPlotsPositions(preferences);
         }//if
         else {
             $('#chart-shown').hide();
@@ -340,7 +344,7 @@ function ChartView(id) {
         $('#saveChartAsJpg').click({type:'jpg'}, controller.saveAs);
         $('#saveChartAsSvg').click({type:'svg'}, controller.saveAs);
         $('#saveChartAsPdf').click({type:'pdf'}, controller.saveAs);
-        $('#saveChartAsEps').click({type:'eps'}, controller.saveAs);
+        // $('#saveChartAsEps').click({type:'eps'}, controller.saveAs);
 
         $('#control-sidebar input, #control-sidebar select').change(self.onChangeInput);
 
@@ -611,7 +615,7 @@ function ChartView(id) {
         });
     };
 
-    self.correctPlot = function(preferences) {
+    self.correctPlotsPositions = function(preferences) {
         var wmTitleHeight  = $(ChartView.WM_TITLE_TEXT ).height();
         var kdeTitleHeight = $(ChartView.KDE_TITLE_TEXT).height();
         var titleHeight    = Math.max(wmTitleHeight, kdeTitleHeight) * ChartView.SCALE_TEXT_HEIGHT;
@@ -668,8 +672,9 @@ function ChartView(id) {
         var maxY = Number.MIN_VALUE;
 
         for (var i = 0; i < model.values.length; ++i) {
-            minY = Math.min(minY, model.values[i] - 2 * model.uncertainties[i]);
-            maxY = Math.max(maxY, model.values[i] + 2 * model.uncertainties[i]);
+            minY = Math.min(minY, model.values[i] - model.dataUncertainty * model.uncertainties[i]);
+            maxY = Math.max(maxY, model.values[i] + model.dataUncertainty * model.uncertainties[i]);
+
             means.push({
                 x: i + 1,
                 y: model.weightedMean
@@ -739,11 +744,13 @@ function ChartView(id) {
                         name: 'weightedMean',
                         data: means,
                         weightedMean: model.weightedMean,
+                        weightedAvgUncertainty: model.weightedAvgUncertainty,
                         weightedUncertainty: model.weightedUncertainty
                     },
                     {
                         name: 'values',
                         data: model.values,
+                        dataUncertainty: model.dataUncertainty,
                         uncertainties: uncertainties,
                         rejectedIndices: model.rejectedIndices,
                     }
@@ -875,7 +882,7 @@ function ChartView(id) {
         if (precision != null) {
             weightedMeanInfo.textContent = format(ChartView.DEFAULT_TEXT_INFO.weightedMeanInfo, {
                 weightedMean       : model.weightedMean.toFixed(precision),
-                weightedUncertainty: (model.weightedUncertainty * 2).toFixed(precision),
+                weightedUncertainty: (model.weightedUncertainty * model.weightedAvgUncertainty).toFixed(precision),
                 ratio              : model.ratio.toFixed(precision)
             });
             mswdInfo.textContent = format(ChartView.DEFAULT_TEXT_INFO.mswdInfo, {
@@ -884,12 +891,11 @@ function ChartView(id) {
             skewnessInfo.textContent = format(ChartView.DEFAULT_TEXT_INFO.skewnessInfo, {
                 skewness: model.skewness.toFixed(precision)
             });
-
         }//if
         else {
             weightedMeanInfo.textContent = format(ChartView.DEFAULT_TEXT_INFO.weightedMeanInfo, {
                 weightedMean       : model.weightedMean,
-                weightedUncertainty: (model.weightedUncertainty * 2),
+                weightedUncertainty: (model.weightedUncertainty * model.weightedAvgUncertainty),
                 ratio              : model.ratio
             });
             mswdInfo.textContent = format(ChartView.DEFAULT_TEXT_INFO.mswdInfo, {
@@ -898,7 +904,6 @@ function ChartView(id) {
             skewnessInfo.textContent = format(ChartView.DEFAULT_TEXT_INFO.skewnessInfo, {
                 skewness: model.skewness
             });
-
         }//else
 
         if (preferences.WMText.weightedMean.show == false)
@@ -925,7 +930,9 @@ function ChartView(id) {
         var errorBarInfo = document.getElementById(
             ChartView.textInfoViews.errorBarInfo.substring(1, ChartView.textInfoViews.errorBarInfo.length));
         if (preferences.WMText.errorBar.show == true) {
-            errorBarInfo.textContent = ChartView.DEFAULT_TEXT_INFO.errorBarInfo;
+            errorBarInfo.textContent = format(ChartView.DEFAULT_TEXT_INFO.errorBarInfo, {
+                dataUncertainty: model.dataUncertainty
+            });
         }//if
         else {
             errorBarInfo.textContent = null;

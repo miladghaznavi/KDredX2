@@ -1,56 +1,7 @@
 {% block wmAxisPreferences %}
 <!-- For X Axis -->
 <div class="xAxisStyles">
-    <!-- X Axis scale -->
-    <h6 id="wm-x-axis-scale-head" class="control-sidebar-subheading collapsed"
-        data-toggle="collapse" href="#wm-x-axis-options">
-        Axis Scale
-        <span class="pull-right fa fa-angle-left hidden-close"></span>
-        <span class="pull-right fa fa-angle-down hidden-open hidden"></span>
-    </h6>
-    <div id="wm-x-axis-options" class="form-horizontal collapse" href="#wm-x-axis-scale-head">
-        <div class="form-group">
-            <div class="col-xs-3">
-                <label class="control-label">Low</label>
-            </div>
-            <div class="col-xs-9">
-                <input id="wmXAxisLow"
-                       control-type="number"
-                       data-forcestepdivisibility="none"
-                       data-min="-9007199254740991"
-                       data-max="+9007199254740991"
-                       class="form-control" />
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-xs-3">
-                <label control-type="number" class="control-label">High</label>
-            </div>
-            <div class="col-xs-9">
-                <input id="wmXAxisHigh"
-                       control-type="number"
-                       data-forcestepdivisibility="none"
-                       data-min="-9007199254740991"
-                       data-max="+9007199254740991"
-                       class="form-control" />
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-xs-3">
-                <label class="control-label">Unit</label>
-            </div>
-            <div class="col-xs-9">
-                <input id="wmXAxisUnit" control-type="number"
-                       data-forcestepdivisibility="none"
-                       data-min="0"
-                       data-max="+9007199254740991"
-                       class="form-control" />
-            </div>
-        </div>
-    </div>
-
     <!-- X Gridlines -->
-    <hr />
     <h6 id="wm-x-axis-gridlines-head" class="control-sidebar-subheading collapsed"
         data-toggle="collapse" href="#wm-x-axis-gridlines-options">
         Grid Lines
@@ -89,7 +40,7 @@
     <hr />
     <h6 id="wm-x-axis-label-head" class="control-sidebar-subheading collapsed"
         data-toggle="collapse" href="#wm-x-axis-label-options">
-        Labels
+        Axis Labels
         <span class="pull-right fa fa-angle-left hidden-close"></span>
         <span class="pull-right fa fa-angle-down hidden-open hidden"></span>
     </h6>
@@ -152,24 +103,22 @@
             </div>
         </div>
     </div>
-</div>
 
-<!-- For Y Axis -->
-<div class="yAxisStyles hidden">
-    <!-- Y Axis scale -->
-    <h6 id="wm-y-axis-scale-head" class="control-sidebar-subheading collapsed"
-        data-toggle="collapse" href="#wm-y-axis-options">
+    <!-- X Axis scale -->
+    <hr />
+    <h6 id="wm-x-axis-scale-head" class="control-sidebar-subheading collapsed"
+        data-toggle="collapse" href="#wm-x-axis-options">
         Axis Scale
         <span class="pull-right fa fa-angle-left hidden-close"></span>
         <span class="pull-right fa fa-angle-down hidden-open hidden"></span>
     </h6>
-    <div id="wm-y-axis-options" class="form-horizontal collapse" href="#wm-y-axis-scale-head">
+    <div id="wm-x-axis-options" class="form-horizontal collapse" href="#wm-x-axis-scale-head">
         <div class="form-group">
             <div class="col-xs-3">
                 <label class="control-label">Low</label>
             </div>
             <div class="col-xs-9">
-                <input id="wmYAxisLow"
+                <input id="wmXAxisLow"
                        control-type="number"
                        data-forcestepdivisibility="none"
                        data-min="-9007199254740991"
@@ -182,21 +131,20 @@
                 <label control-type="number" class="control-label">High</label>
             </div>
             <div class="col-xs-9">
-                <input id="wmYAxisHigh" control-type="number"
+                <input id="wmXAxisHigh"
+                       control-type="number"
                        data-forcestepdivisibility="none"
                        data-min="-9007199254740991"
                        data-max="+9007199254740991"
                        class="form-control" />
             </div>
         </div>
-
         <div class="form-group">
             <div class="col-xs-3">
                 <label class="control-label">Unit</label>
             </div>
             <div class="col-xs-9">
-                <input id="wmYAxisUnit"
-                       control-type="number"
+                <input id="wmXAxisUnit" control-type="number"
                        data-forcestepdivisibility="none"
                        data-min="0"
                        data-max="+9007199254740991"
@@ -204,9 +152,11 @@
             </div>
         </div>
     </div>
+</div>
 
+<!-- For Y Axis -->
+<div class="yAxisStyles hidden">
     <!-- Y Gridlines -->
-    <hr />
     <h6 id="wm-y-axis-gridlines-head" class="control-sidebar-subheading collapsed"
         data-toggle="collapse" href="#wm-y-axis-gridlines-options">
         Grid Lines
@@ -245,7 +195,7 @@
     <hr />
     <h6 id="wm-y-axis-label-head" class="control-sidebar-subheading collapsed"
         data-toggle="collapse" href="#wm-y-axis-label-options">
-        Labels
+        Axis Labels
         <span class="pull-right fa fa-angle-left hidden-close"></span>
         <span class="pull-right fa fa-angle-down hidden-open hidden"></span>
     </h6>
@@ -305,6 +255,56 @@
             <div class="col-sm-2 no-padding">
                 <input id="wmYLabelsFontColor" type="button" control-type="color"
                        class="color btn btn-flat" style="width: 100%;" title="Color" />
+            </div>
+        </div>
+    </div>
+
+    <!-- Y Axis scale -->
+    <hr />
+    <h6 id="wm-y-axis-scale-head" class="control-sidebar-subheading collapsed"
+        data-toggle="collapse" href="#wm-y-axis-options">
+        Axis Scale
+        <span class="pull-right fa fa-angle-left hidden-close"></span>
+        <span class="pull-right fa fa-angle-down hidden-open hidden"></span>
+    </h6>
+    <div id="wm-y-axis-options" class="form-horizontal collapse" href="#wm-y-axis-scale-head">
+        <div class="form-group">
+            <div class="col-xs-3">
+                <label class="control-label">Low</label>
+            </div>
+            <div class="col-xs-9">
+                <input id="wmYAxisLow"
+                       control-type="number"
+                       data-forcestepdivisibility="none"
+                       data-min="-9007199254740991"
+                       data-max="+9007199254740991"
+                       class="form-control" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-xs-3">
+                <label control-type="number" class="control-label">High</label>
+            </div>
+            <div class="col-xs-9">
+                <input id="wmYAxisHigh" control-type="number"
+                       data-forcestepdivisibility="none"
+                       data-min="-9007199254740991"
+                       data-max="+9007199254740991"
+                       class="form-control" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-xs-3">
+                <label class="control-label">Unit</label>
+            </div>
+            <div class="col-xs-9">
+                <input id="wmYAxisUnit"
+                       control-type="number"
+                       data-forcestepdivisibility="none"
+                       data-min="0"
+                       data-max="+9007199254740991"
+                       class="form-control" />
             </div>
         </div>
     </div>

@@ -1,5 +1,5 @@
 {% block dataPreferencesTab %}
-<h4 class="control-sidebar-heading">Interpreting Data</h4>
+<h4 class="control-sidebar-heading">Input Data</h4>
 <div class="form-horizontal">
     <div class="form-group">
         <label for="uncertaintyInterpret" class="col-xs-4 control-label">Uncertainty</label>
@@ -26,6 +26,38 @@
                 <option value="0">No Rejection</option>
                 <option value="1">Outside 1 <i>&sigma;</i></option>
                 <option value="2">Outside 2 <i>&sigma;</i></option>
+            </select>
+        </div>
+    </div>
+</div>
+<hr />
+
+<h4 class="control-sidebar-heading">Output Uncertainty</h4>
+<div class="form-horizontal">
+    <div class="form-group">
+        <label for="dataUncertainty" class="col-xs-4 control-label" style="text-align: left;">Data</label>
+        <div class="col-xs-8">
+            <select control-type="select"
+                    id="dataUncertainty"
+                    class="selectpicker"
+                    data-width="100%"
+                    data-title="Values Uncertainty">
+                <option value=1>1 <i>&sigma;</i></option>
+                <option value=2>2 <i>&sigma;</i></option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="weightedAvgUncertainty" class="col-xs-4 control-label" style="text-align: left; padding-right: 0;">Wtd Avg</label>
+        <div class="col-xs-8">
+            <select control-type="select"
+                    id="weightedAvgUncertainty"
+                    class="selectpicker"
+                    data-width="100%"
+                    data-title="Weighted Average">
+                <option value=1>1 <i>&sigma;</i></option>
+                <option value=2>2 <i>&sigma;</i></option>
             </select>
         </div>
     </div>

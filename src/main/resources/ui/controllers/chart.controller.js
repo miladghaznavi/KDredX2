@@ -139,14 +139,40 @@ function ChartController() {
 
     self.plot = function() {
         if (self.model.dataAvailable) {
-            self.model.calculate();
-            self.prepareTitle();
-            self.prepareData();
-            self.prepareAxisScales();
-            self.view.update();
+            // if (!self.model.chartBeenDrawn) {
+                self.model.calculate();
+                self.prepareTitle();
+                self.prepareData();
+                self.prepareAxisScales();
 
-            self.model.chartBeenDrawn = true;
-            // Util.notifySuccess("The chart has been plotted!");
+                // Update the view again
+                self.view.update();
+
+                self.model.chartBeenDrawn = true;
+                // Util.notifySuccess("The chart has been plotted!");
+            // }//if
+            // else {
+            //     // We always update the x axis of Weighted mean, as Christopher Spencer required.
+            //     self.model.WMXAxisLow = null;
+            //     self.model.WMXAxisHigh = null;
+            //     self.model.WMXAxisUnit = null;
+            //     self.model.WMXAxisDivisor = null;
+            //
+            //     self.model.WMYAxisLow = null;
+            //     self.model.WMYAxisHigh = null;
+            //     self.model.WMYAxisUnit = null;
+            //     self.model.WMYAxisDivisor = null;
+            //
+            //     self.model.calculate();
+            //     self.prepareTitle();
+            //     self.prepareData();
+            //     self.prepareAxisScales();
+            //
+            //     // Update the view again
+            //     self.view.update();
+            //
+            //     self.model.chartBeenDrawn = true;
+            // }//else
         }//if
     };
 

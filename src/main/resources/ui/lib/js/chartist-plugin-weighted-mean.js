@@ -40,6 +40,7 @@
                             data.group.append(
                                 bar(data,
                                     data.series.uncertainties[data.index],
+                                    data.series.dataUncertainty,
                                     options,
                                     rejected
                                 )
@@ -60,7 +61,8 @@
                         var toPixelFactor = data.axisY.axisLength / (data.axisY.range.max - data.axisY.range.min);
 
                         // Mean box
-                        options.meanBox['width'] = 4 * toPixelFactor * data.series.weightedUncertainty;
+                        // options.meanBox['width'] = 4 * toPixelFactor * data.series.weightedUncertainty;
+                        options.meanBox['width'] = 2 * toPixelFactor * data.series.weightedAvgUncertainty * data.series.weightedUncertainty;
                         var yPos = (data.axisY.range.max - data.values[0].y) * toPixelFactor + data.chartRect.padding.top;
                         var box = new Chartist.Svg('line', {
                             x1: data.axisX.chartRect.x1,
@@ -184,7 +186,7 @@
                 );
             }
 
-            function bar(data, uncertainty, options, rejected) {
+            function bar(data, uncertainty, dataUncertainty, options, rejected) {
                 var barOptions = (rejected) ? options.rejectedBars : options.bars;
                 var toYPixelFactor = data.axisY.axisLength / (data.axisY.range.max - data.axisY.range.min);
                 var toXPixelFactor = null;
@@ -198,7 +200,8 @@
                 data.x = (data.index + 1) * toXPixelFactor + data.x;
 
                 var group = Chartist.Svg('g', { }, 'uncertainty-bar');
-                var yScale = 2 * uncertainty * toYPixelFactor;
+                // var yScale = 2 * uncertainty * toYPixelFactor;
+                var yScale = dataUncertainty * uncertainty * toYPixelFactor;
 
                 // Vertical line
                 var barWithoutCap = new Chartist.Svg('line', {

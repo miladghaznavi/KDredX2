@@ -1,58 +1,7 @@
 {% block kdePreferences %}
 <!-- For X Axis -->
 <div class="xAxisStyles">
-    <!-- X Axis scale -->
-    <h6 id="kde-x-axis-scale-head" class="control-sidebar-subheading collapsed"
-        data-toggle="collapse" href="#kde-x-axis-options">
-        Axis Scale
-        <span class="pull-right fa fa-angle-left hidden-close"></span>
-        <span class="pull-right fa fa-angle-down hidden-open hidden"></span>
-    </h6>
-    <div id="kde-x-axis-options" class="form-horizontal collapse" href="#kde-x-axis-scale-head">
-        <div class="form-group">
-            <div class="col-xs-3">
-                <label class="control-label">Low</label>
-            </div>
-            <div class="col-xs-9">
-                <input id="kdeXAxisLow"
-                       control-type="number"
-                       data-forcestepdivisibility="none"
-                       data-min="-9007199254740991"
-                       data-max="+9007199254740991"
-                       class="form-control" />
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-xs-3">
-                <label class="control-label">High</label>
-            </div>
-            <div class="col-xs-9">
-                <input id="kdeXAxisHigh"
-                       control-type="number"
-                       data-forcestepdivisibility="none"
-                       data-min="-9007199254740991"
-                       data-max="+9007199254740991"
-                       class="form-control" />
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-xs-3">
-                <label class="control-label">Unit</label>
-            </div>
-            <div class="col-xs-9">
-                <input id="kdeXAxisUnit"
-                       control-type="number"
-                       data-forcestepdivisibility="none"
-                       data-min="0"
-                       data-max="+9007199254740991"
-                       class="form-control" />
-            </div>
-        </div>
-    </div>
-
     <!-- X Gridlines -->
-    <hr />
     <h6 id="kde-x-axis-gridlines-head" class="control-sidebar-subheading collapsed"
         data-toggle="collapse" href="#kde-x-axis-gridlines-options">
         Grid Lines
@@ -91,7 +40,7 @@
     <hr />
     <h6 id="kde-x-axis-label-head" class="control-sidebar-subheading collapsed"
         data-toggle="collapse" href="#kde-x-axis-label-options">
-        Labels
+        Axis Labels
         <span class="pull-right fa fa-angle-left hidden-close"></span>
         <span class="pull-right fa fa-angle-down hidden-open hidden"></span>
     </h6>
@@ -154,6 +103,57 @@
             </div>
         </div>
     </div>
+
+    <!-- X Axis scale -->
+    <hr />
+    <h6 id="kde-x-axis-scale-head" class="control-sidebar-subheading collapsed"
+        data-toggle="collapse" href="#kde-x-axis-options">
+        Axis Scale
+        <span class="pull-right fa fa-angle-left hidden-close"></span>
+        <span class="pull-right fa fa-angle-down hidden-open hidden"></span>
+    </h6>
+    <div id="kde-x-axis-options" class="form-horizontal collapse" href="#kde-x-axis-scale-head">
+        <div class="form-group">
+            <div class="col-xs-3">
+                <label class="control-label">Low</label>
+            </div>
+            <div class="col-xs-9">
+                <input id="kdeXAxisLow"
+                       control-type="number"
+                       data-forcestepdivisibility="none"
+                       data-min="-9007199254740991"
+                       data-max="+9007199254740991"
+                       class="form-control" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-xs-3">
+                <label class="control-label">High</label>
+            </div>
+            <div class="col-xs-9">
+                <input id="kdeXAxisHigh"
+                       control-type="number"
+                       data-forcestepdivisibility="none"
+                       data-min="-9007199254740991"
+                       data-max="+9007199254740991"
+                       class="form-control" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-xs-3">
+                <label class="control-label">Unit</label>
+            </div>
+            <div class="col-xs-9">
+                <input id="kdeXAxisUnit"
+                       control-type="number"
+                       data-forcestepdivisibility="none"
+                       data-min="0"
+                       data-max="+9007199254740991"
+                       class="form-control" />
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- For Y Axis -->
@@ -197,7 +197,7 @@
     <hr />
     <h6 id="kde-y-axis-label-head" class="control-sidebar-subheading collapsed"
         data-toggle="collapse" href="#kde-y-axis-label-options">
-        Labels
+        Axis Labels
         <span class="pull-right fa fa-angle-left hidden-close"></span>
         <span class="pull-right fa fa-angle-down hidden-open hidden"></span>
     </h6>
