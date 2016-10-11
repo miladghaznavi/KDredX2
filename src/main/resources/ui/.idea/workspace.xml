@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="7c245e7c-5580-4e97-bfb1-40403e7c4224" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controllers/chart.controller.js" afterPath="$PROJECT_DIR$/controllers/chart.controller.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controllers/main.controller.js" afterPath="$PROJECT_DIR$/controllers/main.controller.js" />
     </list>
     <ignored path="ui.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -821,7 +819,7 @@
       <workItem from="1475448655864" duration="1789000" />
       <workItem from="1476130845694" duration="3502000" />
       <workItem from="1476148833948" duration="9496000" />
-      <workItem from="1476193583782" duration="1598000" />
+      <workItem from="1476193583782" duration="1609000" />
     </task>
     <task id="LOCAL-00001" summary="Init">
       <created>1454949531089</created>
@@ -1124,11 +1122,18 @@
       <option name="project" value="LOCAL" />
       <updated>1476195584337</updated>
     </task>
-    <option name="localTasksCounter" value="44" />
+    <task id="LOCAL-00044" summary="Have applied all feedbacks Christopher Spencer wanted!">
+      <created>1476195945874</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1476195945874</updated>
+    </task>
+    <option name="localTasksCounter" value="45" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="497646000" />
+    <option name="totallyTimeSpent" value="497657000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
