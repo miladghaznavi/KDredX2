@@ -1,5 +1,10 @@
 function WeightedMean() {
     WeightedMean.DEFAULT_REJECTION_RANGE = 0;
+    WeightedMean.DISPERSION = {
+        UNDER_DISPERSION : "Under Dispersion",
+        OVER_DISPERSION  : "Over Dispersion",
+        SINGLE_POPULATION: "Single Population"
+    };
 
     WeightedMean.weightedMean = function(values, uncertainties) {
         if (values.length != uncertainties.length)
@@ -99,6 +104,17 @@ function WeightedMean() {
         }//for
     };
 
+    WeightedMean.dispersion = function(n, mswd) {
+        var result = WeightedMean.SINGLE_POPULATION;
+        if (mswd < (1 - 2 * Math.sqrt(2 / (n - 1)))) {
+            result = WeightedMean.DISPERSION.UNDER_DISPERSION;
+        }//if
+        else if (mswd > (1 + 2 * Math.sqrt(2 / (n - 1)))) {
+            result = WeightedMean.DISPERSION.OVER_DISPERSION;
+        }//else
+        return result;
+    };
+
     WeightedMean.calculate = function(values, uncertainties, rejectionRange) {
         rejectionRange = (isNaN(rejectionRange)) ? WeightedMean.DEFAULT_REJECTION_RANGE : rejectionRange;
 
@@ -131,7 +147,8 @@ function WeightedMean() {
             rejected:        (rejectionRange > 0) ?
                 WeightedMean.rejected(values, uncertainties, weightedMean, weightedUncr) : 0,
             rejectedIndices: (rejectionRange > 0) ?
-                WeightedMean.rejectedIndices(values, uncertainties, weightedMean, weightedUncr) : []
+                WeightedMean.rejectedIndices(values, uncertainties, weightedMean, weightedUncr) : [],
+            dispersion: WeightedMean.dispersion(pValues.length, mswd)
         };
 
         return result;

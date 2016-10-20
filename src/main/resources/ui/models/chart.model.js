@@ -3,12 +3,12 @@ function ChartModel(id, title, dirty, dataAvailable) {
         /* Data Preferences */
 
         // Interpreting Data
-        uncertaintyInterpret: 1,
+        uncertaintyInterpret: 2,
         rejectionRange      : 0,
 
         // Output uncertainties
-        dataUncertainty: 1,
-        weightedAvgUncertainty: 1,
+        dataUncertainty: 2,
+        weightedAvgUncertainty: 2,
 
         // Kernel Density Estimation
         variablesCount      : {'min': 3, 'max': 300, 'from': 150},
@@ -41,7 +41,7 @@ function ChartModel(id, title, dirty, dataAvailable) {
         WMTextFontColor        : '#8D8D8D',
 
         //-- Size
-        WMChartWidth : 600,
+        WMChartWidth : 400,
         WMChartHeight: 400,
 
         //-- Data Points & bars
@@ -88,7 +88,7 @@ function ChartModel(id, title, dirty, dataAvailable) {
         KDETextFontColor        : '#8D8D8D',
 
         // Size
-        KDEChartWidth: 300,
+        KDEChartWidth: 200,
         // Line
         KDELineStyle: 'solid line',
         KDELineWidth: 1,
