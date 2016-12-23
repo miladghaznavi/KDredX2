@@ -1,4 +1,8 @@
 function ChartView(id) {
+    ChartView.MSWD_SINGLE_POPULATION_COLOR = '#72C115';
+    ChartView.MSWD_UNDER_DISPERSION_COLOR  = '#EB0000';
+    ChartView.MSWD_OVER_DISPERSION_COLOR   = '#EB0000';
+
     ChartView.OLD_VALUE_DATA           = 'oldValue';
     ChartView.SLIDER_CONTROL_TYPE      = 'slider';
     ChartView.CHECKBOX_CONTROL_TYPE    = 'checkbox';
@@ -64,7 +68,7 @@ function ChartView(id) {
     ChartView.DEFAULT_TEXT_INFO        = {
         weightedMeanInfo: 'Mean = {weightedMean} ± {weightedUncertainty} [{ratio}%]',
         rejectionInfo   : 'Wtd by data-pt uncts {rejected} of {total} rej.',
-        mswdInfo        : 'MSWD = {mswd}',
+        mswdInfo        : 'MSWD = {mswd}, {dispersion}',
         errorBarInfo    : "(uncertainties are {dataUncertainty} σ)",
         skewnessInfo    : 'Skewness = {skewness}'
     };
@@ -353,6 +357,19 @@ function ChartView(id) {
 
     self.preferences = function() {
         var model = app.getModel(self.id);
+
+        var dispersion_color = null;
+        // Set the preference of
+        if (model.dispersion == WeightedMean.DISPERSION.SINGLE_POPULATION) {
+            dispersion_color = ChartView.MSWD_SINGLE_POPULATION_COLOR;
+        }//if
+        else if (model.dispersion == WeightedMean.DISPERSION.UNDER_DISPERSION) {
+            dispersion_color = ChartView.MSWD_UNDER_DISPERSION_COLOR;
+        }//else if
+        else {
+            dispersion_color = ChartView.MSWD_OVER_DISPERSION_COLOR;
+        }//else
+
         return {
             wm: {
                 // border: model.WMShowBorder,
@@ -563,7 +580,7 @@ function ChartView(id) {
                 mswd: {
                     show: model.showMSWDTextData
                 },
-                font : {
+                font: {
                     fontFamily: model.WMTextFontFamily,
                     fontSize  : model.WMTextFontSize,
                     fontItalic: model.WMTextFontItalic,
@@ -571,6 +588,15 @@ function ChartView(id) {
                     fontUnderline    : model.WMTextFontUnderline,
                     fontStrikethrough: model.WMTextFontStrikethrough,
                     fontColor        : model.WMTextFontColor
+                },
+                mswdFont: {
+                    fontFamily: model.WMTextFontFamily,
+                    fontSize  : model.WMTextFontSize,
+                    fontItalic: model.WMTextFontItalic,
+                    fontBold  : model.WMTextFontBold,
+                    fontUnderline    : model.WMTextFontUnderline,
+                    fontStrikethrough: model.WMTextFontStrikethrough,
+                    fontColor        : dispersion_color
                 }
             },
             KDEText: {
@@ -854,11 +880,16 @@ function ChartView(id) {
         self.setInfo(preferences);
 
         $(ChartView.textInfoViews.weightedMeanInfo + ',' +
-          ChartView.textInfoViews.mswdInfo         + ',' +
           ChartView.textInfoViews.rejectionInfo    + ',' +
           ChartView.textInfoViews.errorBarInfo).attr({
             x    : preferences.wm.size.width / 2,
             style: Util.preferencesToCssStyles(preferences.WMText.font, 'svgFonts')
+        });
+
+        // Changing the style of MSWD, individually.
+        $(ChartView.textInfoViews.mswdInfo).attr({
+            x    : preferences.wm.size.width / 2,
+            style: Util.preferencesToCssStyles(preferences.WMText.mswdFont, 'svgFonts')
         });
 
         $(ChartView.textInfoViews.skewnessInfo).attr({
@@ -885,8 +916,10 @@ function ChartView(id) {
                 weightedUncertainty: (model.weightedUncertainty * model.weightedAvgUncertainty).toFixed(precision),
                 ratio              : model.ratio.toFixed(precision)
             });
+
             mswdInfo.textContent = format(ChartView.DEFAULT_TEXT_INFO.mswdInfo, {
-                mswd: model.mswd.toFixed(precision)
+                mswd: model.mswd.toFixed(precision),
+                dispersion: model.dispersion
             });
             skewnessInfo.textContent = format(ChartView.DEFAULT_TEXT_INFO.skewnessInfo, {
                 skewness: model.skewness.toFixed(precision)
@@ -899,8 +932,10 @@ function ChartView(id) {
                 ratio              : model.ratio
             });
             mswdInfo.textContent = format(ChartView.DEFAULT_TEXT_INFO.mswdInfo, {
-                mswd: model.mswd
+                mswd: model.mswd,
+                dispersion: model.dispersion
             });
+
             skewnessInfo.textContent = format(ChartView.DEFAULT_TEXT_INFO.skewnessInfo, {
                 skewness: model.skewness
             });

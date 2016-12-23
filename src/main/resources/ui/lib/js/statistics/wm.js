@@ -1,9 +1,9 @@
 function WeightedMean() {
     WeightedMean.DEFAULT_REJECTION_RANGE = 0;
     WeightedMean.DISPERSION = {
-        UNDER_DISPERSION : "Under Dispersion",
-        OVER_DISPERSION  : "Over Dispersion",
-        SINGLE_POPULATION: "Single Population"
+        UNDER_DISPERSION : "under dispersion",
+        OVER_DISPERSION  : "over dispersion",
+        SINGLE_POPULATION: "single population"
     };
 
     WeightedMean.weightedMean = function(values, uncertainties) {
@@ -105,24 +105,26 @@ function WeightedMean() {
     };
 
     WeightedMean.dispersion = function(n, mswd) {
-        var result = WeightedMean.SINGLE_POPULATION;
+        var result = WeightedMean.DISPERSION.SINGLE_POPULATION;
+
         if (mswd < (1 - 2 * Math.sqrt(2 / (n - 1)))) {
             result = WeightedMean.DISPERSION.UNDER_DISPERSION;
         }//if
         else if (mswd > (1 + 2 * Math.sqrt(2 / (n - 1)))) {
             result = WeightedMean.DISPERSION.OVER_DISPERSION;
-        }//else
+        }//else if
+
         return result;
     };
 
     WeightedMean.calculate = function(values, uncertainties, rejectionRange) {
         rejectionRange = (isNaN(rejectionRange)) ? WeightedMean.DEFAULT_REJECTION_RANGE : rejectionRange;
 
-        var weightedMean, weightedUncr, mswd;
+        var weightedMean, weightedUncr, mswd, n;
         if (rejectionRange > 0) {
             var pValues = values.slice();
             var pUncertainties = uncertainties.slice();
-
+            n = pValues.length;
             WeightedMean.removeRejected(
                 pValues,
                 pUncertainties,
@@ -135,6 +137,7 @@ function WeightedMean() {
             mswd         = WeightedMean.meanSquareWeightedDeviation(pValues, pUncertainties);
         }//if
         else {
+            n = values.length;
             weightedMean = WeightedMean.weightedMean               (values, uncertainties);
             weightedUncr = WeightedMean.weightedUncertainty        (uncertainties);
             mswd         = WeightedMean.meanSquareWeightedDeviation(values, uncertainties);
@@ -148,7 +151,7 @@ function WeightedMean() {
                 WeightedMean.rejected(values, uncertainties, weightedMean, weightedUncr) : 0,
             rejectedIndices: (rejectionRange > 0) ?
                 WeightedMean.rejectedIndices(values, uncertainties, weightedMean, weightedUncr) : [],
-            dispersion: WeightedMean.dispersion(pValues.length, mswd)
+            dispersion: WeightedMean.dispersion(n, mswd)
         };
 
         return result;

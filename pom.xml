@@ -2,8 +2,8 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>org.mtv</groupId>
-    <artifactId>multi-tech-vis</artifactId>
+    <groupId>org.kdx</groupId>
+    <artifactId>kdx</artifactId>
     <packaging>jar</packaging>
     <version>0.1.0-SNAPSHOT</version>
 
@@ -15,7 +15,7 @@
 
     <properties>
         <griffon.version>2.5.0</griffon.version>
-        <application.main.class>org.mtv.Launcher</application.main.class>
+        <application.main.class>org.kdx.Launcher</application.main.class>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>

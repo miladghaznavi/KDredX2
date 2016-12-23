@@ -31,7 +31,7 @@ ext {
     macosx = System.getProperty('os.name').contains('Mac OS')
 }
 
-mainClassName = 'org.mtv.Launcher'
+mainClassName = 'org.kdx.Launcher'
 
 apply from: 'gradle/publishing.gradle'
 apply from: 'gradle/code-coverage.gradle'

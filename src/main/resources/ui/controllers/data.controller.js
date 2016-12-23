@@ -24,20 +24,23 @@ function DataController() {
         }//if
         else {
             // Run as part of a java application
-            self.loadCsvJava(JavaJSBridge.openCSVFile("MTV"));
+            self.loadCsvJava(JavaJSBridge.openCSVFile("KDX"));
         }//else
     };
 
     self.saveEvent = function () {
         var jsonData = null;
-        if (self.model.dirty && (typeof JavaJSBridge != typeof undefined)) {
+        if (self.model.dirty) {
             var json = {
                 path : self.model.path,
                 title: self.model.title,
                 data : self.model.data
             };
 
-            jsonData = JSON.parse(JavaJSBridge.saveCSVFile('MTV', JSON.stringify(json)));
+            if (typeof JavaJSBridge != typeof undefined)
+                jsonData = JSON.parse(JavaJSBridge.saveCSVFile('KDX', JSON.stringify(json)));
+            else
+                Util.notifyWarning("Saving as .csv is supported in desktop program", "Saving data file!");
         }//if
 
         if (jsonData != null) {
