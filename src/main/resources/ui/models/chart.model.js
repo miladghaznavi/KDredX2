@@ -556,6 +556,7 @@ function ChartModel(id, title, dirty, dataAvailable) {
         self.calculate();
         return {
             weightedMean: {
+                converged: self.converged,
                 values: self.values,
                 uncertainties: uncertainties,
                 weightedMean: self.weightedMean,

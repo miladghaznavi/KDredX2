@@ -1,5 +1,6 @@
 function WeightedMean() {
     WeightedMean.DEFAULT_REJECTION_RANGE = 0;
+    WeightedMean.MAX_CONV_ATTEMPS = 100;
     WeightedMean.DISPERSION = {
         UNDER_DISPERSION : "under dispersion",
         OVER_DISPERSION  : "over dispersion",
@@ -117,42 +118,57 @@ function WeightedMean() {
         return result;
     };
 
+    WeightedMean.converge = function(values, uncertainties, rejectionRange, wm, wu, attempts, converged) {
+        if (converged || attempts === 0) {
+            var mswd = WeightedMean.meanSquareWeightedDeviation(values, uncertainties);
+            return {
+                converged: converged,
+                weightedMean: wm,
+                weightedUncertainty: wu,
+                mswd: mswd,
+                rejected: WeightedMean.rejected(values, uncertainties, wm, wu),
+                rejectedIndices: WeightedMean.rejectedIndices(values, uncertainties, wm, wu),
+                dispersion: WeightedMean.dispersion(values.length, mswd)
+            };
+        }//if
+
+        var vl2 = values.slice();
+        var un2 = uncertainties.slice();
+        WeightedMean.removeRejected(vl2, un2, wm, wu, rejectionRange);
+        var wm2 = WeightedMean.weightedMean(vl2, un2);
+        var wu2 = WeightedMean.weightedUncertainty(un2);
+        var ri2 = WeightedMean.rejectedIndices(vl2, un2, wm2, wu2);
+        converged = (ri2.length === 0);
+
+        return WeightedMean.converge(values, uncertainties, rejectionRange, wm2, wu2, attempts - 1, converged);
+    };
+
     WeightedMean.calculate = function(values, uncertainties, rejectionRange) {
         rejectionRange = (isNaN(rejectionRange)) ? WeightedMean.DEFAULT_REJECTION_RANGE : rejectionRange;
 
-        var weightedMean, weightedUncr, mswd, n;
-        if (rejectionRange > 0) {
-            var pValues = values.slice();
-            var pUncertainties = uncertainties.slice();
-            n = pValues.length;
-            WeightedMean.removeRejected(
-                pValues,
-                pUncertainties,
-                WeightedMean.weightedMean(values, uncertainties),
-                WeightedMean.weightedUncertainty(uncertainties),
-                rejectionRange
-            );
-            weightedMean = WeightedMean.weightedMean               (pValues, pUncertainties);
-            weightedUncr = WeightedMean.weightedUncertainty        (pUncertainties);
-            mswd         = WeightedMean.meanSquareWeightedDeviation(pValues, pUncertainties);
+        var result = {};
+        if(rejectionRange === 0) {
+            var mswd = WeightedMean.meanSquareWeightedDeviation(values, uncertainties)
+            result = {
+                converged: true,
+                weightedMean: WeightedMean.weightedMean(values, uncertainties),
+                weightedUncertainty: WeightedMean.weightedUncertainty(uncertainties),
+                mswd: mswd,
+                rejected: 0,
+                rejectedIndices: [],
+                dispersion: WeightedMean.dispersion(values.length, mswd)
+            }
         }//if
         else {
-            n = values.length;
-            weightedMean = WeightedMean.weightedMean               (values, uncertainties);
-            weightedUncr = WeightedMean.weightedUncertainty        (uncertainties);
-            mswd         = WeightedMean.meanSquareWeightedDeviation(values, uncertainties);
-        }//else
+            var wm = WeightedMean.weightedMean(values, uncertainties);
+            var wu = WeightedMean.weightedUncertainty(uncertainties);
 
-        var result = {
-            weightedMean:        weightedMean,
-            weightedUncertainty: weightedUncr,
-            mswd:                mswd,
-            rejected:        (rejectionRange > 0) ?
-                WeightedMean.rejected(values, uncertainties, weightedMean, weightedUncr) : 0,
-            rejectedIndices: (rejectionRange > 0) ?
-                WeightedMean.rejectedIndices(values, uncertainties, weightedMean, weightedUncr) : [],
-            dispersion: WeightedMean.dispersion(n, mswd)
-        };
+            result = WeightedMean.converge(
+                values, uncertainties, rejectionRange,
+                wm,
+                wu,
+                WeightedMean.MAX_CONV_ATTEMPS, false);
+        }//else
 
         return result;
     };

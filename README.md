@@ -1,5 +1,5 @@
-Basic Griffon JavaFX/Java project
----------------------------------
+KDredX2
+-------
 
 KDredX2 is a Griffon application with JavaFX as UI toolkit
 and Java as main language. The project has the following file structure
