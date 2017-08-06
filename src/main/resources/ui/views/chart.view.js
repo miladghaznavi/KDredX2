@@ -335,6 +335,9 @@ function ChartView(id) {
 
             // Correct plot
             self.correctPlotsPositions(preferences);
+
+            // Warn if not converged
+            self.warnNotConverged();
         }//if
         else {
             $('#chart-shown').hide();
@@ -759,7 +762,7 @@ function ChartView(id) {
             options.axisY.high += preferences.wm.yAxis.scales.unit;
 
         var uncertainties = [];
-        for (var i = 0; i < model.uncertainties.length; ++i) {
+        for (i = 0; i < model.uncertainties.length; ++i) {
             uncertainties.push(model.uncertainties[i] / model.uncertaintyInterpret);
         }//for
 
@@ -941,18 +944,18 @@ function ChartView(id) {
             });
         }//else
 
-        if (preferences.WMText.weightedMean.show == false)
+        if (!preferences.WMText.weightedMean.show)
             weightedMeanInfo.textContent = null;
 
-        if (preferences.WMText.mswd.show == false)
+        if (!preferences.WMText.mswd.show)
             mswdInfo.textContent = null;
 
-        if (preferences.KDEText.skewness.show == false)
+        if (!preferences.KDEText.skewness.show)
             skewnessInfo.textContent = null;
 
         var rejectionInfo = document.getElementById(
             ChartView.textInfoViews.rejectionInfo.substring(1, ChartView.textInfoViews.rejectionInfo.length));
-        if (preferences.WMText.rejection.show == true) {
+        if (preferences.WMText.rejection.show) {
             rejectionInfo.textContent = format(ChartView.DEFAULT_TEXT_INFO.rejectionInfo, {
                 rejected: model.rejected,
                 total: model.total
@@ -964,7 +967,7 @@ function ChartView(id) {
 
         var errorBarInfo = document.getElementById(
             ChartView.textInfoViews.errorBarInfo.substring(1, ChartView.textInfoViews.errorBarInfo.length));
-        if (preferences.WMText.errorBar.show == true) {
+        if (preferences.WMText.errorBar.show) {
             errorBarInfo.textContent = format(ChartView.DEFAULT_TEXT_INFO.errorBarInfo, {
                 dataUncertainty: model.dataUncertainty
             });
@@ -972,6 +975,12 @@ function ChartView(id) {
         else {
             errorBarInfo.textContent = null;
         }//else
+    };
+
+    self.warnNotConverged = function() {
+        var model = app.getModel(self.id);
+        if (!model.converged)
+            Util.notifyWarning("Weighted mean and weighted uncertainty not converged!");
     };
 
     self.setInputValue = function(key, value, disableEvent) {
