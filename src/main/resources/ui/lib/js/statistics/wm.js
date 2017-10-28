@@ -8,9 +8,9 @@ function WeightedMean() {
     };
 
     WeightedMean.weightedMean = function(values, uncertainties) {
-        if (values.length != uncertainties.length)
+        if (values.length !== uncertainties.length)
             throw "The length of values and uncertainties must be equal!";
-        if (values.length == 0)
+        if (values.length === 0)
             throw "The length of values cannot be zero for weighted uncertainty calculation!";
 
         var A, B;
@@ -26,7 +26,7 @@ function WeightedMean() {
     };
 
     WeightedMean.weightedUncertainty = function(uncertainties) {
-        if (uncertainties.length == 0)
+        if (uncertainties.length === 0)
             throw "The length of uncertainties cannot be zero for weighted uncertainty calculation!";
 
         var result = 0;
@@ -38,7 +38,7 @@ function WeightedMean() {
     };
 
     WeightedMean.meanSquareWeightedDeviation = function(values, uncertainties) {
-        if (values.length != uncertainties.length)
+        if (values.length !== uncertainties.length)
             throw "The number of values and uncertainties must be equal!";
         if (values.length < 2)
             throw "The number of not rejected values must be greater than 1. " +
@@ -137,8 +137,11 @@ function WeightedMean() {
         WeightedMean.removeRejected(vl2, un2, wm, wu, rejectionRange);
         var wm2 = WeightedMean.weightedMean(vl2, un2);
         var wu2 = WeightedMean.weightedUncertainty(un2);
-        var ri2 = WeightedMean.rejectedIndices(vl2, un2, wm2, wu2);
-        converged = (ri2.length === 0);
+
+        var ri1 = WeightedMean.rejectedIndices(values, uncertainties, wm, wu);
+        var ri2 = WeightedMean.rejectedIndices(values, uncertainties, wm2, wu2);
+
+        converged = Util.areArraysSame(ri1, ri2);
 
         return WeightedMean.converge(values, uncertainties, rejectionRange, wm2, wu2, attempts - 1, converged);
     };
@@ -148,7 +151,7 @@ function WeightedMean() {
 
         var result = {};
         if(rejectionRange === 0) {
-            var mswd = WeightedMean.meanSquareWeightedDeviation(values, uncertainties)
+            var mswd = WeightedMean.meanSquareWeightedDeviation(values, uncertainties);
             result = {
                 converged: true,
                 weightedMean: WeightedMean.weightedMean(values, uncertainties),

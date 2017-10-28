@@ -120,9 +120,9 @@ function Util(){
     };
 
     Util.areArraysSame = function(arr1, arr2) {
-        var same = (arr1.length == arr2.length);
+        var same = (arr1.length === arr2.length);
         for (var i = 0; i < arr1.length && same; ++i) {
-            same = (arr1[i] == arr2[i]);
+            same = (arr1[i] === arr2[i]);
         }//for
 
         return same;
