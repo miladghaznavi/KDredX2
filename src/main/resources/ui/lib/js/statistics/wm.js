@@ -74,9 +74,7 @@ function WeightedMean() {
             weightedMean - 2 * weightedUncertainty,
             weightedMean + 2 * weightedUncertainty);
 
-        var result = (b0 <= upper) && (lower <= b1);
-
-        return result;
+        return (b0 <= upper) && (lower <= b1);;
     };
 
     WeightedMean.rejectedIndices = function(values, uncertainties, weightedMean, weightedUncertainty) {
@@ -120,7 +118,11 @@ function WeightedMean() {
 
     WeightedMean.converge = function(values, uncertainties, rejectionRange, wm, wu, attempts, converged) {
         if (converged || attempts === 0) {
-            var mswd = WeightedMean.meanSquareWeightedDeviation(values, uncertainties);
+            var vls = values.slice();
+            var unc = uncertainties.slice();
+            WeightedMean.removeRejected(vls, unc, wm, wu, rejectionRange);
+            var mswd = WeightedMean.meanSquareWeightedDeviation(vls, unc);
+
             return {
                 converged: converged,
                 weightedMean: wm,
