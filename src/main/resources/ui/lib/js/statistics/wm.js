@@ -74,7 +74,7 @@ function WeightedMean() {
             weightedMean - 2 * weightedUncertainty,
             weightedMean + 2 * weightedUncertainty);
 
-        return (b0 <= upper) && (lower <= b1);;
+        return (b0 <= upper) && (lower <= b1);
     };
 
     WeightedMean.rejectedIndices = function(values, uncertainties, weightedMean, weightedUncertainty) {
