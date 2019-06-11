@@ -5,8 +5,10 @@ The developed numerical computations provide important insight into the nature a
 Prior numerical tools developed for this purpose are only available on a single operating system and generally restricted to antiquated programming languages.
 KDredX2 is designed to perform the aforementioned functions in the robust Java platform.
 
+KDredX2 can run as a web-based or a standalone application. We have tested the application under MacOS and Windows.
+
 # MacOS App
-KDredX2 macOS app is available here().
+KDredX2 macOS app is available here(https://github.com/miladghaznavi/KDredX2/releases/tag/1.1).
 
 # Code Structure
 KDredX2 is a Griffon application with JavaFX as UI toolkit
