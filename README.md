@@ -10,7 +10,7 @@ KDredX2 can run as a web-based or a standalone application. We have tested the a
 # MacOS App
 KDredX2 macOS app is available [here](https://github.com/miladghaznavi/KDredX2/releases/tag/1.1). Make sure that you have installed [JRE](https://java.com/en/download/) before running the App.
 
-![KdredX2 in MacOS](https://github.com/miladghaznavi/KDredX2/blob/master/kdredx2-web.png)
+![KdredX2 in MacOS](https://github.com/miladghaznavi/KDredX2/blob/master/kdredx2-web2.png)
 
 # Code Structure
 KDredX2 is a Griffon application with JavaFX as UI toolkit
