@@ -51,3 +51,5 @@ If you prefer building with Maven then execute the following commands
 
 Don't forget to add any extra JAR dependencies to `pom.xml`!
  
+# Reference
+[1] Spencer, C. J., Yakymchuk, C., & Ghaznavi, M. (2017). Visualising data distributions with kernel density estimation and reduced chi-squared statistic. Geoscience Frontiers, 8(6), 1247-1252.
