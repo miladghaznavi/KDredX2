@@ -8,7 +8,7 @@ KDredX2 is designed to perform the aforementioned functions in the robust Java p
 KDredX2 can run as a web-based or a standalone application. We have tested the application under MacOS and Windows.
 
 # MacOS App
-KDredX2 macOS app is available here(https://github.com/miladghaznavi/KDredX2/releases/tag/1.1).
+KDredX2 macOS app is available (here){https://github.com/miladghaznavi/KDredX2/releases/tag/1.1}.
 
 # Code Structure
 KDredX2 is a Griffon application with JavaFX as UI toolkit
